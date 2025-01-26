@@ -18,7 +18,7 @@ class StampModelAdapter extends TypeAdapter<StampModel> {
     };
     return StampModel(
       name: fields[0] as String,
-      icon: fields[1] as IconData,
+      iconIndex: fields[1] as int,
     );
   }
 
@@ -29,7 +29,7 @@ class StampModelAdapter extends TypeAdapter<StampModel> {
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.icon);
+      ..write(obj.iconIndex);
   }
 
   @override

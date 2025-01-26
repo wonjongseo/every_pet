@@ -17,6 +17,8 @@ class CalendarController extends GetxController {
   late DateTime kFirstDay;
   late DateTime kLastDay;
 
+  List<StampModel> stamps = tempStamps;
+
   TodoRepository todoRepository = TodoRepository();
 
   List<TodoModel>? getFocusedDayEvent() {
@@ -90,6 +92,33 @@ class CalendarController extends GetxController {
     );
   }
 
+  List<int> getSavedStampIndex() {
+    List<int> savedStampIndex = [];
+    if (kEvents[focusedDay] == null) {
+      return [];
+    }
+
+    for (var stamps in kEvents[focusedDay]![0].stamps) {
+      savedStampIndex.add(stamps.iconIndex);
+    }
+    print('savedStampIndex : ${savedStampIndex}');
+
+    return savedStampIndex;
+  }
+
+  bool isSaved(int index) {
+    if (kEvents[focusedDay] == null) {
+      return false;
+    }
+
+    for (var stamps in kEvents[focusedDay]![0].stamps) {
+      if (stamps.iconIndex == index) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   void clickAddbtn() async {
     final result = await Get.dialog(
       barrierDismissible: false,
@@ -123,16 +152,23 @@ class CalendarController extends GetxController {
       dateTime: focusedDay,
     );
 
-    if (kEvents[focusedDay] == null) {
-      kEvents[focusedDay] = [];
-    }
+    kEvents[focusedDay] = [];
     kEvents[focusedDay]!.add(todoModel);
 
     todoRepository.saveTodo(todoModel);
+    // if (kEvents[focusedDay] == null) {
+    //   kEvents[focusedDay] = [];
+    //   kEvents[focusedDay]!.add(todoModel);
+
+    //   todoRepository.saveTodo(todoModel);
+    // } else {
+    //   kEvents[focusedDay] = [];
+    //   kEvents[focusedDay]!.add(todoModel);
+    //   todoRepository.updateTodo(todoModel);
+    // }
+
     update();
   }
-
-  late final List<TodoModel> _selectedEvents;
 
   DateTime _focusedDay = DateTime.now();
 
@@ -144,21 +180,4 @@ class CalendarController extends GetxController {
     // Implementation example
     return kEvents[day] ?? [];
   }
-
-  final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
-    equals: isSameDay,
-    hashCode: getHashCode,
-  );
-
-  List<StampModel> stamps = [
-    StampModel(name: 'name1', icon: Icons.medical_services_sharp),
-    StampModel(name: 'name2', icon: Icons.abc),
-    StampModel(name: 'name3', icon: Icons.medical_services_sharp),
-    StampModel(name: 'name4', icon: Icons.abc),
-    StampModel(name: 'name5', icon: Icons.medical_services_sharp),
-    StampModel(name: 'name6', icon: Icons.abc),
-    StampModel(name: 'name7', icon: Icons.medical_services_sharp),
-    StampModel(name: 'name8', icon: Icons.abc),
-    StampModel(name: 'name8', icon: Icons.abc),
-  ];
 }

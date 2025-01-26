@@ -24,11 +24,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(CalendarController());
     return GetBuilder<CalendarController>(builder: (contoller) {
-      return Image.asset(
-        'assets/images/torimingu.png',
-        width: 60,
-        height: 60,
-      );
       return TableCalendar(
         shouldFillViewport: true,
         firstDay: contoller.kFirstDay,
@@ -61,23 +56,33 @@ class HomeScreen extends StatelessWidget {
           // rangeHighlightBuilder: (context, day, focusedDay) {
           //   return Text('rangeHighlightBuilder');
           // },
-          // singleMarkerBuilder: (context, day, focusedDay) {
-          //   print('focusedDay : ${focusedDay}');
-          //   if ((focusedDay as TodoModel).stamps.isEmpty) return null;
-          //   return Column(
-          //     children: List.generate(
-          //       (focusedDay).stamps.length > 3 ? 4 : (focusedDay).stamps.length,
-          //       (index) {
-          //         if (index == 3) {
-          //           return Text('...');
-          //         }
-          //         return Text('トリミング');
-          //         // return Text((focusedDay).stamps[index].name);
-          //       },
-          //     ),
-          //   );
-          //   // return Text('singleMarkerBuilder');
-          // },
+          singleMarkerBuilder: (context, day, focusedDay) {
+            print('focusedDay : ${focusedDay}');
+            if ((focusedDay as TodoModel).stamps.isEmpty) return null;
+            return Padding(
+              padding: EdgeInsets.only(top: Responsive.height10 * .4),
+              child: Text(
+                '${(focusedDay).stamps.length}個',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+            // return Column(
+            //   children: List.generate(
+            //     (focusedDay).stamps.length > 3 ? 4 : (focusedDay).stamps.length,
+            //     (index) {
+            //       if (index == 3) {
+            //         return Text('...');
+            //       }
+            //       return Text('トリミング');
+            //       // return Text((focusedDay).stamps[index].name);
+            //     },
+            //   ),
+            // );
+            // return Text('singleMarkerBuilder');
+          },
           // markerBuilder: (context, day, focusedDay) {
           //   return Text('markerBuilder');
           // },
@@ -125,7 +130,7 @@ class ColIconButton extends StatelessWidget {
     required this.isActive,
   });
 
-  final IconData icon;
+  final String icon;
   final String label;
   final VoidCallback onTap;
   final bool isActive;
@@ -147,7 +152,7 @@ class ColIconButton extends StatelessWidget {
                   : Colors.grey.shade400,
             ),
             onPressed: onTap,
-            icon: Icon(icon),
+            icon: Image.asset(icon),
           ),
           const SizedBox(width: 10),
           Text(
