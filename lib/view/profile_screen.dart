@@ -24,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     {'food': 'ささみ', 'kcal': 147, 'g': 100},
   ];
   WelcomeController controller = Get.put(WelcomeController());
-  List<DogModel> dogs = [];
+  List<PetModel> dogs = [];
 
   @override
   void initState() {

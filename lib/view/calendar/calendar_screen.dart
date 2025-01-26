@@ -56,32 +56,28 @@ class HomeScreen extends StatelessWidget {
           // rangeHighlightBuilder: (context, day, focusedDay) {
           //   return Text('rangeHighlightBuilder');
           // },
+
           singleMarkerBuilder: (context, day, focusedDay) {
-            print('focusedDay : ${focusedDay}');
             if ((focusedDay as TodoModel).stamps.isEmpty) return null;
-            return Padding(
-              padding: EdgeInsets.only(top: Responsive.height10 * .4),
-              child: Text(
-                '${(focusedDay).stamps.length}個',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+            return Container(
+              width: Responsive.width10 * 2.5,
+              height: Responsive.width10 * 2.5,
+              child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemCount:
+                    focusedDay.stamps.length > 4 ? 4 : focusedDay.stamps.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: focusedDay.stamps[index].getColor(),
+                    ),
+                  );
+                },
               ),
             );
-            // return Column(
-            //   children: List.generate(
-            //     (focusedDay).stamps.length > 3 ? 4 : (focusedDay).stamps.length,
-            //     (index) {
-            //       if (index == 3) {
-            //         return Text('...');
-            //       }
-            //       return Text('トリミング');
-            //       // return Text((focusedDay).stamps[index].name);
-            //     },
-            //   ),
-            // );
-            // return Text('singleMarkerBuilder');
           },
           // markerBuilder: (context, day, focusedDay) {
           //   return Text('markerBuilder');
@@ -136,190 +132,38 @@ class ColIconButton extends StatelessWidget {
   final bool isActive;
   @override
   Widget build(BuildContext context) {
+    print('isActive : ${isActive}');
+
+    Size size = MediaQuery.of(context).size;
     return Container(
-      width: Responsive.width10 * 5,
-      margin: EdgeInsets.symmetric(
-        vertical: Responsive.height10 * .4,
-        horizontal: Responsive.width10,
-      ),
+      margin: EdgeInsets.only(top: Responsive.height10 / 2),
+      width: size.width / 5,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
             style: IconButton.styleFrom(
+              padding: EdgeInsets.zero,
               backgroundColor: isActive
                   ? AppColors.blueLight.withOpacity(0.5)
                   : Colors.grey.shade400,
             ),
             onPressed: onTap,
-            icon: Image.asset(icon),
+            icon: Image.asset(
+              icon,
+              width: Responsive.width10 * 5,
+              height: Responsive.width10 * 5,
+            ),
           ),
           const SizedBox(width: 10),
           Text(
             label,
-            style: TextStyle(
-              color: isActive ? Colors.black : Colors.grey,
-            ),
+            style: isActive
+                ? TextStyle(color: Colors.black, fontWeight: FontWeight.w500)
+                : TextStyle(color: Colors.grey),
           ),
         ],
       ),
     );
   }
 }
-
-
- // void showBottomSheet() async {
-  //   await showModalBottomSheet(
-  //     context: context,
-  //     builder: (context) {
-  //       return Column(
-  //         children: [
-  //           Align(
-  //             alignment: Alignment.centerRight,
-  //             child: TextButton(
-  //               onPressed: () async {
-  //                 List<int> selectedIndexs = [];
-  //                 TextEditingController memoController =
-  //                     TextEditingController(text: 'TEMP Memo');
-
-  //                 await Get.dialog(
-  //                   AlertDialog(
-  //                     content: StatefulBuilder(builder: (context, setState2) {
-  //                       return Column(
-  //                         mainAxisSize: MainAxisSize.min,
-  //                         children: [
-  //                           Column(
-  //                             crossAxisAlignment: CrossAxisAlignment.start,
-  //                             children: [
-  //                               const Text('メモ'),
-  //                               CustomTextField(
-  //                                 maxLines: 2,
-  //                                 controller: memoController,
-  //                               ),
-  //                             ],
-  //                           ),
-  //                           SizedBox(height: Responsive.height10),
-  //                           Wrap(
-  //                             children: List.generate(
-  //                               stamps.length,
-  //                               (index) => ColIconButton(
-  //                                 icon: stamps[index].icon,
-  //                                 label: stamps[index].name,
-  //                                 onTap: () {
-  //                                   if (selectedIndexs.contains(index)) {
-  //                                     selectedIndexs.remove(index);
-  //                                   } else {
-  //                                     selectedIndexs.add(index);
-  //                                   }
-  //                                   setState2(() {});
-  //                                 },
-  //                                 isActive: selectedIndexs.contains(index),
-  //                               ),
-  //                             ),
-  //                           ),
-  //                           Align(
-  //                               alignment: Alignment.centerRight,
-  //                               child: TextButton(
-  //                                   onPressed: () {}, child: Text('カスタマイズ'))),
-  //                           ElevatedButton(
-  //                               onPressed: () {
-  //                                 List<StampModel> selectedStamps = [];
-  //                                 for (var index in selectedIndexs) {
-  //                                   selectedStamps.add(stamps[index]);
-  //                                 }
-
-  //                                 TodoModel todoModel = TodoModel(
-  //                                   stamps: selectedStamps,
-  //                                   memo: memoController.text,
-  //                                   dateTime: _focusedDay,
-  //                                 );
-  //                                 if (_kEvents[_focusedDay] == null) {
-  //                                   _kEvents[_focusedDay] = [];
-  //                                 }
-  //                                 _kEvents[_focusedDay]!.add(todoModel);
-  //                                 setState(() {});
-  //                                 Get.back();
-  //                                 Get.back();
-  //                               },
-  //                               child: const Text('保存')),
-  //                         ],
-  //                       );
-  //                     }),
-  //                   ),
-  //                 );
-  //               },
-  //               child: Text('予定を追加'),
-  //             ),
-  //           ),
-  //           if (_kEvents[_focusedDay] == null || _kEvents[_focusedDay]!.isEmpty)
-  //             const Text(
-  //               'まだ予定がありません。',
-  //               style: TextStyle(
-  //                 fontSize: 18,
-  //               ),
-  //             )
-  //           else
-  //             Column(
-  //               children: List.generate(
-  //                 _kEvents[_focusedDay]![0].stamps.length,
-  //                 (index) => Row(
-  //                   children: [
-  //                     Icon(_kEvents[_focusedDay]![0].stamps[index].icon),
-  //                     Text(_kEvents[_focusedDay]![0].stamps[index].name),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ),
-  //         ],
-  //       );
-
-  //       // return Container(
-  //       //   width: double.infinity,
-  //       //   padding: EdgeInsets.symmetric(horizontal: 20),
-  //       //   child: Column(
-  //       //     mainAxisSize: MainAxisSize.min,
-  //       //     children: [
-  //       //       const ShortHBar(),
-  //       //       SizedBox(height: 20),
-  //       //       Column(
-  //       //         mainAxisSize: MainAxisSize.min,
-  //       //         children: [
-  //       //           Align(
-  //       //             alignment: Alignment.centerLeft,
-  //       //             child: Text(
-  //       //               UtilFunction.getDayYYYYMMDD(
-  //       //                   _selectedDay ?? DateTime.now()),
-  //       //               style: TextStyle(
-  //       //                 fontWeight: FontWeight.bold,
-  //       //                 fontSize: Responsive.width20,
-  //       //               ),
-  //       //             ),
-  //       //           ),
-  //       //           Align(
-  //       //             alignment: Alignment.centerRight,
-  //       //             child: TextButton(
-  //       //               onPressed: () {},
-  //       //               child: Text('カスタマイズ'),
-  //       //             ),
-  //       //           ),
-  //       //           SizedBox(height: 20),
-  //       //           Wrap(
-  //       //             children: List.generate(
-  //       //               stamps.length,
-  //       //               (index) => ColIconButton(
-  //       //                 icon: stamps[index].icon,
-  //       //                 label: stamps[index].name,
-  //       //                 onTap: () {},
-  //       //                 isActive: selectedIndexs.contains(index),
-  //       //               ),
-  //       //             ),
-  //       //           ),
-  //       //         ],
-  //       //       ),
-  //       //       SizedBox(height: 50),
-  //       //     ],
-  //       //   ),
-  //       // );
-  //     },
-  //   );
-  // }

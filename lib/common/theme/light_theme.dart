@@ -42,6 +42,14 @@ ThemeData lightTheme() {
         shadowColor: Colors.transparent,
       ),
     ),
+    textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+      // backgroundColor: AppColors.greenLight,
+      foregroundColor: AppColors.greenLight,
+      splashFactory: NoSplash.splashFactory,
+      elevation: 0,
+      shadowColor: Colors.transparent,
+    )),
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: AppColors.backgroundLight,
       shape: RoundedRectangleBorder(

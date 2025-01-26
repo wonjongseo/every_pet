@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
+import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
 import 'package:every_pet/respository/todo_repository.dart';
@@ -16,8 +17,15 @@ class CalendarController extends GetxController {
   final kToday = DateTime.now();
   late DateTime kFirstDay;
   late DateTime kLastDay;
+  StampController stampController = Get.put(StampController());
 
-  List<StampModel> stamps = tempStamps;
+  DateTime _focusedDay = DateTime.now();
+
+  DateTime get focusedDay => _focusedDay;
+  DateTime? _selectedDay;
+  DateTime? get selectedDay => _selectedDay;
+
+  // List<StampModel> stamps = tempStamps;
 
   TodoRepository todoRepository = TodoRepository();
 
@@ -30,12 +38,15 @@ class CalendarController extends GetxController {
       return false;
     } else if (getFocusedDayEvent()!.isEmpty) {
       return false;
+    } else if (getFocusedDayEvent()![0].stamps.isEmpty &&
+        getFocusedDayEvent()![0].memo.isEmpty) {
+      return false;
     }
 
     return true;
   }
 
-  CalendarFormat calendarFormat = CalendarFormat.twoWeeks;
+  CalendarFormat calendarFormat = CalendarFormat.month;
   void onFormatChanged(CalendarFormat format) {
     if (format != calendarFormat) {
       return;
@@ -51,7 +62,6 @@ class CalendarController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement
     super.onInit();
 
     kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
@@ -59,8 +69,6 @@ class CalendarController extends GetxController {
 
     _selectedDay = _focusedDay;
     getTodos();
-    // kEvents =
-    // _selectedEvents = (getEventsForDay(_selectedDay!));
   }
 
   void getTodos() async {
@@ -92,16 +100,15 @@ class CalendarController extends GetxController {
     );
   }
 
-  List<int> getSavedStampIndex() {
-    List<int> savedStampIndex = [];
+  List<StampModel> getSavedStampIndex() {
+    List<StampModel> savedStampIndex = [];
     if (kEvents[focusedDay] == null) {
       return [];
     }
 
     for (var stamps in kEvents[focusedDay]![0].stamps) {
-      savedStampIndex.add(stamps.iconIndex);
+      savedStampIndex.add(stamps);
     }
-    print('savedStampIndex : ${savedStampIndex}');
 
     return savedStampIndex;
   }
@@ -121,9 +128,17 @@ class CalendarController extends GetxController {
 
   void clickAddbtn() async {
     final result = await Get.dialog(
-      barrierDismissible: false,
-      const AlertDialog(
-        content: CustomAlertDialog(),
+      GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Center(
+          child: SingleChildScrollView(
+            child: AlertDialog(
+              insetPadding:
+                  EdgeInsets.symmetric(horizontal: Responsive.width15),
+              content: const CustomAlertDialog(),
+            ),
+          ),
+        ),
       ),
     );
 
@@ -131,50 +146,36 @@ class CalendarController extends GetxController {
       return;
     }
 
-    if (!(result as Map<String, dynamic>).containsKey('selectedIndexs') ||
+    if (!(result as Map<String, dynamic>).containsKey('selectedStamps') ||
         !(result).containsKey('memo')) {
       return;
     }
+    String memo = result['memo'];
 
-    List<int> selectedIndexs = result['selectedIndexs'] as List<int>;
-
-    selectedIndexs.sort();
-
-    List<StampModel> selectedStamps = [];
-
-    for (var index in selectedIndexs) {
-      selectedStamps.add(stamps[index]);
-    }
+    List<StampModel> selectedStamps =
+        result['selectedStamps'] as List<StampModel>;
 
     TodoModel todoModel = TodoModel(
       stamps: selectedStamps,
-      memo: result['memo'],
+      memo: memo,
       dateTime: focusedDay,
     );
 
-    kEvents[focusedDay] = [];
-    kEvents[focusedDay]!.add(todoModel);
-
-    todoRepository.saveTodo(todoModel);
-    // if (kEvents[focusedDay] == null) {
-    //   kEvents[focusedDay] = [];
-    //   kEvents[focusedDay]!.add(todoModel);
-
-    //   todoRepository.saveTodo(todoModel);
-    // } else {
-    //   kEvents[focusedDay] = [];
-    //   kEvents[focusedDay]!.add(todoModel);
-    //   todoRepository.updateTodo(todoModel);
-    // }
+    if (selectedStamps.isEmpty && (memo == null || memo.isEmpty)) {
+      if (kEvents[focusedDay] != null) {
+        if (kEvents[focusedDay]!.isNotEmpty) {
+          todoRepository.deleteTodo(kEvents[focusedDay]![0]);
+          kEvents[focusedDay]!.remove(kEvents[focusedDay]![0]);
+        }
+      }
+    } else {
+      kEvents[focusedDay] = [];
+      kEvents[focusedDay]!.add(todoModel);
+      todoRepository.saveTodo(todoModel);
+    }
 
     update();
   }
-
-  DateTime _focusedDay = DateTime.now();
-
-  DateTime get focusedDay => _focusedDay;
-  DateTime? _selectedDay;
-  DateTime? get selectedDay => _selectedDay;
 
   List<TodoModel> getEventsForDay(DateTime day) {
     // Implementation example

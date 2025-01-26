@@ -21,7 +21,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
-  print('Main');
   await Hive.initFlutter();
 
   if (!Hive.isAdapterRegistered(0)) {
@@ -54,15 +53,15 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Every Pets',
       theme: lightTheme(),
-      darkTheme: darkTheme(),
+      // darkTheme: darkTheme(),
       themeMode: ThemeMode.system,
       translations: AppTranslations(),
       // locale: Get.deviceLocale,
-      locale: Locale('ja', 'JP'),
-      fallbackLocale: const Locale('ko', 'KR'),
+      locale: const Locale('ja', 'JP'),
+      fallbackLocale: const Locale('en', 'US'),
       home: GetBuilder<PetsController>(
         builder: (controller) {
-          return const MainScreen();
+          return const WelcomeScreen();
           if (controller.pets == null) {
             return Container(
               child: Text('LODING'),

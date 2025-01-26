@@ -160,9 +160,6 @@ class AppTranslations extends Translations {
           AppString.myBook1Description: AppString.myBook1DescriptionKr,
           AppString.myBook2Description: AppString.myBook2DescriptionKr
         },
-        'ja_JP': {
-          AppString.nameCtrHintText: AppString.nameCtrHintTextKr,
-        },
       };
 }
 
@@ -172,7 +169,7 @@ class AppString {
   static String appNameJp = "Jong's JLPT";
 
   static String nameCtrHintText = "nameCtrHintTextTr";
-  static String nameCtrHintTextKr = " ";
+  static String nameCtrHintTextKr = "이름을 입력해주세요.";
   static String nameCtrHintTextJp = "名前を入力してください";
 
   static String weightCtrHint = "weightCtrHintTr";

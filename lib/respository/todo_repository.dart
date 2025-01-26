@@ -5,8 +5,6 @@ class TodoRepository {
   void saveTodo(TodoModel todo) async {
     var box = await Hive.openBox<TodoModel>('todos');
 
-    // 데이터 저장
-    // await box.add(todo);
     await box.put(
       '${todo.dateTime.year}-${todo.dateTime.month}-${todo.dateTime.day}}',
       todo,
@@ -24,7 +22,8 @@ class TodoRepository {
     var box = await Hive.openBox<TodoModel>('todos');
 
     // 데이터 저장
-    await box.delete(todo);
+    await box.delete(
+        '${todo.dateTime.year}-${todo.dateTime.month}-${todo.dateTime.day}}');
 
     print('Todos deleted!');
   }

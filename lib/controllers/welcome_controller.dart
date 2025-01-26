@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/view/image_picker_screen.dart';
@@ -12,6 +13,8 @@ import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+
+enum ANIMAL_TYPE { DOG, CAT }
 
 class WelcomeController extends GetxController {
   late TextEditingController nameEditingController;
@@ -31,6 +34,14 @@ class WelcomeController extends GetxController {
   bool isNeuter = false; // 중성화
 
   bool isPregnancy = false;
+
+  void toogleRadio(ANIMAL_TYPE? value) {
+    if (value == null) return;
+    animalType = value;
+    update();
+  }
+
+  ANIMAL_TYPE animalType = ANIMAL_TYPE.DOG;
 
   @override
   void onInit() {
@@ -71,16 +82,27 @@ class WelcomeController extends GetxController {
 
     print('weightEditingController.text : ${weightEditingController.text}');
 
-    DogModel dogModel = DogModel(
-      name: name,
-      weight: int.parse(weightEditingController.text),
-      imageUrl: imageFile != null && savedFile != null ? savedFile.path : '',
-      birthDay: birthDay!,
-      genderType: genderType,
-    );
+    if (animalType == ANIMAL_TYPE.DOG) {
+      DogModel dogModel = DogModel(
+        name: name,
+        weight: int.parse(weightEditingController.text),
+        imageUrl: imageFile != null && savedFile != null ? savedFile.path : '',
+        birthDay: birthDay!,
+        genderType: genderType,
+      );
 
-    petRepository.saveDog(dogModel);
+      petRepository.saveDog(dogModel);
+    } else {
+      CatModel catModel = CatModel(
+        name: name,
+        weight: int.parse(weightEditingController.text),
+        imageUrl: imageFile != null && savedFile != null ? savedFile.path : '',
+        birthDay: birthDay!,
+        genderType: genderType,
+      );
 
+      petRepository.saveDog(catModel);
+    }
     Get.to(() => ProfileScreen());
   }
 

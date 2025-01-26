@@ -1,27 +1,28 @@
 import 'package:every_pet/models/dog_model.dart';
+import 'package:every_pet/models/pet_model.dart';
 import 'package:hive/hive.dart';
 
 class PetRepository {
-  void saveDog(DogModel dog) async {
-    var box = await Hive.openBox<DogModel>('dogs');
+  void saveDog(PetModel pet) async {
+    var box = await Hive.openBox<PetModel>('pets');
 
     // 데이터 저장
-    await box.add(dog);
+    await box.add(pet);
 
-    print('Dog saved!');
+    print('pet saved!');
   }
 
-  Future<List<DogModel>> loadDogs() async {
-    var box = await Hive.openBox<DogModel>('dogs');
+  Future<List<PetModel>> loadDogs() async {
+    var box = await Hive.openBox<DogModel>('pet');
 
     // 데이터 읽기
-    List<DogModel> dogs = box.values.toList();
+    List<PetModel> pets = box.values.toList();
 
-    print('dogs.length : ${dogs.length}');
+    print('pet.length : ${pets.length}');
 
-    for (var dog in dogs) {
-      print('dog : ${dog}');
+    for (var pet in pets) {
+      print('pet : ${pet}');
     }
-    return dogs;
+    return pets;
   }
 }
