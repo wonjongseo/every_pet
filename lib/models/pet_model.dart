@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:every_pet/models/dog_model.dart';
+import 'package:every_pet/models/todo_model.dart';
 import 'package:hive/hive.dart';
 import 'package:every_pet/controllers/welcome_controller.dart';
 
@@ -8,10 +9,10 @@ part 'pet_model.g.dart';
 @HiveType(typeId: 0) // typeId는 각 클래스마다 고유해야 함
 class PetModel {
   @HiveField(0)
-  final String name;
+  String name;
 
   @HiveField(1)
-  final String imageUrl;
+  String imageUrl;
 
   @HiveField(2)
   final DateTime birthDay;
@@ -26,7 +27,10 @@ class PetModel {
   bool? isPregnancy;
 
   @HiveField(6)
-  final int weight;
+  double weight;
+
+  @HiveField(7)
+  final List<TodoModel> todoModel = [];
 
   double getRER() {
     return 0;
@@ -53,7 +57,7 @@ class PetModel {
     GENDER_TYPE? genderType,
     bool? isNeuter,
     bool? isPregnancy,
-    int? weight,
+    double? weight,
   }) {
     return PetModel(
       name: name ?? this.name,
@@ -105,7 +109,7 @@ class PetModel {
 
   @override
   String toString() {
-    return 'PetModel(name: $name, weight: $weight, imageUrl: $imageUrl, birthDay: $birthDay, genderType: $genderType, isNeuter: $isNeuter, isPregnancy: $isPregnancy)';
+    return 'PetModel(name: $name, weight: $weight, imageUrl: $imageUrl, birthDay: $birthDay, genderType: $genderType, isNeuter: $isNeuter, isPregnancy: $isPregnancy, todoModel: $todoModel)';
   }
 
   @override

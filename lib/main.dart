@@ -2,6 +2,7 @@ import 'package:every_pet/common/theme/dark_theme.dart';
 import 'package:every_pet/common/theme/light_theme.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
+import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
@@ -40,6 +41,9 @@ void main() async {
   if (!Hive.isAdapterRegistered(4)) {
     Hive.registerAdapter(TodoModelAdapter());
   }
+  if (!Hive.isAdapterRegistered(5)) {
+    Hive.registerAdapter(CatModelAdapter());
+  }
 
   runApp(const MyApp());
 }
@@ -61,15 +65,16 @@ class MyApp extends StatelessWidget {
       fallbackLocale: const Locale('en', 'US'),
       home: GetBuilder<PetsController>(
         builder: (controller) {
-          return const WelcomeScreen();
           if (controller.pets == null) {
-            return Container(
-              child: Text('LODING'),
+            return Scaffold(
+              body: Container(
+                child: Text('LODING'),
+              ),
             );
           } else if (controller.pets!.isEmpty) {
             return const WelcomeScreen();
           } else {
-            return const ProfileScreen();
+            return const MainScreen();
           }
         },
       ),

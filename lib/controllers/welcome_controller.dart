@@ -2,10 +2,12 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/view/image_picker_screen.dart';
+import 'package:every_pet/view/main/main_screen.dart';
 import 'package:every_pet/view/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,15 +47,17 @@ class WelcomeController extends GetxController {
 
   @override
   void onInit() {
-    nameEditingController = TextEditingController(text: '');
+    nameEditingController = TextEditingController(text: 'こま');
     birthDayEditingController = TextEditingController();
-    weightEditingController = TextEditingController(text: '');
+    weightEditingController = TextEditingController(text: '8');
 
     nameEditingFocusNode = FocusNode();
     birthDayEditingFocusNode = FocusNode();
     weightEditingFocusNode = FocusNode();
     super.onInit();
   }
+
+  PetsController petsController = Get.find<PetsController>();
 
   @override
   void onClose() {
@@ -80,30 +84,28 @@ class WelcomeController extends GetxController {
           await UtilFunction.saveFileFromTempDirectory(imageFile!, name);
     }
 
-    print('weightEditingController.text : ${weightEditingController.text}');
-
     if (animalType == ANIMAL_TYPE.DOG) {
       DogModel dogModel = DogModel(
         name: name,
-        weight: int.parse(weightEditingController.text),
+        weight: double.parse(weightEditingController.text),
         imageUrl: imageFile != null && savedFile != null ? savedFile.path : '',
         birthDay: birthDay!,
         genderType: genderType,
       );
-
-      petRepository.saveDog(dogModel);
+      await petsController.savePetModal(dogModel);
     } else {
       CatModel catModel = CatModel(
         name: name,
-        weight: int.parse(weightEditingController.text),
+        weight: double.parse(weightEditingController.text),
         imageUrl: imageFile != null && savedFile != null ? savedFile.path : '',
         birthDay: birthDay!,
         genderType: genderType,
       );
 
-      petRepository.saveDog(catModel);
+      await petsController.savePetModal(catModel);
     }
-    Get.to(() => ProfileScreen());
+
+    Get.off(() => const MainScreen());
   }
 
   void togglePregnancy(bool? value) {

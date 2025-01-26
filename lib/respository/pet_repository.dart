@@ -3,7 +3,7 @@ import 'package:every_pet/models/pet_model.dart';
 import 'package:hive/hive.dart';
 
 class PetRepository {
-  void saveDog(PetModel pet) async {
+  Future<void> saveDog(PetModel pet) async {
     var box = await Hive.openBox<PetModel>('pets');
 
     // 데이터 저장
@@ -13,7 +13,7 @@ class PetRepository {
   }
 
   Future<List<PetModel>> loadDogs() async {
-    var box = await Hive.openBox<DogModel>('pet');
+    var box = await Hive.openBox<PetModel>('pets');
 
     // 데이터 읽기
     List<PetModel> pets = box.values.toList();

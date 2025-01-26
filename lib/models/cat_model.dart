@@ -11,7 +11,7 @@ class CatModel extends PetModel {
     required String imageUrl,
     required DateTime birthDay,
     required GENDER_TYPE genderType,
-    required int weight,
+    required double weight,
     bool? isNeuter,
     bool? isPregnancy,
   }) : super(

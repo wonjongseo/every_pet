@@ -10,4 +10,8 @@ class AppImagePath {
   static String pudlle = 'assets/images/pudlle.png';
   static String taiinn = 'assets/images/taiinn.png';
   static String trimming = 'assets/images/trimming.png';
+  static String circleCalendar = 'assets/images/circle_calendar.png';
+  static String circleFood = 'assets/images/circle_food.png';
+  static String circleSetting = 'assets/images/circle_setting.png';
+  static String circleWallet = 'assets/images/circle_wallet.png';
 }

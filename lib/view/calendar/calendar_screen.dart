@@ -22,7 +22,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(CalendarController());
     return GetBuilder<CalendarController>(builder: (contoller) {
       return TableCalendar(
         shouldFillViewport: true,
