@@ -14,4 +14,5 @@ class AppImagePath {
   static String circleFood = 'assets/images/circle_food.png';
   static String circleSetting = 'assets/images/circle_setting.png';
   static String circleWallet = 'assets/images/circle_wallet.png';
+  static String defaultCat = 'assets/images/default_cat.png';
 }

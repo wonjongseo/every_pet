@@ -3,7 +3,7 @@ import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/models/stamp_model.dart';
-import 'package:every_pet/view/calendar/widgets/row_stamp_widget.dart';
+import 'package:every_pet/view/todo/widgets/row_stamp_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -60,13 +60,6 @@ class _StampCustomScreenState extends State<StampCustomScreen> {
             }
           }
 
-          // for (var stamp in returnStamps) {
-          //   print('stamp : ${stamp}');
-
-          //   controller.stampRepository.saveStamp(stamp);
-          // }
-          // controller.stamps = returnStamps;
-          // controller.update();
           Get.back(result: returnStamps);
         }),
       ),

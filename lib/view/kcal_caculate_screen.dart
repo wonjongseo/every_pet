@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
+import 'package:every_pet/controllers/enroll_controller.dart';
+import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +45,7 @@ class _KcalCaculateScreenState extends State<KcalCaculateScreen> {
                       child: Column(
                         children: [
                           ProfileImage(
+                            isDog: pet.runtimeType == DogModel,
                             height: 50,
                             width: 50,
                             file:

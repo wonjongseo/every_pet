@@ -30,9 +30,6 @@ class StampRepository {
     List<StampModel> stamps = box.values.toList();
     stamps.sort((a, b) => a.iconIndex.compareTo(b.iconIndex));
 
-    for (var stamp in stamps) {
-      print('stamp : ${stamp}');
-    }
     return stamps;
   }
 }

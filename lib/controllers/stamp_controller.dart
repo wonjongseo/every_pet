@@ -22,8 +22,6 @@ class StampController extends GetxController {
 
     update();
     for (var stamp in stamps) {
-      print('stamp : ${stamp}');
-
       stampRepository.saveStamp(stamp);
     }
   }

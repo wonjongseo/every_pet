@@ -23,7 +23,7 @@ ThemeData lightTheme() {
         statusBarIconBrightness: Brightness.dark,
       ),
       iconTheme: IconThemeData(
-        color: Colors.white,
+        color: Colors.black,
       ),
     ),
     tabBarTheme: const TabBarTheme(

@@ -1,4 +1,4 @@
-import 'package:every_pet/controllers/welcome_controller.dart';
+import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:hive/hive.dart';
 part 'dog_model.g.dart';

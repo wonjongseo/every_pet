@@ -1,42 +1,80 @@
+import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/common/widgets/custom_text_feild.dart';
+import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
+import 'package:every_pet/controllers/profile_controller.dart';
+import 'package:every_pet/controllers/enroll_controller.dart';
+import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
+import 'package:every_pet/view/enroll/enroll_screen.dart';
+import 'package:every_pet/view/enroll/widgets/gender_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  @override
   Widget build(BuildContext context) {
-    return GetBuilder<PetsController>(builder: (controller) {
-      PetModel pet = controller.pets![controller.petPageIndex];
-      return Center(
-        child: Column(
-          children: [
-            Row(
+    Get.put(ProfileController());
+    return GetBuilder<PetsController>(builder: (petController) {
+      PetModel pet = petController.pets![petController.petPageIndex];
+      return GetBuilder<ProfileController>(builder: (controller) {
+        controller.loadPetInfo(pet);
+        return Center(
+          child: SingleChildScrollView(
+            controller: petController.scrollController,
+            child: Column(
               children: [
-                Text(AppString.nameText.tr),
-                Text(pet.name),
+                EnrollScreenBody(controller: controller),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      width: Responsive.width10 * 12,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            // backgroundColor: Colors.redAccent,
+                            ),
+                        onPressed: () {
+                          controller.updatePet(pet);
+                        },
+                        child: Text(
+                          '更新',
+                          style: TextStyle(
+                            fontSize: Responsive.width18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: Responsive.width10 * 12,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.redAccent,
+                        ),
+                        onPressed: petController.deletePet,
+                        child: Text(
+                          '削除',
+                          style: TextStyle(
+                            fontSize: Responsive.width18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: Responsive.height20),
               ],
             ),
-            Text(UtilFunction.getDayYYYYMMDD(pet.birthDay)),
-            Text(pet.genderType.gender),
-            Text(pet.isNeuter ?? false ? 'True' : 'False'),
-            Text('${pet.weight}'),
-            ElevatedButton(
-              onPressed: controller.deletePet,
-              child: Text('削除'),
-            )
-          ],
-        ),
-      );
+          ),
+        );
+      });
     });
   }
 }

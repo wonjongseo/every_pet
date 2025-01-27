@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/cat_model.dart';
@@ -8,7 +9,6 @@ import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/view/image_picker_screen.dart';
 import 'package:every_pet/view/main/main_screen.dart';
-import 'package:every_pet/view/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
@@ -16,9 +16,13 @@ import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-enum ANIMAL_TYPE { DOG, CAT }
+enum PET_TYPE { DOG, CAT }
 
 class EnrollController extends GetxController {
+  final bool isFirst;
+
+  EnrollController(this.isFirst);
+
   late TextEditingController nameEditingController;
   late TextEditingController birthDayEditingController;
   late TextEditingController weightEditingController;
@@ -27,11 +31,9 @@ class EnrollController extends GetxController {
   late FocusNode birthDayEditingFocusNode;
   late FocusNode weightEditingFocusNode;
 
-  PetRepository petRepository = PetRepository();
-  final formKey = GlobalKey<FormState>();
-
+  late GlobalKey<FormState> formKey;
   DateTime? birthDay;
-
+  PetsController petsController = Get.find<PetsController>();
   GENDER_TYPE genderType = GENDER_TYPE.MALE;
   bool isNeuter = false; // 중성화
 
@@ -39,17 +41,20 @@ class EnrollController extends GetxController {
 
   // File? imageFile;
   String? imagePath;
+  PET_TYPE petType = PET_TYPE.DOG;
 
-  void toogleRadio(ANIMAL_TYPE? value) {
+  void toogleRadio(PET_TYPE? value) {
     if (value == null) return;
-    animalType = value;
+    petType = value;
     update();
   }
 
-  ANIMAL_TYPE animalType = ANIMAL_TYPE.DOG;
-
   @override
   void onInit() {
+    super.onInit();
+
+    formKey = GlobalKey<FormState>();
+
     nameEditingController = TextEditingController();
     birthDayEditingController = TextEditingController();
     weightEditingController = TextEditingController();
@@ -57,11 +62,39 @@ class EnrollController extends GetxController {
     nameEditingFocusNode = FocusNode();
     birthDayEditingFocusNode = FocusNode();
     weightEditingFocusNode = FocusNode();
-    super.onInit();
   }
 
-  @override
-  PetsController petsController = Get.find<PetsController>();
+  String? nameValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppString.nameCtrHintText.tr;
+    }
+
+    if (petsController.pets == null) {
+      return null;
+    } else {
+      for (var pet in petsController.pets!) {
+        if (pet.name == value) {
+          return '$value${AppString.duplicateName.tr}';
+        }
+      }
+    }
+
+    return null;
+  }
+
+  String? weightValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppString.weightCtrHint.tr;
+    }
+    return null;
+  }
+
+  String? birthDayValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppString.birthdayCtrHint.tr;
+    }
+    return null;
+  }
 
   @override
   void onClose() {
@@ -77,6 +110,8 @@ class EnrollController extends GetxController {
   }
 
   void onClickSaveBtn(BuildContext context) async {
+    print('formKey : ${formKey}');
+
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -89,7 +124,7 @@ class EnrollController extends GetxController {
           await UtilFunction.saveFileFromTempDirectory(imagePath!, name);
     }
 
-    if (animalType == ANIMAL_TYPE.DOG) {
+    if (petType == PET_TYPE.DOG) {
       DogModel dogModel = DogModel(
         name: name,
         weight: double.parse(weightEditingController.text),
@@ -111,8 +146,11 @@ class EnrollController extends GetxController {
 
       await petsController.savePetModal(catModel);
     }
-    // Get.delete<EnrollController>();
-    Get.off(() => const MainScreen());
+
+    if (!isFirst) {
+      petsController.increasePetPageIndex();
+    }
+    Get.offAll(() => const MainScreen());
   }
 
   void togglePregnancy(bool? value) {

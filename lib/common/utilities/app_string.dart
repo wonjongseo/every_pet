@@ -22,7 +22,7 @@ class AppTranslations extends Translations {
           AppString.birthDayText: AppString.birthDayTextJp,
           AppString.setting: AppString.settingJp,
           AppString.weightText: AppString.weightTextJp,
-          AppString.tipOffMessage: AppString.tipOffMessageJp,
+          AppString.duplicateName: AppString.duplicateNameJp,
           AppString.toogleMeaning: AppString.toogleMeaningJp,
           AppString.toogleHowToRead: AppString.toogleHowToReadJp,
           AppString.loadingDatas: AppString.loadingDatasJp,
@@ -134,7 +134,7 @@ class AppTranslations extends Translations {
           AppString.birthDayText: AppString.birthDayTextKr,
           AppString.setting: AppString.settingKr,
           AppString.weightText: AppString.weightTextKr,
-          AppString.tipOffMessage: AppString.tipOffMessageKr,
+          AppString.duplicateName: AppString.duplicateNameKr,
           AppString.toogleMeaning: AppString.toogleMeaningKr,
           AppString.toogleHowToRead: AppString.toogleHowToReadKr,
           AppString.loadingDatas: AppString.loadingDatasKr,
@@ -224,9 +224,9 @@ class AppString {
   static String weightTextKr = '체중';
   static String weightTextJp = "体重";
 
-  static String tipOffMessage = "tipOffMessageTr";
-  static String tipOffMessageKr = '제보는 개발자에게 아주 큰 힘이 됩니다!';
-  static String tipOffMessageJp = "The tip-off is a huge boost for developers!";
+  static String duplicateName = "duplicateNameTr";
+  static String duplicateNameKr = '는 이미 등록된 이름입니다.';
+  static String duplicateNameJp = "は既に登録された名前です";
 
   static String toogleMeaning = "toogleMeaningTr";
   static String toogleMeaningKr = '뜻 가리기';

@@ -5,9 +5,11 @@ import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/common/widgets/short_bar.dart';
 import 'package:every_pet/controllers/calendar_controller.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
+import 'package:every_pet/controllers/enroll_controller.dart';
+import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
-import 'package:every_pet/view/calendar/calendar_screen.dart';
-import 'package:every_pet/view/calendar/widgets/row_stamp_widget.dart';
+import 'package:every_pet/view/todo/todo_screen.dart';
+import 'package:every_pet/view/todo/widgets/row_stamp_widget.dart';
 import 'package:every_pet/view/main/main_screen.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:flutter/material.dart';
@@ -137,6 +139,9 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
               return Padding(
                 padding: EdgeInsets.only(right: Responsive.width22),
                 child: RowPetProfileWidget(
+                  isDog: controller.petsController.pets![index].runtimeType ==
+                      DogModel,
+                  imagePath: controller.petsController.pets![index].imageUrl,
                   petName: controller.petsController.pets![index].name,
                   isActive: selectedProfileIndexs.contains(index),
                   onTap: () {

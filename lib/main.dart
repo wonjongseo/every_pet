@@ -7,14 +7,10 @@ import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
-import 'package:every_pet/sample_pages/basic_example.dart';
-import 'package:every_pet/sample_pages/event_example.dart';
-import 'package:every_pet/sample_pages/multi_example.dart';
-import 'package:every_pet/sample_pages/range_example.dart';
-import 'package:every_pet/view/calendar/calendar_screen.dart';
+
+import 'package:every_pet/view/splash_screen.dart';
 import 'package:every_pet/view/kcal_caculate_screen.dart';
 import 'package:every_pet/view/main/main_screen.dart';
-import 'package:every_pet/view/profile_screen.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,7 +49,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(PetsController());
     return GetMaterialApp(
       title: 'Every Pets',
       theme: lightTheme(),
@@ -63,21 +58,7 @@ class MyApp extends StatelessWidget {
       // locale: Get.deviceLocale,
       locale: const Locale('ja', 'JP'),
       fallbackLocale: const Locale('en', 'US'),
-      home: GetBuilder<PetsController>(
-        builder: (controller) {
-          if (controller.pets == null) {
-            return Scaffold(
-              body: Container(
-                child: Text('LODING'),
-              ),
-            );
-          } else if (controller.pets!.isEmpty) {
-            return const EnrollScreen();
-          } else {
-            return const MainScreen();
-          }
-        },
-      ),
+      home: const SplashScreen(),
     );
   }
 }

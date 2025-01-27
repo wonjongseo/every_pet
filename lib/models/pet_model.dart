@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/todo_model.dart';
 import 'package:hive/hive.dart';
-import 'package:every_pet/controllers/welcome_controller.dart';
+import 'package:every_pet/controllers/enroll_controller.dart';
 
 part 'pet_model.g.dart';
 

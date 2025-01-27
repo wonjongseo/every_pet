@@ -1,16 +1,18 @@
 import 'dart:io';
 
+import 'package:every_pet/models/dog_model.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
-import 'package:every_pet/controllers/welcome_controller.dart';
-import 'package:every_pet/view/calendar/calendar_screen.dart';
+import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:every_pet/view/todo/todo_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -68,7 +70,7 @@ class MainScreen extends StatelessWidget {
                       ),
                     ),
                     BottomNavigationBarItem(
-                      label: '設定',
+                      label: AppString.setting.tr,
                       icon: Image.asset(
                         AppImagePath.circleSetting,
                         width: Responsive.width10 * 5,
@@ -111,9 +113,14 @@ class MainScreen extends StatelessWidget {
                                   padding: EdgeInsets.only(
                                       right: Responsive.width22),
                                   child: RowPetProfileWidget(
+                                    isDog: petsController
+                                            .pets![index].runtimeType ==
+                                        DogModel,
                                     petName: petsController.pets![index].name,
                                     isActive:
                                         petsController.petPageIndex == index,
+                                    imagePath:
+                                        petsController.pets![index].imageUrl,
                                     onTap: () {
                                       petsController.onTapTopBar(index);
                                     },
@@ -162,39 +169,46 @@ class MainScreen extends StatelessWidget {
 
 class RowPetProfileWidget extends StatelessWidget {
   const RowPetProfileWidget({
-    super.key,
+    Key? key,
     required this.isActive,
     required this.petName,
     required this.onTap,
-  });
+    required this.imagePath,
+    required this.isDog,
+  }) : super(key: key);
 
   final bool isActive;
   final String petName;
   final VoidCallback onTap;
+  final String imagePath;
+  final bool isDog;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // onTap: () {
-      //   petsController.onClickTopBar(index);
-      // },
       onTap: onTap,
       child: Column(
         children: [
-          Container(
+          ProfileImage(
+            isDog: isDog,
+            imagePath: imagePath,
             width: Responsive.width10 * 4.5,
             height: Responsive.width10 * 4.5,
-            decoration: BoxDecoration(
-              // color: petsController.petPageIndex == index
-              color:
-                  isActive ? AppColors.blueDark : Colors.grey.withOpacity(.7),
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(
-                  AppImagePath.bisyon,
-                ),
-              ),
-            ),
+            isActive: isActive,
           ),
+          // Container(
+          //   width: Responsive.width10 * 4.5,
+          //   height: Responsive.width10 * 4.5,
+          //   decoration: BoxDecoration(
+          //     color:
+          //         isActive ? AppColors.blueDark : Colors.grey.withOpacity(.7),
+          //     shape: BoxShape.circle,
+          //     image: DecorationImage(
+          //       image: AssetImage(
+          //         AppImagePath.bisyon,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Text(
             petName,
             // style: petsController.petPageIndex == index
