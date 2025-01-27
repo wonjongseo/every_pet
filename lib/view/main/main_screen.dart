@@ -8,7 +8,7 @@ import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/welcome_controller.dart';
 import 'package:every_pet/view/calendar/calendar_screen.dart';
-import 'package:every_pet/view/welcome/welcome_screen.dart';
+import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,11 +37,11 @@ class MainScreen extends StatelessWidget {
                   ),
                 ),
                 child: BottomNavigationBar(
-                  currentIndex: petsController.navigationPageIndex,
+                  currentIndex: petsController.bottomTapIndex,
                   elevation: 10,
                   backgroundColor: Colors.white,
                   type: BottomNavigationBarType.fixed,
-                  onTap: petsController.tapBottomNavigatoinBar,
+                  onTap: petsController.onTapBottomBar,
                   unselectedLabelStyle: TextStyle(color: Colors.red),
                   selectedLabelStyle: TextStyle(color: Colors.red),
                   selectedIconTheme: IconThemeData(color: Colors.red),
@@ -115,7 +115,7 @@ class MainScreen extends StatelessWidget {
                                     isActive:
                                         petsController.petPageIndex == index,
                                     onTap: () {
-                                      petsController.onClickTopBar(index);
+                                      petsController.onTapTopBar(index);
                                     },
                                   ),
                                 );
@@ -134,12 +134,12 @@ class MainScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                const Divider(),
                 Expanded(
                   child: PageView.builder(
                     itemCount: petsController.pets!.length,
                     itemBuilder: (context, index) {
-                      return petsController
-                          .body[petsController.navigationPageIndex];
+                      return petsController.body[petsController.bottomTapIndex];
                     },
                   ),
                 ),

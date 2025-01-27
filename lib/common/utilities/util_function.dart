@@ -25,22 +25,17 @@ class UtilFunction {
     return file;
   }
 
-  static Future<File> saveFileFromTempDirectory(
-      File tempFile, String fileName) async {
+  static Future<String> saveFileFromTempDirectory(
+      String tempFileImage, String fileName) async {
     final directory = await getApplicationDocumentsDirectory();
 
     final docFile = File('${directory.path}/$fileName.png');
-
+    File tempFile = File(tempFileImage);
     await tempFile.copy(docFile.path);
-    print('tempFile : ${tempFile}');
-
-    print('directory : ${directory}');
-
-    print('docFile : ${docFile}');
 
     await tempFile.delete();
 
-    return docFile;
+    return docFile.path;
   }
 
   static showAlertDialog({

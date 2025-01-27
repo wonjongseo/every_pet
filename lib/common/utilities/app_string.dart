@@ -18,10 +18,10 @@ class AppTranslations extends Translations {
           AppString.kakaridukebyouinn: AppString.kakaridukebyouinnJp,
           AppString.hasipitalCtrHintTr: AppString.hasipitalCtrHintJp,
           AppString.hasipitalNumCtrHintTr: AppString.hasipitalNumCtrHintJp,
-          AppString.hiraganaDescription: AppString.hiraganaDescriptionJp,
-          AppString.katakanaDescription: AppString.katakanaDescriptionJp,
+          AppString.nameText: AppString.nameTextJp,
+          AppString.birthDayText: AppString.birthDayTextJp,
           AppString.setting: AppString.settingJp,
-          AppString.initDatas: AppString.initDatasJp,
+          AppString.weightText: AppString.weightTextJp,
           AppString.tipOffMessage: AppString.tipOffMessageJp,
           AppString.toogleMeaning: AppString.toogleMeaningJp,
           AppString.toogleHowToRead: AppString.toogleHowToReadJp,
@@ -130,10 +130,10 @@ class AppTranslations extends Translations {
           AppString.kakaridukebyouinn: AppString.kakaridukebyouinnKr,
           AppString.hasipitalCtrHintTr: AppString.hasipitalCtrHintKr,
           AppString.hasipitalNumCtrHintTr: AppString.hasipitalNumCtrHintKr,
-          AppString.hiraganaDescription: AppString.hiraganaDescriptionKr,
-          AppString.katakanaDescription: AppString.katakanaDescriptionKr,
+          AppString.nameText: AppString.nameTextKr,
+          AppString.birthDayText: AppString.birthDayTextKr,
           AppString.setting: AppString.settingKr,
-          AppString.initDatas: AppString.initDatasKr,
+          AppString.weightText: AppString.weightTextKr,
           AppString.tipOffMessage: AppString.tipOffMessageKr,
           AppString.toogleMeaning: AppString.toogleMeaningKr,
           AppString.toogleHowToRead: AppString.toogleHowToReadKr,
@@ -208,21 +208,21 @@ class AppString {
   static String hasipitalNumCtrHintKr = "";
   static String hasipitalNumCtrHintJp = "病院の番号を入力してください";
 
-  static String hiraganaDescription = "hiraganaDescriptionTr";
-  static String hiraganaDescriptionKr = '왕초보를 위한 히라가나 단어장';
-  static String hiraganaDescriptionJp = "A hiragana kyosei for newbies";
+  static String nameText = "nameTextTr";
+  static String nameTextKr = '이름';
+  static String nameTextJp = "名前";
 
-  static String katakanaDescription = "katakanaDescriptionTr";
-  static String katakanaDescriptionKr = '왕초보를 위한 히라가나 단어장';
-  static String katakanaDescriptionJp = "A hiragana kyosei for newbies";
+  static String birthDayText = "birthDayTextTr";
+  static String birthDayTextKr = '생일';
+  static String birthDayTextJp = "誕生日";
 
   static String setting = "settingTr";
   static String settingKr = '설정';
-  static String settingJp = "Settings";
+  static String settingJp = "設定";
 
-  static String initDatas = "initDatasTr";
-  static String initDatasKr = '데이터 초기화';
-  static String initDatasJp = "Initialize data";
+  static String weightText = "weightTextTr";
+  static String weightTextKr = '체중';
+  static String weightTextJp = "体重";
 
   static String tipOffMessage = "tipOffMessageTr";
   static String tipOffMessageKr = '제보는 개발자에게 아주 큰 힘이 됩니다!';

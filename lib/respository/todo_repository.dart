@@ -33,7 +33,7 @@ class TodoRepository {
     var box = await Hive.openBox<TodoModel>('todos');
 
     // 데이터 읽기
-    print('box.values : ${box.values.length}');
+    print('todo.values : ${box.values.length}');
 
     List<TodoModel> todos = box.values
         // .where((element) => element.petModel!.name == petName)

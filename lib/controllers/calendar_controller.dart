@@ -4,6 +4,7 @@ import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
+import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
 import 'package:every_pet/respository/todo_repository.dart';
@@ -82,15 +83,14 @@ class CalendarController extends GetxController {
 
   List<TodoModel> _todoModels = [];
 
-  // List<TodoModel> get todoModel (String petName) {
-  //  return _todoModels.where((element) => element.petModel!.name == petName).toList();
-
-  // }
-
-  void getTodos(String petName) async {
-    List<TodoModel> tempTodoModel = _todoModels
+  List<TodoModel> getTodoByPetName(String petName) {
+    return _todoModels
         .where((element) => element.petModel!.name == petName)
         .toList();
+  }
+
+  void getTodos(String petName) async {
+    List<TodoModel> tempTodoModel = getTodoByPetName(petName);
     kEvents.clear();
     for (var todoModel in tempTodoModel) {
       if (kEvents[todoModel.dateTime] == null) {
@@ -180,39 +180,63 @@ class CalendarController extends GetxController {
       kEvents[focusedDay] = [];
     }
     for (var selectedProfileIndex in selectedProfileIndexs) {
-      TodoModel todoModel = TodoModel(
+      TodoModel newTodoModel = TodoModel(
         stamps: selectedStamps,
         memo: memo,
         dateTime: focusedDay,
         petModel: petsController.pets![selectedProfileIndex],
       );
 
-      int isSavedIndex = -1;
-      for (var i = 0; i < _todoModels.length; i++) {
-        if (_todoModels[i] == todoModel) {
-          isSavedIndex = i;
+      // int isSavedIndex = -1;
+      TodoModel? savedTodoModel;
+
+      for (var tempTodoModel in _todoModels) {
+        if (tempTodoModel == newTodoModel) {
+          savedTodoModel = tempTodoModel;
           break;
         }
       }
-      if (isSavedIndex == -1) {
-        _todoModels.add(todoModel); // 保存されているTodoがなければ、新規登録
-        todoRepository.saveTodo(todoModel);
+
+      if (savedTodoModel == null) {
+        addTodos(newTodoModel);
       } else {
         // 既存に保存されていれば、アップデート
 
-        if (todoModel.stamps.isEmpty && memo.isEmpty) {
+        if (newTodoModel.stamps.isEmpty && memo.isEmpty) {
           // Stampもメモもなかったら削除
-          await todoRepository.deleteTodo(_todoModels[isSavedIndex]);
-          _todoModels.removeAt(isSavedIndex);
+          await deleteTodo(savedTodoModel);
         } else {
-          _todoModels.removeAt(isSavedIndex);
-          _todoModels.add(todoModel);
-          todoRepository.saveTodo(todoModel);
+          updateTodo(savedTodoModel, newTodoModel);
         }
       }
     }
 
     getTodos(petsController.pets![petsController.petPageIndex].name);
+  }
+
+  Future<void> deleteTodoByPet(PetModel petModel) async {
+    List tempTodoList = List.from(_todoModels);
+    for (var todo in tempTodoList) {
+      if (todo.petModel! == petModel) {
+        await deleteTodo(todo);
+      }
+    }
+  }
+
+  void addTodos(TodoModel newTodoModel) {
+    _todoModels.add(newTodoModel); // 保存されているTodoがなければ、新規登録
+    todoRepository.saveTodo(newTodoModel);
+  }
+
+  void updateTodo(TodoModel savedTodoModel, TodoModel newTodoModel) {
+    _todoModels.remove(savedTodoModel);
+    _todoModels.add(newTodoModel);
+    todoRepository.saveTodo(newTodoModel);
+  }
+
+  Future<void> deleteTodo(TodoModel savedTodoModel) async {
+    await todoRepository.deleteTodo(savedTodoModel);
+    _todoModels.remove(savedTodoModel);
   }
 
   List<TodoModel> getEventsForDay(DateTime day) {

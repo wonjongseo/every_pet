@@ -17,8 +17,8 @@ import 'package:every_pet/common/widgets/short_bar.dart';
 // import 'package:every_pet/event.dart';
 import 'package:every_pet/sample_pages/event_example.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class TodoScreen extends StatelessWidget {
+  const TodoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

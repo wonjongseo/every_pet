@@ -15,7 +15,7 @@ import 'package:every_pet/view/calendar/calendar_screen.dart';
 import 'package:every_pet/view/kcal_caculate_screen.dart';
 import 'package:every_pet/view/main/main_screen.dart';
 import 'package:every_pet/view/profile_screen.dart';
-import 'package:every_pet/view/welcome/welcome_screen.dart';
+import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';

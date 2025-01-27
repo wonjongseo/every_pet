@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/profile_image.dart';
-import 'package:every_pet/view/welcome/widgets/gender_selector.dart';
+import 'package:every_pet/view/enroll/widgets/gender_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -74,7 +74,7 @@ class EnrollScreen extends StatelessWidget {
                               flex: 2,
                               child: Column(
                                 children: [
-                                  ProfileImage(file: controller.imageFile),
+                                  ProfileImage(imagePath: controller.imagePath),
                                   const ImagePickIconRow(),
                                 ],
                               ),
@@ -92,7 +92,7 @@ class EnrollScreen extends StatelessWidget {
                                       focusNode:
                                           controller.nameEditingFocusNode,
                                       textInputAction: TextInputAction.next,
-                                      hintText: AppString.nameCtrHintText.tr,
+                                      hintText: AppString.nameText.tr,
                                       fontSize: Responsive.width16,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
@@ -110,7 +110,7 @@ class EnrollScreen extends StatelessWidget {
                                           controller.weightEditingController,
                                       textInputAction: TextInputAction.next,
                                       keyboardType: TextInputType.number,
-                                      hintText: AppString.weightCtrHint.tr,
+                                      hintText: AppString.weightText.tr,
                                       sufficIcon: const Text('kg'),
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
@@ -129,7 +129,7 @@ class EnrollScreen extends StatelessWidget {
                                       readOnly: true,
                                       controller:
                                           controller.birthDayEditingController,
-                                      hintText: AppString.birthdayCtrHint.tr,
+                                      hintText: AppString.birthDayText.tr,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return AppString.birthdayCtrHint.tr;

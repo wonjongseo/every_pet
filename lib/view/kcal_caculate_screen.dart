@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
-import 'package:every_pet/view/welcome/welcome_screen.dart';
+import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

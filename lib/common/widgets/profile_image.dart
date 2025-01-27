@@ -8,11 +8,13 @@ class ProfileImage extends StatelessWidget {
     this.height,
     this.width,
     this.file,
+    this.imagePath,
   }) : super(key: key);
 
   final double? height;
   final double? width;
   final File? file;
+  final String? imagePath;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,9 +24,9 @@ class ProfileImage extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
-          image: file == null
+          image: imagePath == null
               ? const AssetImage('assets/images/cute_dog.jpg')
-              : FileImage(file!) as ImageProvider,
+              : FileImage(File(imagePath!)) as ImageProvider,
           fit: BoxFit.cover,
         ),
       ),

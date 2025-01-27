@@ -1,9 +1,10 @@
 import 'package:every_pet/controllers/calendar_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
-import 'package:every_pet/view/calendar/calendar_screen.dart';
+import 'package:every_pet/respository/setting_repository.dart';
+import 'package:every_pet/view/todo/todo_screen.dart';
 import 'package:every_pet/view/profile/profile_screen.dart';
-import 'package:every_pet/view/welcome/welcome_screen.dart';
+import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,21 +16,25 @@ class PetsController extends GetxController {
   int petPageIndex = 0;
   late PageController pageController;
   PersistentBottomSheetController? bottomSheetController;
-  int navigationPageIndex = 0;
+  int bottomTapIndex = 0;
 
   List<Widget> body = [
-    HomeScreen(),
+    TodoScreen(),
     Text('栄養画面'),
     Text('費用画面'),
     ProfileScreen()
   ];
 
-  void tapBottomNavigatoinBar(value) {
-    if (value != 0) {
-      closeBottomSheet();
-    }
-    navigationPageIndex = value;
+  void deletePet() async {
+    PetModel petModel = pets![petPageIndex];
 
+    await calendarController.deleteTodoByPet(petModel);
+    await petRepository.deletePet(petModel);
+    pets!.remove(petModel);
+
+    if (petPageIndex != 0) {
+      petPageIndex -= 1;
+    }
     update();
   }
 
@@ -43,6 +48,10 @@ class PetsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    petPageIndex = await SettingRepository.getInt(SettingKey.lastPetIndex);
+    bottomTapIndex =
+        await SettingRepository.getInt(SettingKey.lastBottomTapIndex);
+    print('petPageIndex : ${petPageIndex}');
 
     pageController = PageController(initialPage: petPageIndex);
 
@@ -63,15 +72,27 @@ class PetsController extends GetxController {
     Get.to(() => const EnrollScreen());
   }
 
-  void onClickTopBar(int index) {
-    closeBottomSheet();
+  void onTapTopBar(int index) {
     petPageIndex = index;
     calendarController.getTodos(pets![petPageIndex].name);
     update();
+
+    SettingRepository.setInt(SettingKey.lastPetIndex, petPageIndex);
+  }
+
+  void onTapBottomBar(value) {
+    if (value != 0) {
+      closeBottomSheet();
+    }
+    bottomTapIndex = value;
+
+    update();
+
+    SettingRepository.setInt(SettingKey.lastBottomTapIndex, bottomTapIndex);
   }
 
   Future<void> getPetModals() async {
-    pets = await petRepository.loadDogs();
+    pets = await petRepository.loadPets();
     print('pets : ${pets}');
 
     for (var pet in pets!) {}
@@ -80,7 +101,7 @@ class PetsController extends GetxController {
 
   Future<void> savePetModal(PetModel petModel) async {
     pets!.add(petModel);
-    petRepository.saveDog(petModel);
+    petRepository.savePet(petModel);
     getPetModals();
   }
 }

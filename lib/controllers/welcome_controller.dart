@@ -37,6 +37,9 @@ class EnrollController extends GetxController {
 
   bool isPregnancy = false;
 
+  // File? imageFile;
+  String? imagePath;
+
   void toogleRadio(ANIMAL_TYPE? value) {
     if (value == null) return;
     animalType = value;
@@ -79,18 +82,19 @@ class EnrollController extends GetxController {
     }
 
     String name = nameEditingController.text;
-    File? savedFile = null;
+    String? savedImagePath = null;
 
-    if (imageFile != null) {
-      savedFile =
-          await UtilFunction.saveFileFromTempDirectory(imageFile!, name);
+    if (imagePath != null) {
+      savedImagePath =
+          await UtilFunction.saveFileFromTempDirectory(imagePath!, name);
     }
 
     if (animalType == ANIMAL_TYPE.DOG) {
       DogModel dogModel = DogModel(
         name: name,
         weight: double.parse(weightEditingController.text),
-        imageUrl: imageFile != null && savedFile != null ? savedFile.path : '',
+        imageUrl:
+            imagePath != null && savedImagePath != null ? savedImagePath : '',
         birthDay: birthDay!,
         genderType: genderType,
       );
@@ -99,7 +103,8 @@ class EnrollController extends GetxController {
       CatModel catModel = CatModel(
         name: name,
         weight: double.parse(weightEditingController.text),
-        imageUrl: imageFile != null && savedFile != null ? savedFile.path : '',
+        imageUrl:
+            imagePath != null && savedImagePath != null ? savedImagePath : '',
         birthDay: birthDay!,
         genderType: genderType,
       );
@@ -154,14 +159,13 @@ class EnrollController extends GetxController {
     );
   }
 
-  File? imageFile;
-
   void pickImageFromCamera(BuildContext context) async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
 
       if (image == null) return;
-      imageFile = File(image.path);
+      // imageFile = File(image.path);
+      imagePath = image.path;
 
       update();
     } catch (e) {
@@ -177,7 +181,8 @@ class EnrollController extends GetxController {
 
     File file = await UtilFunction.uint8ListToFile(image);
     // imageGallery = image;
-    imageFile = file;
+    // imageFile = file;
+    imagePath = file.path;
     update();
   }
 }
