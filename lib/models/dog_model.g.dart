@@ -30,7 +30,7 @@ class DogModelAdapter extends TypeAdapter<DogModel> {
   @override
   void write(BinaryWriter writer, DogModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -44,9 +44,7 @@ class DogModelAdapter extends TypeAdapter<DogModel> {
       ..writeByte(5)
       ..write(obj.isPregnancy)
       ..writeByte(6)
-      ..write(obj.weight)
-      ..writeByte(7)
-      ..write(obj.todoModel);
+      ..write(obj.weight);
   }
 
   @override

@@ -84,21 +84,23 @@ class HomeScreen extends StatelessWidget {
 
           headerTitleBuilder: (context, day) {
             final DateFormat dateFormat = DateFormat('yyyy年M月');
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(dateFormat.format(contoller.focusedDay),
-                    style: const TextStyle(fontSize: 16)),
-                TextButton(
-                  onPressed: () {
-                    // setState(() {
-                    //   _focusedDay = DateTime.now();
-                    // })
-                  },
-                  child: const Text('今日'),
-                )
-              ],
-            );
+            return Text(dateFormat.format(contoller.focusedDay),
+                style: const TextStyle(fontSize: 16));
+            // return Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //   children: [
+            //     Text(dateFormat.format(contoller.focusedDay),
+            //         style: const TextStyle(fontSize: 16)),
+            //     TextButton(
+            //       onPressed: () {
+            //         // setState(() {
+            //         //   _focusedDay = DateTime.now();
+            //         // })
+            //       },
+            //       child: const Text('今日'),
+            //     )
+            //   ],
+            // );
           },
         ),
         eventLoader: contoller.getEventsForDay,
@@ -131,8 +133,6 @@ class ColIconButton extends StatelessWidget {
   final bool isActive;
   @override
   Widget build(BuildContext context) {
-    print('isActive : ${isActive}');
-
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(top: Responsive.height10 / 2),

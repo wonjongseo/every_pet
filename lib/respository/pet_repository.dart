@@ -20,9 +20,7 @@ class PetRepository {
 
     print('pet.length : ${pets.length}');
 
-    for (var pet in pets) {
-      print('pet : ${pet}');
-    }
+    for (var pet in pets) {}
     return pets;
   }
 }

@@ -18,7 +18,7 @@ import 'package:intl/intl.dart';
 
 enum ANIMAL_TYPE { DOG, CAT }
 
-class WelcomeController extends GetxController {
+class EnrollController extends GetxController {
   late TextEditingController nameEditingController;
   late TextEditingController birthDayEditingController;
   late TextEditingController weightEditingController;
@@ -47,9 +47,9 @@ class WelcomeController extends GetxController {
 
   @override
   void onInit() {
-    nameEditingController = TextEditingController(text: 'こま');
+    nameEditingController = TextEditingController();
     birthDayEditingController = TextEditingController();
-    weightEditingController = TextEditingController(text: '8');
+    weightEditingController = TextEditingController();
 
     nameEditingFocusNode = FocusNode();
     birthDayEditingFocusNode = FocusNode();
@@ -57,10 +57,13 @@ class WelcomeController extends GetxController {
     super.onInit();
   }
 
+  @override
   PetsController petsController = Get.find<PetsController>();
 
   @override
   void onClose() {
+    super.onClose();
+    print('enrollController onClose');
     nameEditingController.dispose();
     birthDayEditingController.dispose();
     weightEditingController.dispose();
@@ -68,7 +71,6 @@ class WelcomeController extends GetxController {
     nameEditingFocusNode.dispose();
     birthDayEditingFocusNode.dispose();
     weightEditingFocusNode.dispose();
-    super.onClose();
   }
 
   void onClickSaveBtn(BuildContext context) async {
@@ -104,7 +106,7 @@ class WelcomeController extends GetxController {
 
       await petsController.savePetModal(catModel);
     }
-
+    // Get.delete<EnrollController>();
     Get.off(() => const MainScreen());
   }
 

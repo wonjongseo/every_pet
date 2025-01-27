@@ -10,7 +10,7 @@ class GendarSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<WelcomeController>(builder: (controller) {
+    return GetBuilder<EnrollController>(builder: (controller) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

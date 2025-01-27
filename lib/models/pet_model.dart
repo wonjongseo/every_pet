@@ -29,8 +29,8 @@ class PetModel {
   @HiveField(6)
   double weight;
 
-  @HiveField(7)
-  final List<TodoModel> todoModel = [];
+  // @HiveField(7)
+  // final List<TodoModel> todoModel = [];
 
   double getRER() {
     return 0;
@@ -109,7 +109,7 @@ class PetModel {
 
   @override
   String toString() {
-    return 'PetModel(name: $name, weight: $weight, imageUrl: $imageUrl, birthDay: $birthDay, genderType: $genderType, isNeuter: $isNeuter, isPregnancy: $isPregnancy, todoModel: $todoModel)';
+    return 'PetModel(name: $name, weight: $weight, imageUrl: $imageUrl, birthDay: $birthDay, genderType: $genderType, isNeuter: $isNeuter, isPregnancy: $isPregnancy,)';
   }
 
   @override

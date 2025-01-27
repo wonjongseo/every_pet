@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
               ),
             );
           } else if (controller.pets!.isEmpty) {
-            return const WelcomeScreen();
+            return const EnrollScreen();
           } else {
             return const MainScreen();
           }

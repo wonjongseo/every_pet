@@ -8,6 +8,7 @@ import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/view/calendar/calendar_screen.dart';
 import 'package:every_pet/view/calendar/widgets/row_stamp_widget.dart';
+import 'package:every_pet/view/main/main_screen.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -109,11 +110,11 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
   List<StampModel> selectedStamps = [];
   TextEditingController memoController = TextEditingController();
   CalendarController controller = Get.find<CalendarController>();
-
+  List<int> selectedProfileIndexs = [];
   @override
   void initState() {
     selectedStamps = controller.getSavedStampIndex();
-
+    selectedProfileIndexs.add(controller.petsController.petPageIndex);
     setState(() {});
     super.initState();
   }
@@ -129,6 +130,30 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Row(
+          children: List.generate(
+            controller.petsController.pets!.length,
+            (index) {
+              return Padding(
+                padding: EdgeInsets.only(right: Responsive.width22),
+                child: RowPetProfileWidget(
+                  petName: controller.petsController.pets![index].name,
+                  isActive: selectedProfileIndexs.contains(index),
+                  onTap: () {
+                    if (selectedProfileIndexs.contains(index)) {
+                      selectedProfileIndexs.remove(index);
+                    } else {
+                      selectedProfileIndexs.add(index);
+                    }
+                    setState(() {});
+                    print(index);
+                    // controller.petsController.onClickTopBar(index);
+                  },
+                ),
+              );
+            },
+          ),
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -189,6 +214,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                 Get.back(result: {
                   'selectedStamps': selectedStamps,
                   'memo': memoController.text,
+                  'selectedProfileIndexs': selectedProfileIndexs
                 });
               },
               child: const Text('保存'),

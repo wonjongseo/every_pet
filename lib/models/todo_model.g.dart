@@ -20,19 +20,21 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
       stamps: (fields[0] as List).cast<StampModel>(),
       memo: fields[1] as String,
       dateTime: fields[2] as DateTime,
-    );
+    )..petModel = fields[3] as PetModel?;
   }
 
   @override
   void write(BinaryWriter writer, TodoModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.stamps)
       ..writeByte(1)
       ..write(obj.memo)
       ..writeByte(2)
-      ..write(obj.dateTime);
+      ..write(obj.dateTime)
+      ..writeByte(3)
+      ..write(obj.petModel);
   }
 
   @override

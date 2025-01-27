@@ -17,12 +17,12 @@ import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/view/image_picker_screen.dart';
 import 'package:every_pet/view/profile_screen.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+class EnrollScreen extends StatelessWidget {
+  const EnrollScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    WelcomeController controller = Get.put(WelcomeController());
+    EnrollController controller = Get.put(EnrollController());
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +38,7 @@ class WelcomeScreen extends StatelessWidget {
           FocusScope.of(context).unfocus();
         },
         child: SafeArea(
-          child: GetBuilder<WelcomeController>(builder: (controller) {
+          child: GetBuilder<EnrollController>(builder: (controller) {
             return Column(
               children: [
                 Row(
@@ -275,7 +275,7 @@ class ImagePickIconRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WelcomeController controller = Get.find<WelcomeController>();
+    EnrollController controller = Get.find<EnrollController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
