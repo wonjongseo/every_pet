@@ -9,9 +9,11 @@ class PetRepository {
 
     // 데이터 저장
     // await box.add(pet);
-    await box.put(
-        '${pet.name}-${UtilFunction.getDayYYYYMMDD(pet.birthDay)}-${pet.genderType.gender}',
-        pet);
+    // await box.put(
+    //     '${pet.name}-${UtilFunction.getDayYYYYMMDD(pet.birthDay)}-${pet.genderType.gender}',
+    //     pet);
+
+    await box.put(pet.id, pet);
 
     print('pet saved!');
   }
@@ -21,8 +23,9 @@ class PetRepository {
 
     // 데이터 저장
     // await box.add(pet);
-    bool isExistPet = await box.containsKey(
-        '${pet.name}-${UtilFunction.getDayYYYYMMDD(pet.birthDay)}-${pet.genderType.gender}');
+    // bool isExistPet = await box.containsKey(
+    //     '${pet.name}-${UtilFunction.getDayYYYYMMDD(pet.birthDay)}-${pet.genderType.gender}');
+    bool isExistPet = await box.containsKey(pet.id);
 
     return isExistPet;
   }
@@ -31,9 +34,9 @@ class PetRepository {
     var box = await Hive.openBox<PetModel>('pets');
 
     // 데이터 저장
-    await box.delete(
-        '${pet.name}-${UtilFunction.getDayYYYYMMDD(pet.birthDay)}-${pet.genderType.gender}');
-
+    // await box.delete(
+    //     '${pet.name}-${UtilFunction.getDayYYYYMMDD(pet.birthDay)}-${pet.genderType.gender}');
+    await box.delete(pet.id);
     print('Dog Deleted!');
   }
 
@@ -42,11 +45,7 @@ class PetRepository {
 
     // 데이터 읽기
     List<PetModel> pets = box.values.toList();
-    pets.sort((a, b) => a.birthDay.compareTo(b.birthDay));
-
-    for (var pet in pets) {
-      print('pet : ${pet}');
-    }
+    pets.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
     for (var pet in pets) {}
     return pets;

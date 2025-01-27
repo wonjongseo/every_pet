@@ -6,6 +6,7 @@ import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:get/get.dart';
 
 class ProfileController extends EnrollController {
@@ -31,16 +32,23 @@ class ProfileController extends EnrollController {
     nameEditingFocusNode = FocusNode();
     birthDayEditingFocusNode = FocusNode();
     weightEditingFocusNode = FocusNode();
+    isPregnancy = pet.isPregnancy ?? false;
+    isNeuter = pet.isNeuter ?? false;
   }
 
   void updatePet(PetModel oldPetModel) {
     // String oldPetKey =
     //     '${oldPetModel.name}-${UtilFunction.getDayYYYYMMDD(oldPetModel.birthDay)}-${oldPetModel.genderType.gender}';
 
-    print(nameEditingController.text);
-
-    print(birthDayEditingController.text);
-
-    print(weightEditingController.text);
+    PetModel newPetModel = PetModel(
+      name: nameEditingController.text,
+      imageUrl: '', // TODO
+      birthDay: birthDay ?? oldPetModel.birthDay,
+      genderType: genderType,
+      weight: double.parse(weightEditingController.text),
+      isNeuter: isNeuter,
+      isPregnancy: isPregnancy,
+    );
+    petsController.updatePetModel(oldPetModel, newPetModel);
   }
 }

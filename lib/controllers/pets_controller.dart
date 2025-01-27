@@ -21,7 +21,7 @@ class PetsController extends GetxController {
   PersistentBottomSheetController? bottomSheetController;
   int bottomTapIndex = 0;
 
-  List<Widget> body = [
+  List<Widget> body = const [
     TodoScreen(),
     Text('栄養画面'),
     Text('費用画面'),
@@ -120,12 +120,21 @@ class PetsController extends GetxController {
     update();
   }
 
-  void updaetPetModel(PetModel oldPet, PetModel newPet) {
-    for (var i = 0; i < pets!.length; i++) {
-      if (pets![i] == oldPet) {
-        pets![i] = newPet;
-      }
-    }
+  void updatePetModel(PetModel oldPet, PetModel newPet) {
+    oldPet.name = newPet.name;
+    oldPet.imageUrl = newPet.imageUrl;
+    oldPet.birthDay = newPet.birthDay;
+    oldPet.genderType = newPet.genderType;
+    oldPet.isNeuter = newPet.isNeuter;
+    oldPet.isPregnancy = newPet.isPregnancy;
+    oldPet.weight = newPet.weight;
+
+    print('FUNC');
+
+    print('oldPet : ${oldPet}');
+    petRepository.savePet(oldPet);
+    scrollGoToTop();
+    update();
   }
 
   Future<void> savePetModal(PetModel petModel) async {

@@ -15,10 +15,10 @@ class PetModel {
   String imageUrl;
 
   @HiveField(2)
-  final DateTime birthDay;
+  DateTime birthDay;
 
   @HiveField(3)
-  final GENDER_TYPE genderType;
+  GENDER_TYPE genderType;
 
   @HiveField(4)
   bool? isNeuter;
@@ -28,6 +28,12 @@ class PetModel {
 
   @HiveField(6)
   double weight;
+
+  @HiveField(7)
+  late String id;
+
+  @HiveField(8)
+  late DateTime createdAt;
 
   // @HiveField(7)
   // final List<TodoModel> todoModel = [];
@@ -48,7 +54,10 @@ class PetModel {
     required this.weight,
     this.isNeuter,
     this.isPregnancy,
-  });
+  }) {
+    id = DateTime.now().millisecondsSinceEpoch.toString();
+    createdAt = DateTime.now();
+  }
 
   PetModel copyWith({
     String? name,
@@ -77,6 +86,7 @@ class PetModel {
     result.addAll({'imageUrl': imageUrl});
     result.addAll({'birthDay': birthDay.millisecondsSinceEpoch});
     result.addAll({'weight': weight});
+    result.addAll({'id': id});
     result.addAll(
         {'genderType': genderType == GENDER_TYPE.MALE ? 'male' : 'female'});
     if (isNeuter != null) {
@@ -109,7 +119,7 @@ class PetModel {
 
   @override
   String toString() {
-    return 'PetModel(name: $name, weight: $weight, imageUrl: $imageUrl, birthDay: $birthDay, genderType: $genderType, isNeuter: $isNeuter, isPregnancy: $isPregnancy,)';
+    return 'PetModel(id: $id, name: $name, weight: $weight, imageUrl: $imageUrl, birthDay: $birthDay, genderType: $genderType, isNeuter: $isNeuter, isPregnancy: $isPregnancy,)';
   }
 
   @override
@@ -123,6 +133,7 @@ class PetModel {
         other.genderType == genderType &&
         other.isNeuter == isNeuter &&
         other.weight == weight &&
+        other.id == id &&
         other.isPregnancy == isPregnancy;
   }
 
@@ -134,6 +145,7 @@ class PetModel {
         weight.hashCode ^
         genderType.hashCode ^
         isNeuter.hashCode ^
+        id.hashCode ^
         isPregnancy.hashCode;
   }
 }

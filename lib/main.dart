@@ -1,7 +1,5 @@
-import 'package:every_pet/common/theme/dark_theme.dart';
 import 'package:every_pet/common/theme/light_theme.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
-import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
@@ -9,9 +7,6 @@ import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
 
 import 'package:every_pet/view/splash_screen.dart';
-import 'package:every_pet/view/kcal_caculate_screen.dart';
-import 'package:every_pet/view/main/main_screen.dart';
-import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';

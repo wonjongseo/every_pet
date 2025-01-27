@@ -19,11 +19,11 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfileController());
+    ProfileController controller = Get.put(ProfileController());
     return GetBuilder<PetsController>(builder: (petController) {
       PetModel pet = petController.pets![petController.petPageIndex];
+      controller.loadPetInfo(pet);
       return GetBuilder<ProfileController>(builder: (controller) {
-        controller.loadPetInfo(pet);
         return Center(
           child: SingleChildScrollView(
             controller: petController.scrollController,

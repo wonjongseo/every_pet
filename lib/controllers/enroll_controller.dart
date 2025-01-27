@@ -184,9 +184,7 @@ class EnrollController extends GetxController {
       showTitleActions: true,
       minTime: DateTime(DateTime.now().year - 20),
       maxTime: DateTime.now(),
-      onChanged: (date) {
-        print('change $date');
-      },
+      onChanged: (date) {},
       onConfirm: (date) {
         birthDay = date;
         birthDayEditingController.text = UtilFunction.getDayYYYYMMDD(birthDay!);
