@@ -212,6 +212,7 @@ class EnrollController extends GetxController {
   }
 
   void goToImagePickerScreen() async {
+    imagePath = null;
     final image = await Get.to(() => ImagePickerScreen());
     if (image == null) return;
 

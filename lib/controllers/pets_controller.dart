@@ -129,9 +129,6 @@ class PetsController extends GetxController {
     oldPet.isPregnancy = newPet.isPregnancy;
     oldPet.weight = newPet.weight;
 
-    print('FUNC');
-
-    print('oldPet : ${oldPet}');
     petRepository.savePet(oldPet);
     scrollGoToTop();
     update();

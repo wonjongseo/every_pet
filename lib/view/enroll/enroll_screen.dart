@@ -5,6 +5,7 @@ import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/view/enroll/widgets/gender_selector.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -58,211 +59,220 @@ class EnrollScreenBody extends StatelessWidget {
   final EnrollController controller;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: RadioListTile(
-                title: const Text('犬'),
-                value: PET_TYPE.DOG,
-                groupValue: controller.petType,
-                onChanged: controller.toogleRadio,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: RadioListTile(
+                  title: const Text('犬'),
+                  value: PET_TYPE.DOG,
+                  groupValue: controller.petType,
+                  onChanged: controller.toogleRadio,
+                ),
               ),
-            ),
-            Expanded(
-              child: RadioListTile(
-                title: const Text('猫'),
-                value: PET_TYPE.CAT,
-                groupValue: controller.petType,
-                onChanged: controller.toogleRadio,
+              Expanded(
+                child: RadioListTile(
+                  title: const Text('猫'),
+                  value: PET_TYPE.CAT,
+                  groupValue: controller.petType,
+                  onChanged: controller.toogleRadio,
+                ),
               ),
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          ProfileImage(
-                            imagePath: controller.imagePath,
-                            isDog: controller.petType == PET_TYPE.DOG,
-                          ),
-                          ImagePickIconRow(
-                            onClickCamaraIcon: () {
-                              controller.pickImageFromCamera(context);
-                            },
-                            onClickFolderIcon: controller.goToImagePickerScreen,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: Responsive.width10),
-                    Expanded(
-                      flex: 5,
-                      child: Form(
-                        key: controller.formKey,
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
                         child: Column(
                           children: [
-                            CustomTextField(
-                              controller: controller.nameEditingController,
-                              focusNode: controller.nameEditingFocusNode,
-                              textInputAction: TextInputAction.next,
-                              hintText: AppString.nameText.tr,
-                              fontSize: Responsive.width16,
-                              validator: controller.nameValidator,
+                            ProfileImage(
+                              imagePath: controller.imagePath,
+                              isDog: controller.petType == PET_TYPE.DOG,
                             ),
-                            SizedBox(height: Responsive.height14),
-                            CustomTextField(
-                              focusNode: controller.weightEditingFocusNode,
-                              fontSize: Responsive.width16,
-                              controller: controller.weightEditingController,
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.number,
-                              hintText: AppString.weightText.tr,
-                              sufficIcon: const Text('kg'),
-                              validator: controller.weightValidator,
-                            ),
-                            SizedBox(height: Responsive.height14),
-                            CustomTextField(
-                              onTap: () =>
-                                  controller.selectBirthDayPicker(context),
-                              fontSize: Responsive.width16,
-                              focusNode: controller.birthDayEditingFocusNode,
-                              readOnly: true,
-                              controller: controller.birthDayEditingController,
-                              hintText: AppString.birthDayText.tr,
-                              validator: controller.birthDayValidator,
+                            ImagePickIconRow(
+                              onClickCamaraIcon: () {
+                                controller.pickImageFromCamera(context);
+                              },
+                              onClickFolderIcon:
+                                  controller.goToImagePickerScreen,
                             ),
                           ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Divider(height: Responsive.height10 * 4),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Responsive.width10),
-                  child: Column(
-                    children: [
-                      GendarSelector(
-                        genderType: controller.genderType,
-                        onChangeGender: controller.onChangeGendar,
-                      ),
-                      SizedBox(height: Responsive.height10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            controller.genderType == GENDER_TYPE.MALE
-                                ? AppString.fuinnTr.tr
-                                : AppString.fuinnTr.tr,
-                            style: TextStyle(
-                              fontSize: Responsive.width16,
-                              fontWeight: FontWeight.w500,
-                            ),
+                      SizedBox(width: Responsive.width20),
+                      Expanded(
+                        flex: 5,
+                        child: Form(
+                          key: controller.formKey,
+                          child: Column(
+                            children: [
+                              CustomTextField(
+                                controller: controller.nameEditingController,
+                                focusNode: controller.nameEditingFocusNode,
+                                textInputAction: TextInputAction.next,
+                                hintText: AppString.nameText.tr,
+                                fontSize: Responsive.width16,
+                                validator: controller.nameValidator,
+                              ),
+                              SizedBox(height: Responsive.height14),
+                              CustomTextField(
+                                focusNode: controller.weightEditingFocusNode,
+                                fontSize: Responsive.width16,
+                                controller: controller.weightEditingController,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                hintText: AppString.weightText.tr,
+                                sufficIcon: const Text('kg'),
+                                validator: controller.weightValidator,
+                              ),
+                              SizedBox(height: Responsive.height14),
+                              CustomTextField(
+                                onTap: () =>
+                                    controller.selectBirthDayPicker(context),
+                                fontSize: Responsive.width16,
+                                focusNode: controller.birthDayEditingFocusNode,
+                                readOnly: true,
+                                controller:
+                                    controller.birthDayEditingController,
+                                hintText: AppString.birthDayText.tr,
+                                validator: controller.birthDayValidator,
+                              ),
+                            ],
                           ),
-                          Transform.scale(
-                            scale: 1.25,
-                            child: Checkbox(
-                              value: controller.isNeuter,
-                              onChanged: controller.toggleNeuter,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: Responsive.height10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            AppString.pregentTextTr.tr,
-                            style: TextStyle(
-                              fontSize: Responsive.width16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Transform.scale(
-                            scale: 1.25,
-                            child: Checkbox(
-                              value: controller.genderType == GENDER_TYPE.FEMALE
-                                  ? controller.isPregnancy
-                                  : false,
-                              onChanged:
-                                  controller.genderType == GENDER_TYPE.FEMALE
-                                      ? controller.togglePregnancy
-                                      : null,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                            ),
-                          )
-                        ],
+                        ),
                       ),
                     ],
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Divider(),
-                ),
-                SizedBox(height: Responsive.height10 * 2),
-                Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  Divider(height: Responsive.height10 * 4),
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Responsive.width10),
+                    child: Column(
                       children: [
-                        Container(
-                          width: Responsive.width10 * 2.5,
-                          height: Responsive.width10 * 2.5,
-                          decoration: BoxDecoration(
-                            color: AppColors.greenDark,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(Responsive.width10 * .4),
-                            ),
-                          ),
+                        GendarSelector(
+                          genderType: controller.genderType,
+                          onChangeGender: controller.onChangeGendar,
                         ),
-                        SizedBox(width: Responsive.width10 / 2),
-                        Text(
-                          AppString.kakaridukebyouinn.tr,
-                          style: TextStyle(
-                            fontSize: Responsive.width18,
-                          ),
-                        )
+                        SizedBox(height: Responsive.height10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              controller.genderType == GENDER_TYPE.MALE
+                                  ? AppString.kyoseiJp.tr
+                                  : AppString.fuinnTr.tr,
+                              style: TextStyle(
+                                fontSize: Responsive.width16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Transform.scale(
+                              scale: 1.25,
+                              child: Checkbox(
+                                value: controller.isNeuter,
+                                onChanged: controller.toggleNeuter,
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(height: Responsive.height10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              AppString.pregentTextTr.tr,
+                              style: TextStyle(
+                                fontSize: Responsive.width16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            Transform.scale(
+                              scale: 1.25,
+                              child: Checkbox(
+                                value:
+                                    controller.genderType == GENDER_TYPE.FEMALE
+                                        ? controller.isPregnancy
+                                        : false,
+                                onChanged:
+                                    controller.genderType == GENDER_TYPE.FEMALE
+                                        ? controller.togglePregnancy
+                                        : null,
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: Responsive.width10,
-                        vertical: Responsive.height10,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Divider(),
+                  ),
+                  SizedBox(height: Responsive.height10 * 2),
+                  Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: Responsive.width10 * 2.5,
+                            height: Responsive.width10 * 2.5,
+                            decoration: BoxDecoration(
+                              color: AppColors.greenDark,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(Responsive.width10 * .4),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: Responsive.width10 / 2),
+                          Text(
+                            AppString.kakaridukebyouinn.tr,
+                            style: TextStyle(
+                              fontSize: Responsive.width18,
+                            ),
+                          )
+                        ],
                       ),
-                      child: CustomTextField(
-                        hintText: AppString.hasipitalCtrHintTr.tr,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: Responsive.width10,
+                          vertical: Responsive.height10,
+                        ),
+                        child: CustomTextField(
+                          hintText: AppString.hasipitalCtrHintTr.tr,
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: Responsive.width10),
-                      child: CustomTextField(
-                        hintText: AppString.hasipitalNumCtrHintTr.tr,
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Responsive.width10),
+                        child: CustomTextField(
+                          hintText: AppString.hasipitalNumCtrHintTr.tr,
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
 
     // return GetBuilder<EnrollController>(builder: (controller) {

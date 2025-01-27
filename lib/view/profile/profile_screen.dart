@@ -57,7 +57,7 @@ class ProfileScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.redAccent,
                         ),
-                        onPressed: petController.deletePet,
+                        onPressed: () => controller.deletePet(pet.name),
                         child: Text(
                           '削除',
                           style: TextStyle(

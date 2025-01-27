@@ -2,7 +2,7 @@ import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:flutter/material.dart';
 
 extension ExtendedTheme on BuildContext {
-  CustomThemeExtension get theme {
+  CustomThemeExtension get exTheme {
     return Theme.of(this).extension<CustomThemeExtension>()!;
   }
 }

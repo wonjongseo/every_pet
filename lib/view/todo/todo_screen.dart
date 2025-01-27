@@ -24,6 +24,7 @@ class TodoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<CalendarController>(builder: (contoller) {
       return TableCalendar(
+        locale: Get.locale.toString(),
         shouldFillViewport: true,
         firstDay: contoller.kFirstDay,
         lastDay: contoller.kLastDay,
@@ -58,7 +59,7 @@ class TodoScreen extends StatelessWidget {
 
           singleMarkerBuilder: (context, day, focusedDay) {
             if ((focusedDay as TodoModel).stamps.isEmpty) return null;
-            return Container(
+            return SizedBox(
               width: Responsive.width10 * 2.5,
               height: Responsive.width10 * 2.5,
               child: GridView.builder(
@@ -82,26 +83,11 @@ class TodoScreen extends StatelessWidget {
           //   return Text('markerBuilder');
           // },
 
-          headerTitleBuilder: (context, day) {
-            final DateFormat dateFormat = DateFormat('yyyy年M月');
-            return Text(dateFormat.format(contoller.focusedDay),
-                style: const TextStyle(fontSize: 16));
-            // return Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //   children: [
-            //     Text(dateFormat.format(contoller.focusedDay),
-            //         style: const TextStyle(fontSize: 16)),
-            //     TextButton(
-            //       onPressed: () {
-            //         // setState(() {
-            //         //   _focusedDay = DateTime.now();
-            //         // })
-            //       },
-            //       child: const Text('今日'),
-            //     )
-            //   ],
-            // );
-          },
+          // headerTitleBuilder: (context, day) {
+          //   final DateFormat dateFormat = DateFormat('yyyy年M月');
+          //   return Text(dateFormat.format(contoller.focusedDay),
+          //       style: const TextStyle(fontSize: 16));
+          // },
         ),
         eventLoader: contoller.getEventsForDay,
         onFormatChanged: contoller.onFormatChanged,

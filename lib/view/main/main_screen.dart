@@ -143,13 +143,16 @@ class MainScreen extends StatelessWidget {
                 ),
                 const Divider(),
                 Expanded(
-                  child: PageView.builder(
-                    itemCount: petsController.pets!.length,
-                    itemBuilder: (context, index) {
-                      return petsController.body[petsController.bottomTapIndex];
-                    },
-                  ),
-                ),
+                  child: petsController.body[petsController.bottomTapIndex],
+                )
+                // Expanded(
+                //   child: PageView.builder(
+                //     itemCount: petsController.pets!.length,
+                //     itemBuilder: (context, index) {
+                //       return petsController.body[petsController.bottomTapIndex];
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:every_pet/common/extension/custom_theme_extension.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -21,6 +22,7 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.focusNode,
     this.textInputAction,
+    this.inputFormatters,
   });
 
   final TextEditingController? controller;
@@ -38,11 +40,12 @@ class CustomTextField extends StatelessWidget {
   final int? maxLength;
   final int? maxLines;
   final String? Function(String?)? validator;
-
+  final List<TextInputFormatter>? inputFormatters;
   final TextInputAction? textInputAction;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      inputFormatters: inputFormatters,
       textInputAction: textInputAction,
       focusNode: focusNode,
       maxLines: maxLines,
@@ -63,7 +66,7 @@ class CustomTextField extends StatelessWidget {
         prefixText: prefixText,
         suffix: sufficIcon,
         hintText: hintText,
-        hintStyle: TextStyle(color: context.theme.greyColor),
+        hintStyle: TextStyle(color: context.exTheme.greyColor),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             color: AppColors.greenDark,

@@ -23,9 +23,9 @@ class AppTranslations extends Translations {
           AppString.setting: AppString.settingJp,
           AppString.weightText: AppString.weightTextJp,
           AppString.duplicateName: AppString.duplicateNameJp,
-          AppString.toogleMeaning: AppString.toogleMeaningJp,
-          AppString.toogleHowToRead: AppString.toogleHowToReadJp,
-          AppString.loadingDatas: AppString.loadingDatasJp,
+          AppString.monthText: AppString.monthTextJp,
+          AppString.yearText: AppString.yearTextJp,
+          AppString.dayText: AppString.dayTextJp,
           //
           AppString.quiz: AppString.quizJp,
           AppString.selectAll: AppString.selectAllJp,
@@ -135,9 +135,9 @@ class AppTranslations extends Translations {
           AppString.setting: AppString.settingKr,
           AppString.weightText: AppString.weightTextKr,
           AppString.duplicateName: AppString.duplicateNameKr,
-          AppString.toogleMeaning: AppString.toogleMeaningKr,
-          AppString.toogleHowToRead: AppString.toogleHowToReadKr,
-          AppString.loadingDatas: AppString.loadingDatasKr,
+          AppString.monthText: AppString.monthTextKr,
+          AppString.yearText: AppString.yearTextKr,
+          AppString.dayText: AppString.dayTextKr,
           AppString.quiz: AppString.quizKr,
           AppString.selectAll: AppString.selectAllKr,
           AppString.chapter: AppString.chapterKr,
@@ -228,17 +228,17 @@ class AppString {
   static String duplicateNameKr = '는 이미 등록된 이름입니다.';
   static String duplicateNameJp = "は既に登録された名前です";
 
-  static String toogleMeaning = "toogleMeaningTr";
-  static String toogleMeaningKr = '뜻 가리기';
-  static String toogleMeaningJp = "Toogle Mean";
+  static String yearText = "yearTextTr";
+  static String yearTextKr = '년';
+  static String yearTextJp = "年";
 
-  static String toogleHowToRead = "toogleHowToReadTr";
-  static String toogleHowToReadKr = '읽는 법 가리기';
-  static String toogleHowToReadJp = "Toogle Pron";
+  static String monthText = "monthTextTr";
+  static String monthTextKr = '월';
+  static String monthTextJp = "月";
 
-  static String loadingDatas = "loadingDatasTr";
-  static String loadingDatasKr = '데이터를 불러오는 중 입니다.';
-  static String loadingDatasJp = "Loading Data.";
+  static String dayText = "dayTextTr";
+  static String dayTextKr = '일';
+  static String dayTextJp = "日";
 
   static String quiz = "quizTr";
   static String quizKr = '퀴즈!';

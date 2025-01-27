@@ -63,168 +63,135 @@ class _StampCustomScreenState extends State<StampCustomScreen> {
           Get.back(result: returnStamps);
         }),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: Responsive.width20,
-            bottom: Responsive.width20,
-            left: Responsive.width20,
-            right: Responsive.width10,
-          ),
-          child: Column(
-            children: [
-              Column(
-                children: List.generate(
-                  controller.stamps.length,
-                  (index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              color: AppColors.blueLight.withOpacity(.5),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Image.asset(
-                              controller.stamps[index].getIcon(),
-                            ),
-                          ),
-                          SizedBox(width: Responsive.width10),
-                          Expanded(
-                            child: CustomTextField(
-                              controller: textEditingControllers[index],
-                              maxLines: 1,
-                            ),
-                          ),
-                          Checkbox(
-                            value: controller.stamps[index].isVisible,
-                            onChanged: (v) => controller.toogleVisualbe(index),
-                          ),
-                          if (controller.stamps[index].isCustom)
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.remove),
-                            )
-                        ],
-                      ),
-                      // child: RowStampWidget(
-                      //   stamp: controller.stamps[index],
-                      // ),
-                    );
-                  },
-                ),
-              ),
-              if (newTextEditingControllers != null)
+      body: GetBuilder<StampController>(builder: (controller) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: Responsive.width20,
+              bottom: Responsive.width20,
+              left: Responsive.width20,
+              right: Responsive.width10,
+            ),
+            child: Column(
+              children: [
                 Column(
-                  children:
-                      List.generate(newTextEditingControllers!.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          // DropdownButton(
-                          //   items: [
-                          //     DropdownMenuItem(
-                          //       value: 'a',
-                          //       child: Container(
-                          //         height: 40,
-                          //         width: 40,
-                          //         decoration: BoxDecoration(
-                          //           color:
-                          //               AppColors.blueLight.withOpacity(.5),
-                          //           shape: BoxShape.circle,
-                          //         ),
-                          //         child: Image.asset(
-                          //           controller.stamps[0].getIcon(),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     DropdownMenuItem(
-                          //       value: 'b',
-                          //       child: Container(
-                          //         height: 40,
-                          //         width: 40,
-                          //         decoration: BoxDecoration(
-                          //           color:
-                          //               AppColors.blueLight.withOpacity(.5),
-                          //           shape: BoxShape.circle,
-                          //         ),
-                          //         child: Image.asset(
-                          //           controller.stamps[1].getIcon(),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ],
-                          //   onChanged: (v) {
-                          //     setState(() {});
-                          //   },
-                          // ),
-
-                          DropdownButton(
-                              value: newStamp![index].iconIndex,
-                              items: List.generate(
-                                controller.addstampsIcon.length,
-                                (index) {
-                                  return DropdownMenuItem(
-                                    value: controller
-                                        .addstampsIcon[index].iconIndex,
-                                    child: Container(
-                                      width: 40,
-                                      height: 40,
-                                      child: Image.asset(controller
-                                          .addstampsIcon[index]
-                                          .getIcon()),
-                                    ),
-                                  );
-                                },
+                  children: List.generate(
+                    controller.stamps.length,
+                    (index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                color: AppColors.blueLight.withOpacity(.5),
+                                shape: BoxShape.circle,
                               ),
-                              onChanged: (v) {
-                                newStamp![index].iconIndex = v!;
-                                setState(() {});
-                              }),
-                          SizedBox(width: Responsive.width10),
-                          Expanded(
-                            child: CustomTextField(
-                              controller: newTextEditingControllers![index],
+                              child: Image.asset(
+                                controller.stamps[index].getIcon(),
+                              ),
                             ),
-                          ),
-                          Checkbox(
-                            value: controller.stamps[index].isVisible,
-                            onChanged: (v) => controller.toogleVisualbe(index),
-                          )
-                        ],
-                      ),
-                    );
-                  }),
+                            SizedBox(width: Responsive.width10),
+                            Expanded(
+                              child: CustomTextField(
+                                controller: textEditingControllers[index],
+                                maxLines: 1,
+                              ),
+                            ),
+                            Checkbox(
+                              value: controller.stamps[index].isVisible,
+                              onChanged: (v) =>
+                                  controller.toogleVisualbe(index),
+                            ),
+                            if (controller.stamps[index].isCustom)
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.remove),
+                              )
+                          ],
+                        ),
+                        // child: RowStampWidget(
+                        //   stamp: controller.stamps[index],
+                        // ),
+                      );
+                    },
+                  ),
                 ),
-              TextButton(
-                  onPressed: () {
-                    if (newTextEditingControllers == null) {
-                      newTextEditingControllers = [];
-                    }
-                    if (newStamp == null) {
-                      newStamp = [];
-                    }
+                if (newTextEditingControllers != null)
+                  Column(
+                    children: List.generate(newTextEditingControllers!.length,
+                        (index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            DropdownButton(
+                                value: newStamp![index].iconIndex,
+                                items: List.generate(
+                                  controller.addstampsIcon.length,
+                                  (index) {
+                                    return DropdownMenuItem(
+                                      value: controller
+                                          .addstampsIcon[index].iconIndex,
+                                      child: Container(
+                                        width: Responsive.width10 * 4,
+                                        height: Responsive.width10 * 4,
+                                        child: Image.asset(controller
+                                            .addstampsIcon[index]
+                                            .getIcon()),
+                                      ),
+                                    );
+                                  },
+                                ),
+                                onChanged: (v) {
+                                  newStamp![index].iconIndex = v!;
+                                  setState(() {});
+                                }),
+                            SizedBox(width: Responsive.width10),
+                            Expanded(
+                              child: CustomTextField(
+                                controller: newTextEditingControllers![index],
+                                maxLines: 1,
+                              ),
+                            ),
+                            Checkbox(
+                              value: controller.stamps[index].isVisible,
+                              onChanged: (v) =>
+                                  controller.toogleVisualbe(index),
+                            )
+                          ],
+                        ),
+                      );
+                    }),
+                  ),
+                TextButton(
+                    onPressed: () {
+                      if (newTextEditingControllers == null) {
+                        newTextEditingControllers = [];
+                      }
+                      if (newStamp == null) {
+                        newStamp = [];
+                      }
 
-                    newStamp!.add(
-                      StampModel(
-                        name: '',
-                        iconIndex: 8,
-                        isVisible: true,
-                        isCustom: true,
-                      ),
-                    );
-                    newTextEditingControllers!.add(TextEditingController());
-                    setState(() {});
-                  },
-                  child: Text('追加')),
-            ],
+                      newStamp!.add(
+                        StampModel(
+                          name: '',
+                          iconIndex: 8,
+                          isVisible: true,
+                          isCustom: true,
+                        ),
+                      );
+                      newTextEditingControllers!.add(TextEditingController());
+                      setState(() {});
+                    },
+                    child: Text('追加')),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
       // body: GetBuilder<StampController>(
       //   builder: (controller) {
       //     return SingleChildScrollView(
