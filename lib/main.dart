@@ -72,10 +72,6 @@ Future<void> initHive() async {
     Hive.registerAdapter(CatModelAdapter());
   }
 
-  if (!Hive.isAdapterRegistered(AppConstant.catModelHiveId)) {
-    Hive.registerAdapter(CatModelAdapter());
-  }
-
   if (!Hive.isAdapterRegistered(AppConstant.makerModelHiveId)) {
     Hive.registerAdapter(MakerModelAdapter());
   }
@@ -83,8 +79,8 @@ Future<void> initHive() async {
   if (!Hive.isAdapterRegistered(AppConstant.handmadeModelHiveId)) {
     Hive.registerAdapter(HandmadeModelAdapter());
   }
-
-  if (!Hive.isAdapterRegistered(AppConstant.nutritionModelHiveId)) {
-    Hive.registerAdapter(NutritionModelAdapter());
-  }
+  Hive.registerAdapter(NutritionModelAdapter());
+  // if (!Hive.isAdapterRegistered(AppConstant.nutritionModelHiveId)) {
+  //   Hive.registerAdapter(NutritionModelAdapter());
+  // }
 }

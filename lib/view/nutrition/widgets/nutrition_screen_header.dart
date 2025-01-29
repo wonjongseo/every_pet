@@ -50,7 +50,7 @@ class NutritionScreenHeader extends StatelessWidget {
                       ),
                       TextSpan(
                         text: pet.genderType == GENDER_TYPE.MALE
-                            ? AppString.sufficMaleTextTr.tr
+                            ? AppString.sufficMaleText.tr
                             : AppString.sufficFeMaleTextTr.tr,
                         style: TextStyle(
                           color: AppColors.primaryColor,
@@ -119,7 +119,7 @@ class NutritionScreenHeader extends StatelessWidget {
                         fontSize: Responsive.width14,
                       ),
                     ),
-                    Text('${pet.getDER()}kcal'),
+                    Text('${pet.getRER()}kcal'),
                   ],
                 ),
               ),
@@ -137,7 +137,7 @@ class NutritionScreenHeader extends StatelessWidget {
                         fontSize: Responsive.width14,
                       ),
                     ),
-                    Text('${pet.getRER()}kcal'),
+                    Text('${pet.getDER()}kcal'),
                   ],
                 ),
               ),

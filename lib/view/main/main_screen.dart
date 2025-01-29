@@ -78,12 +78,16 @@ class MainScreen extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(
-            onPressed: petsController.goToEnrollScreen,
-            style: IconButton.styleFrom(
-                backgroundColor: AppColors.primaryColor,
-                foregroundColor: AppColors.backgroundLight),
-            icon: const Icon(Icons.add),
+          InkWell(
+            onTap: petsController.goToEnrollScreen,
+            // style: IconButton.styleFrom(
+            //     backgroundColor: AppColors.primaryColor,
+            //     foregroundColor: AppColors.backgroundLight),
+            // icon: const Icon(Icons.add),
+            child: Image.asset(
+              AppImagePath.circleAddBtn,
+              width: Responsive.width10 * 5,
+            ),
           )
         ],
       ),

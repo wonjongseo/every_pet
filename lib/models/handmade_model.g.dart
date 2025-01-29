@@ -8,7 +8,7 @@ part of 'handmade_model.dart';
 
 class HandmadeModelAdapter extends TypeAdapter<HandmadeModel> {
   @override
-  final int typeId = 7;
+  final int typeId = 8;
 
   @override
   HandmadeModel read(BinaryReader reader) {

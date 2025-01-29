@@ -49,7 +49,7 @@ class AppTranslations extends Translations {
           AppString.stamp6Tr: AppString.stamp6Jp,
           AppString.stamp7Tr: AppString.stamp7Jp,
           AppString.stamp8Tr: AppString.stamp8Jp,
-          AppString.sufficMaleTextTr: AppString.sufficMaleTextJp,
+          AppString.sufficMaleText: AppString.sufficMaleTextJp,
 
           AppString.sufficFeMaleTextTr: AppString.sufficFeMaleTextJp,
           AppString.ageYearTextTr: AppString.ageYearTextJp,
@@ -84,11 +84,11 @@ class AppTranslations extends Translations {
           AppString.proteinText: AppString.proteinTextJp,
 
           AppString.calculateKcalText: AppString.calculateKcalTextJp,
-          AppString.howToUseMsg3: AppString.howToUseMsg3Jp,
-          AppString.howToUseMsg4: AppString.howToUseMsg4Jp,
-          AppString.howToUseMsg5: AppString.howToUseMsg5Jp,
-          AppString.howToUseMsg6: AppString.howToUseMsg6Jp,
-          AppString.howToUseMsg7: AppString.howToUseMsg7Jp,
+          AppString.riceText: AppString.riceTextJp,
+          AppString.potatoText: AppString.potatoTextJp,
+          AppString.sweetPotatoText: AppString.sweetPotatoTextJp,
+          AppString.pumpkinText: AppString.pumpkinTextJp,
+          AppString.chickenbreastText: AppString.chickenbreastTextJp,
           AppString.howToUseMsg8: AppString.howToUseMsg8Jp,
 
           AppString.howToUseMsg8: AppString.howToUseMsg8Jp,
@@ -155,7 +155,7 @@ class AppTranslations extends Translations {
           AppString.stamp6Tr: AppString.stamp6Kr,
           AppString.stamp7Tr: AppString.stamp7Kr,
           AppString.stamp8Tr: AppString.stamp8Kr,
-          AppString.sufficMaleTextTr: AppString.sufficMaleTextKr,
+          AppString.sufficMaleText: AppString.sufficMaleTextKr,
           AppString.tekiryouKcalTextTr: AppString.tekiryouKcalTextKr,
           AppString.ageYearTextTr: AppString.ageYearTextKr,
           AppString.derTextTr: AppString.derTextKr,
@@ -346,7 +346,7 @@ class AppString {
   static String stamp8Kr = '필라리아';
   static String stamp8Jp = "フィライア";
 
-  static String sufficMaleTextTr = "sufficMaleTextTr";
+  static String sufficMaleText = "sufficMaleTextTr";
   static String sufficMaleTextKr = ' 군';
   static String sufficMaleTextJp = " くん";
 
@@ -466,30 +466,25 @@ class AppString {
   static String calculateKcalTextKr = '칼로리 계산';
   static String calculateKcalTextJp = " カロリー計算";
 
-  static String howToUseMsg3 = "howToUseMsg3Tr";
-  static String howToUseMsg3Kr = '어휘력';
-  static String howToUseMsg3Jp = "kyosei";
+  static String riceText = "riceTextTr";
+  static String riceTextKr = '어휘력';
+  static String riceTextJp = "お米";
 
-  static String howToUseMsg4 = "howToUseMsg4Tr";
-  static String howToUseMsg4Kr = "이라고 생각합니다.\n\n";
-  static String howToUseMsg4Jp =
-      ' is the most important part of learning not only Japanese but also all foreign languages.\n\n';
+  static String potatoText = "potatoTextTr";
+  static String potatoTextKr = "감자";
+  static String potatoTextJp = 'じゃがいも';
 
-  static String howToUseMsg5 = "howToUseMsg5Tr";
-  static String howToUseMsg5Kr =
-      " 많은 블로그나 유튜브에서 외국어 공부법 혹은 외국어 단어 암기법이라고 검색하면 ";
+  static String sweetPotatoText = "sweetPotatoTextTr";
+  static String sweetPotatoTextKr = "고구마";
+  static String sweetPotatoTextJp = 'さつまいも';
 
-  static String howToUseMsg5Jp =
-      ' Many blogs and YouTube videos emphasize that kyosei is important ';
+  static String pumpkinText = "pumpkinTextTr";
+  static String pumpkinTextKr = '호박';
+  static String pumpkinTextJp = "カボチャ";
 
-  static String howToUseMsg6 = "howToUseMsg6Tr";
-  static String howToUseMsg6Kr = '어휘력이 중요하다고 강조하고 있고, 어휘력은 단순 암기이기 때문에 ';
-  static String howToUseMsg6Jp =
-      "when you search for foreign language study or foreign word memorization, and that repeated learning is important so that ";
-
-  static String howToUseMsg7 = "howToUseMsg7Tr";
-  static String howToUseMsg7Kr = "잊어 버리지 않도록 반복 학습";
-  static String howToUseMsg7Jp = "you don't forget it ";
+  static String chickenbreastText = "chickenbreastTextTr";
+  static String chickenbreastTextKr = "닭가슴살";
+  static String chickenbreastTextJp = "ささみ";
 
   static String howToUseMsg8 = "howToUseMsg8Tr";
   static String howToUseMsg8Kr = "이 중요하다는 것도 강조하고 있는 것을 볼 수 있습니다.\n\n";

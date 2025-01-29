@@ -8,7 +8,7 @@ part of 'maker_model.dart';
 
 class MakerModelAdapter extends TypeAdapter<MakerModel> {
   @override
-  final int typeId = 6;
+  final int typeId = 7;
 
   @override
   MakerModel read(BinaryReader reader) {
@@ -18,7 +18,7 @@ class MakerModelAdapter extends TypeAdapter<MakerModel> {
     };
     return MakerModel(
       makerName: fields[0] as String,
-      givenGram: fields[1] as double,
+      givenCountPerDay: fields[1] as int,
       givenGramOnce: fields[2] as double,
     )
       ..id = fields[3] as String
@@ -32,7 +32,7 @@ class MakerModelAdapter extends TypeAdapter<MakerModel> {
       ..writeByte(0)
       ..write(obj.makerName)
       ..writeByte(1)
-      ..write(obj.givenGram)
+      ..write(obj.givenCountPerDay)
       ..writeByte(2)
       ..write(obj.givenGramOnce)
       ..writeByte(3)

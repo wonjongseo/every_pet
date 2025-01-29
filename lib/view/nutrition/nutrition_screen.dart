@@ -1,4 +1,5 @@
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/controllers/nutrition_controller.dart';
@@ -16,10 +17,10 @@ class NutritionScreen extends StatelessWidget {
   // NUTRITION_TYPE foodType = NUTRITION_TYPE.DRY;
   @override
   Widget build(BuildContext context) {
-    Get.put(NutritionController());
-    return GetBuilder<PetsController>(builder: (petsController) {
-      PetModel pet = petsController.pets![petsController.petPageIndex];
-      return GetBuilder<NutritionController>(builder: (controller) {
+    return GetBuilder<NutritionController>(builder: (controller) {
+      return GetBuilder<PetsController>(builder: (petsController) {
+        PetModel pet = petsController.pets![petsController.petPageIndex];
+
         return Center(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -34,7 +35,9 @@ class NutritionScreen extends StatelessWidget {
                       NutritionScreenHeader(pet: pet),
                       Divider(height: Responsive.height20),
                       FoodScreenNavigation(
-                          foodType: controller.foodType,
+                          foodType: controller.bottomPageIndex == 0
+                              ? NUTRITION_TYPE.DRY
+                              : NUTRITION_TYPE.MANUL,
                           onChanged: controller.onTapBottomNavigation)
                     ],
                   ),
@@ -47,11 +50,14 @@ class NutritionScreen extends StatelessWidget {
                       ),
                       child: PageView.builder(
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: controller.bodys.length,
+                        itemCount: 2,
                         controller: controller.pageController,
                         onPageChanged: controller.onPageChanged,
                         itemBuilder: (context, index) {
-                          return controller.bodys[index];
+                          if (index == 0) {
+                            return MakerBody();
+                          } else
+                            return HandmadeBody();
                         },
                       ),
                     )

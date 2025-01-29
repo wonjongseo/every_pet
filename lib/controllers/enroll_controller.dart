@@ -145,7 +145,7 @@ class EnrollController extends GetxController {
     }
 
     if (!isFirst) {
-      petsController.increasePetPageIndex();
+      petsController.aa();
     }
     Get.offAll(() => const MainScreen());
   }

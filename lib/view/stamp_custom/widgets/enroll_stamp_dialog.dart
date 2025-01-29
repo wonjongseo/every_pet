@@ -103,7 +103,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
                   (index) {
                     return DropdownMenuItem(
                       value: index,
-                      child: Container(
+                      child: SizedBox(
                         width: Responsive.width10 * 5,
                         height: Responsive.width10 * 5,
                         child: Image.asset(

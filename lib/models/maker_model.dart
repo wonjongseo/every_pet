@@ -12,7 +12,7 @@ class MakerModel {
   String makerName; // メーカ
 
   @HiveField(1)
-  double givenGram; // あげる回数
+  int givenCountPerDay; // あげる回数
 
   @HiveField(2)
   double givenGramOnce; // 一回につきg
@@ -25,10 +25,34 @@ class MakerModel {
 
   MakerModel({
     required this.makerName,
-    required this.givenGram,
+    required this.givenCountPerDay,
     required this.givenGramOnce,
   }) {
     id = DateTime.now().millisecondsSinceEpoch.toString();
     createdAt = DateTime.now();
+  }
+
+  @override
+  String toString() {
+    return 'MakerModel(makerName: $makerName, givenGram: $givenCountPerDay, givenGramOnce: $givenGramOnce, id: $id, createdAt: $createdAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is MakerModel &&
+        other.makerName == makerName &&
+        other.givenCountPerDay == givenCountPerDay &&
+        other.givenGramOnce == givenGramOnce;
+  }
+
+  @override
+  int get hashCode {
+    return makerName.hashCode ^
+        givenCountPerDay.hashCode ^
+        givenGramOnce.hashCode ^
+        id.hashCode ^
+        createdAt.hashCode;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/controllers/nutrition_controller.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
@@ -14,6 +15,7 @@ class PetsController extends GetxController {
   PetRepository petRepository = PetRepository();
   ScrollController scrollController = ScrollController();
   late TodoController calendarController;
+  late NutritionController nutritionController;
   List<PetModel>? pets;
   int petPageIndex = 0;
   PersistentBottomSheetController? bottomSheetController;
@@ -35,6 +37,7 @@ class PetsController extends GetxController {
 
     await getPetModals();
     calendarController = Get.put(TodoController());
+    nutritionController = Get.put(NutritionController());
   }
 
   @override
@@ -81,6 +84,7 @@ class PetsController extends GetxController {
   void onTapTopBar(int index) {
     petPageIndex = index;
     calendarController.getTodos(pets![petPageIndex].name);
+
     update();
 
     SettingRepository.setInt(AppConstant.lastPetIndexKey, petPageIndex);
@@ -97,10 +101,17 @@ class PetsController extends GetxController {
     );
   }
 
-  void onTapBottomBar(value) {
+  void onTapBottomBar(value) async {
     if (value != 0) {
       closeBottomSheet();
     }
+    if (value == 1) {
+      nutritionController.bottomPageIndex = await SettingRepository.getInt(
+          AppConstant.lastNutritionBottomPageIndexKey);
+
+      // nutritionController.foodType = NUTRITION_TYPE.DRY;
+    }
+
     bottomTapIndex = value;
 
     update();
@@ -113,7 +124,8 @@ class PetsController extends GetxController {
     update();
   }
 
-  void updatePetModel(PetModel oldPet, PetModel newPet) {
+  void updatePetModel(PetModel oldPet, PetModel newPet,
+      {bool isProfileScreen = true}) {
     oldPet.name = newPet.name;
     oldPet.imageUrl = newPet.imageUrl;
     oldPet.birthDay = newPet.birthDay;
@@ -121,15 +133,24 @@ class PetsController extends GetxController {
     oldPet.isNeuter = newPet.isNeuter;
     oldPet.isPregnancy = newPet.isPregnancy;
     oldPet.weight = newPet.weight;
+    oldPet.nutritionModel = newPet.nutritionModel;
 
     petRepository.savePet(oldPet);
-    scrollGoToTop();
+    if (isProfileScreen) {
+      scrollGoToTop();
+    }
+
     update();
   }
 
   Future<void> savePetModal(PetModel petModel) async {
     pets!.add(petModel);
     petRepository.savePet(petModel);
-    getPetModals();
+    // getPetModals();
+  }
+
+  void aa() {
+    petPageIndex = pets!.length - 1;
+    update();
   }
 }

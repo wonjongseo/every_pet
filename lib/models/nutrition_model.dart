@@ -1,7 +1,9 @@
+import 'package:hive/hive.dart';
+
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/models/handmade_model.dart';
 import 'package:every_pet/models/maker_model.dart';
 import 'package:every_pet/view/nutrition/widgets/handmake_body.dart';
-import 'package:hive/hive.dart';
 
 part 'nutrition_model.g.dart';
 
@@ -11,7 +13,7 @@ class NutritionModel {
   MakerModel? makerModel;
 
   @HiveField(1)
-  HandmadeBody? handmadeBody;
+  HandmadeModel? handmadeModel;
 
   @HiveField(2)
   late String id;
@@ -21,9 +23,14 @@ class NutritionModel {
 
   NutritionModel({
     this.makerModel,
-    this.handmadeBody,
+    this.handmadeModel,
   }) {
     id = DateTime.now().millisecondsSinceEpoch.toString();
     createdAt = DateTime.now();
+  }
+
+  @override
+  String toString() {
+    return 'NutritionModel(makerModel: $makerModel, handmadeModel: $handmadeModel, id: $id, createdAt: $createdAt)';
   }
 }

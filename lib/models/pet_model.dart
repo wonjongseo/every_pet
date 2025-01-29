@@ -32,18 +32,14 @@ class PetModel {
   @HiveField(6)
   double weight;
 
+  @HiveField(9)
+  NutritionModel? nutritionModel;
+
   @HiveField(7)
   late String id;
 
   @HiveField(8)
   late DateTime createdAt;
-
-  @HiveField(9)
-  NutritionModel? nutritionModel;
-
-  // @HiveField(7)
-  // final List<TodoModel> todoModel = [];
-
   PetModel({
     required this.name,
     required this.imageUrl,
@@ -51,6 +47,7 @@ class PetModel {
     required this.genderType,
     required this.weight,
     this.isNeuter,
+    this.nutritionModel,
     this.isPregnancy,
   }) {
     id = DateTime.now().millisecondsSinceEpoch.toString();
@@ -86,6 +83,7 @@ class PetModel {
     GENDER_TYPE? genderType,
     bool? isNeuter,
     bool? isPregnancy,
+    NutritionModel? nutritionModel,
     double? weight,
   }) {
     return PetModel(
@@ -95,6 +93,7 @@ class PetModel {
       genderType: genderType ?? this.genderType,
       isNeuter: isNeuter ?? this.isNeuter,
       isPregnancy: isPregnancy ?? this.isPregnancy,
+      nutritionModel: nutritionModel ?? this.nutritionModel,
       weight: weight ?? this.weight,
     );
   }
@@ -154,6 +153,7 @@ class PetModel {
         other.isNeuter == isNeuter &&
         other.weight == weight &&
         other.id == id &&
+        other.nutritionModel == nutritionModel &&
         other.isPregnancy == isPregnancy;
   }
 
@@ -165,6 +165,7 @@ class PetModel {
         weight.hashCode ^
         genderType.hashCode ^
         isNeuter.hashCode ^
+        nutritionModel.hashCode ^
         id.hashCode ^
         isPregnancy.hashCode;
   }

@@ -31,4 +31,9 @@ class HandmadeModel {
     id = DateTime.now().millisecondsSinceEpoch.toString();
     createdAt = DateTime.now();
   }
+
+  @override
+  String toString() {
+    return 'HandmadeModel(givenGramPerDay: $givenGramPerDay, givenVegetableGram: $givenVegetableGram, givenProteinGram: $givenProteinGram, id: $id, createdAt: $createdAt)';
+  }
 }

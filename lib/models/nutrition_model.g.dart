@@ -8,7 +8,7 @@ part of 'nutrition_model.dart';
 
 class NutritionModelAdapter extends TypeAdapter<NutritionModel> {
   @override
-  final int typeId = 5;
+  final int typeId = 6;
 
   @override
   NutritionModel read(BinaryReader reader) {
@@ -18,7 +18,7 @@ class NutritionModelAdapter extends TypeAdapter<NutritionModel> {
     };
     return NutritionModel(
       makerModel: fields[0] as MakerModel?,
-      handmadeBody: fields[1] as HandmadeBody?,
+      handmadeModel: fields[1] as HandmadeModel?,
     )
       ..id = fields[2] as String
       ..createdAt = fields[3] as DateTime;
@@ -31,7 +31,7 @@ class NutritionModelAdapter extends TypeAdapter<NutritionModel> {
       ..writeByte(0)
       ..write(obj.makerModel)
       ..writeByte(1)
-      ..write(obj.handmadeBody)
+      ..write(obj.handmadeModel)
       ..writeByte(2)
       ..write(obj.id)
       ..writeByte(3)
