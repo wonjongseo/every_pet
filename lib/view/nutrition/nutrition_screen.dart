@@ -1,7 +1,7 @@
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
-import 'package:every_pet/respository/nutrition_controller.dart';
+import 'package:every_pet/controllers/nutrition_controller.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/view/nutrition/widgets/nutrition_screen_header.dart';
 import 'package:every_pet/view/nutrition/widgets/nutrition_screen_navigation.dart';

@@ -1,3 +1,4 @@
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
@@ -28,9 +29,9 @@ class PetsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    petPageIndex = await SettingRepository.getInt(SettingKey.lastPetIndex);
+    petPageIndex = await SettingRepository.getInt(AppConstant.lastPetIndexKey);
     bottomTapIndex =
-        await SettingRepository.getInt(SettingKey.lastBottomTapIndex);
+        await SettingRepository.getInt(AppConstant.lastBottomTapIndexKey);
 
     await getPetModals();
     calendarController = Get.put(TodoController());
@@ -50,7 +51,7 @@ class PetsController extends GetxController {
 
     if (petPageIndex != 0) {
       petPageIndex -= 1;
-      SettingRepository.setInt(SettingKey.lastPetIndex, petPageIndex);
+      SettingRepository.setInt(AppConstant.lastPetIndexKey, petPageIndex);
     }
 
     scrollGoToTop();
@@ -59,7 +60,7 @@ class PetsController extends GetxController {
 
   void increasePetPageIndex() {
     petPageIndex = petPageIndex + 1;
-    SettingRepository.setInt(SettingKey.lastPetIndex, petPageIndex);
+    SettingRepository.setInt(AppConstant.lastPetIndexKey, petPageIndex);
     update();
   }
 
@@ -82,7 +83,7 @@ class PetsController extends GetxController {
     calendarController.getTodos(pets![petPageIndex].name);
     update();
 
-    SettingRepository.setInt(SettingKey.lastPetIndex, petPageIndex);
+    SettingRepository.setInt(AppConstant.lastPetIndexKey, petPageIndex);
     if (bottomTapIndex == 3) {
       scrollGoToTop();
     }
@@ -104,7 +105,7 @@ class PetsController extends GetxController {
 
     update();
 
-    SettingRepository.setInt(SettingKey.lastBottomTapIndex, bottomTapIndex);
+    SettingRepository.setInt(AppConstant.lastBottomTapIndexKey, bottomTapIndex);
   }
 
   Future<void> getPetModals() async {

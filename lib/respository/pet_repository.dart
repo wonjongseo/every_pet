@@ -1,3 +1,4 @@
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
@@ -5,7 +6,7 @@ import 'package:hive/hive.dart';
 
 class PetRepository {
   Future<void> savePet(PetModel pet) async {
-    var box = await Hive.openBox<PetModel>('pets');
+    var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
     // 데이터 저장
     // await box.add(pet);
@@ -19,7 +20,7 @@ class PetRepository {
   }
 
   Future<bool> isExistPet(PetModel pet) async {
-    var box = await Hive.openBox<PetModel>('pets');
+    var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
     // 데이터 저장
     // await box.add(pet);
@@ -31,7 +32,7 @@ class PetRepository {
   }
 
   Future<void> deletePet(PetModel pet) async {
-    var box = await Hive.openBox<PetModel>('pets');
+    var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
     // 데이터 저장
     // await box.delete(
@@ -41,7 +42,7 @@ class PetRepository {
   }
 
   Future<List<PetModel>> loadPets() async {
-    var box = await Hive.openBox<PetModel>('pets');
+    var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
     // 데이터 읽기
     List<PetModel> pets = box.values.toList();

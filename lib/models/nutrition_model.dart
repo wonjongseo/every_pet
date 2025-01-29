@@ -3,6 +3,8 @@ import 'package:every_pet/models/maker_model.dart';
 import 'package:every_pet/view/nutrition/widgets/handmake_body.dart';
 import 'package:hive/hive.dart';
 
+part 'nutrition_model.g.dart';
+
 @HiveType(typeId: AppConstant.nutritionModelHiveId)
 class NutritionModel {
   @HiveField(0)

@@ -1,3 +1,4 @@
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/view/nutrition/nutrition_screen.dart';
 import 'package:every_pet/view/nutrition/widgets/handmake_body.dart';
@@ -33,7 +34,7 @@ class NutritionController extends GetxController {
       curve: Curves.linear,
     );
     SettingRepository.setInt(
-      SettingKey.lastNutritionBottomPageIndex,
+      AppConstant.lastNutritionBottomPageIndexKey,
       bottomPageIndex,
     );
   }
@@ -41,8 +42,8 @@ class NutritionController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    bottomPageIndex =
-        await SettingRepository.getInt(SettingKey.lastNutritionBottomPageIndex);
+    bottomPageIndex = await SettingRepository.getInt(
+        AppConstant.lastNutritionBottomPageIndexKey);
 
     pageController = PageController(initialPage: bottomPageIndex);
     foodType = NUTRITION_TYPE.values[bottomPageIndex];

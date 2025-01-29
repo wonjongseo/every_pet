@@ -4,57 +4,10 @@ import 'package:every_pet/respository/stamp_repository.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:get/get.dart';
 
-const int CUSTOM_STAMP_ICON_FIRST_INDEX = 0;
-const int CUSTOM_STAMP_ICON_NUM = 16;
-
-List<int> customStampIconIndexs = [
-  CUSTOM_STAMP_ICON_FIRST_INDEX,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 1,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 2,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 3,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 4,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 5,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 6,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 7,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 8,
-  CUSTOM_STAMP_ICON_FIRST_INDEX,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 1,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 2,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 3,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 4,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 5,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 6,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 7,
-  CUSTOM_STAMP_ICON_FIRST_INDEX + 8,
-];
-
 class StampController extends GetxController {
   StampRepository stampRepository = StampRepository();
 
   List<StampModel> stamps = [];
-
-  List<int> customStampIconIndexs = [
-    CUSTOM_STAMP_ICON_FIRST_INDEX,
-    CUSTOM_STAMP_ICON_FIRST_INDEX + 1,
-    CUSTOM_STAMP_ICON_FIRST_INDEX + 2,
-    CUSTOM_STAMP_ICON_FIRST_INDEX + 3
-  ];
-
-  List<StampModel> addstampsIcon = [
-    StampModel(
-      name: '',
-      iconIndex: CUSTOM_STAMP_ICON_FIRST_INDEX,
-      isVisible: true,
-    ),
-    StampModel(
-        name: '',
-        iconIndex: CUSTOM_STAMP_ICON_FIRST_INDEX + 1,
-        isVisible: true),
-    StampModel(
-        name: '',
-        iconIndex: CUSTOM_STAMP_ICON_FIRST_INDEX + 2,
-        isVisible: true),
-  ];
 
   updateStampList() {}
 

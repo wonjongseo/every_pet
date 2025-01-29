@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
@@ -24,8 +25,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
-    stampIconIndexValue =
-        widget.stamp?.iconIndex ?? CUSTOM_STAMP_ICON_FIRST_INDEX;
+    stampIconIndexValue = widget.stamp?.iconIndex ?? 0;
     textEditingController =
         TextEditingController(text: widget.stamp?.name ?? '');
     super.initState();
@@ -99,7 +99,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
               child: DropdownButton2<int>(
                 isExpanded: true,
                 items: List.generate(
-                  CUSTOM_STAMP_ICON_NUM,
+                  AppConstant.countOfStampIcon,
                   (index) {
                     return DropdownMenuItem(
                       value: index,

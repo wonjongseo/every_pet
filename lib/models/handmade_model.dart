@@ -4,6 +4,8 @@ import 'package:hive/hive.dart';
 
 import 'package:every_pet/common/utilities/app_constant.dart';
 
+part 'handmade_model.g.dart';
+
 @HiveType(typeId: AppConstant.handmadeModelHiveId)
 class HandmadeModel {
   @HiveField(0)
