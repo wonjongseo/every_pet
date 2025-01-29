@@ -3,6 +3,8 @@ import 'package:hive/hive.dart';
 class SettingKey {
   static const String lastPetIndex = 'lastPetIndex';
   static const String lastBottomTapIndex = 'lastBottomTapIndex';
+  static const String lastNutritionBottomPageIndex =
+      'lastNutritionBottomPageIndex';
 }
 
 class SettingRepository {

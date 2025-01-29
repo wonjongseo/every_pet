@@ -13,7 +13,7 @@ ThemeData lightTheme() {
       CustomThemeExtension.lightMode,
     ],
     appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.greenLight,
+      backgroundColor: AppColors.primaryColor,
       titleTextStyle: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w600,
@@ -26,6 +26,7 @@ ThemeData lightTheme() {
         color: Colors.black,
       ),
     ),
+    iconButtonTheme: IconButtonThemeData(),
     tabBarTheme: const TabBarTheme(
       indicator: UnderlineTabIndicator(
         borderSide: BorderSide(color: Colors.white, width: 2),
@@ -75,6 +76,12 @@ ThemeData lightTheme() {
     switchTheme: const SwitchThemeData(
       thumbColor: MaterialStatePropertyAll(Color(0xFF83939C)),
       trackColor: MaterialStatePropertyAll(Color(0xFFDADFE2)),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      overlayColor: MaterialStateProperty.all(Colors.transparent),
+      checkColor: MaterialStateProperty.all(Colors.white),
+      // fillColor: MaterialStateProperty.all(AppColors.secondaryColor),
+      fillColor: MaterialStateProperty.all(AppColors.primaryColor),
     ),
   );
 }

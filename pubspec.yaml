@@ -45,6 +45,10 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   flutter_svg: ^2.0.10+1
+  persistent_bottom_nav_bar: ^6.2.1
+  google_mobile_ads: ^4.0.0
+  dropdown_button2: ^2.3.9
+  age_calculator: ^1.0.0
 
 dev_dependencies:
   flutter_test:

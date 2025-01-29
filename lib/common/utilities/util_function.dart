@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 class UtilFunction {
   static String getDayYYYYMMDD(DateTime date) {
     return DateFormat(
-            'yyyy${AppString.yearText.tr}M${AppString.monthText.tr}d${AppString.dayText.tr}')
+            'yyyy${AppString.yearTextTr.tr}M${AppString.monthTextTr.tr}d${AppString.dayTextTr.tr}')
         .format(date);
   }
 

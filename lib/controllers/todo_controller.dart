@@ -1,21 +1,19 @@
 import 'dart:collection';
 
 import 'package:every_pet/common/utilities/responsive.dart';
-import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
 import 'package:every_pet/respository/todo_repository.dart';
-import 'package:every_pet/view/todo/todo_screen.dart';
 import 'package:every_pet/view/todo/widgets/bottom_sheet_widget.dart';
+import 'package:every_pet/view/todo/widgets/enroll_todo_alert_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarController extends GetxController {
+class TodoController extends GetxController {
   final kToday = DateTime.now();
   late DateTime kFirstDay;
   late DateTime kLastDay;
@@ -77,8 +75,10 @@ class CalendarController extends GetxController {
   }
 
   Future<void> getAllTodos() async {
-    _todoModels = await todoRepository.getTodos();
-    getTodos(petsController.pets![petsController.petPageIndex].name);
+    if (petsController.pets != null && petsController.pets!.isNotEmpty) {
+      _todoModels = await todoRepository.getTodos();
+      getTodos(petsController.pets![petsController.petPageIndex].name);
+    }
   }
 
   List<TodoModel> _todoModels = [];
@@ -144,6 +144,11 @@ class CalendarController extends GetxController {
   }
 
   void clickAddbtn() async {
+    String? savedMemo;
+
+    if (getFocusedDayEvent() != null) {
+      savedMemo = getFocusedDayEvent()![0].memo;
+    }
     final result = await Get.dialog(
       GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -152,7 +157,7 @@ class CalendarController extends GetxController {
             child: AlertDialog(
               insetPadding:
                   EdgeInsets.symmetric(horizontal: Responsive.width15),
-              content: const CustomAlertDialog(),
+              content: EnrollTodoDialog(memo: savedMemo),
             ),
           ),
         ),

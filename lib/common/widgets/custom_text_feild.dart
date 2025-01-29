@@ -1,5 +1,6 @@
 import 'package:every_pet/common/extension/custom_theme_extension.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
+import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -60,21 +61,27 @@ class CustomTextField extends StatelessWidget {
       autofocus: autoFocus ?? false,
       validator: validator,
       decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+        suffixIconConstraints: const BoxConstraints(minHeight: 0, minWidth: 0),
+        contentPadding: EdgeInsets.symmetric(
+            vertical: Responsive.height11, horizontal: Responsive.width10),
         isDense: true,
         prefixText: prefixText,
-        suffix: sufficIcon,
+        suffixIcon: sufficIcon != null
+            ? Padding(
+                padding: EdgeInsets.only(right: Responsive.width10),
+                child: sufficIcon,
+              )
+            : null,
         hintText: hintText,
         hintStyle: TextStyle(color: context.exTheme.greyColor),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColors.greenDark,
+            color: AppColors.primaryColor,
           ),
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColors.greenDark,
+            color: AppColors.primaryColor,
             width: 2,
           ),
         ),

@@ -43,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
                           controller.updatePet(pet);
                         },
                         child: Text(
-                          '更新',
+                          AppString.updateBtnTextTr.tr,
                           style: TextStyle(
                             fontSize: Responsive.width18,
                             fontWeight: FontWeight.w500,
@@ -59,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         onPressed: () => controller.deletePet(pet.name),
                         child: Text(
-                          '削除',
+                          AppString.cancelBtnTextTr.tr,
                           style: TextStyle(
                             fontSize: Responsive.width18,
                             fontWeight: FontWeight.w500,

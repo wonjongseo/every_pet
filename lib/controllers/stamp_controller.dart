@@ -1,29 +1,82 @@
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/respository/stamp_repository.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:get/get.dart';
 
+const int CUSTOM_STAMP_ICON_FIRST_INDEX = 0;
+const int CUSTOM_STAMP_ICON_NUM = 16;
+
+List<int> customStampIconIndexs = [
+  CUSTOM_STAMP_ICON_FIRST_INDEX,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 1,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 2,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 3,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 4,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 5,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 6,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 7,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 8,
+  CUSTOM_STAMP_ICON_FIRST_INDEX,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 1,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 2,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 3,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 4,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 5,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 6,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 7,
+  CUSTOM_STAMP_ICON_FIRST_INDEX + 8,
+];
+
 class StampController extends GetxController {
   StampRepository stampRepository = StampRepository();
 
   List<StampModel> stamps = [];
+
+  List<int> customStampIconIndexs = [
+    CUSTOM_STAMP_ICON_FIRST_INDEX,
+    CUSTOM_STAMP_ICON_FIRST_INDEX + 1,
+    CUSTOM_STAMP_ICON_FIRST_INDEX + 2,
+    CUSTOM_STAMP_ICON_FIRST_INDEX + 3
+  ];
+
   List<StampModel> addstampsIcon = [
-    StampModel(name: '', iconIndex: 8, isVisible: true),
-    StampModel(name: '', iconIndex: 9, isVisible: true),
-    StampModel(name: '', iconIndex: 10, isVisible: true),
+    StampModel(
+      name: '',
+      iconIndex: CUSTOM_STAMP_ICON_FIRST_INDEX,
+      isVisible: true,
+    ),
+    StampModel(
+        name: '',
+        iconIndex: CUSTOM_STAMP_ICON_FIRST_INDEX + 1,
+        isVisible: true),
+    StampModel(
+        name: '',
+        iconIndex: CUSTOM_STAMP_ICON_FIRST_INDEX + 2,
+        isVisible: true),
   ];
 
   updateStampList() {}
 
-  void goToStampCustomScreen() async {
-    List<StampModel> result = await await Get.to(() => StampCustomScreen());
+  void goToStampCustomScreen() {
+    Get.to(() => StampCustomScreen());
+  }
 
-    stamps = result;
+  void updateStamp(StampModel updateStamp) {
+    stampRepository.saveStamp(updateStamp);
+    for (var i = 0; i < stamps.length; i++) {
+      if (stamps[i].id == updateStamp.id) {
+        stamps[i] = updateStamp;
+      }
+    }
 
     update();
-    for (var stamp in stamps) {
-      stampRepository.saveStamp(stamp);
-    }
+  }
+
+  void saveStamp(StampModel stamp) {
+    stampRepository.saveStamp(stamp);
+    stamps.add(stamp);
+    update();
   }
 
   @override
@@ -47,14 +100,46 @@ class StampController extends GetxController {
     stamps = await stampRepository.getStamps();
     if (stamps.isEmpty) {
       List<StampModel> tempStamps = [
-        StampModel(name: '薬１', iconIndex: 0, isVisible: true), // 0xFFff9796
-        StampModel(name: '薬２', iconIndex: 1, isVisible: true), // 0xFF229cff
-        StampModel(name: '病院', iconIndex: 2, isVisible: true), // 0xFF56e1ff
-        StampModel(name: '入院', iconIndex: 3, isVisible: true), // 0xFFf59b23
-        StampModel(name: '退院', iconIndex: 4, isVisible: true), // 0xFFf59b23
-        StampModel(name: 'トリミング', iconIndex: 5, isVisible: true), // 0xFF7ec636
-        StampModel(name: 'ドッグラン', iconIndex: 6, isVisible: true), // 0xFFe5b7ff
-        StampModel(name: 'フィライア', iconIndex: 7, isVisible: true), // 0xFFdbff85
+        StampModel(
+          name: AppString.stamp1Tr.tr,
+          iconIndex: 0,
+          isVisible: true,
+        ), // 0xFFff9796
+        StampModel(
+          name: AppString.stamp2Tr.tr,
+          iconIndex: 1,
+          isVisible: true,
+        ), // 0xFF229cff
+        StampModel(
+          name: AppString.stamp3Tr.tr,
+          iconIndex: 2,
+          isVisible: true,
+        ), // 0xFF56e1ff
+        StampModel(
+          name: AppString.stamp4Tr.tr,
+          iconIndex: 3,
+          isVisible: true,
+        ), // 0xFFf59b23
+        StampModel(
+          name: AppString.stamp5Tr.tr,
+          iconIndex: 4,
+          isVisible: true,
+        ), // 0xFFf59b23
+        StampModel(
+          name: AppString.stamp6Tr.tr,
+          iconIndex: 5,
+          isVisible: true,
+        ), // 0xFF7ec636
+        StampModel(
+          name: AppString.stamp7Tr.tr,
+          iconIndex: 6,
+          isVisible: true,
+        ), // 0xFFe5b7ff
+        StampModel(
+          name: AppString.stamp8Tr.tr,
+          iconIndex: 7,
+          isVisible: true,
+        ), // 0xFFdbff85
       ];
 
       for (var tempStamp in tempStamps) {
@@ -64,5 +149,18 @@ class StampController extends GetxController {
     }
 
     update();
+
+    /*
+      1日　１５０G = 519kcal
+
+      １００G　３４６kcal
+
+      1G = 3.46kcal
+      １２０G　= 415.2kcal
+
+
+      104kcal
+
+     */
   }
 }

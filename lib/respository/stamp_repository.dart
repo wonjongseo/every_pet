@@ -18,7 +18,7 @@ class StampRepository {
 
     // 데이터 저장
     // await box.add(todo);
-    await box.put(stamp.iconIndex, stamp);
+    await box.put(stamp.id, stamp);
 
     print('Stamp saved!');
   }

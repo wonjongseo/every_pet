@@ -1,3 +1,4 @@
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
@@ -6,7 +7,7 @@ import 'package:every_pet/models/stamp_model.dart';
 
 part 'todo_model.g.dart';
 
-@HiveType(typeId: 4)
+@HiveType(typeId: AppConstant.todoModelHiveId)
 class TodoModel {
   @HiveField(0)
   List<StampModel> stamps;
@@ -33,7 +34,6 @@ class TodoModel {
     if (identical(this, other)) return true;
 
     return other is TodoModel &&
-        other.memo == memo &&
         other.dateTime == dateTime &&
         other.petModel == petModel;
   }

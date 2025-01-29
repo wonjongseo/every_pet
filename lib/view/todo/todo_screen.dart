@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:every_pet/common/utilities/app_color.dart';
-import 'package:every_pet/controllers/calendar_controller.dart';
+import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class TodoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CalendarController>(builder: (contoller) {
+    return GetBuilder<TodoController>(builder: (contoller) {
       return TableCalendar(
         locale: Get.locale.toString(),
         shouldFillViewport: true,
@@ -130,7 +130,7 @@ class ColIconButton extends StatelessWidget {
             style: IconButton.styleFrom(
               padding: EdgeInsets.zero,
               backgroundColor: isActive
-                  ? AppColors.blueLight.withOpacity(0.5)
+                  ? AppColors.primaryColor.withOpacity(0.5)
                   : Colors.grey.shade400,
             ),
             onPressed: onTap,

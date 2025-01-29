@@ -18,12 +18,10 @@ class RowStampWidget extends StatelessWidget {
           height: 40,
           width: 40,
           decoration: BoxDecoration(
-            color: AppColors.blueLight.withOpacity(.5),
+            color: AppColors.primaryColor.withOpacity(.5),
             shape: BoxShape.circle,
           ),
-          child: Image.asset(
-            stamp.getIcon(),
-          ),
+          child: Image.asset(StampModel.getIcon(stamp.iconIndex)),
         ),
         SizedBox(width: Responsive.width10),
         Text(

@@ -1,3 +1,4 @@
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -6,7 +7,7 @@ import 'package:every_pet/common/utilities/app_image_path.dart';
 
 part 'stamp_model.g.dart';
 
-@HiveType(typeId: 3)
+@HiveType(typeId: AppConstant.stampModelHiveId)
 class StampModel {
   @HiveField(0)
   String name;
@@ -19,6 +20,12 @@ class StampModel {
   @HiveField(3)
   bool isVisible;
 
+  @HiveField(4)
+  late String id;
+
+  @HiveField(5)
+  late DateTime createdAt;
+
   // @HiveField(2, defaultValue: false)
   // bool isDone;
 
@@ -27,9 +34,12 @@ class StampModel {
     required this.iconIndex,
     required this.isVisible,
     this.isCustom = false,
-  });
+  }) {
+    id = DateTime.now().microsecondsSinceEpoch.toString();
+    createdAt = DateTime.now();
+  }
 
-  String getIcon() {
+  static String getIcon(iconIndex) {
     String imagePath = '';
     switch (iconIndex) {
       case 0:
@@ -58,10 +68,33 @@ class StampModel {
         break;
       case 8:
         imagePath = AppImagePath.pudlle;
+        break;
       case 9:
         imagePath = AppImagePath.bug2;
+        break;
+      case 10:
+        imagePath = AppImagePath.circleTravel;
+        break;
+      case 11:
+        imagePath = AppImagePath.circleBisyon;
+        break;
+      case 12:
+        imagePath = AppImagePath.circleMatiz;
+        break;
+      case 13:
+        imagePath = AppImagePath.circleSiba;
+        break;
+      case 14:
+        imagePath = AppImagePath.circleSyringe;
+        break;
+      case 15:
+        imagePath = AppImagePath.circleBuldog;
+        break;
+      case 16:
+        imagePath = AppImagePath.cirlceSyunauza;
+        break;
       default:
-        imagePath = AppImagePath.bisyon;
+        imagePath = AppImagePath.circleBisyon;
         break;
     }
     return imagePath;
@@ -111,6 +144,8 @@ class StampModel {
         other.name == name &&
         other.iconIndex == iconIndex &&
         other.isCustom == isCustom &&
+        other.id == id &&
+        other.createdAt == createdAt &&
         other.isVisible == isVisible;
   }
 
@@ -119,6 +154,8 @@ class StampModel {
     return name.hashCode ^
         iconIndex.hashCode ^
         isCustom.hashCode ^
+        id.hashCode ^
+        createdAt.hashCode ^
         isVisible.hashCode;
   }
 }

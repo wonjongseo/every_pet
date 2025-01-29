@@ -1,9 +1,10 @@
 import 'package:every_pet/common/utilities/app_color.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/common/widgets/short_bar.dart';
-import 'package:every_pet/controllers/calendar_controller.dart';
+import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
@@ -14,6 +15,7 @@ import 'package:every_pet/view/main/main_screen.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class BottomSheetWidget extends StatelessWidget {
@@ -21,7 +23,7 @@ class BottomSheetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CalendarController>(builder: (controller) {
+    return GetBuilder<TodoController>(builder: (controller) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -43,7 +45,9 @@ class BottomSheetWidget extends StatelessWidget {
                 TextButton(
                   onPressed: controller.clickAddbtn,
                   child: Text(
-                    controller.isNotEmptyFocusedDayEvent() ? '予定を変更' : '予定を追加',
+                    controller.isNotEmptyFocusedDayEvent()
+                        ? AppString.updateExampleBtnTr.tr
+                        : AppString.addScheduleTextTr.tr,
                   ),
                 ),
               ],
@@ -88,149 +92,13 @@ class BottomSheetWidget extends StatelessWidget {
               ],
             )
           else
-            const Text(
-              'まだ予定がありません。',
-              style: TextStyle(
-                fontSize: 18,
-              ),
+            Text(
+              AppString.notTextScheduleTextTr.tr,
+              style: TextStyle(fontSize: Responsive.width18),
             ),
           SizedBox(height: Responsive.height30),
         ],
       );
     });
-  }
-}
-
-class CustomAlertDialog extends StatefulWidget {
-  const CustomAlertDialog({super.key});
-
-  @override
-  State<CustomAlertDialog> createState() => _CustomAlertDialogState();
-}
-
-class _CustomAlertDialogState extends State<CustomAlertDialog> {
-  List<StampModel> selectedStamps = [];
-  TextEditingController memoController = TextEditingController();
-  CalendarController controller = Get.find<CalendarController>();
-  List<int> selectedProfileIndexs = [];
-  @override
-  void initState() {
-    selectedStamps = controller.getSavedStampIndex();
-    selectedProfileIndexs.add(controller.petsController.petPageIndex);
-    setState(() {});
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    memoController.dispose();
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: List.generate(
-            controller.petsController.pets!.length,
-            (index) {
-              return Padding(
-                padding: EdgeInsets.only(right: Responsive.width22),
-                child: RowPetProfileWidget(
-                  isDog: controller.petsController.pets![index].runtimeType ==
-                      DogModel,
-                  imagePath: controller.petsController.pets![index].imageUrl,
-                  petName: controller.petsController.pets![index].name,
-                  isActive: selectedProfileIndexs.contains(index),
-                  onTap: () {
-                    if (selectedProfileIndexs.contains(index)) {
-                      selectedProfileIndexs.remove(index);
-                    } else {
-                      selectedProfileIndexs.add(index);
-                    }
-                    setState(() {});
-                    print(index);
-                    // controller.petsController.onClickTopBar(index);
-                  },
-                ),
-              );
-            },
-          ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('メモ'),
-            CustomTextField(
-              maxLines: 2,
-              controller: memoController,
-              hintText: 'Todo..',
-            ),
-          ],
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: TextButton(
-            onPressed: controller.stampController.goToStampCustomScreen,
-            child: Text('スタンプ編集'),
-          ),
-        ),
-        GetBuilder<StampController>(builder: (stampController) {
-          return Wrap(
-            runSpacing: Responsive.height14,
-            children: List.generate(
-              stampController.stamps
-                  .where((element) => element.isVisible)
-                  .length,
-              // controller.stampController.stamps
-              //     .where((element) => element.isVisible)
-              //     .length,
-              (index) {
-                // StampModel stampModel = controller.stampController.stamps[index];
-                StampModel stampModel = stampController.stamps[index];
-                return ColIconButton(
-                  icon: stampModel.getIcon(),
-                  label: stampModel.name,
-                  onTap: () {
-                    if (selectedStamps.contains(stampModel)) {
-                      selectedStamps.remove(stampModel);
-                    } else {
-                      selectedStamps.add(stampModel);
-                    }
-                    setState(() {});
-                  },
-                  isActive: selectedStamps.contains(
-                    // controller.stampController.stamps[index],
-                    stampController.stamps[index],
-                  ),
-                );
-              },
-            ),
-          );
-        }),
-        SizedBox(height: Responsive.height40),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Get.back(result: {
-                  'selectedStamps': selectedStamps,
-                  'memo': memoController.text,
-                  'selectedProfileIndexs': selectedProfileIndexs
-                });
-              },
-              child: const Text('保存'),
-            ),
-            ElevatedButton(
-              onPressed: () => Get.back(result: null),
-              child: const Text('取消'),
-            ),
-          ],
-        ),
-      ],
-    );
   }
 }

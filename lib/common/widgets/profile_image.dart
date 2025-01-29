@@ -32,11 +32,11 @@ class ProfileImage extends StatelessWidget {
       margin: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         color: isActive ?? false
-            ? AppColors.blueDark
+            ? AppColors.primaryColor
             : Colors.grey.withOpacity(.7),
         border: isActive ?? false
             ? Border.all(
-                color: AppColors.blueDark,
+                color: AppColors.primaryColor,
                 width: 3,
               )
             : Border.all(

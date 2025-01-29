@@ -1,10 +1,11 @@
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:hive/hive.dart';
 part 'cat_model.g.dart';
 
-@HiveType(typeId: 5)
+@HiveType(typeId: AppConstant.catModelHiveId)
 class CatModel extends PetModel {
   CatModel({
     required String name,

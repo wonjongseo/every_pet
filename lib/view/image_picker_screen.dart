@@ -101,13 +101,13 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
         // leading: CustomIconButton(
         //   onTap: () => Navigator.pop(context),
         //   icon: Icons.arrow_back,
+        // ), こま
+        // title: Text(
+        //   'GakChat',
+        //   style: TextStyle(
+        //       // color: context.theme.authAppbarTextColor,
+        //       ),
         // ),
-        title: Text(
-          'GakChat',
-          style: TextStyle(
-              // color: context.theme.authAppbarTextColor,
-              ),
-        ),
         // actions: [CustomIconButton(onTap: () {}, icon: Icons.more_vert)],
       ),
       body: Padding(

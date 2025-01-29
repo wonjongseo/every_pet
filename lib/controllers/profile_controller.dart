@@ -1,4 +1,5 @@
 import 'package:every_pet/common/utilities/app_color.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
@@ -60,15 +61,14 @@ class ProfileController extends EnrollController {
       '',
       duration: const Duration(seconds: 2),
       titleText: Text(
-        '完了',
+        AppString.completeTextTr.tr,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          // color: AppColors.blueDark,
           fontSize: Responsive.width18,
         ),
       ),
       messageText: Text(
-        '更新されました。',
+        AppString.updateMsgTr.tr,
         style: TextStyle(
           fontWeight: FontWeight.w500,
           fontSize: Responsive.width16,
@@ -88,28 +88,29 @@ class ProfileController extends EnrollController {
             child: FaIcon(FontAwesomeIcons.exclamation),
           ),
           SizedBox(width: Responsive.width10),
-          const Text('注意', style: TextStyle(fontWeight: FontWeight.w500)),
+          Text(AppString.coutionTr.tr,
+              style: const TextStyle(fontWeight: FontWeight.w500)),
         ],
       ),
       actions: [
         ElevatedButton(
             onPressed: () => Get.back(result: true),
-            child: const Text(
-              'はい',
+            child: Text(
+              AppString.yesTextTr.tr,
               style: TextStyle(fontWeight: FontWeight.w500),
             )),
         SizedBox(width: Responsive.width10),
         ElevatedButton(
           onPressed: () => Get.back(result: false),
-          child: const Text(
-            'いいえ',
-            style: TextStyle(fontWeight: FontWeight.w500),
+          child: Text(
+            AppString.noTextTr.tr,
+            style: const TextStyle(fontWeight: FontWeight.w500),
           ),
         ),
       ],
       content: Text.rich(
         TextSpan(
-          text: '',
+          text: '', // 코마  こま
           style: TextStyle(fontSize: Responsive.width17),
           children: [
             const TextSpan(text: '削除すると'),
@@ -117,7 +118,7 @@ class ProfileController extends EnrollController {
               text: petName,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                color: AppColors.blueLight,
+                color: AppColors.primaryColor,
                 fontSize: Responsive.width18,
               ),
             ),
@@ -127,7 +128,7 @@ class ProfileController extends EnrollController {
               text: petName,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                color: AppColors.blueLight,
+                color: AppColors.primaryColor,
                 fontSize: Responsive.width18,
               ),
             ),

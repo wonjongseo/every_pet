@@ -1,10 +1,8 @@
-import 'package:every_pet/controllers/calendar_controller.dart';
-import 'package:every_pet/controllers/profile_controller.dart';
-import 'package:every_pet/controllers/stamp_controller.dart';
-import 'package:every_pet/controllers/enroll_controller.dart';
+import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/respository/setting_repository.dart';
+import 'package:every_pet/view/nutrition/nutrition_screen.dart';
 import 'package:every_pet/view/todo/todo_screen.dart';
 import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
@@ -14,16 +12,15 @@ import 'package:get/get.dart';
 class PetsController extends GetxController {
   PetRepository petRepository = PetRepository();
   ScrollController scrollController = ScrollController();
-  late CalendarController calendarController;
+  late TodoController calendarController;
   List<PetModel>? pets;
   int petPageIndex = 0;
-  late PageController pageController;
   PersistentBottomSheetController? bottomSheetController;
   int bottomTapIndex = 0;
 
   List<Widget> body = const [
     TodoScreen(),
-    Text('栄養画面'),
+    NutritionScreen(),
     Text('費用画面'),
     ProfileScreen()
   ];
@@ -35,17 +32,12 @@ class PetsController extends GetxController {
     bottomTapIndex =
         await SettingRepository.getInt(SettingKey.lastBottomTapIndex);
 
-    pageController = PageController(initialPage: petPageIndex);
-
     await getPetModals();
-    calendarController = Get.put(CalendarController());
-
-    // calendarController.getTodos(pets![petPageIndex].name);
+    calendarController = Get.put(TodoController());
   }
 
   @override
   void onClose() {
-    pageController.dispose();
     scrollController.dispose();
   }
 

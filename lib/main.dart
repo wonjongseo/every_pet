@@ -9,11 +9,14 @@ import 'package:every_pet/models/todo_model.dart';
 import 'package:every_pet/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   await Hive.initFlutter();
   initializeDateFormatting();
   if (!Hive.isAdapterRegistered(0)) {
@@ -51,8 +54,7 @@ class MyApp extends StatelessWidget {
       // darkTheme: darkTheme(),
       themeMode: ThemeMode.system,
       translations: AppTranslations(),
-      // locale: Get.deviceLocale,
-      locale: const Locale('ja', 'JP'),
+      locale: Get.deviceLocale,
       fallbackLocale: const Locale('en', 'US'),
       home: const SplashScreen(),
     );

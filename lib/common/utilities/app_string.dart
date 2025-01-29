@@ -13,80 +13,77 @@ class AppTranslations extends Translations {
           AppString.genderText: AppString.genderTextJp,
           AppString.kyoseiTr: AppString.kyoseiJp,
 
-          AppString.fuinnTr: AppString.fuinnTrJp,
-          AppString.pregentTextTr: AppString.pregentTextJp,
+          AppString.fuinnTr: AppString.fuinnJp,
+          AppString.pregentText: AppString.pregentTextJp,
           AppString.kakaridukebyouinn: AppString.kakaridukebyouinnJp,
           AppString.hasipitalCtrHintTr: AppString.hasipitalCtrHintJp,
           AppString.hasipitalNumCtrHintTr: AppString.hasipitalNumCtrHintJp,
-          AppString.nameText: AppString.nameTextJp,
-          AppString.birthDayText: AppString.birthDayTextJp,
-          AppString.setting: AppString.settingJp,
-          AppString.weightText: AppString.weightTextJp,
-          AppString.duplicateName: AppString.duplicateNameJp,
-          AppString.monthText: AppString.monthTextJp,
-          AppString.yearText: AppString.yearTextJp,
-          AppString.dayText: AppString.dayTextJp,
+          AppString.nameTextTr: AppString.nameTextJp,
+          AppString.birthDayTextTr: AppString.birthDayTextJp,
+          AppString.settingTr: AppString.settingJp,
+          AppString.weightTextTr: AppString.weightTextJp,
+          AppString.duplicateNameTr: AppString.duplicateNameJp,
+          AppString.monthTextTr: AppString.monthTextJp,
+          AppString.yearTextTr: AppString.yearTextJp,
+          AppString.dayTextTr: AppString.dayTextJp,
           //
-          AppString.quiz: AppString.quizJp,
-          AppString.selectAll: AppString.selectAllJp,
-          AppString.chapter: AppString.chapterJp,
-          AppString.yesBtn: AppString.yesBtnJp,
-          AppString.noBtn: AppString.noBtnJp,
+          AppString.dogTextTr: AppString.dogTextJp,
+          AppString.catTextTr: AppString.catTextJp,
+          AppString.hasipitalTextTr: AppString.hasipitalTextJp,
+          AppString.hasipitalNumTextTr: AppString.hasipitalNumTextJp,
+          AppString.yesTextTr: AppString.yesTextJp,
 
-          AppString.previousTestRequiredMsg1:
-              AppString.previousTestRequiredMsg1Jp,
-          AppString.previousTestRequiredMsg2:
-              AppString.previousTestRequiredMsg2Jp,
-          AppString.previousTestRequiredMsg3:
-              AppString.previousTestRequiredMsg3Jp,
-          AppString.previousTestRequiredMsg4:
-              AppString.previousTestRequiredMsg4Jp,
+          AppString.noTextTr: AppString.noTextJp,
+          AppString.coutionTr: AppString.coutionJp,
+          AppString.previousDeletePetMsg1Tr: AppString.previousDeletePetMsg1Jp,
+          AppString.previousDeletePetMsg2Tr: AppString.previousDeletePetMsg2Jp,
 
-          AppString.askGoToMyVocaPageMsg1: AppString.askGoToMyVocaPageMsg1Jp,
-          AppString.askGoToMyVocaPageMsg2: AppString.askGoToMyVocaPageMsg2Jp,
-          AppString.askGoToMyVocaPageMsg3: AppString.askGoToMyVocaPageMsg3Jp,
-          AppString.myBook: AppString.myBookJp,
-          AppString.savedVoca: AppString.savedVocaJp,
-          AppString.savedVocaSuffic: AppString.savedVocaSufficJp,
-          AppString.myBook1Description: AppString.myBook1DescriptionJp,
-          AppString.myBook2Description: AppString.myBook2DescriptionJp,
-          AppString.deleteAllBtn: AppString.deleteAllBtnJp,
-          AppString.addBtn: AppString.addBtnJp,
-          AppString.doQuizBtn: AppString.doQuizBtnJp,
-          AppString.allVoca: AppString.allVocaJp,
+          AppString.previousDeletePetMsg3Tr: AppString.previousDeletePetMsg3Jp,
+          AppString.previousDeletePetMsg4Tr: AppString.previousDeletePetMsg4Jp,
+          AppString.changeStampTextTr: AppString.changeStampTextJp,
+          AppString.stamp1Tr: AppString.stamp1Jp,
+          AppString.stamp2Tr: AppString.stamp2Jp,
+          AppString.stamp3Tr: AppString.stamp3Jp,
+          AppString.stamp4Tr: AppString.stamp4Jp,
+          AppString.stamp5Tr: AppString.stamp5Jp,
+          AppString.stamp6Tr: AppString.stamp6Jp,
+          AppString.stamp7Tr: AppString.stamp7Jp,
+          AppString.stamp8Tr: AppString.stamp8Jp,
+          AppString.sufficMaleTextTr: AppString.sufficMaleTextJp,
 
-          AppString.onlyLearned: AppString.onlyLearnedJp,
-          AppString.onlyUnLearned: AppString.onlyUnLearnedJp,
-          AppString.fillter: AppString.fillterJp,
-          AppString.mean: AppString.meanJp,
-          AppString.inputManually: AppString.inputManuallyJp,
-          AppString.importExcel: AppString.importExcelJp,
-          AppString.textFieldRequried: AppString.textFieldRequriedJp,
-          AppString.pronunciation: AppString.pronunciationJp,
-          AppString.example: AppString.exampleJp,
-          AppString.sentence: AppString.sentenceJp,
-          AppString.saveBtn: AppString.saveBtnJp,
-          AppString.delete: AppString.deleteJp,
-          AppString.addExampleBtn: AppString.addExampleBtnJp,
-          AppString.open: AppString.openJp,
-          AppString.hold: AppString.holdJp,
-          AppString.changeToLearn: AppString.changeToLearnJp,
-          AppString.changeToUnLearn: AppString.changeToUnLearnJp,
-          AppString.savedDate: AppString.savedDateJp,
-          AppString.fnOrErorreport: AppString.fnOrErorreportJp,
+          AppString.sufficFeMaleTextTr: AppString.sufficFeMaleTextJp,
+          AppString.ageYearTextTr: AppString.ageYearTextJp,
+          AppString.derTextTr: AppString.derTextJp,
+          AppString.tekiryouKcalTextTr: AppString.tekiryouKcalTextJp,
+          AppString.dryTextTr: AppString.dryTextJp,
+          AppString.handmadeTextTr: AppString.handmadeTextJp,
+          AppString.updateBtnTextTr: AppString.updateBtnTextJp,
+          AppString.cancelBtnTextTr: AppString.cancelBtnTextJp,
+          AppString.completeTextTr: AppString.completeTextJp,
+          AppString.updateMsgTr: AppString.updateMsgJp,
+          AppString.notTextScheduleTextTr: AppString.notTextScheduleTextJp,
+          AppString.addScheduleTextTr: AppString.addScheduleTextJp,
+          AppString.foodTextTr: AppString.foodTextJp,
+          AppString.updateExampleBtnTr: AppString.updateExampleBtnJp,
+          AppString.calendarTextTr: AppString.calendarTextJp,
+          AppString.expensiveTextTr: AppString.expensiveTextJp,
+          AppString.enrollTextBtnTr: AppString.enrollTextBtnJp,
+          AppString.saveTextTr: AppString.saveTextJp,
+          AppString.stampNameCtlHintTr: AppString.stampNameCtlHintJp,
           AppString.reportMsgContect: AppString.reportMsgContectJp,
-          AppString.errorCreateEmail1: AppString.errorCreateEmail1Jp,
-          AppString.errorCreateEmail2: AppString.errorCreateEmail2Jp,
-          AppString.copyWordMsg: AppString.copyWordMsgJp,
-          AppString.close: AppString.closeJp,
-          AppString.shortAnswerQuestion: AppString.shortAnswerQuestionJp,
-          AppString.shortAnswerHelp: AppString.shortAnswerHelpJp,
-          AppString.shortAnswerToolTip: AppString.shortAnswerToolTipJp,
-          AppString.finishSettingMgs: AppString.finishSettingMgsJp,
+          AppString.stampNameCtlMsg: AppString.stampNameCtlMsgJp,
+          AppString.ageMonthText: AppString.ageMonthTextJp,
+          AppString.makterText: AppString.makterTextJp,
+          AppString.numberOfGivenText: AppString.numberOfGivenTextJp,
+          AppString.numberOfGivenSufficText:
+              AppString.numberOfGivenSufficTextJp,
+          AppString.onceText: AppString.onceTextJp,
+          AppString.amountGivenGramText: AppString.amountGivenGramTextJp,
+          AppString.vegetableText: AppString.vegetableTextJp,
 
-          AppString.howToUseMsg1: AppString.howToUseMsg1Jp,
+          AppString.proteinText: AppString.proteinTextJp,
 
-          AppString.howToUseMsg2: AppString.howToUseMsg2Jp,
+          AppString.calculateKcalText: AppString.calculateKcalTextJp,
           AppString.howToUseMsg3: AppString.howToUseMsg3Jp,
           AppString.howToUseMsg4: AppString.howToUseMsg4Jp,
           AppString.howToUseMsg5: AppString.howToUseMsg5Jp,
@@ -125,40 +122,69 @@ class AppTranslations extends Translations {
           AppString.birthdayCtrHint: AppString.birthdayCtrHintKr,
           AppString.genderText: AppString.genderTextKr,
           AppString.kyoseiTr: AppString.kyoseiKr,
-          AppString.fuinnTr: AppString.fuinnTrKr,
-          AppString.pregentTextTr: AppString.pregentTextKr,
+          AppString.fuinnTr: AppString.fuinnKr,
+          AppString.pregentText: AppString.pregentTextKr,
           AppString.kakaridukebyouinn: AppString.kakaridukebyouinnKr,
           AppString.hasipitalCtrHintTr: AppString.hasipitalCtrHintKr,
           AppString.hasipitalNumCtrHintTr: AppString.hasipitalNumCtrHintKr,
-          AppString.nameText: AppString.nameTextKr,
-          AppString.birthDayText: AppString.birthDayTextKr,
-          AppString.setting: AppString.settingKr,
-          AppString.weightText: AppString.weightTextKr,
-          AppString.duplicateName: AppString.duplicateNameKr,
-          AppString.monthText: AppString.monthTextKr,
-          AppString.yearText: AppString.yearTextKr,
-          AppString.dayText: AppString.dayTextKr,
-          AppString.quiz: AppString.quizKr,
-          AppString.selectAll: AppString.selectAllKr,
-          AppString.chapter: AppString.chapterKr,
-          AppString.yesBtn: AppString.yesBtnKr,
-          AppString.noBtn: AppString.noBtnKr,
-          AppString.previousTestRequiredMsg1:
-              AppString.previousTestRequiredMsg1Kr,
-          AppString.previousTestRequiredMsg2:
-              AppString.previousTestRequiredMsg2Kr,
-          AppString.previousTestRequiredMsg3:
-              AppString.previousTestRequiredMsg3Kr,
-          AppString.previousTestRequiredMsg4:
-              AppString.previousTestRequiredMsg4Kr,
-          AppString.askGoToMyVocaPageMsg1: AppString.askGoToMyVocaPageMsg1Kr,
-          AppString.askGoToMyVocaPageMsg2: AppString.askGoToMyVocaPageMsg2Kr,
-          AppString.askGoToMyVocaPageMsg3: AppString.askGoToMyVocaPageMsg3Kr,
-          AppString.myBook: AppString.myBookKr,
-          AppString.savedVoca: AppString.savedVocaKr,
-          AppString.savedVocaSuffic: AppString.savedVocaSufficKr,
-          AppString.myBook1Description: AppString.myBook1DescriptionKr,
-          AppString.myBook2Description: AppString.myBook2DescriptionKr
+          AppString.nameTextTr: AppString.nameTextKr,
+          AppString.birthDayTextTr: AppString.birthDayTextKr,
+          AppString.settingTr: AppString.settingKr,
+          AppString.weightTextTr: AppString.weightTextKr,
+          AppString.duplicateNameTr: AppString.duplicateNameKr,
+          AppString.monthTextTr: AppString.monthTextKr,
+          AppString.yearTextTr: AppString.yearTextKr,
+          AppString.dayTextTr: AppString.dayTextKr,
+          AppString.dogTextTr: AppString.dogTextKr,
+          AppString.catTextTr: AppString.catTextKr,
+          AppString.hasipitalTextTr: AppString.hasipitalTextKr,
+          AppString.hasipitalNumTextTr: AppString.hasipitalNumTextKr,
+          AppString.yesTextTr: AppString.yesTextKr,
+          AppString.noTextTr: AppString.noTextKr,
+          AppString.coutionTr: AppString.coutionKr,
+          AppString.previousDeletePetMsg1Tr: AppString.previousDeletePetMsg1Kr,
+          AppString.previousDeletePetMsg2Tr: AppString.previousDeletePetMsg2Kr,
+          AppString.previousDeletePetMsg3Tr: AppString.previousDeletePetMsg3Kr,
+          AppString.previousDeletePetMsg4Tr: AppString.previousDeletePetMsg4Kr,
+          AppString.changeStampTextTr: AppString.changeStampTextKr,
+          AppString.stamp1Tr: AppString.stamp1Kr,
+          AppString.stamp2Tr: AppString.stamp2Kr,
+          AppString.stamp3Tr: AppString.stamp3Kr,
+          AppString.stamp4Tr: AppString.stamp4Kr,
+          AppString.stamp5Tr: AppString.stamp5Kr,
+          AppString.stamp6Tr: AppString.stamp6Kr,
+          AppString.stamp7Tr: AppString.stamp7Kr,
+          AppString.stamp8Tr: AppString.stamp8Kr,
+          AppString.sufficMaleTextTr: AppString.sufficMaleTextKr,
+          AppString.tekiryouKcalTextTr: AppString.tekiryouKcalTextKr,
+          AppString.ageYearTextTr: AppString.ageYearTextKr,
+          AppString.derTextTr: AppString.derTextKr,
+          AppString.dryTextTr: AppString.dryTextKr,
+          AppString.handmadeTextTr: AppString.handmadeTextKr,
+          AppString.updateBtnTextTr: AppString.updateBtnTextKr,
+          AppString.cancelBtnTextTr: AppString.cancelBtnTextKr,
+          AppString.updateMsgTr: AppString.updateMsgKr,
+          AppString.completeTextTr: AppString.completeTextKr,
+          AppString.notTextScheduleTextTr: AppString.notTextScheduleTextKr,
+          AppString.addScheduleTextTr: AppString.addScheduleTextKr,
+          AppString.foodTextTr: AppString.foodTextKr,
+          AppString.updateExampleBtnTr: AppString.updateExampleBtnKr,
+          AppString.calendarTextTr: AppString.calendarTextKr,
+          AppString.expensiveTextTr: AppString.expensiveTextKr,
+          AppString.enrollTextBtnTr: AppString.enrollTextBtnKr,
+          AppString.saveTextTr: AppString.saveTextKr,
+          AppString.stampNameCtlHintTr: AppString.stampNameCtlHintKr,
+          AppString.stampNameCtlMsg: AppString.stampNameCtlMsgKr,
+          AppString.ageMonthText: AppString.ageMonthTextKr,
+          AppString.makterText: AppString.makterTextKr,
+          AppString.numberOfGivenText: AppString.numberOfGivenTextKr,
+          AppString.numberOfGivenSufficText:
+              AppString.numberOfGivenSufficTextKr,
+          AppString.onceText: AppString.onceTextKr,
+          AppString.amountGivenGramText: AppString.amountGivenGramTextKr,
+          AppString.vegetableText: AppString.vegetableTextKr,
+          AppString.proteinText: AppString.proteinTextkr,
+          AppString.calculateKcalText: AppString.calculateKcalTextKr,
         },
       };
 }
@@ -173,326 +199,272 @@ class AppString {
   static String nameCtrHintTextJp = "名前を入力してください";
 
   static String weightCtrHint = "weightCtrHintTr";
-  static String weightCtrHintKr = "";
+  static String weightCtrHintKr = "체중을 입력해주세요";
   static String weightCtrHintJp = "体重を入力してください";
 
   static String birthdayCtrHint = "birthdayCtrHintTr";
-  static String birthdayCtrHintKr = "";
+  static String birthdayCtrHintKr = "생일을 입력해주세요";
   static String birthdayCtrHintJp = "誕生日を選択してください";
 
   static String genderText = "genderTextTr";
-  static String genderTextKr = "";
+  static String genderTextKr = "성별";
   static String genderTextJp = "性別";
 
   static String kyoseiTr = "kyoseiTr";
-  static String kyoseiKr = "";
+  static String kyoseiKr = "거세";
   static String kyoseiJp = "去勢";
 
   static String fuinnTr = "fuinnTrTr";
-  static String fuinnTrKr = "";
-  static String fuinnTrJp = "不妊";
+  static String fuinnKr = "불임";
+  static String fuinnJp = "不妊";
 
-  static String pregentTextTr = "pregentText";
-  static String pregentTextKr = "";
+  static String pregentText = "pregentText";
+  static String pregentTextKr = "임신";
   static String pregentTextJp = "妊娠";
 
   static String kakaridukebyouinn = "kakaridukebyouinnTr";
-  static String kakaridukebyouinnKr = "한자";
+  static String kakaridukebyouinnKr = "자주가는 병원";
   static String kakaridukebyouinnJp = "かかりつけ病院";
 
   static String hasipitalCtrHintTr = "hasipitalCtrHintTr";
-  static String hasipitalCtrHintKr = "";
-  static String hasipitalCtrHintJp = "病院の名前を入力してください";
+  static String hasipitalCtrHintKr = "병원명을 입력해주세요.";
+  static String hasipitalCtrHintJp = "病院名入力してください";
 
   static String hasipitalNumCtrHintTr = "hasipitalNumCtrHintTr";
-  static String hasipitalNumCtrHintKr = "";
-  static String hasipitalNumCtrHintJp = "病院の番号を入力してください";
+  static String hasipitalNumCtrHintKr = "병원의 전화번호를 입력해주세요";
+  static String hasipitalNumCtrHintJp = "病院の電話番号を入力してください";
 
-  static String nameText = "nameTextTr";
+  static String nameTextTr = "nameTextTr";
   static String nameTextKr = '이름';
   static String nameTextJp = "名前";
 
-  static String birthDayText = "birthDayTextTr";
+  static String birthDayTextTr = "birthDayTextTr";
   static String birthDayTextKr = '생일';
   static String birthDayTextJp = "誕生日";
 
-  static String setting = "settingTr";
+  static String settingTr = "settingTr";
   static String settingKr = '설정';
   static String settingJp = "設定";
 
-  static String weightText = "weightTextTr";
+  static String weightTextTr = "weightTextTr";
   static String weightTextKr = '체중';
   static String weightTextJp = "体重";
 
-  static String duplicateName = "duplicateNameTr";
+  static String duplicateNameTr = "duplicateNameTr";
   static String duplicateNameKr = '는 이미 등록된 이름입니다.';
   static String duplicateNameJp = "は既に登録された名前です";
 
-  static String yearText = "yearTextTr";
+  static String yearTextTr = "yearTextTr";
   static String yearTextKr = '년';
   static String yearTextJp = "年";
 
-  static String monthText = "monthTextTr";
+  static String monthTextTr = "monthTextTr";
   static String monthTextKr = '월';
   static String monthTextJp = "月";
 
-  static String dayText = "dayTextTr";
+  static String dayTextTr = "dayTextTr";
   static String dayTextKr = '일';
   static String dayTextJp = "日";
 
-  static String quiz = "quizTr";
-  static String quizKr = '퀴즈!';
-  static String quizJp = "Quiz!";
-
-  static String selectAll = "selectAllTr";
-  static String selectAllKr = '전체 선택';
-  static String selectAllJp = "Select All";
-
-  static String chapter = "chapterTr";
-  static String chapterKr = '챕터';
-  static String chapterJp = "Chapter";
-
-  static String yesBtn = "yesBtnTr";
-  static String yesBtnKr = '네!';
-  static String yesBtnJp = "Yes!";
-
-  static String noBtn = "noBtnTr";
-  static String noBtnKr = '아뇨!';
-  static String noBtnJp = "No!";
-
-  static String previousTestRequiredMsg1 = "previousTestRequiredMsg1Tr";
-  static String previousTestRequiredMsg1Kr = '다음 단계로 넘어가기 위해서 해당 챕터의\n퀴즈에서';
-  static String previousTestRequiredMsg1Jp = "You need to get";
-
-  static String previousTestRequiredMsg2 = "previousTestRequiredMsg2Tr";
-  static String previousTestRequiredMsg2Kr = ' 100점';
-  static String previousTestRequiredMsg2Jp = " 100 points";
-
-  static String previousTestRequiredMsg3 = "previousTestRequiredMsg3Tr";
-  static String previousTestRequiredMsg3Kr = '을 맞으셔야 합니다!';
-  static String previousTestRequiredMsg3Jp =
-      " on the quiz in that chapter to move on!";
-
-  static String previousTestRequiredMsg4 = "previousTestRequiredMsg4Tr";
-  static String previousTestRequiredMsg4Kr = '해당 챕터의 퀴즈를 보시겠습니까?';
-  static String previousTestRequiredMsg4Jp =
-      "Would you like to take a quiz for that chapter?";
-
-  static String askGoToMyVocaPageMsg1 = "askGoToMyVocaPageMsg1Tr";
-  static String askGoToMyVocaPageMsg1Kr = '단어가 ';
-  static String askGoToMyVocaPageMsg1Jp = "More than ";
-
-  static String askGoToMyVocaPageMsg2 = "askGoToMyVocaPageMsg2Tr";
-  static String askGoToMyVocaPageMsg2Kr = '개 이상이나 저장되었어요!';
-  static String askGoToMyVocaPageMsg2Jp = " vocabularies have been saved!";
-
-  static String askGoToMyVocaPageMsg3 = "askGoToMyVocaPageMsg3Tr";
-  static String askGoToMyVocaPageMsg3Kr = '나만의 단어장 1에서 저장했던 단어를 학습하시겠습니까?';
-  static String askGoToMyVocaPageMsg3Jp =
-      "Would you like to learn the vocas you saved in 'My Book 1'? ";
-
-  static String myBook = "myBookTr";
-  static String myBookKr = '나만의 단어장';
-  static String myBookJp = "My Book";
-
-  static String savedVoca = "savedVocaTr";
-  static String savedVocaKr = '저장된 단어';
-  static String savedVocaJp = "Saved";
-
-  static String savedVocaSuffic = "savedVocaSufficTr";
-  static String savedVocaSufficKr = '개';
-  static String savedVocaSufficJp = " voca";
-
-  static String myBook1Description = "myBook1DescriptionTr";
-  static String myBook1DescriptionKr = '종각 앱에서 저장한 단어들을\n학습하는 단어장';
-  static String myBook1DescriptionJp =
-      "Book for learning the vocas saved by Jong's JLPT";
-
-  static String myBook2Description = "myBook2DescriptionTr";
-  static String myBook2DescriptionKr = '사용자가 직접 저장한 단어들을\n학습하는 단어장';
-  static String myBook2DescriptionJp =
-      "Book that users learn the vocas they save themselves";
-
-  static String deleteAllBtn = "deleteAllBtnTr";
-  static String deleteAllBtnKr = '전체 삭제';
-  static String deleteAllBtnJp = "Delete All";
-
-  static String addBtn = "addBtnTr";
-  static String addBtnKr = '단어 추가';
-  static String addBtnJp = "Add Voca";
-
-  static String doQuizBtn = "doQuizBtnTr";
-  static String doQuizBtnKr = '퀴즈 풀기';
-  static String doQuizBtnJp = "Do Quiz";
-
-  static String allVoca = "allVocaTr";
-  static String allVocaKr = '모든 단어';
-  static String allVocaJp = "All Vocas";
-
-  static String onlyLearned = "onlyLearnedTr";
-  static String onlyLearnedKr = '암기 단어';
-  static String onlyLearnedJp = "Learned";
-
-  static String onlyUnLearned = "onlyUnLearnedTr";
-  static String onlyUnLearnedKr = '미암기 단어';
-  static String onlyUnLearnedJp = "UnLearned";
-
-  static String fillter = "fillterTr";
-  static String fillterKr = '필터 ';
-  static String fillterJp = "Filter ";
-
-  static String mean = "meanTr";
-  static String meanKr = '의미';
-  static String meanJp = "Mean";
-
-  static String inputManually = "inputManuallyTr";
-  static String inputManuallyKr = '의미';
-  static String inputManuallyJp = "Input manually";
-
-  static String importExcel = "importExcelTr";
-  static String importExcelKr = '의미';
-  static String importExcelJp = "Import Excel File";
-
-  static String textFieldRequried = "textFieldRequriedTr";
-  static String textFieldRequriedKr = '을 입력해주세요.';
-  static String textFieldRequriedJp = " is required";
-
-  static String pronunciation = "pronunciationTr";
-  static String pronunciationKr = '읽는 법';
-  static String pronunciationJp = "Pronunciation";
-
-  static String example = "exampleTr";
-  static String exampleKr = '예제';
-  static String exampleJp = "example";
-
-  static String sentence = "sentenceTr";
-  static String sentenceKr = '예문';
-  static String sentenceJp = "sentence";
-
-  static String saveBtn = "saveBtnTr";
-  static String saveBtnKr = '단어 저장';
-  static String saveBtnJp = "Save Voca";
-
-  static String delete = "deleteTr";
-  static String deleteKr = '삭제';
-  static String deleteJp = "Delete";
-
-  static String addExampleBtn = "addExampleBtnTr";
-  static String addExampleBtnKr = '예제 추가';
-  static String addExampleBtnJp = "Add Example";
-
-  static String open = "openTr";
-  static String openKr = '펼치기';
-  static String openJp = "Open";
-
-  static String hold = "holdTr";
-  static String holdKr = '접기';
-  static String holdJp = "Hold";
-
-  static String changeToLearn = "changeToLearnTr";
-  static String changeToLearnKr = '암기로 변경';
-  static String changeToLearnJp = "Change to Learned";
-
-  static String changeToUnLearn = "changeToUnLearnTr";
-  static String changeToUnLearnKr = '암기로 변경';
-  static String changeToUnLearnJp = "Change to UnLearned";
-
-  static String savedDate = "savedDateTr";
-  static String savedDateKr = '에 저장됨 ';
-  static String savedDateJp = "Saved at ";
-
-  static String fnOrErorreport = "fnOrErorreportTr";
-  static String fnOrErorreportKr = '희망 기능 또는 에러 제보';
-  static String fnOrErorreportJp = "Desired function\n or error report";
-
-  static String reportMsgContect = "reportMsgContectTr";
-  static String reportMsgContectKr = """
-
-⭐️ [희망 기능 제보]
-
-
-==========================
-
-⭐️ [버그・오류 제보]
-
-🔸 버그・오류 페이지 :　  
-   예) 일본어 학습장 페이지 또는 나만의 단어장 페이지 
-
-🔸 버그・오류 내용 :　
-   예) 나만의 단어장에서 단어 추가를 하면 에러 발생
-
-
-==========================
-
-▪️이미지를 함께 첨부해주시면 버그・오류를 수정하는데 큰 도움이 됩니다!!▪️
-""";
-  static String reportMsgContectJp = """
-
-⭐️ [희망 기능 제보]
-
-
-==========================
-
-⭐️ [Bug/Error report]
-
-🔸Bug/Error page:　
-    e.g.) Japanese book page or My book page
-
-🔸Bug/Error Contents:　
-    e.g.) Error occurs when adding vocas in My Book page
-
-
-==========================
-
-▪️If you attach the image together,
-it will be very helpful in correcting bugs and errors! ▪️
-""";
-  static String errorCreateEmail1 = "errorCreateEmail1Tr";
-  static String errorCreateEmail1Kr = '종각 앱에서 이메일을 작성하는데 실패하였습니다.';
-  static String errorCreateEmail1Jp =
-      "Jong's JLPT App failed to create an email";
-
-  static String errorCreateEmail2 = "errorCreateEmail2Tr";
-  static String errorCreateEmail2Kr =
-      '핸드폰에 이메일 등록이 되어 있지 않으면 종각 앱에서 이메일을 작성하는데 어려움이 있습니다.\n별도의 이메일 앱에서 문의 해주시면 감사하겠습니다.\n\n이메일 visionwill3322@gmail.com을 복사하시겠습니까?';
-  static String errorCreateEmail2Jp =
-      "If you don't have an email account on your phone, it's difficult to write an email on the Jong's JLPT App.\nWe would appreciate it if you could contact us on another email app.\n\nAre you sure you want to copy email visionwill3322@gmail.com ";
-
-  static String copyWordMsg = "copyWordMsgTr";
-  static String copyWordMsgKr = '가\n 복사(Ctrl + C) 되었습니다.';
-  static String copyWordMsgJp = " has been copied.";
-
-  static String close = "closeTr";
-  static String closeKr = '단기';
-  static String closeJp = " Close";
-
-  static String shortAnswerQuestion = "shortAnswerQuestionTr";
-  static String shortAnswerQuestionKr = '주관식 문제';
-  static String shortAnswerQuestionJp = "short-answer";
-
-  static String shortAnswerHelp = "shortAnswerHelpTr";
-  static String shortAnswerHelpKr = '읽는 법을 먼저 입력해주세요.';
-  static String shortAnswerHelpJp = "Please enter the pronunciation first.";
-
-  static String shortAnswerToolTip = "shortAnswerToolTipTr";
-  static String shortAnswerToolTipKr =
-      '1. 읽는 법을 입력하면 사지선다가 표시됩니다.\n2. 장음 (-, ー) 은 생략해도 됩니다.';
-  static String shortAnswerToolTipJp =
-      "1. If you enter pronunciation, you'll see the multiple choice.\n2. You can skip the long vowel. (-, ー).";
-
-  static String finishSettingMgs = "finishSettingMgsTr";
-  static String finishSettingMgsKr =
-      '초기 설정이 완료 되었습니다.\n해당 설정들은 설정 페이지에서 재설정 할 수 있습니다.';
-  static String finishSettingMgsJp =
-      'The first settings are complete. You can be reset on the settings page.';
-
-  static String howToUseMsg1 = "howToUseMsg1Tr";
-  static String howToUseMsg1Kr = 'JLPT 종각 앱 사용 방법에 앞서.';
-  static String howToUseMsg1Jp = "Before using the Jong's JLPT";
-
-  static String howToUseMsg2 = "howToUseMsg2Tr";
-  static String howToUseMsg2Kr = ' 개발자 본인은 일본어뿐만 아니라 모든 외국어의 학습에 가장 중요한 부분은 ';
-  static String howToUseMsg2Jp = " The developer himself thing that ";
+  static String dogTextTr = "dogTextTr";
+  static String dogTextKr = '강아지';
+  static String dogTextJp = "ワンちゃん";
+
+  static String catTextTr = "catTextTr";
+  static String catTextKr = '고양이';
+  static String catTextJp = "ネコちゃん";
+
+  static String hasipitalTextTr = "hasipitalTextTr";
+  static String hasipitalTextKr = '병원명';
+  static String hasipitalTextJp = "病院名";
+
+  static String hasipitalNumTextTr = "hasipitalNumTextTr";
+  static String hasipitalNumTextKr = '병원번호';
+  static String hasipitalNumTextJp = "病院の電話番号";
+
+  static String yesTextTr = "yesTextTr";
+  static String yesTextKr = '네';
+  static String yesTextJp = "はい";
+
+  static String noTextTr = "noTextTr";
+  static String noTextKr = '아니요';
+  static String noTextJp = "いいえ";
+
+  static String coutionTr = "coutionTr";
+  static String coutionKr = '주의';
+  static String coutionJp = "注意";
+//プロフィール
+  static String previousDeletePetMsg1Tr = "previousDeletePetMsg1Tr";
+  static String previousDeletePetMsg1Kr = '삭제하면';
+  static String previousDeletePetMsg1Jp = "削除すると";
+
+  static String previousDeletePetMsg2Tr = "previousDeletePetMsg2Tr";
+  static String previousDeletePetMsg2Kr = '에 관한 데이터를 복구할 수 없습니다.';
+  static String previousDeletePetMsg2Jp = "に関するデータを戻すことができません。";
+
+  static String previousDeletePetMsg3Tr = "previousDeletePetMsg3Tr";
+  static String previousDeletePetMsg3Kr = '그래도';
+  static String previousDeletePetMsg3Jp = "それでも";
+
+  static String previousDeletePetMsg4Tr = "previousDeletePetMsg4Tr";
+  static String previousDeletePetMsg4Kr = '을 삭제하겠습니까?';
+  static String previousDeletePetMsg4Jp = "を削除しますか？";
+
+  static String changeStampTextTr = "changeStampTextTr";
+  static String changeStampTextKr = '스탬프 편집';
+  static String changeStampTextJp = "スタンプ編集";
+
+  static String stamp1Tr = "stamp1Tr";
+  static String stamp1Kr = '약 1';
+  static String stamp1Jp = "薬１";
+
+  static String stamp2Tr = "stamp2Tr";
+  static String stamp2Kr = '약 2';
+  static String stamp2Jp = "薬２";
+
+  static String stamp3Tr = "stamp3Tr";
+  static String stamp3Kr = '병원';
+  static String stamp3Jp = "病院";
+
+  static String stamp4Tr = "stamp4Tr";
+  static String stamp4Kr = '입원';
+  static String stamp4Jp = "入院";
+
+  static String stamp5Tr = "stamp5Tr";
+  static String stamp5Kr = '퇴원';
+  static String stamp5Jp = "退院";
+
+  static String stamp6Tr = "stamp6Tr";
+  static String stamp6Kr = '애견 미용';
+  static String stamp6Jp = "トリミング";
+
+  static String stamp7Tr = "stamp7Tr";
+  static String stamp7Kr = '애견 운동장';
+  static String stamp7Jp = "ドッグラン";
+
+  static String stamp8Tr = "stamp8Tr";
+  static String stamp8Kr = '필라리아';
+  static String stamp8Jp = "フィライア";
+
+  static String sufficMaleTextTr = "sufficMaleTextTr";
+  static String sufficMaleTextKr = ' 군';
+  static String sufficMaleTextJp = " くん";
+
+  static String sufficFeMaleTextTr = "sufficFeMaleTextTr";
+  static String sufficFeMaleTextKr = ' 양';
+  static String sufficFeMaleTextJp = " ちゃん";
+
+  static String ageYearTextTr = "ageTextTr";
+  static String ageYearTextKr = ' 살';
+  static String ageYearTextJp = " 歳";
+
+  static String derTextTr = "derTextTr";
+  static String derTextKr = '기초대사량';
+  static String derTextJp = "基礎代謝量 ";
+
+  static String tekiryouKcalTextTr = "tekiryouKcalTextTr";
+  static String tekiryouKcalTextKr = '1일 적정 칼로리';
+  static String tekiryouKcalTextJp = "1日適量カロリー";
+
+  static String dryTextTr = "dryTextTr";
+  static String dryTextKr = '사료';
+  static String dryTextJp = "ドライ";
+
+  static String handmadeTextTr = "handmadeTextTr";
+  static String handmadeTextKr = '수제';
+  static String handmadeTextJp = "手作り";
+
+  static String updateBtnTextTr = "updateBtnTextTr";
+  static String updateBtnTextKr = '변경';
+  static String updateBtnTextJp = "変更";
+
+  static String cancelBtnTextTr = "cancelBtnTextTr";
+  static String cancelBtnTextKr = '취소';
+  static String cancelBtnTextJp = "取消";
+
+  static String completeTextTr = "completeTextTr";
+  static String completeTextKr = '완료';
+  static String completeTextJp = "完了";
+
+  static String updateMsgTr = "updateMsgTr";
+  static String updateMsgKr = '更新されました';
+  static String updateMsgJp = "변경 되었습니다.";
+
+  static String notTextScheduleTextTr = "notTextScheduleTextTr";
+  static String notTextScheduleTextKr = '일정이 없습니다.';
+  static String notTextScheduleTextJp = "予定がありません。";
+
+  static String addScheduleTextTr = "addScheduleTextTr";
+  static String addScheduleTextKr = '예정 추가';
+  static String addScheduleTextJp = "予定を追加";
+
+  static String updateExampleBtnTr = "updateExampleBtnTr";
+  static String updateExampleBtnKr = '예정 변경';
+  static String updateExampleBtnJp = "予定を変更";
+
+  static String calendarTextTr = "calendarTextTr";
+  static String calendarTextKr = '캘린더';
+  static String calendarTextJp = "カレンダー";
+
+  static String foodTextTr = "foodTextTr";
+  static String foodTextKr = '영양';
+  static String foodTextJp = "栄養";
+
+  static String expensiveTextTr = "expensiveTextTr";
+  static String expensiveTextKr = '비용';
+  static String expensiveTextJp = "費用";
+
+  static String enrollTextBtnTr = "enrollTextBtnTr";
+  static String enrollTextBtnKr = '등록';
+  static String enrollTextBtnJp = "登録";
+
+  static String saveTextTr = "saveTextTr";
+  static String saveTextKr = '저장';
+  static String saveTextJp = "保存";
+
+  static String stampNameCtlHintTr = "stampCtlHintTr";
+  static String stampNameCtlHintKr = '스탬프 명';
+  static String stampNameCtlHintJp = "スタンプの名";
+
+  static String stampNameCtlMsg = "stampNameCtlMsgTr";
+  static String stampNameCtlMsgKr = '스탬프 명을 입력해주세요';
+  static String stampNameCtlMsgJp = "スタンプの名を入力してください";
+
+  static String ageMonthText = "ageMonthTextTr";
+  static String ageMonthTextKr = '개월';
+  static String ageMonthTextJp = "ヶ月";
+
+  static String makterText = "makterTextTr";
+  static String makterTextKr = '재조사';
+  static String makterTextJp = "メーカ";
+
+  static String numberOfGivenText = "numberOfGivenTr";
+  static String numberOfGivenTextKr = '주는 횟수';
+  static String numberOfGivenTextJp = " あげる回数";
+
+  static String numberOfGivenSufficText = "numberOfGivenSufficTextTr";
+  static String numberOfGivenSufficTextKr = '회 /1일';
+  static String numberOfGivenSufficTextJp = "回 /1日";
+
+  static String onceText = "onceTextTr";
+  static String onceTextKr = '1회';
+  static String onceTextJp = "1回";
+
+  static String amountGivenGramText = "amountGivenGramTextTr";
+  static String amountGivenGramTextKr = '주는 량';
+  static String amountGivenGramTextJp = "あげる量";
+
+  static String vegetableText = "vegetableText";
+  static String vegetableTextKr = '야체';
+  static String vegetableTextJp = '野菜';
+
+  static String proteinText = "proteinTextTr";
+  static String proteinTextkr = '단백질';
+  static String proteinTextJp = "タンパク質";
+
+  static String calculateKcalText = "calculateKcalTextTr";
+  static String calculateKcalTextKr = '칼로리 계산';
+  static String calculateKcalTextJp = " カロリー計算";
 
   static String howToUseMsg3 = "howToUseMsg3Tr";
   static String howToUseMsg3Kr = '어휘력';
@@ -619,6 +591,48 @@ it will be very helpful in correcting bugs and errors! ▪️
   static String howToUseMsg30Kr = "\n해당 한자의 의미와 훈독과 음독을 학습할 수 있게 제작하였습니다.";
   static String howToUseMsg30Jp = '\n(There are Kangi that are not prepared),';
 
+  static String reportMsgContect = "reportMsgContectTr";
+  static String reportMsgContectKr = """
+
+⭐️ [희망 기능 제보]
+
+
+==========================
+
+⭐️ [버그・오류 제보]
+
+🔸 버그・오류 페이지 :　  
+   예) 일본어 학습장 페이지 또는 나만의 단어장 페이지 
+
+🔸 버그・오류 내용 :　
+   예) 나만의 단어장에서 단어 추가를 하면 에러 발생
+
+
+==========================
+
+▪️이미지를 함께 첨부해주시면 버그・오류를 수정하는데 큰 도움이 됩니다!!▪️
+""";
+  static String reportMsgContectJp = """
+
+⭐️ [희망 기능 제보]
+
+
+==========================
+
+⭐️ [Bug/Error report]
+
+🔸Bug/Error page:　
+    e.g.) Japanese book page or My book page
+
+🔸Bug/Error Contents:　
+    e.g.) Error occurs when adding vocas in My Book page
+
+
+==========================
+
+▪️If you attach the image together,
+it will be very helpful in correcting bugs and errors! ▪️
+""";
   //
 
   //

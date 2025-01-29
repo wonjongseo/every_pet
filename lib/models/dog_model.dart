@@ -1,9 +1,10 @@
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:hive/hive.dart';
 part 'dog_model.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: AppConstant.dogModelHiveId)
 class DogModel extends PetModel {
   DogModel({
     required String name,
@@ -36,10 +37,6 @@ class DogModel extends PetModel {
   double getDER() {
     double der = getRER();
 
-    final diff = DateTime.now().difference(birthDay);
-
-    int age = diff.inDays ~/ 360;
-
     if (genderType == GENDER_TYPE.MALE) {
       if (isNeuter == true) {
         der *= 1.6;
@@ -55,7 +52,7 @@ class DogModel extends PetModel {
   }
 }
 
-@HiveType(typeId: 2)
+@HiveType(typeId: AppConstant.genderTypeHiveId)
 enum GENDER_TYPE {
   @HiveField(0)
   MALE("男"),

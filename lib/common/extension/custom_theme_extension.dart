@@ -47,7 +47,7 @@ class CustomThemeExtension extends ThemeExtension<CustomThemeExtension> {
   static const lightMode = CustomThemeExtension(
     circleImageColor: Color(0xFF25D366),
     greyColor: AppColors.greyLight,
-    blueColor: AppColors.blueLight,
+    blueColor: AppColors.primaryColor,
     langBgColor: Color(0xFFF7F8FA),
     langHightlightColor: Color(0xFFE8E8ED),
     authAppbarTextColor: AppColors.greenLight,
@@ -66,7 +66,7 @@ class CustomThemeExtension extends ThemeExtension<CustomThemeExtension> {
   static const darkMode = CustomThemeExtension(
     circleImageColor: AppColors.greenDark,
     greyColor: AppColors.greyDark,
-    blueColor: AppColors.blueDark,
+    blueColor: AppColors.primaryColor,
     langBgColor: Color(0xFF182229),
     langHightlightColor: Color(0xFF09141A),
     authAppbarTextColor: Color(0xFFE9EDEF),

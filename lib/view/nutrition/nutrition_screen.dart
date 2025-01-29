@@ -1,0 +1,68 @@
+import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/controllers/pets_controller.dart';
+import 'package:every_pet/models/pet_model.dart';
+import 'package:every_pet/respository/nutrition_controller.dart';
+import 'package:every_pet/respository/setting_repository.dart';
+import 'package:every_pet/view/nutrition/widgets/nutrition_screen_header.dart';
+import 'package:every_pet/view/nutrition/widgets/nutrition_screen_navigation.dart';
+import 'package:every_pet/view/nutrition/widgets/handmake_body.dart';
+import 'package:every_pet/view/nutrition/widgets/maker_body.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class NutritionScreen extends StatelessWidget {
+  const NutritionScreen({super.key});
+
+  // NUTRITION_TYPE foodType = NUTRITION_TYPE.DRY;
+  @override
+  Widget build(BuildContext context) {
+    Get.put(NutritionController());
+    return GetBuilder<PetsController>(builder: (petsController) {
+      PetModel pet = petsController.pets![petsController.petPageIndex];
+      return GetBuilder<NutritionController>(builder: (controller) {
+        return Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: Responsive.height10,
+              horizontal: Responsive.width20,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      NutritionScreenHeader(pet: pet),
+                      Divider(height: Responsive.height20),
+                      FoodScreenNavigation(
+                          foodType: controller.foodType,
+                          onChanged: controller.onTapBottomNavigation)
+                    ],
+                  ),
+                  if (controller.pageController != null)
+                    Container(
+                      margin: EdgeInsets.only(top: Responsive.height10),
+                      constraints: BoxConstraints(
+                        minHeight: Responsive.height10 * 25,
+                        maxHeight: Responsive.height10 * 30,
+                      ),
+                      child: PageView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller.bodys.length,
+                        controller: controller.pageController,
+                        onPageChanged: controller.onPageChanged,
+                        itemBuilder: (context, index) {
+                          return controller.bodys[index];
+                        },
+                      ),
+                    )
+                ],
+              ),
+            ),
+          ),
+        );
+      });
+    });
+  }
+}
+
+enum NUTRITION_TYPE { DRY, MANUL }

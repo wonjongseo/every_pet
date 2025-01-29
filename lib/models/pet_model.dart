@@ -1,12 +1,15 @@
 import 'dart:convert';
+import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/models/dog_model.dart';
+import 'package:every_pet/models/nutrition_model.dart';
 import 'package:every_pet/models/todo_model.dart';
 import 'package:hive/hive.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
-
+import 'package:age_calculator/age_calculator.dart';
 part 'pet_model.g.dart';
 
-@HiveType(typeId: 0) // typeId는 각 클래스마다 고유해야 함
+@HiveType(typeId: AppConstant.petModelHiveId)
 class PetModel {
   @HiveField(0)
   String name;
@@ -35,16 +38,11 @@ class PetModel {
   @HiveField(8)
   late DateTime createdAt;
 
+  @HiveField(9)
+  NutritionModel? nutritionModel;
+
   // @HiveField(7)
   // final List<TodoModel> todoModel = [];
-
-  double getRER() {
-    return 0;
-  }
-
-  double getDER() {
-    return 0;
-  }
 
   PetModel({
     required this.name,
@@ -57,6 +55,28 @@ class PetModel {
   }) {
     id = DateTime.now().millisecondsSinceEpoch.toString();
     createdAt = DateTime.now();
+  }
+
+  double getRER() {
+    return 0;
+  }
+
+  double getDER() {
+    return 0;
+  }
+
+  int getAgeYear() {
+    // UtilFunction.age(DateTime.now(), birthDay);
+    DateDuration duration = AgeCalculator.age(birthDay);
+
+    return duration.years;
+  }
+
+  int getAgeMonth() {
+    // UtilFunction.age(DateTime.now(), birthDay);
+    DateDuration duration = AgeCalculator.age(birthDay);
+
+    return duration.months;
   }
 
   PetModel copyWith({

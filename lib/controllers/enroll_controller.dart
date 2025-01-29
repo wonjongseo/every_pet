@@ -74,7 +74,7 @@ class EnrollController extends GetxController {
     } else {
       for (var pet in petsController.pets!) {
         if (pet.name == value) {
-          return '$value${AppString.duplicateName.tr}';
+          return '$value${AppString.duplicateNameTr.tr}';
         }
       }
     }
@@ -99,7 +99,6 @@ class EnrollController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    print('enrollController onClose');
     nameEditingController.dispose();
     birthDayEditingController.dispose();
     weightEditingController.dispose();
@@ -110,8 +109,6 @@ class EnrollController extends GetxController {
   }
 
   void onClickSaveBtn(BuildContext context) async {
-    print('formKey : ${formKey}');
-
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -179,6 +176,8 @@ class EnrollController extends GetxController {
   }
 
   void selectBirthDayPicker(BuildContext context) {
+    print('Get.locale : ${Get.locale}');
+
     DatePicker.showDatePicker(
       context,
       showTitleActions: true,
@@ -191,7 +190,7 @@ class EnrollController extends GetxController {
         update();
       },
       currentTime: DateTime.now(),
-      locale: LocaleType.zh,
+      locale: Get.locale.toString() == 'ko_KR' ? LocaleType.ko : LocaleType.jp,
     );
   }
 
@@ -205,8 +204,6 @@ class EnrollController extends GetxController {
 
       update();
     } catch (e) {
-      print('e.toString() : ${e.toString()}');
-
       UtilFunction.showAlertDialog(context: context, message: e.toString());
     }
   }
