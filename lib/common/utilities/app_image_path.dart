@@ -2,7 +2,7 @@ class AppImagePath {
   static String bisyon = 'assets/images/bisyon.png';
   static String bug1 = 'assets/images/bug1.png';
   static String bug2 = 'assets/images/bug2.png';
-  static String circleAddBtn = 'assets/images/circle_add_btn.png'; // OK
+  static String circleAddBtn = 'assets/images/circle_add_btn3.png'; // OK
   static String circleBisyon = 'assets/images/circle_bisyon.png'; // OK
   static String circleBuldog = 'assets/images/circle_buldog.png';
   static String circleCalendar = 'assets/images/circle_calendar.png';

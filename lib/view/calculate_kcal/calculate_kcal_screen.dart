@@ -152,18 +152,52 @@ class CalculateKcalScreen extends StatelessWidget {
                   Row(
                     children: [
                       DropdownButton(
-                          value: controller.givenCountPerDay,
-                          items: const [
-                            DropdownMenuItem(value: 1, child: Text('１回')),
-                            DropdownMenuItem(value: 2, child: Text('２回')),
-                            DropdownMenuItem(value: 3, child: Text('３回')),
-                          ],
-                          onChanged: controller.changeGivenCountPerDay),
-                      SizedBox(width: Responsive.width10),
-                      Text('1日/回数')
+                        value: controller.givenCountPerDay,
+                        items: [
+                          DropdownMenuItem(
+                              value: 1,
+                              child: Text(
+                                '１回',
+                                style: TextStyle(
+                                  fontSize: Responsive.width16,
+                                ),
+                              )),
+                          DropdownMenuItem(
+                              value: 2,
+                              child: Text(
+                                '２回',
+                                style: TextStyle(
+                                  fontSize: Responsive.width16,
+                                ),
+                              )),
+                          DropdownMenuItem(
+                            value: 3,
+                            child: Text(
+                              '３回',
+                              style: TextStyle(
+                                fontSize: Responsive.width16,
+                              ),
+                            ),
+                          ),
+                        ],
+                        onChanged: controller.changeGivenCountPerDay,
+                      ),
+                      SizedBox(width: Responsive.width20),
+                      Text(
+                        '1日/回数',
+                        style: TextStyle(
+                          fontSize: Responsive.width16,
+                        ),
+                      )
                     ],
                   ),
-                  SizedBox(height: Responsive.height10),
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      '（一食にあたる）',
+                    ),
+                  ),
+                  SizedBox(height: Responsive.height20),
                   Column(
                     children: List.generate(
                         controller.selectedGroceriesModels.length, (index) {

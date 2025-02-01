@@ -20,6 +20,7 @@ class CalculateKcalController extends GetxController {
   List<TextEditingController> selectedKcalControllers = [];
 
   int givenCountPerDay = 1;
+
   @override
   void onInit() {
     super.onInit();

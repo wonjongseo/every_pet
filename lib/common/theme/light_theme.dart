@@ -12,8 +12,12 @@ ThemeData lightTheme() {
     extensions: [
       CustomThemeExtension.lightMode,
     ],
+    cardTheme: CardTheme(
+      elevation: 2,
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.primaryColor,
+      surfaceTintColor: Colors.transparent,
       titleTextStyle: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w600,
@@ -78,10 +82,21 @@ ThemeData lightTheme() {
       trackColor: MaterialStatePropertyAll(Color(0xFFDADFE2)),
     ),
     checkboxTheme: CheckboxThemeData(
-      overlayColor: MaterialStateProperty.all(Colors.transparent),
       checkColor: MaterialStateProperty.all(Colors.white),
-      // fillColor: MaterialStateProperty.all(AppColors.secondaryColor),
-      fillColor: MaterialStateProperty.all(AppColors.primaryColor),
+      fillColor: MaterialStateProperty.resolveWith(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.selected)) {
+            return AppColors.primaryColor;
+          }
+          return AppColors.white;
+        },
+      ),
     ),
+
+    // radioTheme: RadioThemeData(
+    //   fillColor: MaterialStateProperty.all(
+    //     AppColors.primaryColor,
+    //   ),
+    // ),
   );
 }
