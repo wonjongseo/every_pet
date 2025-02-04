@@ -25,9 +25,9 @@ class CatModelAdapter extends TypeAdapter<CatModel> {
       isNeuter: fields[4] as bool?,
       isPregnancy: fields[5] as bool?,
     )
+      ..nutritionModel = fields[9] as NutritionModel?
       ..id = fields[7] as String
-      ..createdAt = fields[8] as DateTime
-      ..nutritionModel = fields[9] as NutritionModel?;
+      ..createdAt = fields[8] as DateTime;
   }
 
   @override
@@ -48,12 +48,12 @@ class CatModelAdapter extends TypeAdapter<CatModel> {
       ..write(obj.isPregnancy)
       ..writeByte(6)
       ..write(obj.weight)
+      ..writeByte(9)
+      ..write(obj.nutritionModel)
       ..writeByte(7)
       ..write(obj.id)
       ..writeByte(8)
-      ..write(obj.createdAt)
-      ..writeByte(9)
-      ..write(obj.nutritionModel);
+      ..write(obj.createdAt);
   }
 
   @override

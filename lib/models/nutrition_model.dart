@@ -4,7 +4,7 @@ import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/models/handmade_model.dart';
 import 'package:every_pet/models/maker_model.dart';
 import 'package:every_pet/view/nutrition/widgets/handmake_body.dart';
-
+import 'package:uuid/uuid.dart';
 part 'nutrition_model.g.dart';
 
 @HiveType(typeId: AppConstant.nutritionModelHiveId)
@@ -25,7 +25,7 @@ class NutritionModel {
     this.makerModel,
     this.handmadeModel,
   }) {
-    id = DateTime.now().millisecondsSinceEpoch.toString();
+    id = const Uuid().v4();
     createdAt = DateTime.now();
   }
 

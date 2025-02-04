@@ -3,7 +3,7 @@
 import 'package:hive/hive.dart';
 
 import 'package:every_pet/common/utilities/app_constant.dart';
-
+import 'package:uuid/uuid.dart';
 part 'maker_model.g.dart';
 
 @HiveType(typeId: AppConstant.makerModelHiveId)
@@ -15,7 +15,7 @@ class MakerModel {
   int givenCountPerDay; // あげる回数
 
   @HiveField(2)
-  double givenGramOnce; // 一回につきg
+  int givenGramOnce; // 一回につきg
 
   @HiveField(3)
   late String id;
@@ -28,7 +28,7 @@ class MakerModel {
     required this.givenCountPerDay,
     required this.givenGramOnce,
   }) {
-    id = DateTime.now().millisecondsSinceEpoch.toString();
+    id = const Uuid().v4();
     createdAt = DateTime.now();
   }
 

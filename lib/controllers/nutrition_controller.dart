@@ -90,11 +90,7 @@ class NutritionController extends GetxController {
     if (isTap == true) return;
     if (nutritionType == null) return;
 
-    // if (foodType == nutritionType) return;
-
     isTap = true;
-
-    // foodType = nutritionType;
 
     update();
 
@@ -103,8 +99,6 @@ class NutritionController extends GetxController {
     } else {
       bottomPageIndex = NUTRITION_TYPE.MANUL.index;
     }
-
-    print('bottomPageIndex : ${bottomPageIndex}');
 
     SettingRepository.setInt(
         AppConstant.lastNutritionBottomPageIndexKey, bottomPageIndex);

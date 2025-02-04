@@ -109,6 +109,10 @@ class TodoController extends GetxController {
     _selectedDay = selectedDay;
     _focusedDay = focusedDay;
     update();
+    if (!isNotEmptyFocusedDayEvent()) {
+      clickAddbtn();
+      return;
+    }
     petsController.bottomSheetController = showBottomSheet(
       context: context,
       builder: (context) {

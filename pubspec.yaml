@@ -42,6 +42,7 @@ dependencies:
   image_picker: ^1.0.8
   photo_manager: ^3.6.3
   path_provider: ^2.1.4
+  google_fonts: ^5.1.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   flutter_svg: ^2.0.10+1
@@ -49,6 +50,8 @@ dependencies:
   google_mobile_ads: ^4.0.0
   dropdown_button2: ^2.3.9
   age_calculator: ^1.0.0
+
+  uuid: ^4.5.1
 
 dev_dependencies:
   flutter_test:
@@ -94,13 +97,41 @@ flutter:
       fonts:
         - asset: assets/fonts/Zen_Maru_Gothic/ZenMaruGothic-Regular.ttf
           weight: 100
+        - asset: assets/fonts/Zen_Maru_Gothic/ZenMaruGothic-Regular.ttf
+          weight: 200
         - asset: assets/fonts/Zen_Maru_Gothic/ZenMaruGothic-Medium.ttf
           weight: 300
+        - asset: assets/fonts/Zen_Maru_Gothic/ZenMaruGothic-Medium.ttf
+          weight: 400
         - asset: assets/fonts/Zen_Maru_Gothic/ZenMaruGothic-Light.ttf
           weight: 500
+        - asset: assets/fonts/Zen_Maru_Gothic/ZenMaruGothic-Light.ttf
+          weight: 600
         - asset: assets/fonts/Zen_Maru_Gothic/ZenMaruGothic-Bold.ttf
           weight: 700
+        - asset: assets/fonts/Zen_Maru_Gothic/ZenMaruGothic-Bold.ttf
+          weight: 800
         - asset: assets/fonts/Zen_Maru_Gothic/ZenMaruGothic-Black.ttf
+          weight: 900
+    - family: CookieRunFont
+      fonts:
+        - asset: assets/fonts/CookieRunFont_TTF/CookieRun-Regular.ttf
+          weight: 100
+        - asset: assets/fonts/CookieRunFont_TTF/CookieRun-Regular.ttf
+          weight: 200
+        - asset: assets/fonts/CookieRunFont_TTF/CookieRun-Regular.ttf
+          weight: 300
+        - asset: assets/fonts/CookieRunFont_TTF/CookieRun-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/CookieRunFont_TTF/CookieRun-Bold.ttf
+          weight: 500
+        - asset: assets/fonts/CookieRunFont_TTF/CookieRun-Bold.ttf
+          weight: 600
+        - asset: assets/fonts/CookieRunFont_TTF/CookieRun-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/CookieRunFont_TTF/CookieRun-Black.ttf
+          weight: 800
+        - asset: assets/fonts/CookieRunFont_TTF/CookieRun-Black.ttf
           weight: 900
 
   #

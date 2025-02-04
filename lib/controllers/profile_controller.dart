@@ -30,7 +30,7 @@ class ProfileController extends EnrollController {
 
     nameEditingController = TextEditingController(text: pet.name);
     birthDayEditingController =
-        TextEditingController(text: UtilFunction.getDayYYYYMMDD(pet.birthDay));
+        TextEditingController(text: AppFunction.getDayYYYYMMDD(pet.birthDay));
     weightEditingController =
         TextEditingController(text: pet.weight.toString());
     nameEditingFocusNode = FocusNode();
@@ -113,7 +113,7 @@ class ProfileController extends EnrollController {
           text: '', // 코마  こま
           style: TextStyle(fontSize: Responsive.width17),
           children: [
-            const TextSpan(text: '削除すると'),
+            TextSpan(text: AppString.previousDeletePetMsg1Tr.tr),
             TextSpan(
               text: petName,
               style: TextStyle(
@@ -122,8 +122,8 @@ class ProfileController extends EnrollController {
                 fontSize: Responsive.width18,
               ),
             ),
-            const TextSpan(text: 'に関するデータを戻すことができません。\n\n'),
-            const TextSpan(text: 'それでも'),
+            TextSpan(text: '${AppString.previousDeletePetMsg2Tr.tr}\n\n'),
+            TextSpan(text: AppString.previousDeletePetMsg3Tr.tr),
             TextSpan(
               text: petName,
               style: TextStyle(
@@ -132,7 +132,7 @@ class ProfileController extends EnrollController {
                 fontSize: Responsive.width18,
               ),
             ),
-            const TextSpan(text: 'を削除しますか？'),
+            TextSpan(text: AppString.previousDeletePetMsg4Tr.tr),
           ],
         ),
       ),

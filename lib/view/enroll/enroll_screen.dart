@@ -19,7 +19,6 @@ class EnrollScreen extends StatelessWidget {
   final bool isFirst;
   @override
   Widget build(BuildContext context) {
-    // EnrollController controller = Get.find<EnrollController>();
     EnrollController controller = Get.put(EnrollController(isFirst));
     return Scaffold(
       appBar: AppBar(
@@ -32,9 +31,7 @@ class EnrollScreen extends StatelessWidget {
         ],
       ),
       body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
+        onTap: () => FocusScope.of(context).unfocus(),
         child: SafeArea(
           child: GetBuilder<EnrollController>(
             builder: (controller) {
@@ -89,71 +86,63 @@ class EnrollScreenBody extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Row(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          flex: 2,
+                        Column(
+                          children: [
+                            ProfileImage(
+                              imagePath: controller.imagePath,
+                              isDog: controller.petType == PET_TYPE.DOG,
+                            ),
+                            ImagePickIconRow(
+                              onClickCamaraIcon: () =>
+                                  controller.pickImageFromCamera(context),
+                              onClickFolderIcon:
+                                  controller.goToImagePickerScreen,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: Responsive.height10 * 2),
+                        Form(
+                          key: controller.formKey,
                           child: Column(
                             children: [
-                              ProfileImage(
-                                imagePath: controller.imagePath,
-                                isDog: controller.petType == PET_TYPE.DOG,
+                              CustomTextField(
+                                controller: controller.nameEditingController,
+                                focusNode: controller.nameEditingFocusNode,
+                                textInputAction: TextInputAction.next,
+                                hintText: AppString.nameTextTr.tr,
+                                fontSize: Responsive.width16,
+                                validator: controller.nameValidator,
                               ),
-                              ImagePickIconRow(
-                                onClickCamaraIcon: () =>
-                                    controller.pickImageFromCamera(context),
-                                onClickFolderIcon:
-                                    controller.goToImagePickerScreen,
+                              SizedBox(height: Responsive.height14),
+                              CustomTextField(
+                                focusNode: controller.weightEditingFocusNode,
+                                fontSize: Responsive.width16,
+                                controller: controller.weightEditingController,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                hintText: AppString.weightTextTr.tr,
+                                sufficIcon: const Text('kg'),
+                                validator: controller.weightValidator,
+                              ),
+                              SizedBox(height: Responsive.height14),
+                              CustomTextField(
+                                onTap: () =>
+                                    controller.selectBirthDayPicker(context),
+                                fontSize: Responsive.width16,
+                                focusNode: controller.birthDayEditingFocusNode,
+                                readOnly: true,
+                                controller:
+                                    controller.birthDayEditingController,
+                                hintText: AppString.birthDayTextTr.tr,
+                                validator: controller.birthDayValidator,
                               ),
                             ],
-                          ),
-                        ),
-                        SizedBox(width: Responsive.width10 * 2),
-                        Expanded(
-                          flex: 4,
-                          child: Form(
-                            key: controller.formKey,
-                            child: Column(
-                              children: [
-                                CustomTextField(
-                                  controller: controller.nameEditingController,
-                                  focusNode: controller.nameEditingFocusNode,
-                                  textInputAction: TextInputAction.next,
-                                  hintText: AppString.nameTextTr.tr,
-                                  fontSize: Responsive.width16,
-                                  validator: controller.nameValidator,
-                                ),
-                                SizedBox(height: Responsive.height14),
-                                CustomTextField(
-                                  focusNode: controller.weightEditingFocusNode,
-                                  fontSize: Responsive.width16,
-                                  controller:
-                                      controller.weightEditingController,
-                                  textInputAction: TextInputAction.next,
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ],
-                                  hintText: AppString.weightTextTr.tr,
-                                  sufficIcon: const Text('kg'),
-                                  validator: controller.weightValidator,
-                                ),
-                                SizedBox(height: Responsive.height14),
-                                CustomTextField(
-                                  onTap: () =>
-                                      controller.selectBirthDayPicker(context),
-                                  fontSize: Responsive.width16,
-                                  focusNode:
-                                      controller.birthDayEditingFocusNode,
-                                  readOnly: true,
-                                  controller:
-                                      controller.birthDayEditingController,
-                                  hintText: AppString.birthDayTextTr.tr,
-                                  validator: controller.birthDayValidator,
-                                ),
-                              ],
-                            ),
                           ),
                         ),
                       ],
@@ -193,59 +182,40 @@ class EnrollScreenBody extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: Responsive.height10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                AppString.pregentText.tr,
-                                style: TextStyle(
-                                  fontSize: Responsive.width16,
-                                  fontWeight: FontWeight.w500,
+                          if (controller.genderType == GENDER_TYPE.FEMALE)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  AppString.pregentText.tr,
+                                  style: TextStyle(
+                                    fontSize: Responsive.width16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                              Transform.scale(
-                                scale: 1.25,
-                                child: Checkbox(
-                                  value: controller.genderType ==
-                                          GENDER_TYPE.FEMALE
-                                      ? controller.isPregnancy
-                                      : false,
-                                  onChanged: controller.genderType ==
-                                          GENDER_TYPE.FEMALE
-                                      ? controller.togglePregnancy
-                                      : null,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                ),
-                              )
-                            ],
-                          ),
+                                Transform.scale(
+                                  scale: 1.25,
+                                  child: Checkbox(
+                                    value: controller.isPregnancy,
+                                    onChanged: controller.togglePregnancy,
+                                    materialTapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                )
+                              ],
+                            ),
                         ],
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Divider(),
-                    ),
-                    SizedBox(height: Responsive.height10 * 2),
+                    Divider(height: Responsive.height10 * 4),
                     Column(
                       children: [
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              width: Responsive.width10 * 2.5,
-                              height: Responsive.width10 * 2.5,
-                              decoration: BoxDecoration(
-                                color: AppColors.greenDark,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(Responsive.width10 * .4),
-                                ),
-                              ),
-                            ),
                             SizedBox(width: Responsive.width10 / 2),
                             Text(
-                              AppString.kakaridukebyouinn.tr,
+                              AppString.regularHospital.tr,
                               style: TextStyle(
                                 fontSize: Responsive.width18,
                               ),
@@ -259,13 +229,62 @@ class EnrollScreenBody extends StatelessWidget {
                           ),
                           child: CustomTextField(
                             hintText: AppString.hasipitalTextTr.tr,
+                            maxLines: 1,
+                            textInputAction: TextInputAction.next,
+                            controller:
+                                controller.hosipitalNameEditingController,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: Responsive.width10),
                           child: CustomTextField(
+                            controller:
+                                controller.hosipitalNumberEditingController,
+                            maxLines: 1,
+                            keyboardType: TextInputType.phone,
                             hintText: AppString.hasipitalNumTextTr.tr,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: Responsive.height10 * 4),
+                    Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(width: Responsive.width10 / 2),
+                            Text(
+                              AppString.regularTrmingShop.tr,
+                              style: TextStyle(
+                                fontSize: Responsive.width18,
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: Responsive.width10,
+                            vertical: Responsive.height10,
+                          ),
+                          child: CustomTextField(
+                            hintText: AppString.regularTrmingShopName.tr,
+                            maxLines: 1,
+                            textInputAction: TextInputAction.next,
+                            controller:
+                                controller.hosipitalNameEditingController,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Responsive.width10),
+                          child: CustomTextField(
+                            controller:
+                                controller.hosipitalNumberEditingController,
+                            maxLines: 1,
+                            keyboardType: TextInputType.phone,
+                            hintText: AppString.regularTrmingShopNumber.tr,
                           ),
                         ),
                       ],
@@ -297,15 +316,22 @@ class ImagePickIconRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
           onPressed: onClickCamaraIcon,
-          icon: const Icon(Icons.camera_alt),
+          icon: Icon(
+            Icons.camera_alt,
+            size: Responsive.width10 * 3,
+          ),
         ),
+        SizedBox(width: Responsive.width10),
         IconButton(
           onPressed: onClickFolderIcon,
-          icon: const Icon(Icons.folder_copy),
+          icon: Icon(
+            Icons.folder_copy,
+            size: Responsive.width10 * 3,
+          ),
         )
       ],
     );

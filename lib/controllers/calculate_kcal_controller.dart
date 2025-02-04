@@ -1,5 +1,6 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/models/groceries_modal.dart';
+import 'package:every_pet/respository/groceries_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,7 +8,16 @@ import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 
 class CalculateKcalController extends GetxController {
+  bool isEdit = false;
+
+  void toggleIsEdit() {
+    isEdit = !isEdit;
+    update();
+  }
+
   PetsController petsController = Get.find<PetsController>();
+
+  GroceriesRepository groceriesRepository = GroceriesRepository();
 
   TextEditingController editingController = TextEditingController();
   late PetModel pet;
@@ -21,15 +31,21 @@ class CalculateKcalController extends GetxController {
 
   int givenCountPerDay = 1;
 
+  Future<void> getAllGroceries() async {
+    groceriesModels = await groceriesRepository.getGroceries();
+
+    update();
+  }
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     pet = petsController.pets![petsController.petPageIndex];
 
     if (pet.nutritionModel != null && pet.nutritionModel!.makerModel != null) {
       // pet.nutritionModel!.makerModel!.givenGram
     }
-    groceriesModels = AppConstant.groceriesModels;
+    await getAllGroceries();
 
     gramControllers = List.generate(
       groceriesModels.length,
@@ -85,6 +101,11 @@ class CalculateKcalController extends GetxController {
     selectedKcalControllers.removeAt(index);
     distributeDER();
     update();
+  }
+
+  void deleteGrocery(GroceriesModel groceriesModel) {
+    groceriesRepository.deleteGrocery(groceriesModel);
+    getAllGroceries();
   }
 
   void onAddBtnClick(GroceriesModel groceriesModel) {

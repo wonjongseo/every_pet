@@ -1,9 +1,7 @@
 import 'package:every_pet/common/utilities/responsive.dart';
-import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/controllers/nutrition_controller.dart';
-import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/view/nutrition/widgets/nutrition_screen_header.dart';
 import 'package:every_pet/view/nutrition/widgets/nutrition_screen_navigation.dart';
 import 'package:every_pet/view/nutrition/widgets/handmake_body.dart';
@@ -14,7 +12,6 @@ import 'package:get/get.dart';
 class NutritionScreen extends StatelessWidget {
   const NutritionScreen({super.key});
 
-  // NUTRITION_TYPE foodType = NUTRITION_TYPE.DRY;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<NutritionController>(builder: (controller) {
@@ -32,13 +29,14 @@ class NutritionScreen extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      NutritionScreenHeader(pet: pet),
+                      Card(child: NutritionScreenHeader(pet: pet)),
                       Divider(height: Responsive.height20),
                       FoodScreenNavigation(
-                          foodType: controller.bottomPageIndex == 0
-                              ? NUTRITION_TYPE.DRY
-                              : NUTRITION_TYPE.MANUL,
-                          onChanged: controller.onTapBottomNavigation)
+                        foodType: controller.bottomPageIndex == 0
+                            ? NUTRITION_TYPE.DRY
+                            : NUTRITION_TYPE.MANUL,
+                        onChanged: controller.onTapBottomNavigation,
+                      )
                     ],
                   ),
                   if (controller.pageController != null)
@@ -46,7 +44,7 @@ class NutritionScreen extends StatelessWidget {
                       margin: EdgeInsets.only(top: Responsive.height10),
                       constraints: BoxConstraints(
                         minHeight: Responsive.height10 * 25,
-                        maxHeight: Responsive.height10 * 30,
+                        maxHeight: Responsive.height10 * 25,
                       ),
                       child: PageView.builder(
                         physics: const NeverScrollableScrollPhysics(),

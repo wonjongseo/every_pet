@@ -9,16 +9,24 @@ part 'todo_model.g.dart';
 
 @HiveType(typeId: AppConstant.todoModelHiveId)
 class TodoModel {
-  @HiveField(0)
-  List<StampModel> stamps;
+  // @HiveField(0)
+  // String id;
   @HiveField(1)
-  String memo;
+  List<StampModel> stamps;
+
   @HiveField(2)
+  String memo;
+  @HiveField(3)
   DateTime dateTime;
 
-  @HiveField(3)
+  @HiveField(4)
+  DateTime? startTime;
+  @HiveField(5)
+  DateTime? endTime;
+  @HiveField(6)
   PetModel? petModel;
-
+  @HiveField(7)
+  int? color;
   TodoModel(
       {required this.stamps,
       required this.memo,
@@ -27,7 +35,7 @@ class TodoModel {
 
   @override
   String toString() =>
-      'TodoModel(stamps: $stamps, memo: $memo, dateTime: $dateTime, petModel: $petModel)';
+      'TodoModel(stamp: $stamps, memo: $memo, dateTime: $dateTime, petModel: $petModel)';
 
   @override
   bool operator ==(Object other) {

@@ -19,7 +19,7 @@ class MakerModelAdapter extends TypeAdapter<MakerModel> {
     return MakerModel(
       makerName: fields[0] as String,
       givenCountPerDay: fields[1] as int,
-      givenGramOnce: fields[2] as double,
+      givenGramOnce: fields[2] as int,
     )
       ..id = fields[3] as String
       ..createdAt = fields[4] as DateTime;

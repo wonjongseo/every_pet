@@ -26,6 +26,8 @@ class EnrollController extends GetxController {
   late TextEditingController nameEditingController;
   late TextEditingController birthDayEditingController;
   late TextEditingController weightEditingController;
+  late TextEditingController hosipitalNameEditingController;
+  late TextEditingController hosipitalNumberEditingController;
 
   late FocusNode nameEditingFocusNode;
   late FocusNode birthDayEditingFocusNode;
@@ -58,6 +60,8 @@ class EnrollController extends GetxController {
     nameEditingController = TextEditingController();
     birthDayEditingController = TextEditingController();
     weightEditingController = TextEditingController();
+    hosipitalNameEditingController = TextEditingController();
+    hosipitalNumberEditingController = TextEditingController();
 
     nameEditingFocusNode = FocusNode();
     birthDayEditingFocusNode = FocusNode();
@@ -118,7 +122,7 @@ class EnrollController extends GetxController {
 
     if (imagePath != null) {
       savedImagePath =
-          await UtilFunction.saveFileFromTempDirectory(imagePath!, name);
+          await AppFunction.saveFileFromTempDirectory(imagePath!, name);
     }
 
     if (petType == PET_TYPE.DOG) {
@@ -145,9 +149,9 @@ class EnrollController extends GetxController {
     }
 
     if (!isFirst) {
-      petsController.aa();
+      // petsController.aa(); Todo FIx
     }
-    Get.offAll(() => const MainScreen());
+    Get.offAll(() => MainScreen());
   }
 
   void togglePregnancy(bool? value) {
@@ -186,7 +190,7 @@ class EnrollController extends GetxController {
       onChanged: (date) {},
       onConfirm: (date) {
         birthDay = date;
-        birthDayEditingController.text = UtilFunction.getDayYYYYMMDD(birthDay!);
+        birthDayEditingController.text = AppFunction.getDayYYYYMMDD(birthDay!);
         update();
       },
       currentTime: DateTime.now(),
@@ -204,7 +208,7 @@ class EnrollController extends GetxController {
 
       update();
     } catch (e) {
-      UtilFunction.showAlertDialog(context: context, message: e.toString());
+      AppFunction.showAlertDialog(context: context, message: e.toString());
     }
   }
 
@@ -213,7 +217,7 @@ class EnrollController extends GetxController {
     final image = await Get.to(() => ImagePickerScreen());
     if (image == null) return;
 
-    File file = await UtilFunction.uint8ListToFile(image);
+    File file = await AppFunction.uint8ListToFile(image);
     // imageGallery = image;
     // imageFile = file;
     imagePath = file.path;

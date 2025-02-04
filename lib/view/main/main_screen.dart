@@ -15,19 +15,17 @@ import 'package:every_pet/controllers/pets_controller.dart';
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
-  // int navigationPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PetsController>(builder: (petsController) {
       return GestureDetector(
         onTap: petsController.closeBottomSheet,
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
           bottomNavigationBar: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const GlobalBannerAdmob(),
               bottomNavigtionBar(petsController),
+              const GlobalBannerAdmob(),
             ],
           ),
           body: SafeArea(
@@ -48,7 +46,7 @@ class MainScreen extends StatelessWidget {
 
   Padding topNavigationBar(PetsController petsController) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Responsive.width20),
+      padding: EdgeInsets.symmetric(horizontal: Responsive.width10 * 1.5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,10 +78,6 @@ class MainScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: petsController.goToEnrollScreen,
-            // style: IconButton.styleFrom(
-            //     backgroundColor: AppColors.primaryColor,
-            //     foregroundColor: AppColors.backgroundLight),
-            // icon: const Icon(Icons.add),
             child: Image.asset(
               AppImagePath.circleAddBtn,
               width: Responsive.width10 * 5,
@@ -100,11 +94,9 @@ class MainScreen extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.white,
       onTap: petsController.onTapBottomBar,
-      // unselectedLabelStyle: TextStyle(color: Colors.transparent),
       selectedLabelStyle: const TextStyle(
           color: AppColors.primaryColor, fontWeight: FontWeight.w500),
       selectedItemColor: AppColors.primaryColor,
-      // selectedIconTheme: IconThemeData(color: Colors.transparent),
       items: [
         BottomNavigationBarItem(
           label: AppString.calendarTextTr.tr,
@@ -167,8 +159,8 @@ class RowPetProfileWidget extends StatelessWidget {
           ProfileImage(
             isDog: isDog,
             imagePath: imagePath,
-            width: Responsive.width10 * 5,
-            height: Responsive.width10 * 5,
+            width: Responsive.width10 * 4,
+            height: Responsive.width10 * 4,
             isActive: isActive,
           ),
           Text(
@@ -177,7 +169,7 @@ class RowPetProfileWidget extends StatelessWidget {
                 ? TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
-                    fontSize: Responsive.width16,
+                    fontSize: Responsive.width14,
                   )
                 : TextStyle(color: Colors.grey.withOpacity(.7)),
           ),

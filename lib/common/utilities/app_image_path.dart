@@ -9,6 +9,7 @@ class AppImagePath {
   static String circleFood = 'assets/images/circle_food.png';
   static String circleMatiz = 'assets/images/circle_matiz.png';
   static String circleProfile = 'assets/images/circle_profile.png';
+  static String circleRemoteBtn = 'assets/images/circle_remote_btn.png';
   static String circleSetting = 'assets/images/circle_setting.png';
   static String circleSiba = 'assets/images/circle_siba.png';
   static String circleSyringe = 'assets/images/circle_syringe.png';

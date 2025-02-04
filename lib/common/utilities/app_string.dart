@@ -6,41 +6,38 @@ class AppTranslations extends Translations {
         'ja_JP': {
           AppString.appName: AppString.appNameJp,
           AppString.nameCtrHintText: AppString.nameCtrHintTextJp,
-          //
-
           AppString.weightCtrHint: AppString.weightCtrHintJp,
           AppString.birthdayCtrHint: AppString.birthdayCtrHintJp,
           AppString.genderText: AppString.genderTextJp,
           AppString.kyoseiTr: AppString.kyoseiJp,
-
           AppString.fuinnTr: AppString.fuinnJp,
           AppString.pregentText: AppString.pregentTextJp,
-          AppString.kakaridukebyouinn: AppString.kakaridukebyouinnJp,
+          AppString.regularHospital: AppString.regularHospitalJp,
           AppString.hasipitalCtrHintTr: AppString.hasipitalCtrHintJp,
           AppString.hasipitalNumCtrHintTr: AppString.hasipitalNumCtrHintJp,
+          AppString.regularTrmingShopName: AppString.regularTrmingShopNameJp,
+          AppString.regularTrmingShopNumber:
+              AppString.regularTrmingShopNumberJp,
           AppString.nameTextTr: AppString.nameTextJp,
           AppString.birthDayTextTr: AppString.birthDayTextJp,
           AppString.settingTr: AppString.settingJp,
           AppString.weightTextTr: AppString.weightTextJp,
           AppString.duplicateNameTr: AppString.duplicateNameJp,
-          AppString.monthTextTr: AppString.monthTextJp,
-          AppString.yearTextTr: AppString.yearTextJp,
+          AppString.monthText: AppString.monthTextJp,
+          AppString.yearText: AppString.yearTextJp,
           AppString.dayTextTr: AppString.dayTextJp,
-          //
           AppString.dogTextTr: AppString.dogTextJp,
           AppString.catTextTr: AppString.catTextJp,
           AppString.hasipitalTextTr: AppString.hasipitalTextJp,
           AppString.hasipitalNumTextTr: AppString.hasipitalNumTextJp,
           AppString.yesTextTr: AppString.yesTextJp,
-
           AppString.noTextTr: AppString.noTextJp,
           AppString.coutionTr: AppString.coutionJp,
           AppString.previousDeletePetMsg1Tr: AppString.previousDeletePetMsg1Jp,
           AppString.previousDeletePetMsg2Tr: AppString.previousDeletePetMsg2Jp,
-
           AppString.previousDeletePetMsg3Tr: AppString.previousDeletePetMsg3Jp,
           AppString.previousDeletePetMsg4Tr: AppString.previousDeletePetMsg4Jp,
-          AppString.changeStampTextTr: AppString.changeStampTextJp,
+          AppString.changeStampText: AppString.changeStampTextJp,
           AppString.stamp1Tr: AppString.stamp1Jp,
           AppString.stamp2Tr: AppString.stamp2Jp,
           AppString.stamp3Tr: AppString.stamp3Jp,
@@ -50,19 +47,18 @@ class AppTranslations extends Translations {
           AppString.stamp7Tr: AppString.stamp7Jp,
           AppString.stamp8Tr: AppString.stamp8Jp,
           AppString.sufficMaleText: AppString.sufficMaleTextJp,
-
           AppString.sufficFeMaleTextTr: AppString.sufficFeMaleTextJp,
           AppString.ageYearTextTr: AppString.ageYearTextJp,
           AppString.derTextTr: AppString.derTextJp,
-          AppString.tekiryouKcalTextTr: AppString.tekiryouKcalTextJp,
+          AppString.tekiryouKcalText: AppString.tekiryouKcalTextJp,
           AppString.dryTextTr: AppString.dryTextJp,
           AppString.handmadeTextTr: AppString.handmadeTextJp,
           AppString.updateBtnTextTr: AppString.updateBtnTextJp,
           AppString.cancelBtnTextTr: AppString.cancelBtnTextJp,
           AppString.completeTextTr: AppString.completeTextJp,
           AppString.updateMsgTr: AppString.updateMsgJp,
-          AppString.notTextScheduleTextTr: AppString.notTextScheduleTextJp,
-          AppString.addScheduleTextTr: AppString.addScheduleTextJp,
+          AppString.notTextScheduleText: AppString.notTextScheduleTextJp,
+          AppString.addScheduleText: AppString.addScheduleTextJp,
           AppString.foodTextTr: AppString.foodTextJp,
           AppString.updateExampleBtnTr: AppString.updateExampleBtnJp,
           AppString.calendarTextTr: AppString.calendarTextJp,
@@ -80,40 +76,37 @@ class AppTranslations extends Translations {
           AppString.onceText: AppString.onceTextJp,
           AppString.amountGivenGramText: AppString.amountGivenGramTextJp,
           AppString.vegetableText: AppString.vegetableTextJp,
-
           AppString.proteinText: AppString.proteinTextJp,
-
           AppString.calculateKcalText: AppString.calculateKcalTextJp,
           AppString.riceText: AppString.riceTextJp,
           AppString.potatoText: AppString.potatoTextJp,
           AppString.sweetPotatoText: AppString.sweetPotatoTextJp,
           AppString.pumpkinText: AppString.pumpkinTextJp,
           AppString.chickenbreastText: AppString.chickenbreastTextJp,
-          AppString.howToUseMsg8: AppString.howToUseMsg8Jp,
-
-          AppString.howToUseMsg8: AppString.howToUseMsg8Jp,
-
-          AppString.howToUseMsg9: AppString.howToUseMsg9Jp,
-          AppString.howToUseMsg10: AppString.howToUseMsg10Jp,
-          AppString.howToUseMsg11: AppString.howToUseMsg11Jp,
-          AppString.howToUseMsg12: AppString.howToUseMsg12Jp,
-          AppString.howToUseMsg14: AppString.howToUseMsg14Jp,
-          AppString.howToUseMsg15: AppString.howToUseMsg15Jp,
-          AppString.howToUseMsg16: AppString.howToUseMsg16Jp,
-          AppString.howToUseMsg17: AppString.howToUseMsg17Jp,
-          AppString.howToUseMsg18: AppString.howToUseMsg18Jp,
-          AppString.howToUseMsg19: AppString.howToUseMsg19Jp,
-          AppString.howToUseMsg20: AppString.howToUseMsg20Jp,
-          AppString.howToUseMsg21: AppString.howToUseMsg21Jp,
-          AppString.howToUseMsg22: AppString.howToUseMsg22Jp,
-          AppString.howToUseMsg23: AppString.howToUseMsg23Jp,
+          AppString.categoryText: AppString.categoryTextJp,
+          AppString.categoryText: AppString.categoryTextJp,
+          AppString.productName: AppString.productNameJp,
+          AppString.priceText: AppString.priceJp,
+          AppString.totalPrice: AppString.totalPriceJp,
+          AppString.foodExpenses: AppString.foodExpensesJp,
+          AppString.hospitalExpenses: AppString.hospitalExpensesJp,
+          AppString.entertainmentExpenses: AppString.entertainmentExpensesJp,
+          AppString.lifeExpenses: AppString.lifeExpensesJp,
+          AppString.productNameCtrAlertMsg: AppString.productNameCtrAlertMsgJp,
+          AppString.priceCtrAlertMsg: AppString.priceCtrAlertMsgJp,
+          AppString.categoryCtrAlertMsg: AppString.categoryCtrAlertMsgJp,
+          AppString.moneySign: AppString.moneySignJp,
+          AppString.ofText: AppString.ofTextJp,
+          AppString.isText: AppString.isTextJp,
+          AppString.deleteBtnText: AppString.deleteBtnTextJp,
           AppString.howToUseMsg24: AppString.howToUseMsg24Jp,
           AppString.howToUseMsg25: AppString.howToUseMsg25Jp,
           AppString.howToUseMsg26: AppString.howToUseMsg26Jp,
           AppString.howToUseMsg27: AppString.howToUseMsg27Jp,
           AppString.howToUseMsg28: AppString.howToUseMsg28Jp,
           AppString.howToUseMsg29: AppString.howToUseMsg29Jp,
-          AppString.howToUseMsg30: AppString.howToUseMsg30Jp,
+          AppString.regularTrmingShop: AppString.regularTrmingShopJp,
+          AppString.beautyExpenses: AppString.beautyExpensesJp,
         },
         'ko_KR': {
           AppString.appName: AppString.appNameKr,
@@ -124,16 +117,19 @@ class AppTranslations extends Translations {
           AppString.kyoseiTr: AppString.kyoseiKr,
           AppString.fuinnTr: AppString.fuinnKr,
           AppString.pregentText: AppString.pregentTextKr,
-          AppString.kakaridukebyouinn: AppString.kakaridukebyouinnKr,
+          AppString.regularHospital: AppString.regularHospitalKr,
           AppString.hasipitalCtrHintTr: AppString.hasipitalCtrHintKr,
           AppString.hasipitalNumCtrHintTr: AppString.hasipitalNumCtrHintKr,
+          AppString.regularTrmingShopName: AppString.regularTrmingShopNameKr,
+          AppString.regularTrmingShopNumber:
+              AppString.regularTrmingShopNumberKr,
           AppString.nameTextTr: AppString.nameTextKr,
           AppString.birthDayTextTr: AppString.birthDayTextKr,
           AppString.settingTr: AppString.settingKr,
           AppString.weightTextTr: AppString.weightTextKr,
           AppString.duplicateNameTr: AppString.duplicateNameKr,
-          AppString.monthTextTr: AppString.monthTextKr,
-          AppString.yearTextTr: AppString.yearTextKr,
+          AppString.monthText: AppString.monthTextKr,
+          AppString.yearText: AppString.yearTextKr,
           AppString.dayTextTr: AppString.dayTextKr,
           AppString.dogTextTr: AppString.dogTextKr,
           AppString.catTextTr: AppString.catTextKr,
@@ -146,7 +142,7 @@ class AppTranslations extends Translations {
           AppString.previousDeletePetMsg2Tr: AppString.previousDeletePetMsg2Kr,
           AppString.previousDeletePetMsg3Tr: AppString.previousDeletePetMsg3Kr,
           AppString.previousDeletePetMsg4Tr: AppString.previousDeletePetMsg4Kr,
-          AppString.changeStampTextTr: AppString.changeStampTextKr,
+          AppString.changeStampText: AppString.changeStampTextKr,
           AppString.stamp1Tr: AppString.stamp1Kr,
           AppString.stamp2Tr: AppString.stamp2Kr,
           AppString.stamp3Tr: AppString.stamp3Kr,
@@ -156,17 +152,18 @@ class AppTranslations extends Translations {
           AppString.stamp7Tr: AppString.stamp7Kr,
           AppString.stamp8Tr: AppString.stamp8Kr,
           AppString.sufficMaleText: AppString.sufficMaleTextKr,
-          AppString.tekiryouKcalTextTr: AppString.tekiryouKcalTextKr,
+          AppString.sufficFeMaleTextTr: AppString.sufficFeMaleTextKr,
           AppString.ageYearTextTr: AppString.ageYearTextKr,
           AppString.derTextTr: AppString.derTextKr,
+          AppString.tekiryouKcalText: AppString.tekiryouKcalTextKr,
           AppString.dryTextTr: AppString.dryTextKr,
           AppString.handmadeTextTr: AppString.handmadeTextKr,
           AppString.updateBtnTextTr: AppString.updateBtnTextKr,
           AppString.cancelBtnTextTr: AppString.cancelBtnTextKr,
-          AppString.updateMsgTr: AppString.updateMsgKr,
           AppString.completeTextTr: AppString.completeTextKr,
-          AppString.notTextScheduleTextTr: AppString.notTextScheduleTextKr,
-          AppString.addScheduleTextTr: AppString.addScheduleTextKr,
+          AppString.updateMsgTr: AppString.updateMsgKr,
+          AppString.notTextScheduleText: AppString.notTextScheduleTextKr,
+          AppString.addScheduleText: AppString.addScheduleTextKr,
           AppString.foodTextTr: AppString.foodTextKr,
           AppString.updateExampleBtnTr: AppString.updateExampleBtnKr,
           AppString.calendarTextTr: AppString.calendarTextKr,
@@ -174,6 +171,7 @@ class AppTranslations extends Translations {
           AppString.enrollTextBtnTr: AppString.enrollTextBtnKr,
           AppString.saveTextTr: AppString.saveTextKr,
           AppString.stampNameCtlHintTr: AppString.stampNameCtlHintKr,
+          AppString.reportMsgContect: AppString.reportMsgContectKr,
           AppString.stampNameCtlMsg: AppString.stampNameCtlMsgKr,
           AppString.ageMonthText: AppString.ageMonthTextKr,
           AppString.makterText: AppString.makterTextKr,
@@ -183,8 +181,37 @@ class AppTranslations extends Translations {
           AppString.onceText: AppString.onceTextKr,
           AppString.amountGivenGramText: AppString.amountGivenGramTextKr,
           AppString.vegetableText: AppString.vegetableTextKr,
-          AppString.proteinText: AppString.proteinTextkr,
+          AppString.proteinText: AppString.proteinTextKr,
           AppString.calculateKcalText: AppString.calculateKcalTextKr,
+          AppString.riceText: AppString.riceTextKr,
+          AppString.potatoText: AppString.potatoTextKr,
+          AppString.sweetPotatoText: AppString.sweetPotatoTextKr,
+          AppString.pumpkinText: AppString.pumpkinTextKr,
+          AppString.chickenbreastText: AppString.chickenbreastTextKr,
+          AppString.categoryText: AppString.categoryTextKr,
+          AppString.categoryText: AppString.categoryTextKr,
+          AppString.productName: AppString.productNameKr,
+          AppString.priceText: AppString.priceKr,
+          AppString.totalPrice: AppString.totalPriceKr,
+          AppString.foodExpenses: AppString.foodExpensesKr,
+          AppString.hospitalExpenses: AppString.hospitalExpensesKr,
+          AppString.entertainmentExpenses: AppString.entertainmentExpensesKr,
+          AppString.lifeExpenses: AppString.lifeExpensesKr,
+          AppString.productNameCtrAlertMsg: AppString.productNameCtrAlertMsgKr,
+          AppString.priceCtrAlertMsg: AppString.priceCtrAlertMsgKr,
+          AppString.categoryCtrAlertMsg: AppString.categoryCtrAlertMsgKr,
+          AppString.moneySign: AppString.moneySignKr,
+          AppString.ofText: AppString.ofTextKr,
+          AppString.isText: AppString.isTextKr,
+          AppString.deleteBtnText: AppString.deleteBtnTextKr,
+          AppString.howToUseMsg24: AppString.howToUseMsg24Kr,
+          AppString.howToUseMsg25: AppString.howToUseMsg25Kr,
+          AppString.howToUseMsg26: AppString.howToUseMsg26Kr,
+          AppString.howToUseMsg27: AppString.howToUseMsg27Kr,
+          AppString.howToUseMsg28: AppString.howToUseMsg28Kr,
+          AppString.howToUseMsg29: AppString.howToUseMsg29Kr,
+          AppString.regularTrmingShop: AppString.regularTrmingShopKr,
+          AppString.beautyExpenses: AppString.beautyExpensesKr,
         },
       };
 }
@@ -211,28 +238,40 @@ class AppString {
   static String genderTextJp = "性別";
 
   static String kyoseiTr = "kyoseiTr";
-  static String kyoseiKr = "거세";
+  static String kyoseiKr = "중성화";
   static String kyoseiJp = "去勢";
 
   static String fuinnTr = "fuinnTrTr";
-  static String fuinnKr = "불임";
+  static String fuinnKr = "중성화";
   static String fuinnJp = "不妊";
 
   static String pregentText = "pregentText";
   static String pregentTextKr = "임신";
   static String pregentTextJp = "妊娠";
 
-  static String kakaridukebyouinn = "kakaridukebyouinnTr";
-  static String kakaridukebyouinnKr = "자주가는 병원";
-  static String kakaridukebyouinnJp = "かかりつけ病院";
+  static String regularHospital = "regularHospitalTr";
+  static String regularHospitalKr = "자주가는 병원";
+  static String regularHospitalJp = "かかりつけ病院";
 
   static String hasipitalCtrHintTr = "hasipitalCtrHintTr";
   static String hasipitalCtrHintKr = "병원명을 입력해주세요.";
-  static String hasipitalCtrHintJp = "病院名入力してください";
+  static String hasipitalCtrHintJp = "病院名を入力してください";
 
   static String hasipitalNumCtrHintTr = "hasipitalNumCtrHintTr";
   static String hasipitalNumCtrHintKr = "병원의 전화번호를 입력해주세요";
   static String hasipitalNumCtrHintJp = "病院の電話番号を入力してください";
+
+  static String regularTrmingShop = "regularTrmingShopTr";
+  static String regularTrmingShopKr = "자주가는 애견 미용실";
+  static String regularTrmingShopJp = 'かかりつけトリミング';
+
+  static String regularTrmingShopName = "regularTrmingShopNameTr";
+  static String regularTrmingShopNameKr = "애견미용실명";
+  static String regularTrmingShopNameJp = 'トリミング名';
+
+  static String regularTrmingShopNumber = "regularTrmingShopNumberTr";
+  static String regularTrmingShopNumberKr = "애견미용실 전화번호";
+  static String regularTrmingShopNumberJp = 'トリミング電話番号';
 
   static String nameTextTr = "nameTextTr";
   static String nameTextKr = '이름';
@@ -254,11 +293,11 @@ class AppString {
   static String duplicateNameKr = '는 이미 등록된 이름입니다.';
   static String duplicateNameJp = "は既に登録された名前です";
 
-  static String yearTextTr = "yearTextTr";
+  static String yearText = "yearTextTr";
   static String yearTextKr = '년';
   static String yearTextJp = "年";
 
-  static String monthTextTr = "monthTextTr";
+  static String monthText = "monthTextTr";
   static String monthTextKr = '월';
   static String monthTextJp = "月";
 
@@ -295,7 +334,7 @@ class AppString {
   static String coutionJp = "注意";
 //プロフィール
   static String previousDeletePetMsg1Tr = "previousDeletePetMsg1Tr";
-  static String previousDeletePetMsg1Kr = '삭제하면';
+  static String previousDeletePetMsg1Kr = '삭제하면 ';
   static String previousDeletePetMsg1Jp = "削除すると";
 
   static String previousDeletePetMsg2Tr = "previousDeletePetMsg2Tr";
@@ -303,14 +342,14 @@ class AppString {
   static String previousDeletePetMsg2Jp = "に関するデータを戻すことができません。";
 
   static String previousDeletePetMsg3Tr = "previousDeletePetMsg3Tr";
-  static String previousDeletePetMsg3Kr = '그래도';
+  static String previousDeletePetMsg3Kr = '그래도 ';
   static String previousDeletePetMsg3Jp = "それでも";
 
   static String previousDeletePetMsg4Tr = "previousDeletePetMsg4Tr";
   static String previousDeletePetMsg4Kr = '을 삭제하겠습니까?';
   static String previousDeletePetMsg4Jp = "を削除しますか？";
 
-  static String changeStampTextTr = "changeStampTextTr";
+  static String changeStampText = "changeStampTextTr";
   static String changeStampTextKr = '스탬프 편집';
   static String changeStampTextJp = "スタンプ編集";
 
@@ -362,7 +401,7 @@ class AppString {
   static String derTextKr = '기초대사량';
   static String derTextJp = "基礎代謝量 ";
 
-  static String tekiryouKcalTextTr = "tekiryouKcalTextTr";
+  static String tekiryouKcalText = "tekiryouKcalTextTr";
   static String tekiryouKcalTextKr = '1일 적정 칼로리';
   static String tekiryouKcalTextJp = "1日適量カロリー";
 
@@ -390,16 +429,16 @@ class AppString {
   static String updateMsgKr = '更新されました';
   static String updateMsgJp = "변경 되었습니다.";
 
-  static String notTextScheduleTextTr = "notTextScheduleTextTr";
+  static String notTextScheduleText = "notTextScheduleTextTr";
   static String notTextScheduleTextKr = '일정이 없습니다.';
   static String notTextScheduleTextJp = "予定がありません。";
 
-  static String addScheduleTextTr = "addScheduleTextTr";
-  static String addScheduleTextKr = '예정 추가';
+  static String addScheduleText = "addScheduleTextTr";
+  static String addScheduleTextKr = '일정 추가';
   static String addScheduleTextJp = "予定を追加";
 
   static String updateExampleBtnTr = "updateExampleBtnTr";
-  static String updateExampleBtnKr = '예정 변경';
+  static String updateExampleBtnKr = '일정 변경';
   static String updateExampleBtnJp = "予定を変更";
 
   static String calendarTextTr = "calendarTextTr";
@@ -435,7 +474,7 @@ class AppString {
   static String ageMonthTextJp = "ヶ月";
 
   static String makterText = "makterTextTr";
-  static String makterTextKr = '재조사';
+  static String makterTextKr = '제조사';
   static String makterTextJp = "メーカ";
 
   static String numberOfGivenText = "numberOfGivenTr";
@@ -459,7 +498,7 @@ class AppString {
   static String vegetableTextJp = '野菜';
 
   static String proteinText = "proteinTextTr";
-  static String proteinTextkr = '단백질';
+  static String proteinTextKr = '단백질';
   static String proteinTextJp = "タンパク質";
 
   static String calculateKcalText = "calculateKcalTextTr";
@@ -467,7 +506,7 @@ class AppString {
   static String calculateKcalTextJp = " カロリー計算";
 
   static String riceText = "riceTextTr";
-  static String riceTextKr = '어휘력';
+  static String riceTextKr = '쌀';
   static String riceTextJp = "お米";
 
   static String potatoText = "potatoTextTr";
@@ -486,75 +525,69 @@ class AppString {
   static String chickenbreastTextKr = "닭가슴살";
   static String chickenbreastTextJp = "ささみ";
 
-  static String howToUseMsg8 = "howToUseMsg8Tr";
-  static String howToUseMsg8Kr = "이 중요하다는 것도 강조하고 있는 것을 볼 수 있습니다.\n\n";
+  static String categoryText = "categoryTextTr";
+  static String categoryTextKr = "항목";
+  static String categoryTextJp = '項目';
 
-  static String howToUseMsg8Jp = 'because kyosei is simple memorization.\n\n';
+  static String productName = "productNameTr";
+  static String productNameKr = "상품명";
+  static String productNameJp = '商品の名';
 
-  //
+  static String priceText = "priceTr";
+  static String priceKr = "금액";
+  static String priceJp = "金額";
 
-  static String howToUseMsg9 = "howToUseMsg9Tr";
-  static String howToUseMsg9Kr = " 그래서 ";
-  static String howToUseMsg9Jp = ' So ';
+  static String categoryCtrAlertMsg = "categoryCtrAlertMsgTr";
+  static String categoryCtrAlertMsgKr = "항목을 선택해주세요";
+  static String categoryCtrAlertMsgJp = '項目を選択してください';
 
-  static String howToUseMsg10 = "howToUseMsg10Tr";
-  static String howToUseMsg10Kr = "JLPT 종각";
-  static String howToUseMsg10Jp = "Jongs's JLPT ";
+  static String productNameCtrAlertMsg = "productNameCtrAlertTextTr";
+  static String productNameCtrAlertMsgKr = "상품명을 입력해주세요";
+  static String productNameCtrAlertMsgJp = '商品の名を入力してください';
 
-  static String howToUseMsg11 = "howToUseMsg11Tr";
-  static String howToUseMsg11Kr = "은 ";
-  static String howToUseMsg11Jp = 'focused on ';
+  static String priceCtrAlertMsg = "priceCtrAlertTextTr";
+  static String priceCtrAlertMsgKr = "금액을 입력해주세요";
+  static String priceCtrAlertMsgJp = '金額を入力してください';
 
-  static String howToUseMsg12 = "howToUseMsg12Tr";
-  static String howToUseMsg12Kr = "반복 학습";
-  static String howToUseMsg12Jp = 'iterative learning';
+  static String totalPrice = "totalPrice";
+  static String totalPriceKr = "합계";
+  static String totalPriceJp = '合計';
 
-  static String howToUseMsg13 = "howToUseMsg13Tr";
-  static String howToUseMsg13Kr = "에 중점을 두었습니다.\n\n\n";
-  static String howToUseMsg13Jp = '.\n\n\n';
+  static String foodExpenses = "foodExpensesTr";
+  static String foodExpensesKr = "식비";
+  static String foodExpensesJp = '食費';
 
-  static String howToUseMsg14 = "howToUseMsg14Tr";
-  static String howToUseMsg14Kr = "또한 일본어 학습에는 ";
-  static String howToUseMsg14Jp = '';
+  static String beautyExpenses = "beautyExpensesTr";
+  static String beautyExpensesKr = "미용";
+  static String beautyExpensesJp = '美容';
 
-  static String howToUseMsg15 = "howToUseMsg15Tr";
-  static String howToUseMsg15Kr = "한자";
-  static String howToUseMsg15Jp = 'Kanji ';
+  static String hospitalExpenses = "hospitalExpensesTr";
+  static String hospitalExpensesKr = "병원료";
+  static String hospitalExpensesJp = '病院量';
 
-  static String howToUseMsg16 = "howToUseMsg16Tr";
-  static String howToUseMsg16Kr = "도 중요합니다.\n\n";
-  static String howToUseMsg16Jp = 'are also important for learning Japanese. ';
+  static String entertainmentExpenses = "entertainmentExpensesTr";
+  static String entertainmentExpensesKr = "오락비";
+  static String entertainmentExpensesJp = 'ごらく費';
 
-  static String howToUseMsg17 = "howToUseMsg17Tr";
-  static String howToUseMsg17Kr = " 일본어를 그대로 학습하는 것보다도 ";
-  static String howToUseMsg17Jp = ' I think that memorizing ';
+  static String lifeExpenses = "lifeExpensesTr";
+  static String lifeExpensesKr = "생활비";
+  static String lifeExpensesJp = '生活費';
 
-  static String howToUseMsg18 = "howToUseMsg18Tr";
-  static String howToUseMsg18Kr = "한자";
-  static String howToUseMsg18Jp = 'Kangi';
+  static String moneySign = "moneySignTr";
+  static String moneySignKr = "₩";
+  static String moneySignJp = '￥';
 
-  static String howToUseMsg19 = "howToUseMsg19Tr";
-  static String howToUseMsg19Kr = "를 먼저 암기하고 일본어를 학습하면  ";
-  static String howToUseMsg19Jp = 'first and learning Japanese more than, ';
+  static String ofText = "ofTextTr";
+  static String ofTextKr = "의 ";
+  static String ofTextJp = 'の';
 
-  static String howToUseMsg20 = "howToUseMsg20Tr";
-  static String howToUseMsg20Kr = "학습도이 2배 이상";
-  static String howToUseMsg20Jp = 'doubles the learning level';
+  static String isText = "isTextTr";
+  static String isTextKr = "는 ";
+  static String isTextJp = "は";
 
-  static String howToUseMsg21 = "howToUseMsg21Tr";
-  static String howToUseMsg21Kr = " 증가한다고 생각합니다.\n\n";
-  static String howToUseMsg21Jp =
-      ', rather than learning Japanese as it is.\n\n';
-
-  static String howToUseMsg22 = "howToUseMsg22Tr";
-  static String howToUseMsg22Kr =
-      "  처음 보는 일본어라도 해당 일본어의 한자를 알고 있다면, 그 뜻을 추측할 수 있기 때문에 ";
-  static String howToUseMsg22Jp =
-      " Even if it's the first time you've seen Japanese, if you know the Kangi of that Japanese language, you can guess the meaning, so it will be a great advantage in ";
-
-  static String howToUseMsg23 = "howToUseMsg23Tr";
-  static String howToUseMsg23Kr = " 독해";
-  static String howToUseMsg23Jp = 'reading.';
+  static String deleteBtnText = "deleteBtnText";
+  static String deleteBtnTextKr = "삭제";
+  static String deleteBtnTextJp = '削除';
 
   static String howToUseMsg24 = "howToUseMsg24Tr";
   static String howToUseMsg24Kr = " 에서도";
@@ -581,10 +614,6 @@ class AppString {
   static String howToUseMsg29 = "howToUseMsg29Tr";
   static String howToUseMsg29Kr = "해당 한자의 의미와 훈독과 음독을 학습할 수 있게 제작하였습니다.";
   static String howToUseMsg29Jp = 'while learning words from JLPT N5 to N1.';
-
-  static String howToUseMsg30 = "howToUseMsg30Tr";
-  static String howToUseMsg30Kr = "\n해당 한자의 의미와 훈독과 음독을 학습할 수 있게 제작하였습니다.";
-  static String howToUseMsg30Jp = '\n(There are Kangi that are not prepared),';
 
   static String reportMsgContect = "reportMsgContectTr";
   static String reportMsgContectKr = """

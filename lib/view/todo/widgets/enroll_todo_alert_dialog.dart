@@ -80,7 +80,7 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextField(
-              maxLines: 2,
+              maxLines: 1,
               controller: memoController,
               hintText: 'Todo..',
             ),
@@ -89,15 +89,16 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-              onPressed: controller.stampController.goToStampCustomScreen,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(AppString.changeStampTextTr.tr),
-                  SizedBox(width: Responsive.width10 / 2),
-                  const FaIcon(FontAwesomeIcons.caretRight),
-                ],
-              )),
+            onPressed: controller.stampController.goToStampCustomScreen,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(AppString.changeStampText.tr),
+                SizedBox(width: Responsive.width10 / 2),
+                const FaIcon(FontAwesomeIcons.caretRight),
+              ],
+            ),
+          ),
         ),
         GetBuilder<StampController>(builder: (stampController) {
           return Wrap(
@@ -120,7 +121,6 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
                     setState(() {});
                   },
                   isActive: selectedStamps.contains(
-                    // controller.stampController.stamps[index],
                     stampController.stamps[index],
                   ),
                 );

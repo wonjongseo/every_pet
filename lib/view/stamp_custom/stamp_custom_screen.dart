@@ -46,7 +46,7 @@ class _StampCustomScreenState extends State<StampCustomScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppString.changeStampTextTr.tr),
+        title: Text(AppString.changeStampText.tr),
         actions: [
           IconButton(
             onPressed: () async {

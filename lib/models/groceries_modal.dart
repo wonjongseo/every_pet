@@ -1,15 +1,18 @@
 import 'package:hive/hive.dart';
 
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:uuid/uuid.dart';
+part 'groceries_modal.g.dart';
 
+//groceries_modal.dart
 @HiveType(typeId: AppConstant.groceriesModelHiveId)
 class GroceriesModel {
   @HiveField(0)
   String name;
   @HiveField(1)
-  final double _kcalPerGram;
+  final double kcalPerGram;
   @HiveField(2)
-  int _gram;
+  int foodGram;
 
   @HiveField(7)
   late String id;
@@ -18,27 +21,27 @@ class GroceriesModel {
   late DateTime createdAt;
 
   GroceriesModel(
-      {required this.name, required double kcalPer100g, int gram = 100})
-      : _kcalPerGram = kcalPer100g / 100,
-        _gram = gram {
-    id = DateTime.now().millisecondsSinceEpoch.toString();
+      {required this.name, required double kcalPerGram, int gram = 100})
+      : kcalPerGram = kcalPerGram / 100,
+        foodGram = gram {
+    id = const Uuid().v4();
     createdAt = DateTime.now();
   }
 
-  double get kcal => _gram * _kcalPerGram;
+  double get kcal => foodGram * kcalPerGram;
 
   set kcal(double value) {
-    _gram = (value / _kcalPerGram).round();
+    foodGram = (value / kcalPerGram).round();
   }
 
-  int get gram => _gram;
+  int get gram => foodGram;
   set gram(int value) {
     if (value < 0) return; // 음수 방지
-    _gram = value;
+    foodGram = value;
   }
 
   @override
   String toString() {
-    return 'GroceriesModel(name: $name, _kcalPerGram: $_kcalPerGram, _gram: $_gram, id: $id, createdAt: $createdAt)';
+    return 'GroceriesModel(name: $name, _kcalPerGram: $kcalPerGram, _gram: $foodGram, id: $id, createdAt: $createdAt)';
   }
 }

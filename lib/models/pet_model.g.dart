@@ -23,11 +23,11 @@ class PetModelAdapter extends TypeAdapter<PetModel> {
       genderType: fields[3] as GENDER_TYPE,
       weight: fields[6] as double,
       isNeuter: fields[4] as bool?,
+      nutritionModel: fields[9] as NutritionModel?,
       isPregnancy: fields[5] as bool?,
     )
       ..id = fields[7] as String
-      ..createdAt = fields[8] as DateTime
-      ..nutritionModel = fields[9] as NutritionModel?;
+      ..createdAt = fields[8] as DateTime;
   }
 
   @override
@@ -48,12 +48,12 @@ class PetModelAdapter extends TypeAdapter<PetModel> {
       ..write(obj.isPregnancy)
       ..writeByte(6)
       ..write(obj.weight)
+      ..writeByte(9)
+      ..write(obj.nutritionModel)
       ..writeByte(7)
       ..write(obj.id)
       ..writeByte(8)
-      ..write(obj.createdAt)
-      ..writeByte(9)
-      ..write(obj.nutritionModel);
+      ..write(obj.createdAt);
   }
 
   @override

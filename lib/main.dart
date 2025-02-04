@@ -1,14 +1,20 @@
+import 'dart:developer';
+
 import 'package:every_pet/common/theme/light_theme.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/models/cat_model.dart';
+import 'package:every_pet/models/groceries_modal.dart';
+import 'package:every_pet/models/product_category_model.dart';
 import 'package:every_pet/models/dog_model.dart';
+import 'package:every_pet/models/expensive_model.dart';
 import 'package:every_pet/models/handmade_model.dart';
 import 'package:every_pet/models/maker_model.dart';
 import 'package:every_pet/models/nutrition_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
+import 'package:every_pet/respository/category_repository.dart';
 
 import 'package:every_pet/view/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +29,8 @@ void main() async {
   initializeDateFormatting();
   await initHive();
 
+  // await initDefaultData();
+
   runApp(const MyApp());
 }
 
@@ -34,6 +42,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Every Pets',
       theme: lightTheme(),
+      debugShowCheckedModeBanner: false,
       // darkTheme: darkTheme(),
       themeMode: ThemeMode.system,
       translations: AppTranslations(),
@@ -79,8 +88,19 @@ Future<void> initHive() async {
   if (!Hive.isAdapterRegistered(AppConstant.handmadeModelHiveId)) {
     Hive.registerAdapter(HandmadeModelAdapter());
   }
-  Hive.registerAdapter(NutritionModelAdapter());
-  // if (!Hive.isAdapterRegistered(AppConstant.nutritionModelHiveId)) {
-  //   Hive.registerAdapter(NutritionModelAdapter());
-  // }
+  if (!Hive.isAdapterRegistered(AppConstant.nutritionModelHiveId)) {
+    Hive.registerAdapter(NutritionModelAdapter());
+  }
+
+  if (!Hive.isAdapterRegistered(AppConstant.expensiveModelHiveId)) {
+    Hive.registerAdapter(ExpensiveModelAdapter());
+  }
+
+  if (!Hive.isAdapterRegistered(AppConstant.categoryModelHiveId)) {
+    Hive.registerAdapter(ProductCategoryModelAdapter());
+  }
+
+  if (!Hive.isAdapterRegistered(AppConstant.groceriesModelHiveId)) {
+    Hive.registerAdapter(GroceriesModelAdapter());
+  }
 }

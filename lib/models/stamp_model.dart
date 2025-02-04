@@ -2,7 +2,7 @@ import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-
+import 'package:uuid/uuid.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 
 part 'stamp_model.g.dart';
@@ -35,7 +35,7 @@ class StampModel {
     required this.isVisible,
     this.isCustom = false,
   }) {
-    id = DateTime.now().microsecondsSinceEpoch.toString();
+    id = const Uuid().v4();
     createdAt = DateTime.now();
   }
 

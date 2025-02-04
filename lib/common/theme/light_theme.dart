@@ -1,22 +1,28 @@
+import 'dart:io';
+
 import 'package:every_pet/common/extension/custom_theme_extension.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 ThemeData lightTheme() {
   final ThemeData base = ThemeData.light();
+
+  print('Platform : ${Platform.localeName}');
+
   return base.copyWith(
-    textTheme: ThemeData.light().textTheme.apply(fontFamily: "ZenMaruGothic"),
+    textTheme: ThemeData.light().textTheme.apply(
+        fontFamily: Platform.localeName.contains('ko')
+            ? "CookieRunFont"
+            : "ZenMaruGothic"),
     backgroundColor: AppColors.backgroundDark,
     scaffoldBackgroundColor: AppColors.backgroundLight,
-    extensions: [
-      CustomThemeExtension.lightMode,
-    ],
-    cardTheme: CardTheme(
-      elevation: 2,
-    ),
+    extensions: [CustomThemeExtension.lightMode],
+    cardTheme: CardTheme(elevation: 2),
     appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.primaryColor,
+      // backgroundColor: AppColors.primaryColor,
+      backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       titleTextStyle: TextStyle(
         fontSize: 18,

@@ -1,6 +1,12 @@
+import 'dart:developer';
+
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
+import 'package:every_pet/models/product_category_model.dart';
+import 'package:every_pet/respository/category_repository.dart';
+import 'package:every_pet/respository/groceries_repository.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:every_pet/view/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +18,27 @@ class SplashController extends GetxController {
   void onInit() async {
     super.onInit();
     petsController = Get.put(PetsController());
-
+    await initDefaultData();
     navigate();
+  }
+
+  Future<void> initDefaultData() async {
+    CategoryRepository categoryRepository = CategoryRepository();
+    if ((await categoryRepository.getCategorys()).isEmpty) {
+      log('add default cagetory datas to local db');
+      for (var category in AppConstant.defaultCategoryStringList) {
+        await categoryRepository
+            .saveCategory(ProductCategoryModel(name: category));
+      }
+    }
+    GroceriesRepository groceriesRepository = GroceriesRepository();
+
+    if ((await groceriesRepository.getGroceries()).isEmpty) {
+      log('add default groceries datas to local db');
+      for (var grocery in AppConstant.defaultgroceriesModels) {
+        await groceriesRepository.saveGrocery(grocery);
+      }
+    }
   }
 
   void navigate() async {

@@ -4,7 +4,9 @@ import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/respository/setting_repository.dart';
+import 'package:every_pet/view/expensive/expensive_screen.dart';
 import 'package:every_pet/view/nutrition/nutrition_screen.dart';
+import 'package:every_pet/view/setting/setting_screen.dart';
 import 'package:every_pet/view/todo/todo_screen.dart';
 import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
@@ -24,8 +26,8 @@ class PetsController extends GetxController {
   List<Widget> body = const [
     TodoScreen(),
     NutritionScreen(),
-    Text('費用画面'),
-    ProfileScreen()
+    ExpensiveScreen(),
+    SettingScreen()
   ];
 
   @override

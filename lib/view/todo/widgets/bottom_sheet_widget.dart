@@ -23,82 +23,83 @@ class BottomSheetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<TodoController>(builder: (controller) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ShortHBar(
-            width: Responsive.width10 * 8,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: Responsive.width20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  UtilFunction.getDayYYYYMMDD(controller.focusedDay),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: Responsive.width18,
-                  ),
-                ),
-                TextButton(
-                  onPressed: controller.clickAddbtn,
-                  child: Text(
-                    controller.isNotEmptyFocusedDayEvent()
-                        ? AppString.updateExampleBtnTr.tr
-                        : AppString.addScheduleTextTr.tr,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: Responsive.height10),
-          if (controller.isNotEmptyFocusedDayEvent())
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    right: Responsive.width20,
-                    left: Responsive.width20,
-                    bottom: Responsive.height20,
-                  ),
-                  child: CustomTextField(
-                    readOnly: true,
-                    maxLines: 2,
-                    hintText: controller.getFocusedDayEvent()![0].memo,
-                  ),
-                ),
-                Column(
-                  children: List.generate(
-                    controller.getFocusedDayEvent()![0].stamps.length,
-                    (index) => Padding(
-                      padding: EdgeInsets.only(
-                        bottom: Responsive.height10,
-                        left: Responsive.width10,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: Responsive.width10 * 2,
-                        ),
-                        child: RowStampWidget(
-                            stamp: controller
-                                .getFocusedDayEvent()![0]
-                                .stamps[index]),
+    return Container(
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * .6,
+        minHeight: 200,
+      ),
+      child: GetBuilder<TodoController>(builder: (controller) {
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ShortHBar(width: Responsive.width10 * 8),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: Responsive.width20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppFunction.getDayYYYYMMDD(controller.focusedDay),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: Responsive.width18,
                       ),
                     ),
-                  ),
+                    TextButton(
+                      onPressed: controller.clickAddbtn,
+                      child: Text(
+                        controller.isNotEmptyFocusedDayEvent()
+                            ? AppString.updateExampleBtnTr.tr
+                            : AppString.addScheduleText.tr,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            )
-          else
-            Text(
-              AppString.notTextScheduleTextTr.tr,
-              style: TextStyle(fontSize: Responsive.width18),
-            ),
-          SizedBox(height: Responsive.height30),
-        ],
-      );
-    });
+              ),
+              SizedBox(height: Responsive.height10),
+              if (controller.isNotEmptyFocusedDayEvent())
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: Responsive.width20,
+                        left: Responsive.width20,
+                        bottom: Responsive.height20,
+                      ),
+                      child: CustomTextField(
+                        readOnly: true,
+                        maxLines: 2,
+                        hintText: controller.getFocusedDayEvent()![0].memo,
+                      ),
+                    ),
+                    Column(
+                      children: List.generate(
+                        controller.getFocusedDayEvent()![0].stamps.length,
+                        (index) => Padding(
+                          padding: EdgeInsets.only(
+                            bottom: Responsive.height10,
+                            left: Responsive.width10,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: Responsive.width10 * 2,
+                            ),
+                            child: RowStampWidget(
+                                stamp: controller
+                                    .getFocusedDayEvent()![0]
+                                    .stamps[index]),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              SizedBox(height: Responsive.height30),
+            ],
+          ),
+        );
+      }),
+    );
   }
 }

@@ -17,25 +17,34 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TodoModel(
-      stamps: (fields[0] as List).cast<StampModel>(),
-      memo: fields[1] as String,
-      dateTime: fields[2] as DateTime,
-      petModel: fields[3] as PetModel?,
-    );
+      stamps: (fields[1] as List).cast<StampModel>(),
+      memo: fields[2] as String,
+      dateTime: fields[3] as DateTime,
+      petModel: fields[6] as PetModel?,
+    )
+      ..startTime = fields[4] as DateTime?
+      ..endTime = fields[5] as DateTime?
+      ..color = fields[7] as int?;
   }
 
   @override
   void write(BinaryWriter writer, TodoModel obj) {
     writer
-      ..writeByte(4)
-      ..writeByte(0)
-      ..write(obj.stamps)
+      ..writeByte(7)
       ..writeByte(1)
-      ..write(obj.memo)
+      ..write(obj.stamps)
       ..writeByte(2)
-      ..write(obj.dateTime)
+      ..write(obj.memo)
       ..writeByte(3)
-      ..write(obj.petModel);
+      ..write(obj.dateTime)
+      ..writeByte(4)
+      ..write(obj.startTime)
+      ..writeByte(5)
+      ..write(obj.endTime)
+      ..writeByte(6)
+      ..write(obj.petModel)
+      ..writeByte(7)
+      ..write(obj.color);
   }
 
   @override

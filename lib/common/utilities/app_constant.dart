@@ -13,12 +13,17 @@ class AppConstant {
   static const int makerModelHiveId = 7;
   static const int handmadeModelHiveId = 8;
   static const int groceriesModelHiveId = 9;
+  static const int expensiveModelHiveId = 10;
+  static const int categoryModelHiveId = 11;
 
   static const String petModelBox = 'pets';
   static const String settingModelBox = 'settings';
   static const String stampModelBox = 'stamps';
   static const String todoModelBox = 'todos';
   static const String nutritionModelModelBox = 'nutritions';
+  static const String expensiveModelModelBox = 'expensives';
+  static const String categoryModelModelBox = 'categories';
+  static const String groceriesModelModelBox = 'groceries';
   static const String lastPetIndexKey = 'lastPetIndex';
   static const String lastBottomTapIndexKey = 'lastBottomTapIndex';
   static const String lastNutritionBottomPageIndexKey =
@@ -26,12 +31,20 @@ class AppConstant {
 
   static const int countOfStampIcon = 16;
 
-  static List<GroceriesModel> groceriesModels = [
-    GroceriesModel(name: AppString.riceText.tr, kcalPer100g: 130, gram: 100),
-    GroceriesModel(name: AppString.potatoText.tr, kcalPer100g: 67, gram: 100),
+  static List<GroceriesModel> defaultgroceriesModels = [
+    GroceriesModel(name: AppString.riceText.tr, kcalPerGram: 130, gram: 100),
+    GroceriesModel(name: AppString.potatoText.tr, kcalPerGram: 67, gram: 100),
     GroceriesModel(
-        name: AppString.sweetPotatoText.tr, kcalPer100g: 131.9, gram: 100),
+        name: AppString.sweetPotatoText.tr, kcalPerGram: 131.9, gram: 100),
     GroceriesModel(
-        name: AppString.chickenbreastText.tr, kcalPer100g: 26.1, gram: 100),
+        name: AppString.chickenbreastText.tr, kcalPerGram: 26.1, gram: 100),
+  ];
+
+  static List<String> defaultCategoryStringList = [
+    AppString.foodExpenses.tr,
+    AppString.beautyExpenses.tr,
+    AppString.hospitalExpenses.tr,
+    AppString.entertainmentExpenses.tr,
+    AppString.lifeExpenses.tr,
   ];
 }

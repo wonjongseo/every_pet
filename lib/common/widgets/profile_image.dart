@@ -27,7 +27,7 @@ class ProfileImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height ?? 100,
+      height: height ?? 200,
       width: width ?? 200,
       margin: const EdgeInsets.all(2),
       decoration: BoxDecoration(
@@ -50,7 +50,7 @@ class ProfileImage extends StatelessWidget {
                   isDog ? AppImagePath.bisyon : AppImagePath.defaultCat,
                 )
               : FileImage(File(imagePath!)) as ImageProvider,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
       ),
     );

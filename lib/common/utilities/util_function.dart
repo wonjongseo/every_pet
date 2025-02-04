@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 import 'dart:io';
+import 'package:every_pet/common/theme/theme.dart';
+import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
@@ -8,10 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
-class UtilFunction {
+class AppFunction {
   static String getDayYYYYMMDD(DateTime date) {
     return DateFormat(
-            'yyyy${AppString.yearTextTr.tr}M${AppString.monthTextTr.tr}d${AppString.dayTextTr.tr}')
+            'yyyy${AppString.yearText.tr}M${AppString.monthText.tr}d${AppString.dayTextTr.tr}')
         .format(date);
   }
 
@@ -44,6 +46,26 @@ class UtilFunction {
     await tempFile.delete();
 
     return docFile.path;
+  }
+
+  static showInvalidTextFieldSnackBar(
+      {required String title, required String message}) {
+    AppFunction.showSnackBar(title, message, Icons.warning_amber_rounded);
+  }
+
+  static showSnackBar(String title, String message, IconData icon) {
+    if (Get.isSnackbarOpen) return;
+    Get.snackbar(
+      title,
+      message,
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.grey[200],
+      colorText: pinkClr,
+      icon: Icon(
+        icon,
+        color: pinkClr,
+      ),
+    );
   }
 
   static showAlertDialog({

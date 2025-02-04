@@ -49,13 +49,13 @@ class MakerBody extends StatelessWidget {
     }
 
     int givenCountPerDay = 0;
-    double givenGramOnce = 0.0;
+    int givenGramOnce = 0;
 
     if (givenCountPerDayString.isNotEmpty && givenCountPerDayString != '') {
       givenCountPerDay = int.parse(givenCountPerDayString);
     }
     if (givenGramOnceString.isNotEmpty && givenGramOnceString != '') {
-      givenGramOnce = double.parse(givenGramOnceString);
+      givenGramOnce = int.parse(givenGramOnceString);
     }
     MakerModel makerModel = MakerModel(
       makerName: makerName,
