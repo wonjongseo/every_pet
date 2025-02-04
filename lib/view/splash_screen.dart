@@ -7,6 +7,7 @@ import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/product_category_model.dart';
 import 'package:every_pet/respository/category_repository.dart';
 import 'package:every_pet/respository/groceries_repository.dart';
+import 'package:every_pet/respository/stamp_repository.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:every_pet/view/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,17 +19,17 @@ class SplashController extends GetxController {
   void onInit() async {
     super.onInit();
     petsController = Get.put(PetsController());
-    await initDefaultData();
+    await initDefaultDatas();
     navigate();
   }
 
-  Future<void> initDefaultData() async {
-    CategoryRepository categoryRepository = CategoryRepository();
-    if ((await categoryRepository.getCategorys()).isEmpty) {
-      log('add default cagetory datas to local db');
-      for (var category in AppConstant.defaultCategoryStringList) {
-        await categoryRepository
-            .saveCategory(ProductCategoryModel(name: category));
+  Future<void> initDefaultDatas() async {
+    StampRepository stampRepository = StampRepository();
+
+    if ((await stampRepository.getStamps()).isEmpty) {
+      log('add default stamps datas to local db');
+      for (var stamp in AppConstant.defaultStampModels) {
+        await stampRepository.saveStamp(stamp);
       }
     }
     GroceriesRepository groceriesRepository = GroceriesRepository();
@@ -37,6 +38,14 @@ class SplashController extends GetxController {
       log('add default groceries datas to local db');
       for (var grocery in AppConstant.defaultgroceriesModels) {
         await groceriesRepository.saveGrocery(grocery);
+      }
+    }
+    CategoryRepository categoryRepository = CategoryRepository();
+    if ((await categoryRepository.getCategorys()).isEmpty) {
+      log('add default cagetory datas to local db');
+      for (var category in AppConstant.defaultCategoryStringList) {
+        await categoryRepository
+            .saveCategory(ProductCategoryModel(name: category));
       }
     }
   }
@@ -58,8 +67,6 @@ class SplashController extends GetxController {
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
-
-  // late PetsController petsController;
 
   @override
   Widget build(BuildContext context) {

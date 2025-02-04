@@ -6,19 +6,6 @@ class StampRepository {
   Future<void> saveStamp(StampModel stamp) async {
     var box = await Hive.openBox<StampModel>(AppConstant.stampModelBox);
 
-    // 데이터 저장
-    // await box.add(todo);
-    await box.put(stamp.iconIndex, stamp);
-
-    print('Stamp saved!');
-  }
-
-//TODO key를 iconInded로 하는게 좋을까 ?
-  Future<void> saveStampByNameAndIndex(StampModel stamp) async {
-    var box = await Hive.openBox<StampModel>(AppConstant.stampModelBox);
-
-    // 데이터 저장
-    // await box.add(todo);
     await box.put(stamp.id, stamp);
 
     print('Stamp saved!');
@@ -32,5 +19,11 @@ class StampRepository {
     stamps.sort((a, b) => a.iconIndex.compareTo(b.iconIndex));
 
     return stamps;
+  }
+
+  void deleteStamp(StampModel stampModel) async {
+    var box = await Hive.openBox<StampModel>(AppConstant.stampModelBox);
+    // 데이터 읽기
+    await box.delete(stampModel.id);
   }
 }

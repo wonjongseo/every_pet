@@ -8,19 +8,20 @@ part of 'groceries_modal.dart';
 
 class GroceriesModelAdapter extends TypeAdapter<GroceriesModel> {
   @override
-  final int typeId = 9;
+  final int typeId = AppConstant.groceriesModelHiveId;
 
   @override
   GroceriesModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
+    final fields = <int, dynamic>{};
+    for (int i = 0; i < numOfFields; i++) {
+      fields[reader.readByte()] = reader.read();
+    }
     return GroceriesModel(
       name: fields[0] as String,
-      kcalPerGram: fields[1] as double,
+      kcalPer100g: (fields[1] as double) * 100,
+      gram: fields[2] as int,
     )
-      ..foodGram = fields[2] as int
       ..id = fields[7] as String
       ..createdAt = fields[8] as DateTime;
   }
@@ -32,9 +33,9 @@ class GroceriesModelAdapter extends TypeAdapter<GroceriesModel> {
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.kcalPerGram)
+      ..write(obj._kcalPerGram)
       ..writeByte(2)
-      ..write(obj.foodGram)
+      ..write(obj.gram)
       ..writeByte(7)
       ..write(obj.id)
       ..writeByte(8)

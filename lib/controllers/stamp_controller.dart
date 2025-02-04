@@ -11,10 +11,6 @@ class StampController extends GetxController {
 
   updateStampList() {}
 
-  void goToStampCustomScreen() {
-    Get.to(() => StampCustomScreen());
-  }
-
   void updateStamp(StampModel updateStamp) {
     stampRepository.saveStamp(updateStamp);
     for (var i = 0; i < stamps.length; i++) {
@@ -22,20 +18,22 @@ class StampController extends GetxController {
         stamps[i] = updateStamp;
       }
     }
-
     update();
+  }
+
+  void deleteStamp(StampModel stamp) {
+    stampRepository.deleteStamp(stamp);
+    getAllStamps();
   }
 
   void saveStamp(StampModel stamp) {
     stampRepository.saveStamp(stamp);
-    stamps.add(stamp);
-    update();
+    getAllStamps();
   }
 
   @override
-  void onInit() {
-    super.onInit();
-
+  void onReady() {
+    super.onReady();
     getAllStamps();
   }
 
@@ -51,55 +49,6 @@ class StampController extends GetxController {
 
   getAllStamps() async {
     stamps = await stampRepository.getStamps();
-    if (stamps.isEmpty) {
-      List<StampModel> tempStamps = [
-        StampModel(
-          name: AppString.stamp1Tr.tr,
-          iconIndex: 0,
-          isVisible: true,
-        ), // 0xFFff9796
-        StampModel(
-          name: AppString.stamp2Tr.tr,
-          iconIndex: 1,
-          isVisible: true,
-        ), // 0xFF229cff
-        StampModel(
-          name: AppString.stamp3Tr.tr,
-          iconIndex: 2,
-          isVisible: true,
-        ), // 0xFF56e1ff
-        StampModel(
-          name: AppString.stamp4Tr.tr,
-          iconIndex: 3,
-          isVisible: true,
-        ), // 0xFFf59b23
-        StampModel(
-          name: AppString.stamp5Tr.tr,
-          iconIndex: 4,
-          isVisible: true,
-        ), // 0xFFf59b23
-        StampModel(
-          name: AppString.stamp6Tr.tr,
-          iconIndex: 5,
-          isVisible: true,
-        ), // 0xFF7ec636
-        StampModel(
-          name: AppString.stamp7Tr.tr,
-          iconIndex: 6,
-          isVisible: true,
-        ), // 0xFFe5b7ff
-        StampModel(
-          name: AppString.stamp8Tr.tr,
-          iconIndex: 7,
-          isVisible: true,
-        ), // 0xFFdbff85
-      ];
-
-      for (var tempStamp in tempStamps) {
-        await stampRepository.saveStamp(tempStamp);
-      }
-      stamps = await stampRepository.getStamps();
-    }
 
     update();
 

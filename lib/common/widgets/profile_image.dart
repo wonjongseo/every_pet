@@ -50,7 +50,7 @@ class ProfileImage extends StatelessWidget {
                   isDog ? AppImagePath.bisyon : AppImagePath.defaultCat,
                 )
               : FileImage(File(imagePath!)) as ImageProvider,
-          fit: BoxFit.contain,
+          fit: BoxFit.cover,
         ),
       ),
     );

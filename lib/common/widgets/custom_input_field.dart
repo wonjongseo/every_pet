@@ -32,7 +32,7 @@ class CustomInputField extends StatelessWidget {
         children: [
           Text(
             title,
-            style: titleStyle,
+            style: activeHintStyle,
           ),
           Container(
             height: 52,

@@ -26,6 +26,8 @@ class CustomTextField extends StatelessWidget {
     this.focusNode,
     this.textInputAction,
     this.inputFormatters,
+    this.onFieldSubmitted,
+    this.hintStyle,
     this.widget,
   });
 
@@ -35,6 +37,7 @@ class CustomTextField extends StatelessWidget {
   final bool? readOnly;
   final TextAlign? textAlign;
   final TextInputType? keyboardType;
+  final TextStyle? hintStyle;
   final Widget? prefixIcon;
   final VoidCallback? onTap;
   final Widget? sufficIcon;
@@ -47,7 +50,7 @@ class CustomTextField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextInputAction? textInputAction;
   final Widget? widget;
-
+  final Function(String)? onFieldSubmitted;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -72,6 +75,7 @@ class CustomTextField extends StatelessWidget {
               keyboardType: keyboardType,
               onChanged: onChanged,
               maxLength: maxLength,
+              onFieldSubmitted: onFieldSubmitted,
               autofocus: autoFocus ?? false,
               validator: validator,
               style: subTitleStyle,
@@ -99,11 +103,13 @@ class CustomTextField extends StatelessWidget {
                       )
                     : null,
                 hintText: hintText,
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Get.isDarkMode ? Colors.grey[100] : Colors.grey[600],
-                ),
+                hintStyle: hintStyle ??
+                    TextStyle(
+                      fontSize: Responsive.width14,
+                      fontWeight: FontWeight.w400,
+                      color:
+                          Get.isDarkMode ? Colors.grey[100] : Colors.grey[600],
+                    ),
                 focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.transparent,

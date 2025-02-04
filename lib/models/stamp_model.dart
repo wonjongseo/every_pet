@@ -14,16 +14,13 @@ class StampModel {
   @HiveField(1)
   int iconIndex;
 
-  @HiveField(2, defaultValue: false)
-  bool isCustom;
-
-  @HiveField(3)
+  @HiveField(2, defaultValue: true)
   bool isVisible;
 
-  @HiveField(4)
+  @HiveField(3)
   late String id;
 
-  @HiveField(5)
+  @HiveField(4)
   late DateTime createdAt;
 
   // @HiveField(2, defaultValue: false)
@@ -33,7 +30,6 @@ class StampModel {
     required this.name,
     required this.iconIndex,
     required this.isVisible,
-    this.isCustom = false,
   }) {
     id = const Uuid().v4();
     createdAt = DateTime.now();
@@ -133,7 +129,7 @@ class StampModel {
 
   @override
   String toString() {
-    return 'StampModel(name: $name, iconIndex: $iconIndex, isCustom: $isCustom, isVisible: $isVisible)';
+    return 'StampModel(id: $id, name: $name, iconIndex: $iconIndex, isVisible: $isVisible)';
   }
 
   @override
@@ -143,7 +139,6 @@ class StampModel {
     return other is StampModel &&
         other.name == name &&
         other.iconIndex == iconIndex &&
-        other.isCustom == isCustom &&
         other.id == id &&
         other.createdAt == createdAt &&
         other.isVisible == isVisible;
@@ -153,7 +148,6 @@ class StampModel {
   int get hashCode {
     return name.hashCode ^
         iconIndex.hashCode ^
-        isCustom.hashCode ^
         id.hashCode ^
         createdAt.hashCode ^
         isVisible.hashCode;

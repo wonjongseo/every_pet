@@ -1,5 +1,6 @@
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/widgets/ok_or_no_row_btn.dart';
+import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -89,7 +90,7 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            onPressed: controller.stampController.goToStampCustomScreen,
+            onPressed: () => Get.to(() => const StampCustomScreen()),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

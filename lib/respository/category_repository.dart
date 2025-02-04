@@ -27,7 +27,9 @@ class CategoryRepository {
     var box = await Hive.openBox<ProductCategoryModel>(
         AppConstant.categoryModelModelBox);
     print('box.values.length : ${box.values.length}');
+    List<ProductCategoryModel> categories = box.values.toList();
 
-    return box.values.toList();
+    categories.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    return categories;
   }
 }

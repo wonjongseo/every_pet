@@ -37,56 +37,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     super.dispose();
   }
 
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-  ];
   String? selectedValue;
-
-  List<DropdownMenuItem<String>> _addDividersAfterItems(List<String> items) {
-    final List<DropdownMenuItem<String>> menuItems = [];
-    for (final String item in items) {
-      menuItems.addAll(
-        [
-          DropdownMenuItem<String>(
-            value: item,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                item,
-                style: const TextStyle(
-                  fontSize: 14,
-                ),
-              ),
-            ),
-          ),
-          //If it's last item, we will not add Divider after it.
-          if (item != items.last)
-            const DropdownMenuItem<String>(
-              enabled: false,
-              child: Divider(),
-            ),
-        ],
-      );
-    }
-    return menuItems;
-  }
-
-  List<double> _getCustomItemsHeights() {
-    final List<double> itemsHeights = [];
-    for (int i = 0; i < (items.length * 2) - 1; i++) {
-      if (i.isEven) {
-        itemsHeights.add(40);
-      }
-      //Dividers indexes will be the odd indexes
-      if (i.isOdd) {
-        itemsHeights.add(4);
-      }
-    }
-    return itemsHeights;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,48 +46,16 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
       children: [
         Row(
           children: [
-            DropdownButtonHideUnderline(
-              child: DropdownButton2<int>(
-                isExpanded: true,
-                items: List.generate(
-                  AppConstant.countOfStampIcon,
-                  (index) {
-                    return DropdownMenuItem(
-                      value: index,
-                      child: SizedBox(
-                        width: Responsive.width10 * 5,
-                        height: Responsive.width10 * 5,
-                        child: Image.asset(
-                          StampModel.getIcon(index),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                value: stampIconIndexValue,
-                onChanged: (int? value) {
-                  setState(() {
-                    stampIconIndexValue = value!;
-                  });
-                },
-                buttonStyleData: ButtonStyleData(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Responsive.height16),
-                  width: Responsive.width10 * 10,
-                ),
-              ),
-            ),
-
-            // DropdownButton(
-            //   value: stampIconIndexValue,
+            // DropdownButton2<int>(
+            //   isExpanded: true,
             //   items: List.generate(
-            //     CUSTOM_STAMP_ICON_NUM,
+            //     AppConstant.countOfStampIcon,
             //     (index) {
             //       return DropdownMenuItem(
             //         value: index,
             //         child: SizedBox(
-            //           width: Responsive.width10 * 4,
-            //           height: Responsive.width10 * 4,
+            //           width: Responsive.width10 * 5,
+            //           height: Responsive.width10 * 5,
             //           child: Image.asset(
             //             StampModel.getIcon(index),
             //           ),
@@ -144,18 +63,53 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
             //       );
             //     },
             //   ),
-            //   onChanged: (v) {
-            //     if (v == null) return;
-            //     stampIconIndexValue = v;
-            //     setState(() {});
+            //   value: stampIconIndexValue,
+            //   onChanged: (int? value) {
+            //     setState(() {
+            //       stampIconIndexValue = value!;
+            //     });
             //   },
+            //   buttonStyleData: ButtonStyleData(
+            //     padding:
+            //         EdgeInsets.symmetric(horizontal: Responsive.height16),
+            //     width: Responsive.width10 * 10,
+            //   ),
             // ),
+
+            DropdownButton(
+              underline: Container(),
+              value: stampIconIndexValue,
+              iconSize: 32,
+              elevation: 4,
+              padding: EdgeInsets.zero,
+              items: List.generate(
+                AppConstant.countOfStampIcon,
+                (index) {
+                  return DropdownMenuItem(
+                    value: index,
+                    child: SizedBox(
+                      width: Responsive.width10 * 5,
+                      height: Responsive.width10 * 5,
+                      child: Image.asset(
+                        StampModel.getIcon(index),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              onChanged: (v) {
+                if (v == null) return;
+                stampIconIndexValue = v;
+                setState(() {});
+              },
+            ),
             SizedBox(width: Responsive.width20),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2.4,
               child: Form(
                 key: _formKey,
                 child: CustomTextField(
+                  autoFocus: true,
                   validator: (p0) {
                     if (p0 == null || p0 == "") {
                       return AppString.stampNameCtlMsg.tr;
@@ -193,10 +147,10 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
       return;
     }
     StampModel stampModel = StampModel(
-        name: textEditingController.text,
-        iconIndex: stampIconIndexValue,
-        isVisible: true,
-        isCustom: true);
+      name: textEditingController.text,
+      iconIndex: stampIconIndexValue,
+      isVisible: true,
+    );
     stampController.saveStamp(stampModel);
     Get.back();
   }

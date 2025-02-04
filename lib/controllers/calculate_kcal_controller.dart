@@ -1,35 +1,39 @@
-import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/models/groceries_modal.dart';
 import 'package:every_pet/respository/groceries_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 
-class CalculateKcalController extends GetxController {
-  bool isEdit = false;
+class DisplayGrocery {
+  String? name;
+  String? kcal;
+  String? gram;
 
-  void toggleIsEdit() {
-    isEdit = !isEdit;
-    update();
+  DisplayGrocery({this.name, this.kcal, this.gram});
+}
+
+class CalculateKcalController extends GetxController {
+  PetsController petsController = Get.find<PetsController>();
+  late PetModel pet;
+  GroceriesRepository groceriesRepository = GroceriesRepository();
+  List<GroceriesModel> groceriesModels = [];
+  List<GroceriesModel> selectedGroceriesModels = [];
+
+  List<DisplayGrocery> displayGroceries = [];
+  int givenCountPerDay = 1;
+
+  @override
+  void onInit() {
+    pet = petsController.pets![petsController.petPageIndex];
+    super.onInit();
   }
 
-  PetsController petsController = Get.find<PetsController>();
-
-  GroceriesRepository groceriesRepository = GroceriesRepository();
-
-  TextEditingController editingController = TextEditingController();
-  late PetModel pet;
-  List<GroceriesModel> groceriesModels = [];
-  List<TextEditingController> gramControllers = [];
-  List<TextEditingController> kcalControllers = [];
-
-  List<GroceriesModel> selectedGroceriesModels = [];
-  List<TextEditingController> selectedGramControllers = [];
-  List<TextEditingController> selectedKcalControllers = [];
-
-  int givenCountPerDay = 1;
+  @override
+  void onReady() {
+    getAllGroceries();
+    super.onReady();
+  }
 
   Future<void> getAllGroceries() async {
     groceriesModels = await groceriesRepository.getGroceries();
@@ -37,100 +41,46 @@ class CalculateKcalController extends GetxController {
     update();
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    pet = petsController.pets![petsController.petPageIndex];
-
-    if (pet.nutritionModel != null && pet.nutritionModel!.makerModel != null) {
-      // pet.nutritionModel!.makerModel!.givenGram
-    }
-    await getAllGroceries();
-
-    gramControllers = List.generate(
-      groceriesModels.length,
-      (index) =>
-          TextEditingController(text: groceriesModels[index].gram.toString()),
-    );
-
-    kcalControllers = List.generate(
-      groceriesModels.length,
-      (index) => TextEditingController(
-          text: groceriesModels[index].kcal.toStringAsFixed(1)),
-    );
-
-    update();
-  }
-
-  void updateGram(String value, int index) {
-    if (value.isEmpty || value == '') return;
-
-    int? gram = int.parse(value);
-
-    if (gram != null) {
-      groceriesModels[index].gram =
-          int.tryParse(value) ?? groceriesModels[index].gram;
-
-      kcalControllers[index].text =
-          groceriesModels[index].kcal.toStringAsFixed(1);
-    }
-
-    update();
-  }
-
-  void updateKcal(String value, int index) {
-    double? kcal = double.tryParse(value);
-    if (kcal != null) {
-      groceriesModels[index].kcal = kcal;
-      gramControllers[index].text = groceriesModels[index].gram.toString();
-    }
-    update();
-  }
-
-  void changeGivenCountPerDay(int? value) {
+  changeCountPerDay(int? value) {
     if (value == null) return;
-    givenCountPerDay = value;
-
+    givenCountPerDay = value!;
     distributeDER();
     update();
   }
 
   void onRemoteBtnClick(int index) {
     selectedGroceriesModels.removeAt(index);
-    selectedGramControllers.removeAt(index);
-    selectedKcalControllers.removeAt(index);
+    displayGroceries.removeAt(index);
+
     distributeDER();
     update();
-  }
-
-  void deleteGrocery(GroceriesModel groceriesModel) {
-    groceriesRepository.deleteGrocery(groceriesModel);
-    getAllGroceries();
   }
 
   void onAddBtnClick(GroceriesModel groceriesModel) {
     if (selectedGroceriesModels.contains(groceriesModel)) {
       return;
     }
+
     selectedGroceriesModels.add(groceriesModel);
-    selectedGramControllers.add(TextEditingController());
-    selectedKcalControllers.add(TextEditingController());
+    displayGroceries.add(DisplayGrocery());
+
     distributeDER();
     update();
   }
 
   void distributeDER() {
     double? derValue = pet.getDER();
-    if (derValue != null && derValue > 0) {
+    if (derValue > 0) {
       double ratioKcal =
           derValue / selectedGroceriesModels.length / givenCountPerDay;
 
       for (var i = 0; i < selectedGroceriesModels.length; i++) {
-        selectedGroceriesModels[i].kcal = ratioKcal;
-        selectedKcalControllers[i].text =
-            selectedGroceriesModels[i].kcal.toStringAsFixed(1);
-        selectedGramControllers[i].text =
-            selectedGroceriesModels[i].gram.toString();
+        var gram = (ratioKcal / selectedGroceriesModels[i].kcalPerGram);
+        var kcal = gram * selectedGroceriesModels[i].kcalPerGram;
+
+        displayGroceries[i].name = selectedGroceriesModels[i].name;
+        displayGroceries[i].kcal = (kcal.toStringAsFixed(1));
+        displayGroceries[i].gram = (gram.toStringAsFixed(1));
       }
     }
   }

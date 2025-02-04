@@ -14,7 +14,6 @@ import 'package:every_pet/models/nutrition_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
-import 'package:every_pet/respository/category_repository.dart';
 
 import 'package:every_pet/view/splash_screen.dart';
 import 'package:flutter/material.dart';

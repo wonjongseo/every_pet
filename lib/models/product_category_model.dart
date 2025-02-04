@@ -7,7 +7,7 @@ part 'product_category_model.g.dart';
 @HiveType(typeId: AppConstant.categoryModelHiveId)
 class ProductCategoryModel {
   @HiveField(0)
-  final String name;
+  String name;
   @HiveField(1)
   late String id;
   @HiveField(2)

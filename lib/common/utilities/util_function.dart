@@ -53,6 +53,10 @@ class AppFunction {
     AppFunction.showSnackBar(title, message, Icons.warning_amber_rounded);
   }
 
+  static showMessageSnackBar({required String title, required String message}) {
+    AppFunction.showSnackBar(title, message, Icons.done);
+  }
+
   static showSnackBar(String title, String message, IconData icon) {
     if (Get.isSnackbarOpen) return;
     Get.snackbar(

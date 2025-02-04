@@ -4,6 +4,7 @@ import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/controllers/category_controller.dart';
 import 'package:every_pet/controllers/expensive_controller.dart';
 import 'package:every_pet/view/expensive/add_expensive_screen.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +55,8 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
   void scrollGoToTop() {
     scrollController.animateTo(
       0,
-      duration: const Duration(milliseconds: 300), // 애니메이션 지속 시간
-      curve: Curves.easeInOut, // 애니메이션 곡선
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     );
   }
 
@@ -67,33 +68,35 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
           padding: EdgeInsets.symmetric(horizontal: Responsive.width10),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    DateFormat('y${AppString.yearText.tr}').format(now),
-                    style: headingStyle,
-                  ),
-                  SizedBox(width: Responsive.width20),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back_ios),
-                        onPressed: () => _changeMonth(-1),
-                      ),
-                      SizedBox(width: Responsive.width10),
-                      Text(
-                        '${now.month}${AppString.monthText.tr}',
-                        style: headingStyle,
-                      ),
-                      SizedBox(width: Responsive.width10),
-                      IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios),
-                        onPressed: () => _changeMonth(1),
-                      ),
-                    ],
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Row(
+                  children: [
+                    Text(
+                      DateFormat('y${AppString.yearText.tr}').format(now),
+                      style: headingStyle,
+                    ),
+                    SizedBox(width: Responsive.width20),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back_ios),
+                          onPressed: () => _changeMonth(-1),
+                        ),
+                        SizedBox(width: Responsive.width10),
+                        Text(
+                          '${now.month}${AppString.monthText.tr}',
+                          style: headingStyle,
+                        ),
+                        SizedBox(width: Responsive.width10),
+                        IconButton(
+                          icon: const Icon(Icons.arrow_forward_ios),
+                          onPressed: () => _changeMonth(1),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: Responsive.height10),
               Expanded(

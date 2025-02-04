@@ -99,14 +99,19 @@ class AppTranslations extends Translations {
           AppString.ofText: AppString.ofTextJp,
           AppString.isText: AppString.isTextJp,
           AppString.deleteBtnText: AppString.deleteBtnTextJp,
-          AppString.howToUseMsg24: AppString.howToUseMsg24Jp,
-          AppString.howToUseMsg25: AppString.howToUseMsg25Jp,
-          AppString.howToUseMsg26: AppString.howToUseMsg26Jp,
-          AppString.howToUseMsg27: AppString.howToUseMsg27Jp,
-          AppString.howToUseMsg28: AppString.howToUseMsg28Jp,
-          AppString.howToUseMsg29: AppString.howToUseMsg29Jp,
+          AppString.addCategoryText: AppString.addCategoryTextJp,
+          AppString.changeCategoryText: AppString.changeCategoryTextJp,
+          AppString.desuText: AppString.desuTextJp,
+          AppString.carrotText: AppString.carrotTextJp,
+          AppString.bananaText: AppString.bananaTextJp,
+          AppString.appleText: AppString.appleTextJp,
           AppString.regularTrmingShop: AppString.regularTrmingShopJp,
           AppString.beautyExpenses: AppString.beautyExpensesJp,
+          AppString.tara: AppString.taraJp,
+          AppString.salmonText: AppString.salmonTextJp,
+          AppString.cucumberTextJp: AppString.cucumberTextJp,
+          AppString.doneDeletionMsg: AppString.doneDeletionMsgJp,
+          AppString.doneAddtionMsg: AppString.doneAddtionMsgJp,
         },
         'ko_KR': {
           AppString.appName: AppString.appNameKr,
@@ -204,14 +209,19 @@ class AppTranslations extends Translations {
           AppString.ofText: AppString.ofTextKr,
           AppString.isText: AppString.isTextKr,
           AppString.deleteBtnText: AppString.deleteBtnTextKr,
-          AppString.howToUseMsg24: AppString.howToUseMsg24Kr,
-          AppString.howToUseMsg25: AppString.howToUseMsg25Kr,
-          AppString.howToUseMsg26: AppString.howToUseMsg26Kr,
-          AppString.howToUseMsg27: AppString.howToUseMsg27Kr,
-          AppString.howToUseMsg28: AppString.howToUseMsg28Kr,
-          AppString.howToUseMsg29: AppString.howToUseMsg29Kr,
+          AppString.addCategoryText: AppString.addCategoryTextKr,
+          AppString.changeCategoryText: AppString.changeCategoryTextKr,
+          AppString.desuText: AppString.desuTextKr,
+          AppString.carrotText: AppString.carrotTextKr,
+          AppString.bananaText: AppString.bananaTextKr,
+          AppString.appleText: AppString.appleTextKr,
           AppString.regularTrmingShop: AppString.regularTrmingShopKr,
           AppString.beautyExpenses: AppString.beautyExpensesKr,
+          AppString.tara: AppString.taraKr,
+          AppString.salmonText: AppString.salmonTextKr,
+          AppString.cucumberTextJp: AppString.cucumberTextKr,
+          AppString.doneDeletionMsg: AppString.doneDeletionMsgKr,
+          AppString.doneAddtionMsg: AppString.doneAddtionMsgKr,
         },
       };
 }
@@ -589,31 +599,53 @@ class AppString {
   static String deleteBtnTextKr = "삭제";
   static String deleteBtnTextJp = '削除';
 
-  static String howToUseMsg24 = "howToUseMsg24Tr";
-  static String howToUseMsg24Kr = " 에서도";
-  static String howToUseMsg24Jp = '';
+  static String addCategoryText = "addCategoryTextTr";
+  static String addCategoryTextKr = "항목 추가";
+  static String addCategoryTextJp = '項目追加';
 
-  static String howToUseMsg25 = "howToUseMsg25Tr";
-  static String howToUseMsg25Kr = " 큰 이점";
-  static String howToUseMsg25Jp = '';
+  static String changeCategoryText = "changeCategoryTextTr";
+  static String changeCategoryTextKr = "항목 변경";
+  static String changeCategoryTextJp = '項目変更';
 
-  static String howToUseMsg26 = "howToUseMsg26Tr";
-  static String howToUseMsg26Kr = "이 될 것입니다.\n\n";
-  static String howToUseMsg26Jp = '\n\n';
+  static String desuText = "desuTextTr";
+  static String desuTextKr = "입니다.";
+  static String desuTextJp = 'です。';
 
-  static String howToUseMsg27 = "howToUseMsg27Tr";
-  static String howToUseMsg27Kr =
-      " 그래서 JLPT 종각은 일본어뿐만 아니라, N5급부터 N1급의 한자를 별도로 학습할 수 있고, JLPT N5급부터 N1급의 단어를 학습하면서도 ";
-  static String howToUseMsg27Jp =
-      " Therefore, Jong's JLPT is designed to learn not only Japanese but also N5 to N1 Kangi separately, and to learn the meaning, admonition, and reading of the Kangi by ";
+  static String carrotText = "carrotText";
+  static String carrotTextKr = "당근";
+  static String carrotTextJp = "にんじん";
 
-  static String howToUseMsg28 = "howToUseMsg28Tr";
-  static String howToUseMsg28Kr = "한자를 클릭해서 바로바로 ";
-  static String howToUseMsg28Jp = 'clicking on them ';
+  static String bananaText = "bananaTextTr";
+  static String bananaTextKr = "바나나";
+  static String bananaTextJp = 'バナナ';
 
-  static String howToUseMsg29 = "howToUseMsg29Tr";
-  static String howToUseMsg29Kr = "해당 한자의 의미와 훈독과 음독을 학습할 수 있게 제작하였습니다.";
-  static String howToUseMsg29Jp = 'while learning words from JLPT N5 to N1.';
+  static String appleText = "appleTextTr";
+  static String appleTextKr = "사과";
+  static String appleTextJp = 'リンゴ';
+
+  static String tara = "taraTr";
+  static String taraKr = "대구";
+  static String taraJp = 'たら';
+
+  static String salmonText = "salmonTextTr";
+  static String salmonTextKr = "연어";
+  static String salmonTextJp = 'さけ';
+
+  static String cucumberText = "cucumberTextTr";
+  static String cucumberTextKr = "오이";
+  static String cucumberTextJp = 'キュウリ';
+
+  static String doneDeletionMsg = "doneDeletionMsgTr";
+  static String doneDeletionMsgKr = "(이)가 삭제되었습니다.";
+  static String doneDeletionMsgJp = 'が削除されました。';
+
+  static String doneAddtionMsg = "doneAddtionMsgTr";
+  static String doneAddtionMsgKr = "(이)가 저장되었습니다.";
+  static String doneAddtionMsgJp = 'が保存されました。';
+
+  static String doneUpdatedMsg = "doneUpdatedMsgTr";
+  static String doneUpdatedMsgKr = "으로 변경되었습니다.";
+  static String doneUpdatedMsgJp = 'に変更されました。';
 
   static String reportMsgContect = "reportMsgContectTr";
   static String reportMsgContectKr = """

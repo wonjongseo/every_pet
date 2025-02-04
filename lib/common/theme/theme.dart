@@ -27,9 +27,9 @@ TextStyle get headingStyle {
   );
 }
 
-TextStyle get titleStyle {
+TextStyle get activeHintStyle {
   return TextStyle(
-    fontSize: 16,
+    fontSize: Responsive.width14,
     fontWeight: FontWeight.w100,
     color: Get.isDarkMode ? Colors.white : Colors.black,
   );
