@@ -126,7 +126,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
         SizedBox(height: Responsive.height20),
         OkOrNoBtnRow(
           okText: widget.stamp != null
-              ? AppString.updateBtnTextTr.tr
+              ? AppString.updateBtnText.tr
               : AppString.enrollTextBtnTr.tr,
           noText: AppString.cancelBtnTextTr.tr,
           onOkTap: () {

@@ -1,5 +1,8 @@
+import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/models/groceries_modal.dart';
 import 'package:every_pet/respository/groceries_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:every_pet/controllers/pets_controller.dart';
@@ -33,6 +36,90 @@ class CalculateKcalController extends GetxController {
   void onReady() {
     getAllGroceries();
     super.onReady();
+  }
+
+  void addNewGrocery() async {
+    List<TextEditingController> teControllers = [
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(text: '100'),
+    ];
+
+    bool? result = await AppFunction.multiTextEditDialog(
+      teControllers: teControllers,
+      hintTexts: ['식단명', '0.0', '0'],
+      sufficTexts: ['', 'kcal', 'gram'],
+      buttonLabel: AppString.enrollTextBtnTr.tr,
+      keyboardTypes: [
+        TextInputType.text,
+        const TextInputType.numberWithOptions(decimal: true),
+        TextInputType.number
+      ],
+    );
+    if (result == null) {
+      return;
+    }
+
+    for (var element in teControllers) {
+      if (element.text.isEmpty) {
+        AppFunction.showInvalidTextFieldSnackBar(message: '빈 항목 없이 입력해주세요.');
+      }
+    }
+
+    GroceriesModel groceriesModel = GroceriesModel(
+        name: teControllers[0].text,
+        kcalPer100g: double.parse(teControllers[1].text),
+        gram: int.parse(teControllers[2].text));
+
+    AppFunction.showMessageSnackBar(
+      title: AppString.saveText.tr,
+      message: '${groceriesModel.name} ${AppString.doneAddtionMsg.tr}',
+    );
+    saveCategory(groceriesModel);
+  }
+
+  void saveCategory(GroceriesModel groceriesModel) {
+    groceriesRepository.saveGrocery(groceriesModel);
+    getAllGroceries();
+  }
+
+  void updateGrocery(int index, String name, String kcal, String gram) {
+    GroceriesModel groceriesModel = groceriesModels[index];
+
+    if (name.isEmpty) {
+      name = groceriesModel.name;
+    }
+    if (kcal.isEmpty) {
+      kcal = groceriesModel.kcal.toString();
+    }
+    if (gram.isEmpty) {
+      gram = groceriesModel.gram.toString();
+    }
+
+    if (groceriesModel.name == name &&
+        groceriesModel.kcal.toString() == kcal &&
+        groceriesModel.gram.toString() == gram) {
+      return;
+    }
+
+    GroceriesModel newGroceriesModel = groceriesModel.copyWith(
+      name: name,
+      kcalPerGram: double.parse(kcal),
+      gram: int.parse(gram),
+    );
+
+    AppFunction.showMessageSnackBar(
+        title: AppString.doneUpdatedMsg.tr,
+        message: '${newGroceriesModel.name}　${AppString.doneAddtionMsg.tr}');
+    saveCategory(newGroceriesModel);
+  }
+
+  void deleteGrocery(GroceriesModel groceriesModel) {
+    AppFunction.showMessageSnackBar(
+        title: AppString.deleteBtnText.tr,
+        message: '${groceriesModel.name}　${AppString.doneDeletionMsg.tr}');
+    groceriesRepository.deleteGrocery(groceriesModel);
+    getAllGroceries();
   }
 
   Future<void> getAllGroceries() async {

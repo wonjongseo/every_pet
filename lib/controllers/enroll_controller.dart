@@ -148,10 +148,11 @@ class EnrollController extends GetxController {
       await petsController.savePetModal(catModel);
     }
 
-    if (!isFirst) {
-      // petsController.aa(); Todo FIx
+    if (isFirst) {
+      Get.offAll(() => MainScreen());
+    } else {
+      Get.back();
     }
-    Get.offAll(() => MainScreen());
   }
 
   void togglePregnancy(bool? value) {

@@ -9,13 +9,13 @@ part 'handmade_model.g.dart';
 @HiveType(typeId: AppConstant.handmadeModelHiveId)
 class HandmadeModel {
   @HiveField(0)
-  double givenGramPerDay; // あげる量
+  int givenGramPerDay; // あげる量
 
   @HiveField(1)
-  double givenVegetableGram; //あげる野菜りょう
+  int givenVegetableGram; //あげる野菜りょう
 
   @HiveField(2)
-  double givenProteinGram; // 蛋白質りょう
+  int givenProteinGram; // 蛋白質りょう
 
   @HiveField(3)
   late String id;

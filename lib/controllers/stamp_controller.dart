@@ -1,4 +1,5 @@
 import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/respository/stamp_repository.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
@@ -23,6 +24,11 @@ class StampController extends GetxController {
 
   void deleteStamp(StampModel stamp) {
     stampRepository.deleteStamp(stamp);
+
+    AppFunction.showMessageSnackBar(
+      title: AppString.deleteBtnText.tr,
+      message: '${stamp.name}${AppString.doneDeletionMsg.tr}',
+    );
     getAllStamps();
   }
 
@@ -42,14 +48,23 @@ class StampController extends GetxController {
     return;
   }
 
-  void toogleVisualbe(int index) {
-    stamps[index].isVisible = !stamps[index].isVisible;
+  void toggleVisable(int index) {
+    StampModel selectedStamp = stamps[index];
+    selectedStamp.isVisible = !selectedStamp.isVisible;
+    saveStamp(selectedStamp);
+
+    AppFunction.showMessageSnackBar(
+      title: AppString.updateBtnText.tr,
+      message:
+          '${AppString.stampIsText.tr} ${selectedStamp.isVisible ? "표시로" : "표시안함으로"} 변경되었습니다.',
+      duration: const Duration(milliseconds: 1000),
+    );
+
     update();
   }
 
   getAllStamps() async {
     stamps = await stampRepository.getStamps();
-
     update();
 
     /*

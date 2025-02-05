@@ -122,10 +122,10 @@ class EnrollScreenBody extends StatelessWidget {
                                 fontSize: Responsive.width16,
                                 controller: controller.weightEditingController,
                                 textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(
+                                  decimal: true,
+                                ),
                                 hintText: AppString.weightTextTr.tr,
                                 sufficIcon: const Text('kg'),
                                 validator: controller.weightValidator,

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:every_pet/common/admob/global_banner_admob.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/controllers/expensive_controller.dart';
 import 'package:every_pet/models/expensive_model.dart';
 import 'package:every_pet/view/expensive/widgets/exensive_input_card.dart';
@@ -10,7 +11,6 @@ import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
-import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:get/get.dart';
 
 class AddExpensiveScreen extends StatefulWidget {
@@ -42,14 +42,26 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
       );
 
       expensiveController.saveExpensive(expensiveModel);
-
-      setState(() {});
+      setState(() {}); // Dont' Remote
+      AppFunction.showMessageSnackBar(
+        title: AppString.saveText.tr,
+        message: '${expensiveModel.productName}${AppString.doneAddtionMsg.tr}',
+      );
     });
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void deleteExpensive(ExpensiveModel expensiveModel) async {
+    expensiveController.delete(expensiveModel);
+
+    AppFunction.showMessageSnackBar(
+        title: AppString.deleteBtnText.tr,
+        message:
+            '${expensiveModel.productName}${AppString.doneDeletionMsg.tr}');
   }
 
   @override
@@ -74,6 +86,12 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
                     style: headingStyle,
                   ),
                   SizedBox(height: Responsive.height10),
+                  Column(
+                    children: [
+                      ExpensiveInputCard(streamController: streamController),
+                    ],
+                  ),
+                  SizedBox(height: Responsive.height10),
                   Obx(
                     () {
                       var expensiveModels = expensiveController
@@ -87,7 +105,7 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
                             ),
                             child: Column(
                               children: [
-                                ExensiveInputCard(
+                                ExpensiveInputCard(
                                   key: ValueKey(expensiveModels[index].id),
                                   selectedCategory:
                                       expensiveModels[index].category,
@@ -102,8 +120,7 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(50),
                                     onTap: () {
-                                      expensiveController
-                                          .delete(expensiveModels[index]);
+                                      deleteExpensive(expensiveModels[index]);
                                     },
                                     child: Image.asset(
                                         AppImagePath.circleRemoteBtn,
@@ -117,8 +134,6 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
                       );
                     },
                   ),
-                  ExensiveInputCard(streamController: streamController),
-                  SizedBox(height: Responsive.height10),
                 ],
               ),
             ),

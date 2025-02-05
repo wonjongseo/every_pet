@@ -32,6 +32,9 @@ class AppConstant {
 
   static const int countOfStampIcon = 16;
 
+  static const String editCategorySign = "-@+편집+@-";
+
+  static const int invalidNumber = -9999;
   // static List<GroceriesModel> defaultgroceriesModels = [
   //   GroceriesModel(name: AppString.riceText.tr, kcalPerGram: 130, gram: 100),
   //   GroceriesModel(name: AppString.potatoText.tr, kcalPerGram: 67, gram: 100),

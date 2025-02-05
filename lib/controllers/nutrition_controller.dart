@@ -1,142 +1,177 @@
+import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
-
+import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/handmade_model.dart';
 import 'package:every_pet/models/maker_model.dart';
 import 'package:every_pet/models/nutrition_model.dart';
 import 'package:every_pet/models/pet_model.dart';
-import 'package:every_pet/respository/setting_repository.dart';
-import 'package:every_pet/view/nutrition/nutrition_screen.dart';
-import 'package:every_pet/view/nutrition/widgets/handmake_body.dart';
-import 'package:every_pet/view/nutrition/widgets/maker_body.dart';
+import 'package:every_pet/view/calculate_kcal/calculate_kcal_screen.dart';
+import 'package:every_pet/view/nutrition/widgets/nutrition_screen_header.dart';
+import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NutritionController extends GetxController {
-  // late TextEditingController makerNameEditingController;
-  // late TextEditingController givenGramEditingController;
-  // late TextEditingController givenGramOnceEditingController;
+  int pageIndex = 0;
 
-  late TextEditingController givenGramPerDayEditingController;
-  late TextEditingController givenVegetableGramEditingController;
-  late TextEditingController givenProteinGramEditingController;
+  TextEditingController teController1 = TextEditingController();
+  TextEditingController teController2 = TextEditingController();
+  TextEditingController teController3 = TextEditingController();
+  TextEditingController teController4 = TextEditingController();
+  TextEditingController teController5 = TextEditingController();
+  TextEditingController teController6 = TextEditingController();
 
-  int bottomPageIndex = 0;
-
-  // NUTRITION_TYPE foodType = NUTRITION_TYPE.DRY;
-
-  PageController? pageController;
-
-  PetsController petsController = Get.find<PetsController>();
+  FocusNode focusNode1 = FocusNode();
+  FocusNode focusNode2 = FocusNode();
 
   NutritionModel nutritionModel = NutritionModel();
-
-  @override
-  void onInit() async {
-    super.onInit();
-
-    bottomPageIndex = await SettingRepository.getInt(
-        AppConstant.lastNutritionBottomPageIndexKey);
-
-    pageController = PageController(initialPage: bottomPageIndex);
-    // foodType = NUTRITION_TYPE.values[bottomPageIndex];
-
-    // initHandmadeTextEditingController();
-
-    update();
-  }
+  MakerModel? makerModel;
+  HandmadeModel? handmadeModel;
 
   @override
   void onClose() {
+    teController1.dispose();
+    teController2.dispose();
+    teController3.dispose();
+    teController4.dispose();
+    teController5.dispose();
+    teController6.dispose();
     super.onClose();
-
-    givenGramPerDayEditingController.dispose();
-    givenVegetableGramEditingController.dispose();
-    givenProteinGramEditingController.dispose();
   }
 
-  void saveMaker(PetModel petModel, MakerModel makerModel) {
-    petModel.nutritionModel ??= NutritionModel();
-    if (petModel.nutritionModel!.makerModel != null) {
-      if (petModel.nutritionModel!.makerModel! == makerModel) {
-        return;
-      }
-    }
-
-    NutritionModel nutritionModel = petModel.nutritionModel!;
-    nutritionModel.makerModel = makerModel;
-    PetModel newPet = petModel.copyWith(nutritionModel: nutritionModel);
-
-    petsController.updatePetModel(petModel, newPet, isProfileScreen: false);
-  }
-
-  void saveHandMaker(PetModel petModel, HandmadeModel handmadeModel) {
-    petModel.nutritionModel ??= NutritionModel();
-    if (petModel.nutritionModel!.handmadeModel != null) {
-      if (petModel.nutritionModel!.handmadeModel! == handmadeModel) {
-        return;
-      }
-    }
-
-    NutritionModel nutritionModel = petModel.nutritionModel!;
-    nutritionModel.handmadeModel = handmadeModel;
-    PetModel newPet = petModel.copyWith(nutritionModel: nutritionModel);
-
-    petsController.updatePetModel(petModel, newPet, isProfileScreen: false);
-  }
-
-  bool isTap = false;
-  void onTapBottomNavigation(NUTRITION_TYPE? nutritionType) {
-    if (isTap == true) return;
-    if (nutritionType == null) return;
-
-    isTap = true;
-
-    update();
-
-    if (nutritionType == NUTRITION_TYPE.DRY) {
-      bottomPageIndex = NUTRITION_TYPE.DRY.index;
+  void changeBody(int newPageIndex) {
+    if (newPageIndex == 0) {
+      focusNode1.requestFocus();
     } else {
-      bottomPageIndex = NUTRITION_TYPE.MANUL.index;
+      focusNode2.requestFocus();
     }
+    pageIndex = newPageIndex;
+    update();
+  }
 
-    SettingRepository.setInt(
-        AppConstant.lastNutritionBottomPageIndexKey, bottomPageIndex);
+  void onClickSaveBtn(PetsController petsController, PetModel pet) {
+    if (pageIndex == 0) {
+      submitMakerData(petsController, pet);
+    } else {
+      submitHandmadeData(petsController, pet);
+    }
+  }
 
-    pageController!.animateToPage(
-      bottomPageIndex,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.linear,
+  void submitMakerData(PetsController petsController, PetModel pet) {
+    makerModel = MakerModel(
+      makerName: teController1.text,
+      givenCountPerDay:
+          int.tryParse(teController2.text) ?? AppConstant.invalidNumber,
+      givenGramOnce:
+          int.tryParse(teController3.text) ?? AppConstant.invalidNumber,
     );
 
-    isTap = false;
-  }
-
-  void initHandmadeTextEditingController(PetModel petModel) {
-    String givenGramPerDayString = '';
-    String givenVegetableGramString = '';
-    String givenProteinGramString = '';
-
-    if (petModel.nutritionModel != null &&
-        petModel.nutritionModel!.handmadeModel != null) {
-      givenGramPerDayString =
-          petModel.nutritionModel!.handmadeModel!.givenGramPerDay.toString();
-      givenVegetableGramString =
-          petModel.nutritionModel!.handmadeModel!.givenProteinGram.toString();
-      givenProteinGramString =
-          petModel.nutritionModel!.handmadeModel!.givenVegetableGram.toString();
+    if (makerModel!.makerName.isEmpty) {
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.requiredMakerName,
+      );
+      return;
+    }
+    if (makerModel!.givenCountPerDay == AppConstant.invalidNumber) {
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.requiredGivenCountPerDay,
+      );
+      return;
+    }
+    if (makerModel!.givenGramOnce == AppConstant.invalidNumber) {
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.requiredGivenGramOnce,
+      );
+      return;
     }
 
-    givenGramPerDayEditingController =
-        TextEditingController(text: givenGramPerDayString);
-    givenVegetableGramEditingController =
-        TextEditingController(text: givenVegetableGramString);
-    givenProteinGramEditingController =
-        TextEditingController(text: givenProteinGramString);
+    nutritionModel.makerModel = makerModel!;
+
+    PetModel newPet = pet.copyWith(nutritionModel: nutritionModel);
+    petsController.updatePetModel(pet, newPet, isProfileScreen: false);
+
+    AppFunction.showSuccessEnrollMsgSnackBar(AppString.makterText.tr);
   }
 
-  void onPageChanged(value) {
-    bottomPageIndex = value;
-    update();
+  void submitHandmadeData(PetsController petsController, PetModel pet) {
+    handmadeModel = HandmadeModel(
+      givenGramPerDay:
+          int.tryParse(teController4.text) ?? AppConstant.invalidNumber,
+      givenVegetableGram:
+          int.tryParse(teController5.text) ?? AppConstant.invalidNumber,
+      givenProteinGram:
+          int.tryParse(teController6.text) ?? AppConstant.invalidNumber,
+    );
+
+    if (handmadeModel!.givenGramPerDay == AppConstant.invalidNumber) {
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.requiredAmountGivenGramText,
+      );
+      return;
+    }
+    if (handmadeModel!.givenVegetableGram == AppConstant.invalidNumber) {
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.requiredVegetableGram,
+      );
+      return;
+    }
+    if (handmadeModel!.givenProteinGram == AppConstant.invalidNumber) {
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.requiredProteinGram,
+      );
+      return;
+    }
+
+    nutritionModel.handmadeModel = handmadeModel!;
+
+    PetModel newPet = pet.copyWith(nutritionModel: nutritionModel);
+
+    petsController.updatePetModel(pet, newPet, isProfileScreen: false);
+
+    AppFunction.showSuccessEnrollMsgSnackBar(AppString.handmadeTextTr.tr);
+  }
+
+  void initPetsNutrion(PetModel pet) {
+    nutritionModel = NutritionModel();
+    //
+
+    teController1.text = '';
+    teController2.text = '';
+    teController3.text = '';
+    teController4.text = '';
+    teController5.text = '';
+    teController6.text = '';
+
+    if (pet.nutritionModel != null) {
+      if (pet.nutritionModel!.makerModel != null) {
+        nutritionModel.makerModel = makerModel;
+        teController1.text = pet.nutritionModel!.makerModel!.makerName;
+        teController2.text =
+            pet.nutritionModel!.makerModel!.givenCountPerDay.toString();
+        teController3.text =
+            pet.nutritionModel!.makerModel!.givenGramOnce.toString();
+      } else {
+        teController1.text = '';
+        teController2.text = '';
+        teController3.text = '';
+      }
+      if (pet.nutritionModel!.handmadeModel != null) {
+        nutritionModel.handmadeModel = handmadeModel;
+        teController4.text =
+            pet.nutritionModel!.handmadeModel!.givenGramPerDay.toString();
+        teController5.text =
+            pet.nutritionModel!.handmadeModel!.givenVegetableGram.toString();
+        teController6.text =
+            pet.nutritionModel!.handmadeModel!.givenProteinGram.toString();
+      } else {
+        teController4.text = '';
+        teController5.text = '';
+        teController6.text = '';
+      }
+    }
   }
 }

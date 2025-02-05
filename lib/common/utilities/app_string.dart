@@ -4,6 +4,8 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'ja_JP': {
+          AppString.requiredText: AppString.requiredTextJp,
+          AppString.requiredMsg: AppString.requiredMsgJp,
           AppString.appName: AppString.appNameJp,
           AppString.nameCtrHintText: AppString.nameCtrHintTextJp,
           AppString.weightCtrHint: AppString.weightCtrHintJp,
@@ -53,7 +55,7 @@ class AppTranslations extends Translations {
           AppString.tekiryouKcalText: AppString.tekiryouKcalTextJp,
           AppString.dryTextTr: AppString.dryTextJp,
           AppString.handmadeTextTr: AppString.handmadeTextJp,
-          AppString.updateBtnTextTr: AppString.updateBtnTextJp,
+          AppString.updateBtnText: AppString.updateBtnTextJp,
           AppString.cancelBtnTextTr: AppString.cancelBtnTextJp,
           AppString.completeTextTr: AppString.completeTextJp,
           AppString.updateMsgTr: AppString.updateMsgJp,
@@ -64,7 +66,7 @@ class AppTranslations extends Translations {
           AppString.calendarTextTr: AppString.calendarTextJp,
           AppString.expensiveTextTr: AppString.expensiveTextJp,
           AppString.enrollTextBtnTr: AppString.enrollTextBtnJp,
-          AppString.saveTextTr: AppString.saveTextJp,
+          AppString.saveText: AppString.saveTextJp,
           AppString.stampNameCtlHintTr: AppString.stampNameCtlHintJp,
           AppString.reportMsgContect: AppString.reportMsgContectJp,
           AppString.stampNameCtlMsg: AppString.stampNameCtlMsgJp,
@@ -112,8 +114,14 @@ class AppTranslations extends Translations {
           AppString.cucumberTextJp: AppString.cucumberTextJp,
           AppString.doneDeletionMsg: AppString.doneDeletionMsgJp,
           AppString.doneAddtionMsg: AppString.doneAddtionMsgJp,
+          AppString.doneUpdatedMsg: AppString.doneUpdatedMsgJp,
+          AppString.stampIsText: AppString.stampIsTextJp,
+          AppString.visiableText: AppString.visiableTextJp,
+          AppString.inVisiableText: AppString.inVisiableTextJp,
         },
         'ko_KR': {
+          AppString.requiredText: AppString.requiredTextKr,
+          AppString.requiredMsg: AppString.requiredMsgKr,
           AppString.appName: AppString.appNameKr,
           AppString.nameCtrHintText: AppString.nameCtrHintTextKr,
           AppString.weightCtrHint: AppString.weightCtrHintKr,
@@ -163,7 +171,7 @@ class AppTranslations extends Translations {
           AppString.tekiryouKcalText: AppString.tekiryouKcalTextKr,
           AppString.dryTextTr: AppString.dryTextKr,
           AppString.handmadeTextTr: AppString.handmadeTextKr,
-          AppString.updateBtnTextTr: AppString.updateBtnTextKr,
+          AppString.updateBtnText: AppString.updateBtnTextKr,
           AppString.cancelBtnTextTr: AppString.cancelBtnTextKr,
           AppString.completeTextTr: AppString.completeTextKr,
           AppString.updateMsgTr: AppString.updateMsgKr,
@@ -174,7 +182,7 @@ class AppTranslations extends Translations {
           AppString.calendarTextTr: AppString.calendarTextKr,
           AppString.expensiveTextTr: AppString.expensiveTextKr,
           AppString.enrollTextBtnTr: AppString.enrollTextBtnKr,
-          AppString.saveTextTr: AppString.saveTextKr,
+          AppString.saveText: AppString.saveTextKr,
           AppString.stampNameCtlHintTr: AppString.stampNameCtlHintKr,
           AppString.reportMsgContect: AppString.reportMsgContectKr,
           AppString.stampNameCtlMsg: AppString.stampNameCtlMsgKr,
@@ -222,14 +230,42 @@ class AppTranslations extends Translations {
           AppString.cucumberTextJp: AppString.cucumberTextKr,
           AppString.doneDeletionMsg: AppString.doneDeletionMsgKr,
           AppString.doneAddtionMsg: AppString.doneAddtionMsgKr,
+          AppString.doneUpdatedMsg: AppString.doneUpdatedMsgKr,
+          AppString.stampIsText: AppString.stampIsTextKr,
+          AppString.visiableText: AppString.visiableTextKr,
+          AppString.inVisiableText: AppString.inVisiableTextKr,
         },
       };
 }
 
 class AppString {
+  // 제조사를 입력헤주세요
+  static String requiredMakerName =
+      '${AppString.makterText.tr}${AppString.requiredMsg.tr}';
+
+  static String requiredGivenCountPerDay =
+      '${AppString.numberOfGivenText.tr}${AppString.requiredMsg.tr}';
+  static String requiredGivenGramOnce = 'gram${AppString.requiredMsg.tr}';
+  static String requiredAmountGivenGramText =
+      '${AppString.amountGivenGramText.tr}${AppString.requiredMsg.tr}';
+  static String requiredVegetableGram =
+      '${AppString.vegetableText.tr} gram${AppString.requiredMsg.tr}';
+
+  static String requiredProteinGram =
+      '${AppString.proteinText.tr} gram${AppString.requiredMsg.tr}';
+
+  static String requiredMsg = 'requiredMsgTr';
+  static String requiredMsgKr = '을(를) 입력해주세요.';
+  static String requiredMsgJp = 'を入力してください。';
+  static String requiredMsgEn = 'is required.';
+
+  static String requiredText = "requiredTextTr";
+  static String requiredTextKr = "필수";
+  static String requiredTextJp = "必須";
+
   static String appName = "appNameTr";
-  static String appNameKr = "JLPT종각";
-  static String appNameJp = "Jong's JLPT";
+  static String appNameKr = "Every Pets";
+  static String appNameJp = "Every Pets";
 
   static String nameCtrHintText = "nameCtrHintTextTr";
   static String nameCtrHintTextKr = "이름을 입력해주세요.";
@@ -423,7 +459,7 @@ class AppString {
   static String handmadeTextKr = '수제';
   static String handmadeTextJp = "手作り";
 
-  static String updateBtnTextTr = "updateBtnTextTr";
+  static String updateBtnText = "updateBtnTextTr";
   static String updateBtnTextKr = '변경';
   static String updateBtnTextJp = "変更";
 
@@ -467,7 +503,7 @@ class AppString {
   static String enrollTextBtnKr = '등록';
   static String enrollTextBtnJp = "登録";
 
-  static String saveTextTr = "saveTextTr";
+  static String saveText = "saveTextTr";
   static String saveTextKr = '저장';
   static String saveTextJp = "保存";
 
@@ -604,8 +640,8 @@ class AppString {
   static String addCategoryTextJp = '項目追加';
 
   static String changeCategoryText = "changeCategoryTextTr";
-  static String changeCategoryTextKr = "항목 변경";
-  static String changeCategoryTextJp = '項目変更';
+  static String changeCategoryTextKr = "항목 편집";
+  static String changeCategoryTextJp = '項目編集';
 
   static String desuText = "desuTextTr";
   static String desuTextKr = "입니다.";
@@ -646,6 +682,18 @@ class AppString {
   static String doneUpdatedMsg = "doneUpdatedMsgTr";
   static String doneUpdatedMsgKr = "으로 변경되었습니다.";
   static String doneUpdatedMsgJp = 'に変更されました。';
+
+  static String stampIsText = "stampIsTextTr";
+  static String stampIsTextKr = "스탬프가";
+  static String stampIsTextJp = 'スタンプが';
+
+  static String visiableText = "visiableTextTr";
+  static String visiableTextKr = "표시";
+  static String visiableTextJp = '表示';
+
+  static String inVisiableText = "inVisiableTextTr";
+  static String inVisiableTextKr = "미표시";
+  static String inVisiableTextJp = '未表示';
 
   static String reportMsgContect = "reportMsgContectTr";
   static String reportMsgContectKr = """

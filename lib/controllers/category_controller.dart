@@ -1,3 +1,4 @@
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
@@ -25,43 +26,25 @@ class CategoryController extends GetxController {
     categories.assignAll(
       [
         ...await categoryRepository.getCategorys(),
-        ProductCategoryModel(name: '-'),
-        ProductCategoryModel(name: '+'),
+        ProductCategoryModel(name: AppConstant.editCategorySign),
       ],
     );
   }
 
   Future<void> onTapAddCategoryBtn() async {
-    TextEditingController textEditingController = TextEditingController();
-    bool? result = await Get.dialog(
-      AlertDialog(
-        content: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              child: CustomTextField(
-                controller: textEditingController,
-                hintText: AppString.categoryText.tr,
-                maxLines: 1,
-              ),
-            ),
-            SizedBox(width: Responsive.width10),
-            ElevatedButton(
-              onPressed: () => Get.back(result: true),
-              child: Text(AppString.enrollTextBtnTr.tr),
-            )
-          ],
-        ),
-      ),
+    TextEditingController teController = TextEditingController();
+
+    bool? resultValue = await AppFunction.singleTextEditDialog(
+      hintText: AppString.categoryText.tr,
+      buttonLabel: AppString.enrollTextBtnTr.tr,
+      teController: teController,
     );
-    if (result == null ||
-        textEditingController.text == null ||
-        textEditingController.text.isEmpty) {
+
+    if (resultValue == null) {
       return;
     }
-
     ProductCategoryModel categoryModel =
-        ProductCategoryModel(name: textEditingController.text);
+        ProductCategoryModel(name: teController.text);
 
     AppFunction.showMessageSnackBar(
         title: AppString.deleteBtnText.tr,

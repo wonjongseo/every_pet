@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/category_controller.dart';
@@ -13,8 +14,8 @@ import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:get/get.dart';
 
-class ExensiveInputCard extends StatefulWidget {
-  const ExensiveInputCard({
+class ExpensiveInputCard extends StatefulWidget {
+  const ExpensiveInputCard({
     super.key,
     this.selectedCategory,
     this.productName,
@@ -28,10 +29,10 @@ class ExensiveInputCard extends StatefulWidget {
   final StreamController? streamController;
 
   @override
-  State<ExensiveInputCard> createState() => _ExensiveInputCardState();
+  State<ExpensiveInputCard> createState() => _ExpensiveInputCardState();
 }
 
-class _ExensiveInputCardState extends State<ExensiveInputCard> {
+class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
   String selectedCategory = '';
 
   bool isReadOnly = false;
@@ -74,6 +75,8 @@ class _ExensiveInputCardState extends State<ExensiveInputCard> {
                     ? AppString.categoryText.tr
                     : selectedCategory,
                 readOnly: true,
+                style: isReadOnly ? activeHintStyle : null,
+                hintStyle: isReadOnly ? activeHintStyle : null,
                 widget: DropdownButton<String>(
                   iconSize: 32,
                   elevation: 4,
@@ -84,11 +87,7 @@ class _ExensiveInputCardState extends State<ExensiveInputCard> {
                   onChanged: isReadOnly
                       ? null
                       : (v) async {
-                          if (v! == '+') {
-                            await categoryController.onTapAddCategoryBtn();
-                            return;
-                          }
-                          if (v! == '-') {
+                          if (v! == AppConstant.editCategorySign) {
                             Get.to(() => const ChangeCategoryScreen());
                             return;
                           }
@@ -98,11 +97,12 @@ class _ExensiveInputCardState extends State<ExensiveInputCard> {
                   items: List.generate(
                     categoryController.categories.length,
                     (index) {
-                      if (categoryController.categories[index].name == '-') {
+                      if (categoryController.categories[index].name ==
+                          AppConstant.editCategorySign) {
                         return DropdownMenuItem(
                           value: categoryController.categories[index].name,
                           child: Container(
-                            padding: EdgeInsets.only(top: 10),
+                            padding: const EdgeInsets.only(top: 10),
                             decoration: BoxDecoration(
                               border: Border(
                                 top: BorderSide(
@@ -115,36 +115,12 @@ class _ExensiveInputCardState extends State<ExensiveInputCard> {
                               children: [
                                 Text(AppString.changeCategoryText.tr),
                                 SizedBox(width: Responsive.width10),
-                                Icon(Icons.change_circle_outlined),
+                                const Icon(Icons.change_circle_outlined),
                               ],
                             ),
                           ),
                         );
                       }
-                      if (categoryController.categories[index].name == '+') {
-                        return DropdownMenuItem(
-                          value: categoryController.categories[index].name,
-                          child: Container(
-                            padding: EdgeInsets.only(top: 10),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                top: BorderSide(
-                                    color: Colors.grey[200]!, width: 1.5),
-                              ),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(AppString.addCategoryText.tr),
-                                SizedBox(width: Responsive.width10),
-                                Icon(Icons.add),
-                              ],
-                            ),
-                          ),
-                        );
-                      }
-
                       return DropdownMenuItem(
                         value: categoryController.categories[index].name,
                         child: Text(categoryController.categories[index].name),
@@ -157,6 +133,7 @@ class _ExensiveInputCardState extends State<ExensiveInputCard> {
             SizedBox(height: Responsive.height10),
             CustomTextField(
               readOnly: isReadOnly,
+              style: isReadOnly ? activeHintStyle : null,
               hintText: AppString.productName.tr,
               controller: productNameController,
               textInputAction: TextInputAction.next,
@@ -165,6 +142,7 @@ class _ExensiveInputCardState extends State<ExensiveInputCard> {
             CustomTextField(
               readOnly: isReadOnly,
               hintText: AppString.priceText.tr,
+              style: isReadOnly ? activeHintStyle : null,
               keyboardType: TextInputType.number,
               controller: itemPriceController,
               prefixIcon: Text('${AppString.moneySign.tr} '),
@@ -180,21 +158,18 @@ class _ExensiveInputCardState extends State<ExensiveInputCard> {
               onTap: () {
                 if (selectedCategory == '') {
                   AppFunction.showInvalidTextFieldSnackBar(
-                      title: AppString.categoryCtrAlertMsg.tr,
                       message: AppString.categoryCtrAlertMsg.tr);
                   return;
                 }
 
                 if (productNameController.text == '') {
                   AppFunction.showInvalidTextFieldSnackBar(
-                      title: AppString.productNameCtrAlertMsg.tr,
                       message: AppString.productNameCtrAlertMsg.tr);
                   return;
                 }
 
                 if (itemPriceController.text == '') {
                   AppFunction.showInvalidTextFieldSnackBar(
-                      title: AppString.priceCtrAlertMsg.tr,
                       message: AppString.priceCtrAlertMsg.tr);
                   return;
                 }

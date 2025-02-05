@@ -5,6 +5,7 @@ import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/view/expensive/expensive_screen.dart';
+import 'package:every_pet/view/new_nutrition/new_nutrition_screen.dart';
 import 'package:every_pet/view/nutrition/nutrition_screen.dart';
 import 'package:every_pet/view/setting/setting_screen.dart';
 import 'package:every_pet/view/todo/todo_screen.dart';
@@ -47,7 +48,7 @@ class PetsController extends GetxController {
     scrollController.dispose();
   }
 
-  void deletePet() async {
+  Future<void> deletePet() async {
     PetModel petModel = pets![petPageIndex];
 
     await calendarController.deleteTodoByPet(petModel);
@@ -90,9 +91,9 @@ class PetsController extends GetxController {
     update();
 
     SettingRepository.setInt(AppConstant.lastPetIndexKey, petPageIndex);
-    if (bottomTapIndex == 3) {
-      scrollGoToTop();
-    }
+    // if (bottomTapIndex == 3) {
+    //   scrollGoToTop();
+    // }
   }
 
   void scrollGoToTop() {
@@ -106,12 +107,6 @@ class PetsController extends GetxController {
   void onTapBottomBar(value) async {
     if (value != 0) {
       closeBottomSheet();
-    }
-    if (value == 1) {
-      nutritionController.bottomPageIndex = await SettingRepository.getInt(
-          AppConstant.lastNutritionBottomPageIndexKey);
-
-      // nutritionController.foodType = NUTRITION_TYPE.DRY;
     }
 
     bottomTapIndex = value;

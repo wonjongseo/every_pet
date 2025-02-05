@@ -1,9 +1,10 @@
 import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
+import 'package:every_pet/common/utilities/app_image_path.dart';
+import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/category_controller.dart';
-import 'package:every_pet/models/product_category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -32,7 +33,17 @@ class _ChangeCategoryScreenState extends State<ChangeCategoryScreen> {
     CategoryController categoryController = Get.find<CategoryController>();
     return Scaffold(
       appBar: AppBar(
-        title: Text("항목 변경", style: headingStyle),
+        title: Text("항목 편집", style: headingStyle),
+        actions: [
+          GestureDetector(
+            onTap: categoryController.onTapAddCategoryBtn,
+            child: Image.asset(
+              AppImagePath.circleAddBtn,
+              width: Responsive.width10 * 5,
+              height: Responsive.width10 * 5,
+            ),
+          )
+        ],
       ),
       bottomNavigationBar: const GlobalBannerAdmob(),
       body: SafeArea(
@@ -46,15 +57,15 @@ class _ChangeCategoryScreenState extends State<ChangeCategoryScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.separated(
                         itemBuilder: (context, index) {
+                          bool isSelected = selectedIndex == index;
                           return ListTile(
                             iconColor: AppColors.primaryColor,
                             title: CustomTextField(
-                              readOnly: !(selectedIndex == index),
-                              focusNode:
-                                  selectedIndex == index ? focusNode : null,
-                              controller: selectedIndex == index
-                                  ? textEditingController
-                                  : null,
+                              readOnly: !(isSelected),
+                              focusNode: isSelected ? focusNode : null,
+                              hintStyle: isSelected ? activeHintStyle : null,
+                              controller:
+                                  isSelected ? textEditingController : null,
                               hintText:
                                   categoryController.categories[index].name,
                               onFieldSubmitted: (p0) {
@@ -66,13 +77,18 @@ class _ChangeCategoryScreenState extends State<ChangeCategoryScreen> {
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                if (selectedIndex != index)
+                                if (!isSelected)
                                   IconButton(
                                     onPressed: () {
+                                      textEditingController.dispose;
                                       selectedIndex = index;
+                                      textEditingController =
+                                          TextEditingController();
+
                                       textEditingController.text =
                                           categoryController
                                               .categories[selectedIndex].name;
+
                                       focusNode.requestFocus();
                                       setState(() {});
                                     },
@@ -106,7 +122,7 @@ class _ChangeCategoryScreenState extends State<ChangeCategoryScreen> {
                           return const Divider(thickness: .3);
                         },
                         itemCount: categoryController.categories.length -
-                            2), // categories의 마지막에 +, -  가 들어가 있기 때문에 -2
+                            1), // categories의 마지막에 편집 사인이 들어가 있기 때문에 -1
                   ),
                 ),
               )

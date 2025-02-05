@@ -6,6 +6,7 @@ import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/calculate_kcal_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
+import 'package:every_pet/view/calculate_kcal/edit_groceries_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -26,8 +27,8 @@ class CalculateKcalScreen extends StatelessWidget {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
-                icon: FaIcon(
+                onPressed: () => Get.to(() => const EditGroceriesScreen()),
+                icon: const FaIcon(
                   FontAwesomeIcons.pencil,
                   color: AppColors.primaryColor,
                 ))

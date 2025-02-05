@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/widgets/custom_text_feild.dart';
+import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:every_pet/common/extension/custom_theme_extension.dart';
@@ -18,14 +21,11 @@ class AppFunction {
   }
 
   static Future<File> uint8ListToFile(Uint8List data) async {
-    // 앱의 임시 디렉토리 경로 가져오기
     final tempDir = await getTemporaryDirectory();
 
-    // 파일의 전체 경로 생성
     final filePath =
         join(tempDir.path, '${DateTime.now().microsecondsSinceEpoch}.png');
 
-    // Uint8List 데이터를 파일로 저장
     File file = File(filePath);
     if (await file.exists()) {
       await file.delete();
@@ -48,26 +48,139 @@ class AppFunction {
     return docFile.path;
   }
 
-  static showInvalidTextFieldSnackBar(
-      {required String title, required String message}) {
-    AppFunction.showSnackBar(title, message, Icons.warning_amber_rounded);
+  static showInvalidTextFieldSnackBar({required String message}) {
+    AppFunction.showSnackBar(
+      title: AppString.requiredText.tr,
+      message: message,
+      icon: Icons.warning_amber_rounded,
+      color: pinkClr,
+    );
   }
 
-  static showMessageSnackBar({required String title, required String message}) {
-    AppFunction.showSnackBar(title, message, Icons.done);
+  static showSuccessEnrollMsgSnackBar(String name) {
+    showMessageSnackBar(
+      title: AppString.completeTextTr.tr,
+      message: '$name${AppString.doneAddtionMsg.tr}',
+    );
   }
 
-  static showSnackBar(String title, String message, IconData icon) {
+  static showMessageSnackBar(
+      {required String title, required String message, Duration? duration}) {
+    AppFunction.showSnackBar(
+      title: title,
+      message: message,
+      icon: Icons.done,
+      color: AppColors.primaryColor,
+    );
+  }
+
+  static showSnackBar({
+    required String title,
+    required String message,
+    required IconData icon,
+    required Color color,
+    Duration? duration,
+  }) {
     if (Get.isSnackbarOpen) return;
     Get.snackbar(
-      title,
-      message,
+      '',
+      '',
+      titleText: Text(
+        title,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.bold,
+          fontSize: Responsive.width18,
+        ),
+      ),
+      messageText: Text(
+        message,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w600,
+          fontSize: Responsive.width14,
+        ),
+      ),
+      duration: duration ?? const Duration(milliseconds: 1500),
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.grey[200],
-      colorText: pinkClr,
+      colorText: color,
       icon: Icon(
         icon,
-        color: pinkClr,
+        color: color,
+      ),
+    );
+  }
+
+  static Future<bool?> singleTextEditDialog(
+      {required String hintText,
+      required String buttonLabel,
+      required TextEditingController teController}) async {
+    return await Get.dialog(
+      AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomTextField(
+              autoFocus: true,
+              controller: teController,
+              hintText: hintText,
+              maxLines: 1,
+            ),
+            SizedBox(height: Responsive.height10),
+            CustomButton(
+              height: Responsive.height10 * 4.5,
+              label: buttonLabel,
+              onTap: () => Get.back(result: true),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  static Future<bool?> multiTextEditDialog({
+    required List<String> hintTexts,
+    required String buttonLabel,
+    required List<TextEditingController> teControllers,
+    List<String>? sufficTexts,
+    List<TextInputType>? keyboardTypes,
+  }) async {
+    return await Get.dialog(
+      AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Column(
+              children: List.generate(
+                teControllers.length,
+                (index) => Padding(
+                  padding: EdgeInsets.only(bottom: Responsive.height10),
+                  child: CustomTextField(
+                    keyboardType:
+                        keyboardTypes == null ? null : keyboardTypes[index],
+                    autoFocus: index == 0 ? true : false,
+                    controller: teControllers[index],
+                    hintText: hintTexts[index],
+                    maxLines: 1,
+                    style: activeHintStyle,
+                    textInputAction: index == teControllers.length - 1
+                        ? TextInputAction.done
+                        : TextInputAction.next,
+                    sufficIcon:
+                        sufficTexts == null ? null : Text(sufficTexts[index]),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: Responsive.height10),
+            CustomButton(
+              height: Responsive.height10 * 4.5,
+              label: buttonLabel,
+              onTap: () => Get.back(result: true),
+            )
+          ],
+        ),
       ),
     );
   }

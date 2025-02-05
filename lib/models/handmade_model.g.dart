@@ -17,9 +17,9 @@ class HandmadeModelAdapter extends TypeAdapter<HandmadeModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return HandmadeModel(
-      givenGramPerDay: fields[0] as double,
-      givenVegetableGram: fields[1] as double,
-      givenProteinGram: fields[2] as double,
+      givenGramPerDay: fields[0] as int,
+      givenVegetableGram: fields[1] as int,
+      givenProteinGram: fields[2] as int,
     )
       ..id = fields[3] as String
       ..createdAt = fields[4] as DateTime;

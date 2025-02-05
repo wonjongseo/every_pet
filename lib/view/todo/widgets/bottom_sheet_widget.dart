@@ -94,6 +94,11 @@ class BottomSheetWidget extends StatelessWidget {
                       ),
                     ),
                   ],
+                )
+              else
+                Text(
+                  AppString.notTextScheduleText.tr,
+                  style: TextStyle(fontSize: Responsive.width18),
                 ),
               SizedBox(height: Responsive.height30),
             ],

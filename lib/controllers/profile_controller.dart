@@ -139,6 +139,7 @@ class ProfileController extends EnrollController {
     ));
 
     if (result) {
+      Get.back();
       petsController.deletePet();
     }
   }

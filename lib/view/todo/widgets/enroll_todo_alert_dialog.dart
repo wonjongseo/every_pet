@@ -131,7 +131,7 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
         }),
         SizedBox(height: Responsive.height40),
         OkOrNoBtnRow(
-          okText: AppString.saveTextTr.tr,
+          okText: AppString.saveText.tr,
           noText: AppString.cancelBtnTextTr.tr,
           onOkTap: () {
             Get.back(result: {

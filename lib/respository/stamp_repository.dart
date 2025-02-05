@@ -16,7 +16,7 @@ class StampRepository {
 
     // 데이터 읽기
     List<StampModel> stamps = box.values.toList();
-    stamps.sort((a, b) => a.iconIndex.compareTo(b.iconIndex));
+    stamps.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
     return stamps;
   }

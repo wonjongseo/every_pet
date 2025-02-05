@@ -24,16 +24,16 @@ class NutritionScreenHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            flex: 2,
-            child: ProfileImage(
-              isDog: pet.runtimeType == DogModel,
-              height: Responsive.width10 * 11,
-              width: Responsive.width10 * 11,
-              imagePath: pet.imageUrl,
-            ),
-          ),
-          SizedBox(width: Responsive.width20),
+          // Expanded(
+          //   flex: 2,
+          //   child: ProfileImage(
+          //     isDog: pet.runtimeType == DogModel,
+          //     height: Responsive.width10 * 11,
+          //     width: Responsive.width10 * 11,
+          //     imagePath: pet.imageUrl,
+          //   ),
+          // ),
+          // SizedBox(width: Responsive.width20),
           Expanded(
             flex: 3,
             child: Column(
@@ -62,86 +62,98 @@ class NutritionScreenHeader extends StatelessWidget {
                             fontSize: Responsive.width15,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text.rich(
-                    TextSpan(
-                      children: [
                         TextSpan(
-                          text: pet.getAgeYear().toString(),
-                          style: TextStyle(
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: Responsive.width20,
-                          ),
-                        ),
-                        TextSpan(
-                          text: AppString.ageYearTextTr.tr,
+                          text: '  (',
                           style: TextStyle(
                             color: AppColors.primaryColor,
                             fontWeight: FontWeight.w500,
                             fontSize: Responsive.width15,
                           ),
                         ),
-                        TextSpan(text: '  '),
                         TextSpan(
-                          text: pet.getAgeMonth().toString(),
-                          style: TextStyle(
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: Responsive.width20,
-                          ),
-                        ),
-                        TextSpan(
-                          text: AppString.ageMonthText.tr,
-                          style: TextStyle(
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: Responsive.width15,
-                          ),
+                          children: [
+                            TextSpan(
+                              text: pet.getAgeYear().toString(),
+                              style: TextStyle(
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: Responsive.width20,
+                              ),
+                            ),
+                            TextSpan(
+                              text: AppString.ageYearTextTr.tr,
+                              style: TextStyle(
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: Responsive.width15,
+                              ),
+                            ),
+                            TextSpan(text: '  '),
+                            TextSpan(
+                              text: pet.getAgeMonth().toString(),
+                              style: TextStyle(
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: Responsive.width20,
+                              ),
+                            ),
+                            TextSpan(
+                              text: AppString.ageMonthText.tr,
+                              style: TextStyle(
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: Responsive.width15,
+                              ),
+                            ),
+                            TextSpan(
+                              text: ')',
+                              style: TextStyle(
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.w500,
+                                fontSize: Responsive.width15,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                Divider(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        AppString.derTextTr.tr,
-                        style: TextStyle(
-                          // color: AppColors.primaryColor,
-                          // fontWeight: FontWeight.w500,
-                          fontSize: Responsive.width14,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: Responsive.width10 * 12,
+                            child: Text(
+                              AppString.derTextTr.tr,
+                              style: TextStyle(
+                                fontSize: Responsive.width14,
+                              ),
+                            ),
+                          ),
+                          Text('${pet.getRER()}kcal'),
+                        ],
                       ),
-                      Text('${pet.getRER()}kcal'),
-                    ],
-                  ),
-                ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppString.tekiryouKcalText.tr,
-                        style: TextStyle(
-                          // color: AppColors.primaryColor,
-                          // fontWeight: FontWeight.w500,
-                          fontSize: Responsive.width14,
-                        ),
-                      ),
-                      Text('${pet.getDER()}kcal'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: Responsive.width10 * 12,
+                            child: Text(
+                              AppString.tekiryouKcalText.tr,
+                              style: TextStyle(
+                                fontSize: Responsive.width14,
+                              ),
+                            ),
+                          ),
+                          Text('${pet.getDER()}kcal'),
+                        ],
+                      )
                     ],
                   ),
                 ),

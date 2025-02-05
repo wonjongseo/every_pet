@@ -4,16 +4,10 @@ import 'package:get/get.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
-import 'package:every_pet/common/utilities/util_function.dart';
-import 'package:every_pet/common/widgets/custom_text_feild.dart';
-import 'package:every_pet/common/widgets/profile_image.dart';
-import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/profile_controller.dart';
-import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
-import 'package:every_pet/view/enroll/widgets/gender_selector.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -38,14 +32,12 @@ class ProfileScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         CustomButton(
-                          label: AppString.updateBtnTextTr.tr,
-                          pet: pet,
+                          label: AppString.updateBtnText.tr,
                           onTap: () => controller.updatePet(pet),
                         ),
-                        SizedBox(height: Responsive.height10),
+                        SizedBox(height: Responsive.height15),
                         CustomButton(
                           label: AppString.deleteBtnText.tr,
-                          pet: pet,
                           color: AppColors.secondaryColor,
                           onTap: () => controller.deletePet(pet.name),
                         ),
@@ -67,13 +59,15 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
     required this.label,
-    required this.pet,
+    // required this.pet,
     required this.onTap,
+    this.height,
     this.color,
   }) : super(key: key);
 
   final String label;
-  final PetModel pet;
+  final double? height;
+  // final PetModel pet;
   final Function() onTap;
   final Color? color;
 
@@ -83,7 +77,7 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        height: Responsive.height10 * 5.2,
+        height: height ?? Responsive.height10 * 5.2,
         margin: EdgeInsets.symmetric(
           horizontal: Responsive.width20,
         ),

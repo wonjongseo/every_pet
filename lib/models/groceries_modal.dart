@@ -55,11 +55,13 @@ class GroceriesModel {
     double? kcalPerGram,
     int? gram,
   }) {
-    return GroceriesModel(
+    GroceriesModel temp = GroceriesModel(
       name: name ?? this.name,
       kcalPer100g: kcalPerGram ?? this._kcalPerGram,
       gram: gram ?? this._gram,
     );
+    temp.id = this.id;
+    return temp;
   }
 
   @override

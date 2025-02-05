@@ -153,16 +153,3 @@ class StampModel {
         isVisible.hashCode;
   }
 }
-
-// List<StampModel> tempStamps = [
-//   StampModel(name: '薬１', iconIndex: 0),
-//   StampModel(name: '薬２', iconIndex: 1),
-//   StampModel(name: '病院', iconIndex: 2),
-//   StampModel(name: '入院', iconIndex: 3),
-//   StampModel(name: '退院', iconIndex: 4),
-//   StampModel(name: 'ドックラン', iconIndex: 5),
-//   StampModel(name: 'トリミング', iconIndex: 6),
-//   StampModel(name: 'フィライア', iconIndex: 7),
-// ];
-
- 

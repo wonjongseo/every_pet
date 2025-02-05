@@ -76,12 +76,14 @@ class StampCustomScreen extends StatelessWidget {
                     children: [
                       Checkbox(
                         value: controller.stamps[index].isVisible,
-                        onChanged: (v) => controller.toogleVisualbe(index),
+                        onChanged: (v) => controller.toggleVisable(index),
                       ),
                       IconButton(
-                        onPressed: () => controller.deleteStamp(
-                          controller.stamps[index],
-                        ),
+                        onPressed: () {
+                          controller.deleteStamp(
+                            controller.stamps[index],
+                          );
+                        },
                         icon: FaIcon(FontAwesomeIcons.deleteLeft),
                       )
                     ],
@@ -144,8 +146,7 @@ class StampCustomScreen extends StatelessWidget {
                             ),
                             Checkbox(
                               value: controller.stamps[index].isVisible,
-                              onChanged: (v) =>
-                                  controller.toogleVisualbe(index),
+                              onChanged: (v) => controller.toggleVisable(index),
                             ),
                             IconButton(
                               onPressed: () {},

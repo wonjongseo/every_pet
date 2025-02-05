@@ -28,6 +28,7 @@ class CustomTextField extends StatelessWidget {
     this.inputFormatters,
     this.onFieldSubmitted,
     this.hintStyle,
+    this.style,
     this.widget,
   });
 
@@ -38,6 +39,7 @@ class CustomTextField extends StatelessWidget {
   final TextAlign? textAlign;
   final TextInputType? keyboardType;
   final TextStyle? hintStyle;
+  final TextStyle? style;
   final Widget? prefixIcon;
   final VoidCallback? onTap;
   final Widget? sufficIcon;
@@ -78,7 +80,7 @@ class CustomTextField extends StatelessWidget {
               onFieldSubmitted: onFieldSubmitted,
               autofocus: autoFocus ?? false,
               validator: validator,
-              style: subTitleStyle,
+              style: style ?? subTitleStyle,
               cursorColor: Get.isDarkMode ? Colors.grey[100] : Colors.grey[700],
               decoration: InputDecoration(
                 prefixIconConstraints:

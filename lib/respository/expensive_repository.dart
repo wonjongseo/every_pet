@@ -26,7 +26,9 @@ class ExpensiveRepository {
     var box =
         await Hive.openBox<ExpensiveModel>(AppConstant.expensiveModelModelBox);
     print('box.values.length : ${box.values.length}');
+    List<ExpensiveModel> expensiveModels = box.values.toList();
 
-    return box.values.toList();
+    expensiveModels.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    return expensiveModels;
   }
 }
