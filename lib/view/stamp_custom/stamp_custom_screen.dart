@@ -18,7 +18,7 @@ class StampCustomScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppString.changeStampText.tr, style: headingStyle),
+        title: Text(AppString.editStampText.tr, style: headingStyle),
         actions: [
           IconButton(
             onPressed: () async {

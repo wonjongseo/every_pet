@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:every_pet/common/theme/light_theme.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/groceries_modal.dart';
@@ -14,6 +15,7 @@ import 'package:every_pet/models/nutrition_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
+import 'package:every_pet/respository/setting_repository.dart';
 
 import 'package:every_pet/view/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -33,22 +35,73 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String? systemLanguage;
+
+  @override
+  void initState() {
+    super.initState();
+    getSystemLanguage();
+  }
+
+  void getSystemLanguage() async {
+    systemLanguage =
+        await SettingRepository.getString(AppConstant.settingLanguageKey);
+    if (systemLanguage!.isEmpty) {
+      systemLanguage = Get.deviceLocale.toString();
+    }
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (systemLanguage == null) {
+      return Container();
+    }
     return GetMaterialApp(
       title: 'Every Pets',
-      theme: lightTheme(),
+      theme: lightTheme(systemLanguage!),
       debugShowCheckedModeBanner: false,
       // darkTheme: darkTheme(),
       themeMode: ThemeMode.system,
       translations: AppTranslations(),
-      locale: Get.deviceLocale,
-      fallbackLocale: const Locale('en', 'US'),
+      locale: Locale(systemLanguage!),
+      fallbackLocale: const Locale('ko', 'KR'),
       home: const SplashScreen(),
     );
+
+    return FutureBuilder(
+        future: SettingRepository.getString(AppConstant.settingLanguageKey),
+        builder: (context, snapShot) {
+          if (snapShot.connectionState == ConnectionState.waiting) {
+            return Container();
+          }
+
+          String systemLanguage = snapShot.data!;
+
+          if (systemLanguage.isEmpty) {
+            systemLanguage = Get.deviceLocale.toString();
+          }
+
+          return GetMaterialApp(
+            title: 'Every Pets',
+            theme: lightTheme(systemLanguage),
+            debugShowCheckedModeBanner: false,
+            // darkTheme: darkTheme(),
+            themeMode: ThemeMode.system,
+            translations: AppTranslations(),
+            locale: Locale(systemLanguage),
+            fallbackLocale: const Locale('ko', 'KR'),
+            home: const SplashScreen(),
+          );
+        });
   }
 }
 

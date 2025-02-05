@@ -25,6 +25,7 @@ class AppConstant {
   static const String expensiveModelModelBox = 'expensives';
   static const String categoryModelModelBox = 'categories';
   static const String groceriesModelModelBox = 'groceries';
+  static const String settingLanguageKey = 'settingLanguage';
   static const String lastPetIndexKey = 'lastPetIndex';
   static const String lastBottomTapIndexKey = 'lastBottomTapIndex';
   static const String lastNutritionBottomPageIndexKey =
@@ -35,27 +36,21 @@ class AppConstant {
   static const String editCategorySign = "-@+편집+@-";
 
   static const int invalidNumber = -9999;
-  // static List<GroceriesModel> defaultgroceriesModels = [
-  //   GroceriesModel(name: AppString.riceText.tr, kcalPerGram: 130, gram: 100),
-  //   GroceriesModel(name: AppString.potatoText.tr, kcalPerGram: 67, gram: 100),
-  //   GroceriesModel(
-  //       name: AppString.sweetPotatoText.tr, kcalPerGram: 131.9, gram: 100),
-  //   GroceriesModel(
-  //       name: AppString.chickenbreastText.tr, kcalPerGram: 26.1, gram: 100),
-  // ];
+
   static List<GroceriesModel> defaultgroceriesModels = [
-    GroceriesModel(name: AppString.riceText.tr, kcalPer100g: 130, gram: 100),
-    GroceriesModel(name: AppString.potatoText.tr, kcalPer100g: 67, gram: 100),
+    GroceriesModel(name: AppString.riceText.tr, kcalPer100g: 148, gram: 100),
+    GroceriesModel(name: AppString.potatoText.tr, kcalPer100g: 86, gram: 100),
     GroceriesModel(
-        name: AppString.sweetPotatoText.tr, kcalPer100g: 131.9, gram: 100),
+        name: AppString.sweetPotatoText.tr, kcalPer100g: 114, gram: 100),
     GroceriesModel(
-        name: AppString.chickenbreastText.tr, kcalPer100g: 26.1, gram: 100),
-    GroceriesModel(name: AppString.carrotText.tr, kcalPer100g: 41.3, gram: 100),
-    GroceriesModel(name: AppString.bananaText.tr, kcalPer100g: 88.7, gram: 100),
-    GroceriesModel(name: AppString.appleText.tr, kcalPer100g: 52.1, gram: 100),
-    GroceriesModel(name: AppString.tara.tr, kcalPer100g: 84.6, gram: 100),
-    GroceriesModel(name: AppString.salmonText.tr, kcalPer100g: 120, gram: 100),
-    GroceriesModel(name: AppString.cucumberText.tr, kcalPer100g: 9, gram: 100),
+        name: AppString.chickenbreastText.tr, kcalPer100g: 109, gram: 100),
+    GroceriesModel(name: AppString.carrotText.tr, kcalPer100g: 34, gram: 100),
+    GroceriesModel(name: AppString.bananaText.tr, kcalPer100g: 93, gram: 100),
+    GroceriesModel(name: AppString.appleText.tr, kcalPer100g: 52, gram: 100),
+    GroceriesModel(name: AppString.tara.tr, kcalPer100g: 77, gram: 100),
+    GroceriesModel(
+        name: AppString.salmonText.tr, kcalPer100g: 139.9, gram: 100),
+    GroceriesModel(name: AppString.cucumberText.tr, kcalPer100g: 11, gram: 100),
   ];
 
   static List<String> defaultCategoryStringList = [

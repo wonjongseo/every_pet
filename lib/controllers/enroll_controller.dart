@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -120,34 +121,37 @@ class EnrollController extends GetxController {
     String name = nameEditingController.text;
     String? savedImagePath = null;
 
-    if (imagePath != null) {
-      savedImagePath =
-          await AppFunction.saveFileFromTempDirectory(imagePath!, name);
+    try {
+      if (imagePath != null) {
+        savedImagePath =
+            await AppFunction.saveFileFromTempDirectory(imagePath!, name);
+      }
+
+      if (petType == PET_TYPE.DOG) {
+        DogModel dogModel = DogModel(
+          name: name,
+          weight: double.parse(weightEditingController.text),
+          imageUrl:
+              imagePath != null && savedImagePath != null ? savedImagePath : '',
+          birthDay: birthDay!,
+          genderType: genderType,
+        );
+        await petsController.savePetModal(dogModel);
+      } else {
+        CatModel catModel = CatModel(
+          name: name,
+          weight: double.parse(weightEditingController.text),
+          imageUrl:
+              imagePath != null && savedImagePath != null ? savedImagePath : '',
+          birthDay: birthDay!,
+          genderType: genderType,
+        );
+
+        await petsController.savePetModal(catModel);
+      }
+    } catch (e) {
+      log("image Picker error$e");
     }
-
-    if (petType == PET_TYPE.DOG) {
-      DogModel dogModel = DogModel(
-        name: name,
-        weight: double.parse(weightEditingController.text),
-        imageUrl:
-            imagePath != null && savedImagePath != null ? savedImagePath : '',
-        birthDay: birthDay!,
-        genderType: genderType,
-      );
-      await petsController.savePetModal(dogModel);
-    } else {
-      CatModel catModel = CatModel(
-        name: name,
-        weight: double.parse(weightEditingController.text),
-        imageUrl:
-            imagePath != null && savedImagePath != null ? savedImagePath : '',
-        birthDay: birthDay!,
-        genderType: genderType,
-      );
-
-      await petsController.savePetModal(catModel);
-    }
-
     if (isFirst) {
       Get.offAll(() => MainScreen());
     } else {
@@ -215,13 +219,15 @@ class EnrollController extends GetxController {
 
   void goToImagePickerScreen() async {
     imagePath = null;
-    final image = await Get.to(() => ImagePickerScreen());
-    if (image == null) return;
+    try {
+      final image = await Get.to(() => ImagePickerScreen());
+      if (image == null) return;
 
-    File file = await AppFunction.uint8ListToFile(image);
-    // imageGallery = image;
-    // imageFile = file;
-    imagePath = file.path;
-    update();
+      File file = await AppFunction.uint8ListToFile(image);
+      imagePath = file.path;
+      update();
+    } catch (e) {
+      log('Image Picker Error $e');
+    }
   }
 }

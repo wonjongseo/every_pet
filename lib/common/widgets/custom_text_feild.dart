@@ -80,7 +80,7 @@ class CustomTextField extends StatelessWidget {
               onFieldSubmitted: onFieldSubmitted,
               autofocus: autoFocus ?? false,
               validator: validator,
-              style: style ?? subTitleStyle,
+              style: contentStyle,
               cursorColor: Get.isDarkMode ? Colors.grey[100] : Colors.grey[700],
               decoration: InputDecoration(
                 prefixIconConstraints:

@@ -7,6 +7,7 @@ import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/calculate_kcal_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/view/calculate_kcal/edit_groceries_screen.dart';
+import 'package:every_pet/view/calculate_kcal/widgets/add_menu_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -20,71 +21,50 @@ class CalculateKcalScreen extends StatelessWidget {
 
     return GetBuilder<CalculateKcalController>(builder: (controller) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            '${controller.pet.name}의 식단',
-            style: headingStyle,
-          ),
-          actions: [
-            IconButton(
-                onPressed: () => Get.to(() => const EditGroceriesScreen()),
-                icon: const FaIcon(
-                  FontAwesomeIcons.pencil,
-                  color: AppColors.primaryColor,
-                ))
-          ],
-        ),
+        appBar: appBar(controller),
         bottomNavigationBar: const GlobalBannerAdmob(),
         body: SafeArea(
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                    child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      notionDer(controller),
-                      const Text.rich(
-                        TextSpan(
-                            text:
-                                'Every app에서 제공하는 식재료 칼로리를 이용해\n한 끼 칼로리를 측정해요.',
-                            style: TextStyle(
-                              letterSpacing: 1.2,
-                            )),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: Responsive.height30),
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _givenCountPerDayDropDownBtn(context, controller),
-                              TextButton(
-                                  onPressed: () {
-                                    Get.dialog(
-                                      AlertDialog(
-                                        surfaceTintColor: Colors.white,
-                                        contentPadding: EdgeInsets.all(8),
-                                        content: _allGroceries(context),
-                                      ),
-                                    );
-                                  },
-                                  child: Text('식단 추가'))
-                            ],
-                          ),
-                          _selectedGroceries(controller),
-                        ],
-                      ),
-                    ],
-                  ),
-                )),
-                Divider(
-                  height: Responsive.height40,
-                  thickness: 2,
+                SizedBox(height: Responsive.height10),
+                notionDer(controller),
+                Text.rich(
+                  TextSpan(
+                      text: AppString.calculateKcalScreenSubText.tr,
+                      style: const TextStyle(
+                        letterSpacing: 1.2,
+                      )),
+                  textAlign: TextAlign.center,
                 ),
-                // _allGroceries(controller)
+                SizedBox(height: Responsive.height30),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _givenCountPerDayDropDownBtn(context, controller),
+                            TextButton(
+                                onPressed: () {
+                                  Get.dialog(
+                                    const AlertDialog(
+                                      surfaceTintColor: Colors.white,
+                                      contentPadding: EdgeInsets.all(8),
+                                      content: AddMenuDialog(),
+                                    ),
+                                  );
+                                },
+                                child: Text(AppString.addmMenuText.tr))
+                          ],
+                        ),
+                        SizedBox(height: Responsive.height10),
+                        _selectedGroceries(controller, context),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -93,69 +73,28 @@ class CalculateKcalScreen extends StatelessWidget {
     });
   }
 
-  Widget _allGroceries(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return GetBuilder<CalculateKcalController>(builder: (controller) {
-      return SizedBox(
-        height: size.height * .6,
-        width: size.width * 8,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: Responsive.height10,
-                  horizontal: Responsive.width20),
-              child: Text(
-                '매뉴를 선택해주세요.',
-                style: headingStyle.copyWith(color: AppColors.primaryColor),
-              ),
-            ),
-            Expanded(
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  bool isSelected = controller.selectedGroceriesModels
-                      .contains(controller.groceriesModels[index]);
-                  return ListTile(
-                    dense: true,
-                    iconColor:
-                        isSelected ? Colors.grey[400] : AppColors.primaryColor,
-                    leading: Text(
-                      controller.groceriesModels[index].name,
-                      style: activeHintStyle,
-                    ),
-                    minLeadingWidth: Responsive.width10 * 6,
-                    title:
-                        Text('${controller.groceriesModels[index].kcal}Kcal'),
-                    subtitle: Text(
-                      '(${controller.groceriesModels[index].gram}Gram)',
-                    ),
-                    trailing: IconButton(
-                      onPressed: () => isSelected
-                          ? null
-                          : controller
-                              .onAddBtnClick(controller.groceriesModels[index]),
-                      icon: const Icon(Icons.add),
-                    ),
-                    onTap: () => isSelected
-                        ? null
-                        : controller
-                            .onAddBtnClick(controller.groceriesModels[index]),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider(thickness: .5);
-                },
-                itemCount: controller.groceriesModels.length,
-              ),
-            ),
-          ],
-        ),
-      );
-    });
+  AppBar appBar(CalculateKcalController controller) {
+    return AppBar(
+      title: Text(
+        '${controller.pet.name}${AppString.calculateKcalScreenHeader}',
+        style: headingStyle,
+      ),
+      actions: [
+        IconButton(
+          onPressed: () => Get.to(() => const EditGroceriesScreen()),
+          icon: const FaIcon(
+            FontAwesomeIcons.pencil,
+            color: AppColors.primaryColor,
+          ),
+        )
+      ],
+    );
   }
 
-  Column _selectedGroceries(CalculateKcalController controller) {
+  Widget _selectedGroceries(
+    CalculateKcalController controller,
+    BuildContext context,
+  ) {
     return Column(
       children: List.generate(
         controller.displayGroceries.length,
@@ -163,17 +102,17 @@ class CalculateKcalScreen extends StatelessWidget {
           iconColor: AppColors.primaryColor,
           leading: Text(
             controller.displayGroceries[index].name ?? '',
-            style: activeHintStyle,
+            style: contentStyle,
           ),
-          minLeadingWidth: Responsive.width10 * 6,
+          minLeadingWidth: MediaQuery.of(context).size.width / 3,
           title: Text.rich(
             TextSpan(
                 text: '${controller.displayGroceries[index].gram}Gram',
-                style: activeHintStyle,
+                style: contentStyle,
                 children: [
                   TextSpan(
                       text: '(${controller.displayGroceries[index].kcal}Kcal)',
-                      style: subTitleStyle)
+                      style: contentStyle)
                 ]),
           ),
           trailing: IconButton(
@@ -194,15 +133,19 @@ class CalculateKcalScreen extends StatelessWidget {
         margin: EdgeInsets.only(left: Responsive.width10),
         child: CustomTextField(
           readOnly: true,
-          hintText: '${controller.givenCountPerDay}회 / 1일당',
-          hintStyle: activeHintStyle,
+          hintText:
+              '${controller.givenCountPerDay}${AppString.countText.tr} / ${AppString.perOneDayText.tr}',
+          hintStyle: contentStyle,
           widget: DropdownButton(
             iconSize: 32,
-            underline: SizedBox(),
+            underline: const SizedBox(),
             items: [
-              DropdownMenuItem(value: 1, child: Text('1회')),
-              DropdownMenuItem(value: 2, child: Text('2회')),
-              DropdownMenuItem(value: 3, child: Text('3회')),
+              DropdownMenuItem(
+                  value: 1, child: Text('1${AppString.countText.tr}')),
+              DropdownMenuItem(
+                  value: 2, child: Text('2${AppString.countText.tr}')),
+              DropdownMenuItem(
+                  value: 3, child: Text('3${AppString.countText.tr}')),
             ],
             onChanged: controller.changeCountPerDay,
           ),

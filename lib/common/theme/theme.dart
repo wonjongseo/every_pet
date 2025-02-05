@@ -35,6 +35,14 @@ TextStyle get activeHintStyle {
   );
 }
 
+TextStyle get contentStyle {
+  return TextStyle(
+    color: Colors.grey[800],
+    fontWeight: FontWeight.w500,
+    fontSize: Responsive.width15,
+  );
+}
+
 TextStyle get subTitleStyle {
   return TextStyle(
     fontSize: 14,

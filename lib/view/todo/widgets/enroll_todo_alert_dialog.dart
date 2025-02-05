@@ -94,7 +94,7 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(AppString.changeStampText.tr),
+                Text(AppString.editStampText.tr),
                 SizedBox(width: Responsive.width10 / 2),
                 const FaIcon(FontAwesomeIcons.caretRight),
               ],

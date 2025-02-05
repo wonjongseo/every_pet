@@ -40,7 +40,7 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
       builder: (controller) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("식단 편집", style: headingStyle),
+            title: Text(AppString.editMenuText.tr, style: headingStyle),
             actions: [
               GestureDetector(
                 onTap: controller.addNewGrocery,

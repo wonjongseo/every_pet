@@ -6,16 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-ThemeData lightTheme() {
+ThemeData lightTheme(String systemLanguage) {
   final ThemeData base = ThemeData.light();
-
-  print('Platform : ${Platform.localeName}');
 
   return base.copyWith(
     textTheme: ThemeData.light().textTheme.apply(
-        fontFamily: Platform.localeName.contains('ko')
-            ? "CookieRunFont"
-            : "ZenMaruGothic"),
+        fontFamily:
+            systemLanguage.contains('ko') ? "CookieRunFont" : "ZenMaruGothic"),
     backgroundColor: AppColors.backgroundDark,
     scaffoldBackgroundColor: AppColors.backgroundLight,
     extensions: [CustomThemeExtension.lightMode],
@@ -56,7 +53,7 @@ ThemeData lightTheme() {
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
       // backgroundColor: AppColors.greenLight,
-      foregroundColor: AppColors.greenLight,
+      foregroundColor: AppColors.primaryColor,
       splashFactory: NoSplash.splashFactory,
       elevation: 0,
       shadowColor: Colors.transparent,

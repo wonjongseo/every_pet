@@ -6,6 +6,7 @@ import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/view/profile/profile_screen.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:every_pet/common/extension/custom_theme_extension.dart';
@@ -48,6 +49,22 @@ class AppFunction {
     return docFile.path;
   }
 
+  static void copyWord(String text) {
+    Clipboard.setData(ClipboardData(text: text));
+
+    if (!Get.isSnackbarOpen) {
+      Get.closeAllSnackbars();
+
+      String message = '「$text」${AppString.copyWordMsg.tr}';
+
+      showSnackBar(
+          title: 'Copy',
+          message: message,
+          icon: Icons.done,
+          color: AppColors.primaryColor);
+    }
+  }
+
   static showInvalidTextFieldSnackBar({required String message}) {
     AppFunction.showSnackBar(
       title: AppString.requiredText.tr,
@@ -71,6 +88,7 @@ class AppFunction {
       message: message,
       icon: Icons.done,
       color: AppColors.primaryColor,
+      duration: duration,
     );
   }
 

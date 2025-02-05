@@ -47,7 +47,7 @@ class CalculateKcalController extends GetxController {
 
     bool? result = await AppFunction.multiTextEditDialog(
       teControllers: teControllers,
-      hintTexts: ['식단명', '0.0', '0'],
+      hintTexts: [AppString.menuName, '0.0', '0'],
       sufficTexts: ['', 'kcal', 'gram'],
       buttonLabel: AppString.enrollTextBtnTr.tr,
       keyboardTypes: [

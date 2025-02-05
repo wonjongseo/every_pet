@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:developer';
 
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
@@ -15,6 +16,7 @@ class TodoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("OPEN TodoScreen");
     return GetBuilder<TodoController>(builder: (contoller) {
       return TableCalendar(
         locale: Get.locale.toString(),

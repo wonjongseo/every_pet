@@ -2,6 +2,7 @@ import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/category_controller.dart';
@@ -33,7 +34,7 @@ class _ChangeCategoryScreenState extends State<ChangeCategoryScreen> {
     CategoryController categoryController = Get.find<CategoryController>();
     return Scaffold(
       appBar: AppBar(
-        title: Text("항목 편집", style: headingStyle),
+        title: Text(AppString.changeCategoryText.tr, style: headingStyle),
         actions: [
           GestureDetector(
             onTap: categoryController.onTapAddCategoryBtn,

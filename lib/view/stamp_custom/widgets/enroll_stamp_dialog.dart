@@ -117,7 +117,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
                     return null;
                   },
                   controller: textEditingController,
-                  hintText: AppString.stampNameCtlHintTr.tr,
+                  hintText: AppString.stampName,
                 ),
               ),
             )

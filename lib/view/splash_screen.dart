@@ -2,11 +2,13 @@ import 'dart:developer';
 
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/product_category_model.dart';
 import 'package:every_pet/respository/category_repository.dart';
 import 'package:every_pet/respository/groceries_repository.dart';
+import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/respository/stamp_repository.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:every_pet/view/main/main_screen.dart';
@@ -16,8 +18,8 @@ import 'package:get/get.dart';
 class SplashController extends GetxController {
   late PetsController petsController;
   @override
-  void onInit() async {
-    super.onInit();
+  void onReady() async {
+    super.onReady();
     petsController = Get.put(PetsController());
     await initDefaultDatas();
     navigate();

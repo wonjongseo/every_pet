@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:every_pet/common/theme/theme.dart';
@@ -28,6 +29,7 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
 
   @override
   void initState() {
+    log("OPEN ExpensiveScreen");
     super.initState();
     days = _generateMonthDays(now);
     setState(() {});
