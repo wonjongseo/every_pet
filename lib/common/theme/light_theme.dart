@@ -4,7 +4,6 @@ import 'package:every_pet/common/extension/custom_theme_extension.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
 ThemeData lightTheme(String systemLanguage) {
   final ThemeData base = ThemeData.light();
@@ -12,7 +11,7 @@ ThemeData lightTheme(String systemLanguage) {
   return base.copyWith(
     textTheme: ThemeData.light().textTheme.apply(
         fontFamily:
-            systemLanguage.contains('ko') ? "CookieRunFont" : "ZenMaruGothic"),
+            systemLanguage.contains('ja') ? "ZenMaruGothic" : "CookieRunFont"),
     backgroundColor: AppColors.backgroundDark,
     scaffoldBackgroundColor: AppColors.backgroundLight,
     extensions: [CustomThemeExtension.lightMode],
@@ -85,13 +84,15 @@ ThemeData lightTheme(String systemLanguage) {
       trackColor: MaterialStatePropertyAll(Color(0xFFDADFE2)),
     ),
     checkboxTheme: CheckboxThemeData(
-      checkColor: MaterialStateProperty.all(Colors.white),
+      side: BorderSide(color: Colors.grey[700]!),
+      overlayColor: MaterialStateProperty.all(Colors.red),
+      checkColor: MaterialStateProperty.all(AppColors.primaryColor),
       fillColor: MaterialStateProperty.resolveWith(
         (Set<MaterialState> states) {
           if (states.contains(MaterialState.selected)) {
-            return AppColors.primaryColor;
+            return Colors.grey[200];
           }
-          return AppColors.white;
+          return Colors.white;
         },
       ),
     ),

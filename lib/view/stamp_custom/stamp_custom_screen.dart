@@ -22,11 +22,14 @@ class StampCustomScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              Get.dialog(AlertDialog(
-                insetPadding:
-                    EdgeInsets.symmetric(horizontal: Responsive.width15),
-                content: const EnrollStampDialog(),
-              ));
+              Get.dialog(
+                name: 'EnrollStampDialog',
+                AlertDialog(
+                  insetPadding:
+                      EdgeInsets.symmetric(horizontal: Responsive.width15),
+                  content: const EnrollStampDialog(),
+                ),
+              );
             },
             icon: const Icon(Icons.add),
           ),
@@ -83,7 +86,7 @@ class StampCustomScreen extends StatelessWidget {
                             controller.stamps[index],
                           );
                         },
-                        icon: FaIcon(FontAwesomeIcons.deleteLeft),
+                        icon: const FaIcon(FontAwesomeIcons.deleteLeft),
                       )
                     ],
                   ),

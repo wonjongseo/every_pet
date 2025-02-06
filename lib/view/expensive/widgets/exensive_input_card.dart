@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/controllers/category_controller.dart';
 import 'package:every_pet/controllers/expensive_controller.dart';
 import 'package:every_pet/view/expensive/change_category_screen.dart';
@@ -116,7 +117,7 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
                               children: [
                                 Text(AppString.changeCategoryText.tr),
                                 SizedBox(width: Responsive.width10),
-                                FaIcon(FontAwesomeIcons.pencil),
+                                const FaIcon(FontAwesomeIcons.pencil),
                               ],
                             ),
                           ),
@@ -154,8 +155,7 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
           SizedBox(height: Responsive.height10),
           Align(
             alignment: Alignment.centerRight,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(50),
+            child: AddOrRemoveButton(
               onTap: () {
                 if (selectedCategory == '') {
                   AppFunction.showInvalidTextFieldSnackBar(
@@ -185,9 +185,10 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
                 itemPriceController.text = '';
                 FocusScope.of(context).unfocus();
               },
-              child: Image.asset(AppImagePath.circleAddBtn, width: 50),
+              addOrRemove: AddOrRemoveType.ADD,
             ),
-          )
+          ),
+          SizedBox(height: Responsive.height20),
         ],
       ],
     );

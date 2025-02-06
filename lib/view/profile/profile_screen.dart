@@ -20,35 +20,38 @@ class ProfileScreen extends StatelessWidget {
       controller.loadPetInfo(pet);
       return Scaffold(
         appBar: AppBar(),
-        body: SafeArea(
-          child: GetBuilder<ProfileController>(builder: (controller) {
-            return Center(
-              child: SingleChildScrollView(
-                controller: petController.scrollController,
-                child: Column(
-                  children: [
-                    EnrollScreenBody(controller: controller),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CustomButton(
-                          label: AppString.updateBtnText.tr,
-                          onTap: () => controller.updatePet(pet),
-                        ),
-                        SizedBox(height: Responsive.height15),
-                        CustomButton(
-                          label: AppString.deleteBtnText.tr,
-                          color: AppColors.secondaryColor,
-                          onTap: () => controller.deletePet(pet.name),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: Responsive.height20),
-                  ],
+        body: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: SafeArea(
+            child: GetBuilder<ProfileController>(builder: (controller) {
+              return Center(
+                child: SingleChildScrollView(
+                  controller: petController.scrollController,
+                  child: Column(
+                    children: [
+                      EnrollScreenBody(controller: controller),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CustomButton(
+                            label: AppString.updateBtnText.tr,
+                            onTap: () => controller.updatePet(pet),
+                          ),
+                          SizedBox(height: Responsive.height15),
+                          CustomButton(
+                            label: AppString.deleteBtnText.tr,
+                            color: AppColors.secondaryColor,
+                            onTap: () => controller.deletePet(pet.name),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: Responsive.height20),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }),
+              );
+            }),
+          ),
         ),
       );
     });

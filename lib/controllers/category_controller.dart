@@ -35,6 +35,7 @@ class CategoryController extends GetxController {
     TextEditingController teController = TextEditingController();
 
     bool? resultValue = await AppFunction.singleTextEditDialog(
+      dialogName: "onTapAddCategoryBtn",
       hintText: AppString.categoryText.tr,
       buttonLabel: AppString.enrollTextBtnTr.tr,
       teController: teController,
@@ -69,7 +70,7 @@ class CategoryController extends GetxController {
     }
     categoryModel.name = name;
     AppFunction.showMessageSnackBar(
-        title: AppString.doneUpdatedMsg.tr,
+        title: AppString.completeText.tr,
         message: '${categoryModel.name}　${AppString.doneAddtionMsg.tr}');
     saveCategory(categoryModel);
   }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:every_pet/common/native_caller.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/profile_image.dart';
@@ -115,7 +116,7 @@ class EnrollScreenBody extends StatelessWidget {
                             children: [
                               CustomTextField(
                                 controller: controller.nameEditingController,
-                                focusNode: controller.nameEditingFocusNode,
+                                // focusNode: controller.nameEditingFocusNode,
                                 textInputAction: TextInputAction.next,
                                 hintText: AppString.nameTextTr.tr,
                                 fontSize: Responsive.width16,
@@ -123,7 +124,7 @@ class EnrollScreenBody extends StatelessWidget {
                               ),
                               SizedBox(height: Responsive.height14),
                               CustomTextField(
-                                focusNode: controller.weightEditingFocusNode,
+                                // focusNode: controller.weightEditingFocusNode,
                                 fontSize: Responsive.width16,
                                 controller: controller.weightEditingController,
                                 textInputAction: TextInputAction.next,
@@ -140,7 +141,7 @@ class EnrollScreenBody extends StatelessWidget {
                                 onTap: () =>
                                     controller.selectBirthDayPicker(context),
                                 fontSize: Responsive.width16,
-                                focusNode: controller.birthDayEditingFocusNode,
+                                // focusNode: controller.birthDayEditingFocusNode,
                                 readOnly: true,
                                 controller:
                                     controller.birthDayEditingController,
@@ -247,6 +248,19 @@ class EnrollScreenBody extends StatelessWidget {
                                 controller.hospitalNumberEditingController,
                             keyboardType: TextInputType.phone,
                             hintText: AppString.hasipitalNumTextTr.tr,
+                            widget: IconButton(
+                              onPressed: controller
+                                      .hospitalNumberEditingController
+                                      .text
+                                      .isNotEmpty
+                                  ? () {
+                                      NativeCaller.callPhone(controller
+                                          .hospitalNumberEditingController
+                                          .text);
+                                    }
+                                  : null,
+                              icon: const Icon(Icons.phone),
+                            ),
                           ),
                         ),
                       ],
@@ -286,6 +300,19 @@ class EnrollScreenBody extends StatelessWidget {
                                 controller.groomingNumberEditingController,
                             keyboardType: TextInputType.phone,
                             hintText: AppString.regularTrmingShopNumber.tr,
+                            widget: IconButton(
+                              onPressed: controller
+                                      .groomingNumberEditingController
+                                      .text
+                                      .isNotEmpty
+                                  ? () {
+                                      NativeCaller.callPhone(controller
+                                          .groomingNumberEditingController
+                                          .text);
+                                    }
+                                  : null,
+                              icon: const Icon(Icons.phone),
+                            ),
                           ),
                         ),
                       ],

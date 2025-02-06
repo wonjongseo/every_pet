@@ -4,6 +4,7 @@ import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/calculate_kcal_controller.dart';
 import 'package:flutter/material.dart';
@@ -42,14 +43,13 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
           appBar: AppBar(
             title: Text(AppString.editMenuText.tr, style: headingStyle),
             actions: [
-              GestureDetector(
-                onTap: controller.addNewGrocery,
-                child: Image.asset(
-                  AppImagePath.circleAddBtn,
-                  width: Responsive.width10 * 5,
-                  height: Responsive.width10 * 5,
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: AddOrRemoveButton(
+                  onTap: controller.addNewGrocery,
+                  addOrRemove: AddOrRemoveType.ADD,
                 ),
-              )
+              ),
             ],
           ),
           bottomNavigationBar: const GlobalBannerAdmob(),

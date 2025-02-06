@@ -74,9 +74,8 @@ class CalculateKcalController extends GetxController {
         kcalPer100g: double.parse(teControllers[1].text),
         gram: int.parse(teControllers[2].text));
 
-    AppFunction.showMessageSnackBar(
-      title: AppString.saveText.tr,
-      message: '${groceriesModel.name} ${AppString.doneAddtionMsg.tr}',
+    AppFunction.showSuccessEnrollMsgSnackBar(
+      '${groceriesModel.name}${AppString.doneAddtionMsg.tr}',
     );
     saveCategory(groceriesModel);
   }
@@ -111,9 +110,8 @@ class CalculateKcalController extends GetxController {
       gram: int.parse(gram),
     );
 
-    AppFunction.showMessageSnackBar(
-        title: AppString.doneUpdatedMsg.tr,
-        message: '${newGroceriesModel.name}　${AppString.doneAddtionMsg.tr}');
+    AppFunction.showSuccessEnrollMsgSnackBar(
+        '${newGroceriesModel.name}${AppString.doneAddtionMsg.tr}');
     saveCategory(newGroceriesModel);
   }
 

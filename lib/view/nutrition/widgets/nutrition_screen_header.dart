@@ -1,10 +1,12 @@
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class NutritionScreenHeader extends StatelessWidget {
@@ -111,31 +113,49 @@ class NutritionScreenHeader extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 3,
-                      child: Text(
-                        AppString.derTextTr.tr,
-                        style: TextStyle(
-                          fontSize: Responsive.width14,
-                        ),
+                    Text(
+                      'RER: ', // AppString.rerTextTr.tr,
+                      style: TextStyle(
+                        fontSize: Responsive.width14,
                       ),
                     ),
+                    SizedBox(width: Responsive.width10),
                     Text('${pet.getRER()}kcal'),
+                    const Spacer(),
+                    Tooltip(
+                      showDuration: Duration(seconds: 3),
+                      triggerMode: TooltipTriggerMode.tap,
+                      message: AppString.whatsRerText.tr,
+                      child: Icon(
+                        Icons.help_outline,
+                        size: Responsive.width20,
+                      ),
+                    ),
+                    // ]
                   ],
                 ),
+                SizedBox(height: Responsive.height10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 3,
-                      child: Text(
-                        AppString.tekiryouKcalText.tr,
-                        style: TextStyle(
-                          fontSize: Responsive.width14,
-                        ),
+                    Text(
+                      'DER: ', //AppString.derTextText.tr,
+                      style: TextStyle(
+                        fontSize: Responsive.width14,
                       ),
                     ),
+                    SizedBox(width: Responsive.width10),
                     Text('${pet.getDER()}kcal'),
+                    const Spacer(),
+                    Tooltip(
+                      showDuration: Duration(seconds: 3),
+                      triggerMode: TooltipTriggerMode.tap,
+                      message: AppString.whatsDerTextText.tr,
+                      child: Icon(
+                        Icons.help_outline,
+                        size: Responsive.width20,
+                      ),
+                    ),
                   ],
                 )
               ],

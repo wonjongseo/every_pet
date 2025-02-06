@@ -8,33 +8,76 @@ import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
 import 'package:every_pet/common/extension/custom_theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
+// import 'package:image/image.dart'
 class AppFunction {
+  static bool isEn() {
+    return Get.locale.toString().contains('en');
+  }
+
+  static bool isJp() {
+    return Get.locale.toString().contains('ja');
+  }
+
+  static bool isKo() {
+    return Get.locale.toString().contains('ko');
+  }
+
   static String getDayYYYYMMDD(DateTime date) {
+    if (AppFunction.isEn()) {
+      return DateFormat('yyyy MMMM d').format(date);
+    }
     return DateFormat(
-            'yyyy${AppString.yearText.tr}M${AppString.monthText.tr}d${AppString.dayText.tr}')
+            'yyyy${AppString.yearText.tr} M${AppString.monthText.tr} d${AppString.dayText.tr}')
         .format(date);
   }
 
-  static Future<File> uint8ListToFile(Uint8List data) async {
+// Future<void> saveImageWithQuality(File file, String savePath) async {
+//   final Image? image = Image.decodeImage(await file.readAsBytes());
+
+//   if (image != null) {
+//     // JPEG 품질 100으로 저장 (압축 최소화)
+//     final File output = File(savePath)
+//       ..writeAsBytesSync(img.encodeJpg(image, quality: 100));
+
+//     print("이미지 저장 완료: $savePath");
+//   }
+// }
+
+  static Future<File> uint8ListToFile(File data) async {
     final tempDir = await getTemporaryDirectory();
+    print('data : ${data}');
 
-    final filePath =
-        join(tempDir.path, '${DateTime.now().microsecondsSinceEpoch}.png');
+    // final filePath =
+    //     join(tempDir.path, '${DateTime.now().microsecondsSinceEpoch}.png');
 
-    File file = File(filePath);
-    if (await file.exists()) {
-      await file.delete();
-    }
-    await file.writeAsBytes(data);
+    // File file = File(filePath);
+    // if (await file.exists()) {
+    //   await file.delete();
+    // }
+    // await file.writeAsBytes(data);
 
-    return file;
+    return data;
   }
+
+  // static Future<File> uint8ListToFile(Uint8List data) async {
+  //   final tempDir = await getTemporaryDirectory();
+
+  //   final filePath =
+  //       join(tempDir.path, '${DateTime.now().microsecondsSinceEpoch}.png');
+
+  //   File file = File(filePath);
+  //   if (await file.exists()) {
+  //     await file.delete();
+  //   }
+  //   await file.writeAsBytes(data);
+
+  //   return file;
+  // }
 
   static Future<String> saveFileFromTempDirectory(
       String tempFileImage, String fileName) async {
@@ -76,7 +119,7 @@ class AppFunction {
 
   static showSuccessEnrollMsgSnackBar(String name) {
     showMessageSnackBar(
-      title: AppString.completeText.tr,
+      title: AppString.savedText.tr,
       message: '$name${AppString.doneAddtionMsg.tr}',
     );
   }
@@ -131,10 +174,12 @@ class AppFunction {
   }
 
   static Future<bool?> singleTextEditDialog(
-      {required String hintText,
+      {required String dialogName,
+      required String hintText,
       required String buttonLabel,
       required TextEditingController teController}) async {
     return await Get.dialog(
+      name: dialogName,
       AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -144,7 +189,7 @@ class AppFunction {
               controller: teController,
               hintText: hintText,
             ),
-            SizedBox(height: Responsive.height10),
+            SizedBox(height: Responsive.height20),
             CustomButton(
               height: Responsive.height10 * 4.5,
               label: buttonLabel,

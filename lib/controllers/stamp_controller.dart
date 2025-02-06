@@ -56,7 +56,7 @@ class StampController extends GetxController {
     AppFunction.showMessageSnackBar(
       title: AppString.updateBtnText.tr,
       message:
-          '${AppString.stampIsText.tr} ${selectedStamp.isVisible ? "표시로" : "표시안함으로"} 변경되었습니다.',
+          '${selectedStamp.name} ${selectedStamp.isVisible ? AppString.changedVisiableMsg.tr : AppString.changedInVisiableMsg.tr}',
       duration: const Duration(milliseconds: 1000),
     );
 

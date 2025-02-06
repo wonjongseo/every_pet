@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/controllers/expensive_controller.dart';
 import 'package:every_pet/models/expensive_model.dart';
 import 'package:every_pet/view/expensive/widgets/exensive_input_card.dart';
@@ -43,9 +44,8 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
 
       expensiveController.saveExpensive(expensiveModel);
       setState(() {}); // Dont' Remote
-      AppFunction.showMessageSnackBar(
-        title: AppString.saveText.tr,
-        message: '${expensiveModel.productName}${AppString.doneAddtionMsg.tr}',
+      AppFunction.showSuccessEnrollMsgSnackBar(
+        '${expensiveModel.productName}${AppString.doneAddtionMsg.tr}',
       );
     });
   }
@@ -117,14 +117,11 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
                                 SizedBox(height: Responsive.height10),
                                 Align(
                                   alignment: Alignment.centerRight,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(50),
-                                    onTap: () {
-                                      deleteExpensive(expensiveModels[index]);
-                                    },
-                                    child: Image.asset(
-                                        AppImagePath.circleRemoteBtn,
-                                        width: 40),
+                                  child: AddOrRemoveButton(
+                                    addOrRemove: AddOrRemoveType.ADD,
+                                    onTap: () => deleteExpensive(
+                                      expensiveModels[index],
+                                    ),
                                   ),
                                 )
                               ],

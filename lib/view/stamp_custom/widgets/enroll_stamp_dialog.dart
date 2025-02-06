@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/common/widgets/ok_or_no_row_btn.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
@@ -151,8 +152,11 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
       iconIndex: stampIconIndexValue,
       isVisible: true,
     );
+
     stampController.saveStamp(stampModel);
     Get.back();
+
+    AppFunction.showSuccessEnrollMsgSnackBar(stampModel.name);
   }
 
   void updateStamp() {

@@ -48,12 +48,12 @@ class AddMenuDialog extends StatelessWidget {
                     subtitle: Text(
                       '(${controller.groceriesModels[index].gram}Gram)',
                     ),
-                    trailing: IconButton(
-                      onPressed: () => isSelected
+                    trailing: GestureDetector(
+                      onTap: () => isSelected
                           ? null
                           : controller
                               .onAddBtnClick(controller.groceriesModels[index]),
-                      icon: const Icon(Icons.add),
+                      child: const Icon(Icons.add),
                     ),
                     onTap: () => isSelected
                         ? null

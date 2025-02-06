@@ -99,13 +99,19 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
         ),
         SizedBox(height: Responsive.height10),
         GetBuilder<StampController>(builder: (stampController) {
-          return Wrap(
-            runSpacing: Responsive.height14,
-            children: List.generate(
-              stampController.stamps
+          return SizedBox(
+            height: MediaQuery.of(context).size.height / 3.5,
+            width: 600,
+            child: GridView.builder(
+              itemCount: stampController.stamps
                   .where((element) => element.isVisible)
                   .length,
-              (index) {
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                mainAxisExtent: 85,
+                crossAxisSpacing: 15,
+              ),
+              itemBuilder: (context, index) {
                 StampModel stampModel = stampController.stamps[index];
                 return ColIconButton(
                   icon: StampModel.getIcon(stampModel.iconIndex),
@@ -126,7 +132,6 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
             ),
           );
         }),
-        SizedBox(height: Responsive.height40),
         OkOrNoBtnRow(
           okText: AppString.saveText.tr,
           noText: AppString.cancelBtnTextTr.tr,

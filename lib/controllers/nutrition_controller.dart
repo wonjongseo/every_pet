@@ -9,9 +9,7 @@ import 'package:every_pet/models/handmade_model.dart';
 import 'package:every_pet/models/maker_model.dart';
 import 'package:every_pet/models/nutrition_model.dart';
 import 'package:every_pet/models/pet_model.dart';
-import 'package:every_pet/view/calculate_kcal/calculate_kcal_screen.dart';
-import 'package:every_pet/view/nutrition/widgets/nutrition_screen_header.dart';
-import 'package:every_pet/view/profile/profile_screen.dart';
+import 'package:every_pet/respository/setting_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,6 +38,15 @@ class NutritionController extends GetxController {
   HandmadeModel? handmadeModel;
 
   @override
+  void onReady() async {
+    pageIndex = await SettingRepository.getInt(
+        AppConstant.lastNutritionBottomPageIndexKey);
+    print('pageIndex : ${pageIndex}');
+    update();
+    super.onReady();
+  }
+
+  @override
   void onClose() {
     teController1.dispose();
     teController2.dispose();
@@ -57,6 +64,8 @@ class NutritionController extends GetxController {
   void changeBody(int newPageIndex) {
     pageIndex = newPageIndex;
     update();
+    SettingRepository.setInt(
+        AppConstant.lastNutritionBottomPageIndexKey, pageIndex);
   }
 
   void onClickSaveBtn(PetsController petsController, PetModel pet) {

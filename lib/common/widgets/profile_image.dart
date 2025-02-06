@@ -16,6 +16,7 @@ class ProfileImage extends StatelessWidget {
     this.file,
     this.imagePath,
     this.isActive,
+    this.onLongPress,
     required this.onTap,
   }) : super(key: key);
 
@@ -25,11 +26,13 @@ class ProfileImage extends StatelessWidget {
   final String? imagePath;
   final bool? isActive;
   final Function() onTap;
+  final Function()? onLongPress;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      onLongPress: onLongPress,
       child: Container(
         height: height ?? 200,
         width: width ?? 200,

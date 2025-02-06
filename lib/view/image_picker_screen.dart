@@ -50,8 +50,8 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
     for (var asset in photos) {
       temp.add(
         FutureBuilder(
-          future: asset.thumbnailDataWithSize(const ThumbnailSize(200, 200)),
-          // future: asset.originFile,
+          // future: asset.thumbnailDataWithSize(const ThumbnailSize(200, 200)),
+          future: asset.originFile,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return ClipRRect(
@@ -70,14 +70,14 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
                         color: Colors.grey.withOpacity(.4),
                         width: 1,
                       ),
-                      image: DecorationImage(
-                        image: MemoryImage(snapshot.data as Uint8List),
-                        fit: BoxFit.cover,
-                      ),
                       // image: DecorationImage(
-                      //   image: FileImage(snapshot.data as File),
+                      //   image: MemoryImage(snapshot.data as Uint8List),
                       //   fit: BoxFit.cover,
                       // ),
+                      image: DecorationImage(
+                        image: FileImage(snapshot.data as File),
+                        fit: BoxFit.cover,
+                      ),
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),

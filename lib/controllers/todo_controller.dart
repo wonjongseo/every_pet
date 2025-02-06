@@ -154,6 +154,7 @@ class TodoController extends GetxController {
       savedMemo = getFocusedDayEvent()![0].memo;
     }
     final result = await Get.dialog(
+      name: "AddTodoDialog",
       GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Center(

@@ -3,6 +3,7 @@ import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/calculate_kcal_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
@@ -48,16 +49,18 @@ class CalculateKcalScreen extends StatelessWidget {
                           children: [
                             _givenCountPerDayDropDownBtn(context, controller),
                             TextButton(
-                                onPressed: () {
-                                  Get.dialog(
-                                    const AlertDialog(
-                                      surfaceTintColor: Colors.white,
-                                      contentPadding: EdgeInsets.all(8),
-                                      content: AddMenuDialog(),
-                                    ),
-                                  );
-                                },
-                                child: Text(AppString.addmMenuText.tr))
+                              onPressed: () {
+                                Get.dialog(
+                                  name: "AddMenuDialog",
+                                  const AlertDialog(
+                                    surfaceTintColor: Colors.white,
+                                    contentPadding: EdgeInsets.all(8),
+                                    content: AddMenuDialog(),
+                                  ),
+                                );
+                              },
+                              child: Text(AppString.addmMenuText.tr),
+                            )
                           ],
                         ),
                         SizedBox(height: Responsive.height10),
@@ -100,16 +103,13 @@ class CalculateKcalScreen extends StatelessWidget {
       children: List.generate(
         controller.displayGroceries.length,
         (index) {
-          print(
-              'controller.displayGroceries[index] : ${controller.displayGroceries[index]}');
-
           return ListTile(
             iconColor: AppColors.primaryColor,
             leading: Text(
               controller.displayGroceries[index].name ?? '',
               style: contentStyle,
             ),
-            minLeadingWidth: MediaQuery.of(context).size.width / 3,
+            minLeadingWidth: MediaQuery.of(context).size.width / 4,
             title: Text.rich(
               TextSpan(
                   text: '${controller.displayGroceries[index].gram}Gram',
@@ -138,24 +138,42 @@ class CalculateKcalScreen extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width / 2,
         margin: EdgeInsets.only(left: Responsive.width10),
-        child: CustomTextField(
-          readOnly: true,
-          hintText:
-              '${controller.givenCountPerDay}${AppString.countText.tr} / ${AppString.perOneDayText.tr}',
-          hintStyle: contentStyle,
-          widget: DropdownButton(
-            iconSize: 32,
-            underline: const SizedBox(),
-            items: [
-              DropdownMenuItem(
-                  value: 1, child: Text('1${AppString.countText.tr}')),
-              DropdownMenuItem(
-                  value: 2, child: Text('2${AppString.countText.tr}')),
-              DropdownMenuItem(
-                  value: 3, child: Text('3${AppString.countText.tr}')),
-            ],
-            onChanged: controller.changeCountPerDay,
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomTextField(
+              readOnly: true,
+              hintText: AppFunction.isEn()
+                  ? '${controller.givenCountPerDay}${AppString.countText.tr}'
+                  : '${controller.givenCountPerDay}${AppString.countText.tr} / ${AppString.perOneDayText.tr}',
+              hintStyle: contentStyle,
+              widget: DropdownButton(
+                iconSize: 32,
+                underline: const SizedBox(),
+                items: [
+                  DropdownMenuItem(
+                      value: 1, child: Text('1${AppString.countText.tr}')),
+                  DropdownMenuItem(
+                      value: 2, child: Text('2${AppString.countText.tr}')),
+                  DropdownMenuItem(
+                      value: 3, child: Text('3${AppString.countText.tr}')),
+                ],
+                onChanged: controller.changeCountPerDay,
+              ),
+            ),
+            if (AppFunction.isEn())
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text(
+                  '(${AppString.perOneDayText.tr})',
+                  style: subTitleStyle.copyWith(
+                    fontSize: Responsive.width10 * 1.3,
+                  ),
+                ),
+              )
+            else
+              SizedBox(height: Responsive.height10),
+          ],
         ),
       ),
     );
@@ -181,7 +199,7 @@ class CalculateKcalScreen extends StatelessWidget {
             children: [
               TextSpan(text: AppString.ofText.tr),
               TextSpan(
-                text: AppString.tekiryouKcalText.tr,
+                text: AppString.derTextText.tr,
                 style: TextStyle(
                   color: AppColors.primaryColor,
                   fontWeight: FontWeight.w500,

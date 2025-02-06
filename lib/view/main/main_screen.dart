@@ -1,4 +1,6 @@
 import 'package:every_pet/common/admob/global_banner_admob.dart';
+import 'package:every_pet/common/widgets/add_button.dart';
+import 'package:every_pet/view/full_profile_image_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -74,13 +76,10 @@ class MainScreen extends StatelessWidget {
               ),
             ),
           ),
-          InkWell(
+          AddOrRemoveButton(
             onTap: petsController.goToEnrollScreen,
-            child: Image.asset(
-              AppImagePath.circleAddBtn,
-              width: Responsive.width10 * 5,
-            ),
-          )
+            addOrRemove: AddOrRemoveType.ADD,
+          ),
         ],
       ),
     );
@@ -152,6 +151,9 @@ class RowPetProfileWidget extends StatelessWidget {
       children: [
         ProfileImage(
           onTap: onTap,
+          onLongPress: () => Get.to(
+            () => FullProfileImageScreen(imagePath: imagePath),
+          ),
           imagePath: imagePath,
           width: Responsive.width10 * 4,
           height: Responsive.width10 * 4,

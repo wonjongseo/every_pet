@@ -1,3 +1,4 @@
+import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
@@ -25,44 +26,40 @@ class GendarSelector extends StatelessWidget {
         DropdownButton(
           elevation: 0,
           value: genderType,
-          underline: null,
+          underline: const SizedBox(),
           items: [
             if (genderType == GENDER_TYPE.MALE) ...[
               DropdownMenuItem(
                 value: GENDER_TYPE.MALE,
-                child: Text(
-                  GENDER_TYPE.MALE.gender,
-                  style: TextStyle(
-                    fontSize: Responsive.width18,
-                  ),
+                child: Image.asset(
+                  AppImagePath.circleMale,
+                  width: Responsive.width10 * 3,
+                  height: Responsive.width10 * 3,
                 ),
               ),
               DropdownMenuItem(
                 value: GENDER_TYPE.FEMALE,
-                child: Text(
-                  GENDER_TYPE.FEMALE.gender,
-                  style: TextStyle(
-                    fontSize: Responsive.width18,
-                  ),
+                child: Image.asset(
+                  AppImagePath.circleFemale,
+                  width: Responsive.width10 * 3,
+                  height: Responsive.width10 * 3,
                 ),
               )
             ] else ...[
               DropdownMenuItem(
                 value: GENDER_TYPE.FEMALE,
-                child: Text(
-                  GENDER_TYPE.FEMALE.gender,
-                  style: TextStyle(
-                    fontSize: Responsive.width18,
-                  ),
+                child: Image.asset(
+                  AppImagePath.circleFemale,
+                  width: Responsive.width10 * 3,
+                  height: Responsive.width10 * 3,
                 ),
               ),
               DropdownMenuItem(
                 value: GENDER_TYPE.MALE,
-                child: Text(
-                  GENDER_TYPE.MALE.gender,
-                  style: TextStyle(
-                    fontSize: Responsive.width18,
-                  ),
+                child: Image.asset(
+                  AppImagePath.circleMale,
+                  width: Responsive.width10 * 3,
+                  height: Responsive.width10 * 3,
                 ),
               ),
             ]

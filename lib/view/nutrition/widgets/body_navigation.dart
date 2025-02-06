@@ -31,9 +31,7 @@ class BodyNavigation extends StatelessWidget {
             child: TextButton(
               onPressed: () => controller.changeBody(index),
               child: Text(
-                index == 0
-                    ? AppString.makterText.tr
-                    : AppString.handmadeTextTr.tr,
+                index == 0 ? AppString.dryText.tr : AppString.handmadeTextTr.tr,
                 style: TextStyle(
                   fontSize: controller.pageIndex == index ? 18 : 16,
                   fontWeight: controller.pageIndex == index

@@ -32,9 +32,9 @@ class EnrollController extends GetxController {
   late TextEditingController groomingNameEditingController;
   late TextEditingController groomingNumberEditingController;
 
-  late FocusNode nameEditingFocusNode;
-  late FocusNode birthDayEditingFocusNode;
-  late FocusNode weightEditingFocusNode;
+  // late FocusNode nameEditingFocusNode;
+  // late FocusNode birthDayEditingFocusNode;
+  // late FocusNode weightEditingFocusNode;
 
   DateTime? birthDay;
   PetsController petsController = Get.find<PetsController>();
@@ -71,9 +71,9 @@ class EnrollController extends GetxController {
     groomingNameEditingController = TextEditingController();
     groomingNumberEditingController = TextEditingController();
 
-    nameEditingFocusNode = FocusNode();
-    birthDayEditingFocusNode = FocusNode();
-    weightEditingFocusNode = FocusNode();
+    // nameEditingFocusNode = FocusNode();
+    // birthDayEditingFocusNode = FocusNode();
+    // weightEditingFocusNode = FocusNode();
   }
 
   @override
@@ -93,9 +93,9 @@ class EnrollController extends GetxController {
     groomingNameEditingController.dispose();
     groomingNumberEditingController.dispose();
 
-    nameEditingFocusNode.dispose();
-    birthDayEditingFocusNode.dispose();
-    weightEditingFocusNode.dispose();
+    // nameEditingFocusNode.dispose();
+    // birthDayEditingFocusNode.dispose();
+    // weightEditingFocusNode.dispose();
   }
 
   void onClickSaveBtn(BuildContext context) async {
@@ -164,7 +164,9 @@ class EnrollController extends GetxController {
     petsController.getPetModals();
     if (isFirst) {
       Get.offAll(() => MainScreen());
-      Get.delete<EnrollController>(); // Do not remote
+      if (Get.isRegistered<EnrollController>()) {
+        Get.delete<EnrollController>(); // Do not remote
+      }
     } else {
       Get.back();
     }
@@ -207,8 +209,11 @@ class EnrollController extends GetxController {
         update();
       },
       currentTime: DateTime.now(),
-      locale:
-          Get.locale.toString().contains('ko') ? LocaleType.ko : LocaleType.jp,
+      locale: Get.locale.toString().contains('ko')
+          ? LocaleType.ko
+          : Get.locale.toString().contains('ja')
+              ? LocaleType.jp
+              : LocaleType.en,
     );
   }
 

@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:developer';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/todo_model.dart';
@@ -38,7 +39,8 @@ class TodoScreen extends StatelessWidget {
               child: GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
+                  crossAxisCount: 2,
+                ),
                 itemCount:
                     focusedDay.stamps.length > 4 ? 4 : focusedDay.stamps.length,
                 itemBuilder: (context, index) {
@@ -52,15 +54,6 @@ class TodoScreen extends StatelessWidget {
               ),
             );
           },
-          // markerBuilder: (context, day, focusedDay) {
-          //   return Text('markerBuilder');
-          // },
-
-          // headerTitleBuilder: (context, day) {
-          //   final DateFormat dateFormat = DateFormat('yyyy年M月');
-          //   return Text(dateFormat.format(contoller.focusedDay),
-          //       style: const TextStyle(fontSize: 16));
-          // },
         ),
         eventLoader: contoller.getEventsForDay,
         onFormatChanged: contoller.onFormatChanged,
@@ -93,53 +86,38 @@ class ColIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      margin: EdgeInsets.only(top: Responsive.height10 / 2),
-      width: size.width / 5,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          InkWell(
-            onTap: onTap,
-            borderRadius: BorderRadius.circular(Responsive.width10 * 5),
-            child: Container(
-              width: Responsive.width10 * 5,
-              height: Responsive.width10 * 5,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage(icon),
-                ),
-                color: isActive
-                    ? AppColors.primaryColor.withOpacity(0.5)
-                    : Colors.grey.shade400,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(Responsive.width10 * 5),
+          child: Container(
+            width: Responsive.width10 * 5,
+            height: Responsive.width10 * 5,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage(icon),
               ),
-              child: isActive ? const Icon(Icons.check) : null,
+              color: isActive
+                  ? AppColors.primaryColor.withOpacity(0.5)
+                  : Colors.grey.shade400,
             ),
+            child: isActive ? const Icon(Icons.check) : null,
           ),
-          // IconButton(
-          //   style: IconButton.styleFrom(
-          //     padding: EdgeInsets.zero,
-          //     backgroundColor: isActive
-          //         ? AppColors.primaryColor.withOpacity(0.5)
-          //         : Colors.grey.shade400,
-          //   ),
-          //   onPressed: onTap,
-          //   icon: Image.asset(
-          //     icon,
-          //     width: Responsive.width10 * 5,
-          //     height: Responsive.width10 * 5,
-          //   ),
-          // ),
-          const SizedBox(width: 10),
-          Text(
-            label,
-            style: isActive
-                ? TextStyle(color: Colors.black, fontWeight: FontWeight.w500)
-                : TextStyle(color: Colors.grey),
-          ),
-        ],
-      ),
+        ),
+        SizedBox(width: Responsive.width10),
+        AutoSizeText(
+          label,
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: isActive
+              ? const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.w500)
+              : const TextStyle(color: Colors.grey),
+        ),
+      ],
     );
   }
 }

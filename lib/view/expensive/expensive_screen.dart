@@ -6,7 +6,6 @@ import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
-import 'package:every_pet/controllers/category_controller.dart';
 import 'package:every_pet/controllers/expensive_controller.dart';
 import 'package:every_pet/view/expensive/add_expensive_screen.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +67,8 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print('AppString.yearText.tr : ${AppString.yearText.tr}');
+    print(DateFormat('yYear').format(now));
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -91,7 +92,9 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                         ),
                         SizedBox(width: Responsive.width10),
                         Text(
-                          '${now.month}${AppString.monthText.tr}',
+                          AppFunction.isEn()
+                              ? DateFormat('MMMM').format(now)
+                              : '${now.month}${AppString.monthText.tr}',
                           style: headingStyle,
                         ),
                         SizedBox(width: Responsive.width10),
@@ -103,6 +106,8 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                     ),
                     InkWell(
                       onTap: () {
+                        print('asdfsd');
+
                         Scrollable.ensureVisible(
                           todayKey.currentContext!,
                           duration: const Duration(milliseconds: 700),
@@ -113,7 +118,7 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                         padding:
                             EdgeInsets.only(bottom: Responsive.height10 * .8),
                         margin: EdgeInsets.only(right: Responsive.width10 * .8),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
                               color: AppColors.primaryColor,
@@ -148,7 +153,7 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                       return ListTile(
                         key: now.day - 1 == index ? todayKey : null,
                         title: Text(
-                          DateFormat.MMMEd(Platform.localeName)
+                          DateFormat.MMMEd(Get.locale.toString())
                               .format(days[index]),
                         ),
                         isThreeLine: expensives.isNotEmpty ? true : false,
@@ -185,24 +190,32 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                     Get.dialog(
                       name: "totalPriceDialog",
                       AlertDialog(
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: expensiveController.categoryAndPrice.entries
-                              .map((entry) {
-                            return ListTile(
-                              tileColor: Colors.transparent,
-                              title: Row(
-                                children: [
-                                  Text('${entry.key}:'),
-                                  Spacer(),
-                                  Text(
-                                    '${AppString.moneySign.tr}${NumberFormat("#,###").format(entry.value)}',
-                                  )
-                                ],
+                        content: expensiveController.categoryAndPrice.isEmpty
+                            ? Text(
+                                AppFunction.isEn()
+                                    ? '${AppString.noCostMsg.tr}${DateFormat('MMMM').format(now)}'
+                                    : '${now.month}${AppString.monthText.tr}${AppString.noCostMsg.tr}',
+                                textAlign: TextAlign.center,
+                              )
+                            : Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: expensiveController
+                                    .categoryAndPrice.entries
+                                    .map((entry) {
+                                  return ListTile(
+                                    tileColor: Colors.transparent,
+                                    title: Row(
+                                      children: [
+                                        Text('${entry.key}:'),
+                                        const Spacer(),
+                                        Text(
+                                          '${AppString.moneySign.tr}${NumberFormat("#,###").format(entry.value)}',
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }).toList(),
                               ),
-                            );
-                          }).toList(),
-                        ),
                       ),
                     );
                   },
@@ -228,7 +241,9 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${now.month}${AppString.monthText.tr}',
+                          AppFunction.isEn()
+                              ? DateFormat('MMMM').format(now)
+                              : '${now.month}${AppString.monthText.tr}',
                           style: subHeadingStyle,
                         ),
                         Row(

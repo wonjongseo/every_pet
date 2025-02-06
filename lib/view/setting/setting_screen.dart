@@ -53,7 +53,7 @@ class _SettingScreenState extends State<SettingScreen> {
     } else if (settingLanguage.contains('ja')) {
       displayLanguage = AppString.japaneseText.tr;
     } else {
-      displayLanguage = AppString.koreanText.tr;
+      displayLanguage = AppString.englishText.tr;
     }
 
     setState(() {});
@@ -62,6 +62,8 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     log("OPEN SettingScreen");
+
+    print('displayLanguage : ${displayLanguage}');
 
     return settingLanguage.isEmpty
         ? Container()
@@ -107,36 +109,73 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               SizedBox(height: Responsive.height15),
               _customListTIle(
-                  title: 'Change System Language',
-                  subTitle: AppString.setLanguage.tr,
-                  iconData: FontAwesomeIcons.earthAfrica,
-                  onTap: () {},
-                  widget: DropdownButton(
-                      underline: const SizedBox(),
-                      items: [
-                        if (displayLanguage == AppString.koreanText.tr) ...[
-                          DropdownMenuItem(
-                            value: AppString.japaneseText.tr,
-                            child:
-                                Text('Japenese (${AppString.japaneseText.tr})'),
-                          ),
-                          DropdownMenuItem(
-                            value: AppString.koreanText.tr,
-                            child: Text('Korean (${AppString.koreanText.tr})'),
-                          ),
-                        ] else ...[
-                          DropdownMenuItem(
-                            value: AppString.koreanText.tr,
-                            child: Text('Korean (${AppString.koreanText.tr})'),
-                          ),
-                          DropdownMenuItem(
-                            value: AppString.japaneseText.tr,
-                            child:
-                                Text('Japenese (${AppString.japaneseText.tr})'),
-                          ),
-                        ]
+                title: 'Change Language',
+                subTitle: AppString.setLanguage.tr,
+                iconData: FontAwesomeIcons.earthAfrica,
+                onTap: () {},
+                widget: DropdownButton(
+                    // isDense: true,
+                    underline: const SizedBox(),
+                    items: [
+                      if (AppFunction.isEn()) ...[
+                        DropdownMenuItem(
+                          value: AppString.koreanText.tr,
+                          child: Text('Korean'),
+                        ),
+                        DropdownMenuItem(
+                          value: AppString.japaneseText.tr,
+                          child: Text('Japenese'),
+                        ),
                       ],
-                      onChanged: changeSystemLanguage)),
+                      if (AppFunction.isKo()) ...[
+                        DropdownMenuItem(
+                          value: AppString.japaneseText.tr,
+                          child:
+                              Text('Japenese (${AppString.japaneseText.tr})'),
+                        ),
+                        DropdownMenuItem(
+                          value: AppString.englishText.tr,
+                          child: Text('English (${AppString.englishText.tr})'),
+                        ),
+                      ],
+                      if (AppFunction.isJp()) ...[
+                        DropdownMenuItem(
+                          value: AppString.koreanText.tr,
+                          child: Text('Korean (${AppString.koreanText.tr})'),
+                        ),
+                        DropdownMenuItem(
+                          value: AppString.englishText.tr,
+                          child: Text('English (${AppString.englishText.tr})'),
+                        ),
+                      ],
+                      // if (displayLanguage == AppString.koreanText.tr) ...[
+                      //   DropdownMenuItem(
+                      //     value: AppString.japaneseText.tr,
+                      //     child:
+                      //         Text('Japenese (${AppString.japaneseText.tr})'),
+                      //   ),
+                      //   DropdownMenuItem(
+                      //     value: AppString.koreanText.tr,
+                      //     child: Text('Korean (${AppString.koreanText.tr})'),
+                      //   ),
+                      // ] else ...[
+                      //   DropdownMenuItem(
+                      //     value: AppString.koreanText.tr,
+                      //     child: Text('Korean (${AppString.koreanText.tr})'),
+                      //   ),
+                      //   DropdownMenuItem(
+                      //     value: AppString.japaneseText.tr,
+                      //     child:
+                      //         Text('Japenese (${AppString.japaneseText.tr})'),
+                      //   ),
+                      //   DropdownMenuItem(
+                      //     value: 'English',
+                      //     child: Text('English'),
+                      //   ),
+                      // ]
+                    ],
+                    onChanged: changeSystemLanguage),
+              ),
               const Spacer(flex: 1),
               _customListTIle(
                 title: AppString.fnOrErorreport.tr,
@@ -160,12 +199,14 @@ class _SettingScreenState extends State<SettingScreen> {
                   }
                 },
               ),
-              Spacer(flex: 3),
+              const Spacer(flex: 3),
             ],
           );
   }
 
   void changeSystemLanguage(v) async {
+    print('v : ${v}');
+
     if (displayLanguage == v) {
       return;
     }
@@ -173,12 +214,18 @@ class _SettingScreenState extends State<SettingScreen> {
 
     // Get.deleteAll(); // Dont' delete
 
+    print('displayLanguage : ${displayLanguage}');
+
     if (displayLanguage == AppString.koreanText.tr) {
       await SettingRepository.setString(AppConstant.settingLanguageKey, 'ko');
       Get.updateLocale(const Locale('ko'));
     } else if (displayLanguage == AppString.japaneseText.tr) {
       await SettingRepository.setString(AppConstant.settingLanguageKey, 'ja');
       Get.updateLocale(const Locale('ja'));
+    } else {
+      print('enen');
+      await SettingRepository.setString(AppConstant.settingLanguageKey, 'en');
+      Get.updateLocale(const Locale('en'));
     }
     await Future.delayed(Duration(milliseconds: 500));
 
@@ -210,6 +257,9 @@ class _SettingScreenState extends State<SettingScreen> {
           fontSize: Responsive.width14,
           color: AppColors.black,
         ),
+        // minLeadingWidth: 120
+        // ,
+
         title: AutoSizeText(
           title,
           maxLines: 1,
@@ -219,7 +269,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ? null
             : AutoSizeText(
                 subTitle,
-                maxLines: 1,
+                maxLines: AppFunction.isEn() ? 2 : 1,
               ),
         leading: Icon(
           iconData,

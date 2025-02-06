@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:every_pet/common/theme/light_theme.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
-import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/groceries_modal.dart';

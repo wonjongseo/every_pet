@@ -53,9 +53,9 @@ class ProfileController extends EnrollController {
       text: pet.groomingNumber,
     );
 
-    nameEditingFocusNode = FocusNode();
-    birthDayEditingFocusNode = FocusNode();
-    weightEditingFocusNode = FocusNode();
+    // nameEditingFocusNode = FocusNode();
+    // birthDayEditingFocusNode = FocusNode();
+    // weightEditingFocusNode = FocusNode();
     isPregnancy = pet.isPregnancy ?? false;
     isNeuter = pet.isNeuter ?? false;
     imagePath = pet.imageUrl;
