@@ -70,10 +70,6 @@ class EnrollController extends GetxController {
     hospitalNumberEditingController = TextEditingController();
     groomingNameEditingController = TextEditingController();
     groomingNumberEditingController = TextEditingController();
-
-    // nameEditingFocusNode = FocusNode();
-    // birthDayEditingFocusNode = FocusNode();
-    // weightEditingFocusNode = FocusNode();
   }
 
   @override
@@ -92,10 +88,6 @@ class EnrollController extends GetxController {
 
     groomingNameEditingController.dispose();
     groomingNumberEditingController.dispose();
-
-    // nameEditingFocusNode.dispose();
-    // birthDayEditingFocusNode.dispose();
-    // weightEditingFocusNode.dispose();
   }
 
   void onClickSaveBtn(BuildContext context) async {
@@ -121,7 +113,7 @@ class EnrollController extends GetxController {
     }
 
     String name = nameEditingController.text;
-    String? savedImagePath = null;
+    String? savedImagePath;
 
     try {
       if (imagePath != AppImagePath.bisyon &&
@@ -163,10 +155,7 @@ class EnrollController extends GetxController {
 
     petsController.getPetModals();
     if (isFirst) {
-      Get.offAll(() => MainScreen());
-      if (Get.isRegistered<EnrollController>()) {
-        Get.delete<EnrollController>(); // Do not remote
-      }
+      Get.off(() => const MainScreen());
     } else {
       Get.back();
     }

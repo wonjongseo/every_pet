@@ -3,6 +3,7 @@ import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/models/stamp_model.dart';
@@ -20,18 +21,21 @@ class StampCustomScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppString.editStampText.tr, style: headingStyle),
         actions: [
-          IconButton(
-            onPressed: () async {
-              Get.dialog(
-                name: 'EnrollStampDialog',
-                AlertDialog(
-                  insetPadding:
-                      EdgeInsets.symmetric(horizontal: Responsive.width15),
-                  content: const EnrollStampDialog(),
-                ),
-              );
-            },
-            icon: const Icon(Icons.add),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: AddOrRemoveButton(
+              onTap: () async {
+                Get.dialog(
+                  name: 'EnrollStampDialog',
+                  AlertDialog(
+                    insetPadding:
+                        EdgeInsets.symmetric(horizontal: Responsive.width15),
+                    content: const EnrollStampDialog(),
+                  ),
+                );
+              },
+              addOrRemove: AddOrRemoveType.ADD,
+            ),
           ),
         ],
       ),
@@ -80,13 +84,11 @@ class StampCustomScreen extends StatelessWidget {
                         value: controller.stamps[index].isVisible,
                         onChanged: (v) => controller.toggleVisable(index),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          controller.deleteStamp(
-                            controller.stamps[index],
-                          );
-                        },
-                        icon: const FaIcon(FontAwesomeIcons.deleteLeft),
+                      AddOrRemoveButton(
+                        onTap: () =>
+                            controller.deleteStamp(controller.stamps[index]),
+                        addOrRemove: AddOrRemoveType.REMOVE,
+                        width: Responsive.width10 * 4,
                       )
                     ],
                   ),

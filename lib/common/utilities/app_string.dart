@@ -476,8 +476,8 @@ class AppString {
   static String askShutDownMsgEn = "Would you like to restart the app?";
 
   static String noCostMsg = 'noCostMsg';
-  static String noCostMsgKr = '에 지출이 없습니다.';
-  static String noCostMsgJp = 'に支出がありません。';
+  static String noCostMsgKr = ' 지출이 없습니다.';
+  static String noCostMsgJp = ' 支出がありません。';
   static String noCostMsgEn = "There is no expenditure in ";
 
   static String todayText = 'todayTextTr';
@@ -989,7 +989,7 @@ In other words, it means the amount of energy you need to rest.""";
 
   static String categoryCtrAlertMsg = "categoryCtrAlertMsgTr";
   static String categoryCtrAlertMsgKr = "카테고리를 선택해주세요";
-  static String categoryCtrAlertMsgJp = '項目を選択してください';
+  static String categoryCtrAlertMsgJp = 'カテゴリを選択してください';
   static String categoryCtrAlertMsgEn = "Please Select the Category";
 
   static String productNameCtrAlertMsg = "productNameCtrAlertTextTr";

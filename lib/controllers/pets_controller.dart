@@ -1,15 +1,16 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/controllers/app_review_controller.dart';
 import 'package:every_pet/controllers/nutrition_controller.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/view/expensive/expensive_screen.dart';
-import 'package:every_pet/view/new_nutrition/new_nutrition_screen.dart';
+
 import 'package:every_pet/view/nutrition/nutrition_screen.dart';
 import 'package:every_pet/view/setting/setting_screen.dart';
 import 'package:every_pet/view/todo/todo_screen.dart';
-import 'package:every_pet/view/profile/profile_screen.dart';
+
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,16 +32,27 @@ class PetsController extends GetxController {
     SettingScreen()
   ];
 
+  Future<void> setAppReviewRequest() async {
+    AppReviewController.checkReviewRequest();
+  }
+
   @override
   void onInit() async {
     super.onInit();
+
     petPageIndex = await SettingRepository.getInt(AppConstant.lastPetIndexKey);
     bottomTapIndex =
         await SettingRepository.getInt(AppConstant.lastBottomTapIndexKey);
 
     await getPetModals();
-    calendarController = Get.put(TodoController());
-    nutritionController = Get.put(NutritionController());
+  }
+
+  @override
+  void onReady() async {
+    calendarController = Get.find<TodoController>();
+    nutritionController = Get.find<NutritionController>();
+    await setAppReviewRequest();
+    super.onReady();
   }
 
   @override

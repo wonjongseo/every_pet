@@ -57,73 +57,79 @@ class _ChangeCategoryScreenState extends State<ChangeCategoryScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          bool isSelected = selectedIndex == index;
-                          return ListTile(
-                            iconColor: AppColors.primaryColor,
-                            title: CustomTextField(
-                              readOnly: !(isSelected),
-                              focusNode: isSelected ? focusNode : null,
-                              hintStyle: isSelected ? activeHintStyle : null,
-                              controller:
-                                  isSelected ? textEditingController : null,
-                              hintText:
-                                  categoryController.categories[index].name,
-                              onFieldSubmitted: (p0) {
-                                categoryController.updateCategory(index, p0);
-                                selectedIndex = -1;
-                                setState(() {});
-                              },
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (!isSelected)
-                                  IconButton(
-                                    onPressed: () {
-                                      textEditingController.dispose;
-                                      selectedIndex = index;
-                                      textEditingController =
-                                          TextEditingController();
-
-                                      textEditingController.text =
-                                          categoryController
-                                              .categories[selectedIndex].name;
-
-                                      focusNode.requestFocus();
-                                      setState(() {});
-                                    },
-                                    icon: const FaIcon(FontAwesomeIcons.pencil),
-                                  )
-                                else
-                                  IconButton(
-                                    onPressed: () {
-                                      categoryController.updateCategory(
-                                        index,
-                                        textEditingController.text,
-                                      );
-                                      selectedIndex = -1;
-                                      setState(() {});
-                                    },
-                                    icon: const FaIcon(FontAwesomeIcons.save),
-                                  ),
+                      itemBuilder: (context, index) {
+                        bool isSelected = selectedIndex == index;
+                        return ListTile(
+                          iconColor: AppColors.primaryColor,
+                          title: CustomTextField(
+                            readOnly: !(isSelected),
+                            focusNode: isSelected ? focusNode : null,
+                            hintStyle: isSelected ? activeHintStyle : null,
+                            controller:
+                                isSelected ? textEditingController : null,
+                            hintText: categoryController.categories[index].name,
+                            onFieldSubmitted: (p0) {
+                              categoryController.updateCategory(index, p0);
+                              selectedIndex = -1;
+                              setState(() {});
+                            },
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (!isSelected)
                                 IconButton(
                                   onPressed: () {
-                                    categoryController.deleteCategory(
-                                        categoryController.categories[index]);
+                                    textEditingController.dispose;
+                                    selectedIndex = index;
+                                    textEditingController =
+                                        TextEditingController();
+
+                                    textEditingController.text =
+                                        categoryController
+                                            .categories[selectedIndex].name;
+
+                                    focusNode.requestFocus();
+                                    setState(() {});
                                   },
-                                  icon:
-                                      const FaIcon(FontAwesomeIcons.deleteLeft),
+                                  icon: const FaIcon(FontAwesomeIcons.pencil),
+                                )
+                              else
+                                IconButton(
+                                  onPressed: () {
+                                    categoryController.updateCategory(
+                                      index,
+                                      textEditingController.text,
+                                    );
+                                    selectedIndex = -1;
+                                    setState(() {});
+                                  },
+                                  icon: const FaIcon(FontAwesomeIcons.save),
                                 ),
-                              ],
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return const Divider(thickness: .3);
-                        },
-                        itemCount: categoryController.categories.length -
-                            1), // categories의 마지막에 편집 사인이 들어가 있기 때문에 -1
+
+                              AddOrRemoveButton(
+                                onTap: () => categoryController.deleteCategory(
+                                    categoryController.categories[index]),
+                                addOrRemove: AddOrRemoveType.REMOVE,
+                                width: Responsive.width10 * 3.5,
+                              )
+                              // IconButton(
+                              //   onPressed: () {
+                              //     categoryController.deleteCategory(
+                              //         categoryController.categories[index]);
+                              //   },
+                              //   icon:
+                              //       const FaIcon(FontAwesomeIcons.deleteLeft),
+                              // ),
+                            ],
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Divider(thickness: .3);
+                      },
+                      itemCount: categoryController.categories.length - 1,
+                    ), // categories의 마지막에 편집 사인이 들어가 있기 때문에 -1
                   ),
                 ),
               )

@@ -123,7 +123,7 @@ class NutritionScreenHeader extends StatelessWidget {
                     Text('${pet.getRER()}kcal'),
                     const Spacer(),
                     Tooltip(
-                      showDuration: Duration(seconds: 3),
+                      showDuration: Duration(seconds: 5),
                       triggerMode: TooltipTriggerMode.tap,
                       message: AppString.whatsRerText.tr,
                       child: Icon(
@@ -148,7 +148,7 @@ class NutritionScreenHeader extends StatelessWidget {
                     Text('${pet.getDER()}kcal'),
                     const Spacer(),
                     Tooltip(
-                      showDuration: Duration(seconds: 3),
+                      showDuration: Duration(seconds: 5),
                       triggerMode: TooltipTriggerMode.tap,
                       message: AppString.whatsDerTextText.tr,
                       child: Icon(

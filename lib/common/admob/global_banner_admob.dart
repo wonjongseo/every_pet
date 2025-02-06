@@ -1,6 +1,7 @@
 import 'package:every_pet/common/admob/ad_unit_id.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -56,7 +57,7 @@ class _GlobalBannerAdmobState extends State<GlobalBannerAdmob> {
 
   @override
   Widget build(BuildContext context) {
-    // return Container(height: 0);
+    if (!kReleaseMode) return Container(height: 0);
     if (_bannerAd == null) {
       return Container(
         height: 60,

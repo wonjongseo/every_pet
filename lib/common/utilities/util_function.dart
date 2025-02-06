@@ -50,7 +50,6 @@ class AppFunction {
 
   static Future<File> uint8ListToFile(File data) async {
     final tempDir = await getTemporaryDirectory();
-    print('data : ${data}');
 
     // final filePath =
     //     join(tempDir.path, '${DateTime.now().microsecondsSinceEpoch}.png');

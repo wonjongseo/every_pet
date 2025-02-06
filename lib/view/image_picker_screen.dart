@@ -1,8 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:every_pet/common/extension/custom_theme_extension.dart';
-import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';

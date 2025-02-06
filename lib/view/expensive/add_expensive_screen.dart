@@ -9,7 +9,6 @@ import 'package:every_pet/view/expensive/widgets/exensive_input_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:every_pet/common/theme/theme.dart';
-import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:get/get.dart';
@@ -44,9 +43,7 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
 
       expensiveController.saveExpensive(expensiveModel);
       setState(() {}); // Dont' Remote
-      AppFunction.showSuccessEnrollMsgSnackBar(
-        '${expensiveModel.productName}${AppString.doneAddtionMsg.tr}',
-      );
+      AppFunction.showSuccessEnrollMsgSnackBar(expensiveModel.productName);
     });
   }
 
@@ -118,7 +115,8 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: AddOrRemoveButton(
-                                    addOrRemove: AddOrRemoveType.ADD,
+                                    addOrRemove: AddOrRemoveType.REMOVE,
+                                    width: Responsive.width10 * 4,
                                     onTap: () => deleteExpensive(
                                       expensiveModels[index],
                                     ),

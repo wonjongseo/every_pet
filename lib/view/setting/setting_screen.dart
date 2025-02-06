@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/common.dialog.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
@@ -63,8 +64,6 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     log("OPEN SettingScreen");
 
-    print('displayLanguage : ${displayLanguage}');
-
     return settingLanguage.isEmpty
         ? Container()
         : Column(
@@ -72,7 +71,8 @@ class _SettingScreenState extends State<SettingScreen> {
               SizedBox(height: Responsive.height20),
               _customListTIle(
                 title: AppString.editProfile.tr,
-                iconData: FontAwesomeIcons.pencil,
+                // iconData: FontAwesomeIcons.pencil,
+                imagePath: AppImagePath.circleProfile,
                 onTap: () {
                   Get.to(() => ProfileScreen());
                 },
@@ -92,7 +92,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 onTap: () {
                   Get.to(() {
                     Get.put(CalculateKcalController());
-                    return EditGroceriesScreen();
+                    return const EditGroceriesScreen();
                   });
                 },
               ),
@@ -103,7 +103,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 onTap: () {
                   Get.to(() {
                     Get.put(CategoryController());
-                    return ChangeCategoryScreen();
+                    return const ChangeCategoryScreen();
                   });
                 },
               ),
@@ -120,11 +120,11 @@ class _SettingScreenState extends State<SettingScreen> {
                       if (AppFunction.isEn()) ...[
                         DropdownMenuItem(
                           value: AppString.koreanText.tr,
-                          child: Text('Korean'),
+                          child: const Text('Korean'),
                         ),
                         DropdownMenuItem(
                           value: AppString.japaneseText.tr,
-                          child: Text('Japenese'),
+                          child: const Text('Japenese'),
                         ),
                       ],
                       if (AppFunction.isKo()) ...[
@@ -148,31 +148,6 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: Text('English (${AppString.englishText.tr})'),
                         ),
                       ],
-                      // if (displayLanguage == AppString.koreanText.tr) ...[
-                      //   DropdownMenuItem(
-                      //     value: AppString.japaneseText.tr,
-                      //     child:
-                      //         Text('Japenese (${AppString.japaneseText.tr})'),
-                      //   ),
-                      //   DropdownMenuItem(
-                      //     value: AppString.koreanText.tr,
-                      //     child: Text('Korean (${AppString.koreanText.tr})'),
-                      //   ),
-                      // ] else ...[
-                      //   DropdownMenuItem(
-                      //     value: AppString.koreanText.tr,
-                      //     child: Text('Korean (${AppString.koreanText.tr})'),
-                      //   ),
-                      //   DropdownMenuItem(
-                      //     value: AppString.japaneseText.tr,
-                      //     child:
-                      //         Text('Japenese (${AppString.japaneseText.tr})'),
-                      //   ),
-                      //   DropdownMenuItem(
-                      //     value: 'English',
-                      //     child: Text('English'),
-                      //   ),
-                      // ]
                     ],
                     onChanged: changeSystemLanguage),
               ),
@@ -205,16 +180,10 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   void changeSystemLanguage(v) async {
-    print('v : ${v}');
-
     if (displayLanguage == v) {
       return;
     }
     displayLanguage = v!;
-
-    // Get.deleteAll(); // Dont' delete
-
-    print('displayLanguage : ${displayLanguage}');
 
     if (displayLanguage == AppString.koreanText.tr) {
       await SettingRepository.setString(AppConstant.settingLanguageKey, 'ko');
@@ -223,11 +192,10 @@ class _SettingScreenState extends State<SettingScreen> {
       await SettingRepository.setString(AppConstant.settingLanguageKey, 'ja');
       Get.updateLocale(const Locale('ja'));
     } else {
-      print('enen');
       await SettingRepository.setString(AppConstant.settingLanguageKey, 'en');
       Get.updateLocale(const Locale('en'));
     }
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
 
     bool result = await CommonDialog.changeSystemLanguage();
 
@@ -241,7 +209,8 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget _customListTIle({
     required String title,
     String? subTitle,
-    required IconData iconData,
+    IconData? iconData,
+    String? imagePath,
     required Function() onTap,
     Widget? widget,
   }) {
@@ -257,9 +226,6 @@ class _SettingScreenState extends State<SettingScreen> {
           fontSize: Responsive.width14,
           color: AppColors.black,
         ),
-        // minLeadingWidth: 120
-        // ,
-
         title: AutoSizeText(
           title,
           maxLines: 1,
@@ -271,10 +237,16 @@ class _SettingScreenState extends State<SettingScreen> {
                 subTitle,
                 maxLines: AppFunction.isEn() ? 2 : 1,
               ),
-        leading: Icon(
-          iconData,
-          color: AppColors.primaryColor,
-        ),
+        leading: iconData == null && imagePath != null
+            ? Image.asset(
+                imagePath,
+                width: Responsive.width10 * 4,
+                height: Responsive.width10 * 4,
+              )
+            : Icon(
+                iconData,
+                color: AppColors.primaryColor,
+              ),
         onTap: onTap,
       ),
     );

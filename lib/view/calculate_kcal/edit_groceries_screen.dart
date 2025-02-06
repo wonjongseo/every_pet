@@ -58,22 +58,21 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(height: Responsive.height20),
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView.separated(
-                          itemBuilder: (context, index) {
-                            bool isSelected = selectedIndex == index;
-                            return editGroceryListTile(
-                              isSelected,
-                              controller,
-                              index,
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return const Divider(thickness: .3);
-                          },
-                          itemCount: controller.groceriesModels.length),
+                    child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        bool isSelected = selectedIndex == index;
+                        return editGroceryListTile(
+                          isSelected,
+                          controller,
+                          index,
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Divider(thickness: .3);
+                      },
+                      itemCount: controller.groceriesModels.length,
                     ),
                   ),
                 ],
@@ -113,12 +112,12 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
               },
               icon: const FaIcon(FontAwesomeIcons.save),
             ),
-          IconButton(
-            onPressed: () => controller.deleteGrocery(
+          AddOrRemoveButton(
+            onTap: () => controller.deleteGrocery(
               controller.groceriesModels[index],
             ),
-            icon: const FaIcon(FontAwesomeIcons.deleteLeft),
-          ),
+            addOrRemove: AddOrRemoveType.REMOVE,
+          )
         ],
       ),
     );
@@ -177,13 +176,6 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
 
   void onClickEditBtn(int index, CalculateKcalController controller) {
     selectedIndex = index;
-    // nameEditingController.dispose();
-    // kcalEditingController.dispose();
-    // gramEditingController.dispose();
-
-    // nameEditingController = TextEditingController(text: '');
-    // kcalEditingController = TextEditingController(text: '');
-    // gramEditingController = TextEditingController(text: '');
 
     nameEditingController.clear();
     kcalEditingController.clear();

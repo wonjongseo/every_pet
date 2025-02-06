@@ -74,9 +74,7 @@ class CalculateKcalController extends GetxController {
         kcalPer100g: double.parse(teControllers[1].text),
         gram: int.parse(teControllers[2].text));
 
-    AppFunction.showSuccessEnrollMsgSnackBar(
-      '${groceriesModel.name}${AppString.doneAddtionMsg.tr}',
-    );
+    AppFunction.showSuccessEnrollMsgSnackBar(groceriesModel.name);
     saveCategory(groceriesModel);
   }
 
@@ -92,14 +90,14 @@ class CalculateKcalController extends GetxController {
       name = groceriesModel.name;
     }
     if (kcal.isEmpty) {
-      kcal = groceriesModel.kcal.toString();
+      kcal = groceriesModel.kcal.toStringAsFixed(1);
     }
     if (gram.isEmpty) {
       gram = groceriesModel.gram.toString();
     }
 
     if (groceriesModel.name == name &&
-        groceriesModel.kcal.toString() == kcal &&
+        groceriesModel.kcal.toStringAsFixed(1) == kcal &&
         groceriesModel.gram.toString() == gram) {
       return;
     }
@@ -110,8 +108,7 @@ class CalculateKcalController extends GetxController {
       gram: int.parse(gram),
     );
 
-    AppFunction.showSuccessEnrollMsgSnackBar(
-        '${newGroceriesModel.name}${AppString.doneAddtionMsg.tr}');
+    AppFunction.showSuccessEnrollMsgSnackBar(newGroceriesModel.name);
     saveCategory(newGroceriesModel);
   }
 
@@ -157,9 +154,7 @@ class CalculateKcalController extends GetxController {
   }
 
   void distributeDER() {
-    print(pet.runtimeType);
     double? derValue = pet.getDER();
-    print('derValue : ${derValue}');
 
     if (derValue > 0) {
       double ratioKcal =
@@ -167,10 +162,8 @@ class CalculateKcalController extends GetxController {
 
       for (var i = 0; i < selectedGroceriesModels.length; i++) {
         var gram = (ratioKcal / selectedGroceriesModels[i].kcalPerGram);
-        print('gram : ${gram}');
 
         var kcal = gram * selectedGroceriesModels[i].kcalPerGram;
-        print('kcal : ${kcal}');
 
         displayGroceries[i].name = selectedGroceriesModels[i].name;
         displayGroceries[i].kcal = (kcal.toStringAsFixed(1));

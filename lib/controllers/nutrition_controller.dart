@@ -41,7 +41,6 @@ class NutritionController extends GetxController {
   void onReady() async {
     pageIndex = await SettingRepository.getInt(
         AppConstant.lastNutritionBottomPageIndexKey);
-    print('pageIndex : ${pageIndex}');
     update();
     super.onReady();
   }

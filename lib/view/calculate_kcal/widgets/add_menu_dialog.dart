@@ -2,6 +2,7 @@ import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/controllers/calculate_kcal_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,13 +49,21 @@ class AddMenuDialog extends StatelessWidget {
                     subtitle: Text(
                       '(${controller.groceriesModels[index].gram}Gram)',
                     ),
-                    trailing: GestureDetector(
+
+                    trailing: AddOrRemoveButton(
                       onTap: () => isSelected
                           ? null
                           : controller
                               .onAddBtnClick(controller.groceriesModels[index]),
-                      child: const Icon(Icons.add),
+                      addOrRemove: AddOrRemoveType.ADD,
                     ),
+                    // trailing: GestureDetector(
+                    //   onTap: () => isSelected
+                    //       ? null
+                    //       : controller
+                    //           .onAddBtnClick(controller.groceriesModels[index]),
+                    //   child: const Icon(Icons.add),
+                    // ),
                     onTap: () => isSelected
                         ? null
                         : controller

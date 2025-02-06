@@ -4,6 +4,7 @@ import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/calculate_kcal_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
@@ -121,9 +122,13 @@ class CalculateKcalScreen extends StatelessWidget {
                         style: contentStyle)
                   ]),
             ),
-            trailing: IconButton(
-              onPressed: () => controller.onRemoteBtnClick(index),
-              icon: Icon(Icons.remove),
+            // trailing: IconButton(
+            //   onPressed: () => controller.onRemoteBtnClick(index),
+            //   icon: Icon(Icons.remove),
+            // ),
+            trailing: AddOrRemoveButton(
+              onTap: () => controller.onRemoteBtnClick(index),
+              addOrRemove: AddOrRemoveType.REMOVE,
             ),
           );
         },

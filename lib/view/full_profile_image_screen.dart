@@ -12,16 +12,11 @@ class FullProfileImageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController _scrollController = ScrollController();
-    double previousOffset = 0;
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: GestureDetector(
         onVerticalDragUpdate: (details) {},
         onVerticalDragEnd: (details) {
-          print('details.primaryVelocity : ${details.primaryVelocity}');
-
           if (details.primaryVelocity! < -500) {
             Get.back();
           }

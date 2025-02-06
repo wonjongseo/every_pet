@@ -77,8 +77,8 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
                     ? AppString.categoryText.tr
                     : selectedCategory,
                 readOnly: true,
-                style: isReadOnly ? activeHintStyle : null,
-                hintStyle: isReadOnly ? activeHintStyle : null,
+                // style: isReadOnly ? activeHintStyle : null,
+                // hintStyle: isReadOnly ? activeHintStyle : null,
                 widget: DropdownButton<String>(
                   iconSize: 32,
                   elevation: 4,

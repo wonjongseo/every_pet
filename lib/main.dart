@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:every_pet/common/theme/light_theme.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
@@ -28,8 +26,6 @@ void main() async {
   MobileAds.instance.initialize();
   initializeDateFormatting();
   await initHive();
-
-  // await initDefaultData();
 
   runApp(const MyApp());
 }

@@ -1,22 +1,51 @@
-<<<<<<< HEAD
-![image](https://github.com/user-attachments/assets/9a3d248b-e618-4141-b1cf-37b464d27bf8)
+# _팻 등록_
 
-![image](https://github.com/user-attachments/assets/be48e0fd-ccd6-47cf-aea0-b878bf4f993d)
+- 펫 이미지 (사진 촬영 Or )
+- 이름
+- 체중
+- 생년월일
+- 성별
+- 중성화 여부
+- 임신 여부 (암컷)
+- 자주 가는 병원 명
+- 자주 가는 병원 전화번호
+- 자주 가는 애견 미용실 명
+- 자주 가는 애견 미용실 전화번호
 
-![image](https://github.com/user-attachments/assets/5027a24e-8e11-49f5-a231-a1ad8f309258)
+<br/><br/>
 
-![image](https://github.com/user-attachments/assets/37340a65-e9e3-4026-8014-4c0197754d94)
+# _하단 네비게이션_
 
-# ![image](https://github.com/user-attachments/assets/638ed5b6-52f6-49d5-b532-af671e268d54)
+> **1. 캘린더**
+>
+> > - 일정 추가
+> >   > - 1. 메모 추가
+> >   > - 2. 스템프 추가
+> >   >      > - 스템프 추가/변경/삭제
+>
+> **2. 영양**
+>
+> > _영양 기록 화면_
+> >
+> > > - 사료
+> > >   > 1.  재조사
+> > >   > 2.  주는 횟수
+> > >   > 3.  1회 당 량 (gram)
+> > > - 수제
+> > >   > 1.  1일 당 주는 량 (gram)
+> > >   > 2.  1일 당 주는 야체량 (gram)
+> > >   > 3.  1회 당 주는 단백질량 (gram)
+> >
+> > _칼로리 계산 화면_
+> >
+> > > 한 끼 적정 칼로리 계산
+> > > _식단 추가 화면_
+> > >
+> > > > 1. 식재료 명
+> > > > 2. kcal
+> > > > 3. gram
 
-![image](https://github.com/user-attachments/assets/9a3d248b-e618-4141-b1cf-37b464d27bf8)
+<!-- >>> _식단 추가 화면_ -->
 
-![image](https://github.com/user-attachments/assets/be48e0fd-ccd6-47cf-aea0-b878bf4f993d)
-
-![image](https://github.com/user-attachments/assets/5027a24e-8e11-49f5-a231-a1ad8f309258)
-
-![image](https://github.com/user-attachments/assets/37340a65-e9e3-4026-8014-4c0197754d94)
-
-![image](https://github.com/user-attachments/assets/638ed5b6-52f6-49d5-b532-af671e268d54)
-
-> > > > > > > refs/remotes/origin/main
+- **3. 비용**
+- **4. 설정**

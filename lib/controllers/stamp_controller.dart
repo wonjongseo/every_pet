@@ -10,8 +10,6 @@ class StampController extends GetxController {
 
   List<StampModel> stamps = [];
 
-  updateStampList() {}
-
   void updateStamp(StampModel updateStamp) {
     stampRepository.saveStamp(updateStamp);
     for (var i = 0; i < stamps.length; i++) {
@@ -38,9 +36,9 @@ class StampController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-    getAllStamps();
+  void onInit() async {
+    await getAllStamps();
+    super.onInit();
   }
 
   void onTapBackBtn() {
@@ -63,21 +61,10 @@ class StampController extends GetxController {
     update();
   }
 
-  getAllStamps() async {
+  Future<void> getAllStamps() async {
     stamps = await stampRepository.getStamps();
+    print('stamps.length : ${stamps.length}');
+
     update();
-
-    /*
-      1日　１５０G = 519kcal
-
-      １００G　３４６kcal
-
-      1G = 3.46kcal
-      １２０G　= 415.2kcal
-
-
-      104kcal
-
-     */
   }
 }

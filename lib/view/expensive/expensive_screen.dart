@@ -67,8 +67,6 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('AppString.yearText.tr : ${AppString.yearText.tr}');
-    print(DateFormat('yYear').format(now));
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -105,15 +103,11 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                       ],
                     ),
                     InkWell(
-                      onTap: () {
-                        print('asdfsd');
-
-                        Scrollable.ensureVisible(
-                          todayKey.currentContext!,
-                          duration: const Duration(milliseconds: 700),
-                          curve: Curves.easeInOut,
-                        );
-                      },
+                      onTap: () => Scrollable.ensureVisible(
+                        todayKey.currentContext!,
+                        duration: const Duration(milliseconds: 700),
+                        curve: Curves.easeInOut,
+                      ),
                       child: Container(
                         padding:
                             EdgeInsets.only(bottom: Responsive.height10 * .8),
@@ -173,11 +167,9 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                                 ),
                               )
                             : null,
-                        onTap: () {
-                          Get.to(
-                            () => AddExpensiveScreen(selectedDay: days[index]),
-                          );
-                        },
+                        onTap: () => Get.to(
+                          () => AddExpensiveScreen(selectedDay: days[index]),
+                        ),
                       );
                     });
                   },
