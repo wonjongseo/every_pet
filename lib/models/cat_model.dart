@@ -15,7 +15,12 @@ class CatModel extends PetModel {
     required GENDER_TYPE genderType,
     required double weight,
     bool? isNeuter,
+    NutritionModel? nutritionModel,
     bool? isPregnancy,
+    String? hospitalName,
+    String? hospitalNumber,
+    String? groomingName,
+    String? groomingNumber,
   }) : super(
           name: name,
           imageUrl: imageUrl,
@@ -23,21 +28,69 @@ class CatModel extends PetModel {
           birthDay: birthDay,
           genderType: genderType,
           isNeuter: isNeuter,
+          nutritionModel: nutritionModel,
           isPregnancy: isPregnancy,
+          hospitalName: hospitalName,
+          hospitalNumber: hospitalNumber,
+          groomingName: groomingName,
+          groomingNumber: groomingNumber,
         );
 
-  double getRER() {
-    return 0.0;
+  @override
+  CatModel copyWith({
+    String? name,
+    String? imageUrl,
+    DateTime? birthDay,
+    GENDER_TYPE? genderType,
+    bool? isNeuter,
+    bool? isPregnancy,
+    NutritionModel? nutritionModel,
+    double? weight,
+    String? hospitalName,
+    String? hospitalNumber,
+    String? groomingName,
+    String? groomingNumber,
+  }) {
+    CatModel pet = CatModel(
+      name: name ?? this.name,
+      imageUrl: imageUrl ?? this.imageUrl,
+      birthDay: birthDay ?? this.birthDay,
+      genderType: genderType ?? this.genderType,
+      isNeuter: isNeuter ?? this.isNeuter,
+      isPregnancy: isPregnancy ?? this.isPregnancy,
+      weight: weight ?? this.weight,
+      nutritionModel: nutritionModel ?? this.nutritionModel,
+      hospitalName: hospitalName ?? this.hospitalName,
+      hospitalNumber: hospitalNumber ?? this.hospitalNumber,
+      groomingName: groomingName ?? this.groomingName,
+      groomingNumber: groomingNumber ?? this.groomingNumber,
+    );
+    pet.id = id;
+    pet.createdAt = createdAt;
+    return pet;
   }
 
-/**
- 
- 강아지 몇살부터가 성견이야 ?
- 강아지느 몇키로부터 비만이야 ?
- 비만인데 중성화한 경우는 DER을 어떻게 구해?
- */
+  @override
+  double getRER() {
+    return 30 * weight + 70;
+  }
+
+  @override
   double getDER() {
-    return 0;
+    double der = getRER();
+
+    if (genderType == GENDER_TYPE.MALE) {
+      if (isNeuter == true) {
+        der *= 1.6;
+      } else {
+        der *= 1.8;
+      }
+    } else {
+      if (isPregnancy == true) {
+        der *= 3;
+      }
+    }
+    return der;
   }
 }
 

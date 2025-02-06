@@ -9,20 +9,20 @@ import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
-import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/view/main/main_screen.dart';
 import 'package:every_pet/view/todo/todo_screen.dart';
 
-class EnrollTodoDialog extends StatefulWidget {
-  const EnrollTodoDialog({super.key, this.memo});
+class AddTodoDialog extends StatefulWidget {
+  const AddTodoDialog({super.key, this.memo});
 
-  final String? memo; //
+  final String? memo;
+
   @override
-  State<EnrollTodoDialog> createState() => _EnrollTodoDialogState();
+  State<AddTodoDialog> createState() => _AddTodoDialogState();
 }
 
-class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
+class _AddTodoDialogState extends State<AddTodoDialog> {
   List<StampModel> selectedStamps = [];
   TextEditingController memoController = TextEditingController();
   TodoController controller = Get.find<TodoController>();
@@ -40,7 +40,6 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
   @override
   void dispose() {
     memoController.dispose();
-
     super.dispose();
   }
 
@@ -56,8 +55,6 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
               return Padding(
                 padding: EdgeInsets.only(right: Responsive.width22),
                 child: RowPetProfileWidget(
-                  isDog: controller.petsController.pets![index].runtimeType ==
-                      DogModel,
                   imagePath: controller.petsController.pets![index].imageUrl,
                   petName: controller.petsController.pets![index].name,
                   isActive: selectedProfileIndexs.contains(index),
@@ -68,8 +65,6 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
                       selectedProfileIndexs.add(index);
                     }
                     setState(() {});
-                    print(index);
-                    // controller.petsController.onClickTopBar(index);
                   },
                 ),
               );
@@ -77,13 +72,14 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
           ),
         ),
         Divider(height: Responsive.height20),
+        SizedBox(height: Responsive.height10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextField(
-              maxLines: 1,
+              maxLines: 2,
               controller: memoController,
-              hintText: 'Todo..',
+              hintText: 'Memo',
             ),
           ],
         ),
@@ -101,6 +97,7 @@ class _EnrollTodoDialogState extends State<EnrollTodoDialog> {
             ),
           ),
         ),
+        SizedBox(height: Responsive.height10),
         GetBuilder<StampController>(builder: (stampController) {
           return Wrap(
             runSpacing: Responsive.height14,

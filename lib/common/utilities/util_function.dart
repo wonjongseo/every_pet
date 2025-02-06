@@ -17,7 +17,7 @@ import 'package:path_provider/path_provider.dart';
 class AppFunction {
   static String getDayYYYYMMDD(DateTime date) {
     return DateFormat(
-            'yyyy${AppString.yearText.tr}M${AppString.monthText.tr}d${AppString.dayTextTr.tr}')
+            'yyyy${AppString.yearText.tr}M${AppString.monthText.tr}d${AppString.dayText.tr}')
         .format(date);
   }
 
@@ -76,7 +76,7 @@ class AppFunction {
 
   static showSuccessEnrollMsgSnackBar(String name) {
     showMessageSnackBar(
-      title: AppString.completeTextTr.tr,
+      title: AppString.completeText.tr,
       message: '$name${AppString.doneAddtionMsg.tr}',
     );
   }
@@ -143,7 +143,6 @@ class AppFunction {
               autoFocus: true,
               controller: teController,
               hintText: hintText,
-              maxLines: 1,
             ),
             SizedBox(height: Responsive.height10),
             CustomButton(
@@ -180,7 +179,6 @@ class AppFunction {
                     autoFocus: index == 0 ? true : false,
                     controller: teControllers[index],
                     hintText: hintTexts[index],
-                    maxLines: 1,
                     style: activeHintStyle,
                     textInputAction: index == teControllers.length - 1
                         ? TextInputAction.done

@@ -36,6 +36,19 @@ class CommonDialog {
     return result;
   }
 
+  static Future<bool> changeSystemLanguage() async {
+    return selectionDialog(
+      title: Text(
+        AppString.changedSystemLanguageMsg.tr,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.redAccent,
+        ),
+      ),
+      connent: Text(AppString.askShutDownMsg.tr),
+    );
+  }
+
   static Future<bool> errorNoEnrolledEmail() async {
     return selectionDialog(
       title: Text(

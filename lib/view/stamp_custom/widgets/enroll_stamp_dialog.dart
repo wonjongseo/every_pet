@@ -110,12 +110,12 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
                 key: _formKey,
                 child: CustomTextField(
                   autoFocus: true,
-                  validator: (p0) {
-                    if (p0 == null || p0 == "") {
-                      return AppString.stampNameCtlMsg.tr;
-                    }
-                    return null;
-                  },
+                  // validator: (p0) { //TODO
+                  //   if (p0 == null || p0 == "") {
+                  //     return AppString.stampNameCtlMsg.tr;
+                  //   }
+                  //   return null;
+                  // },
                   controller: textEditingController,
                   hintText: AppString.stampName,
                 ),

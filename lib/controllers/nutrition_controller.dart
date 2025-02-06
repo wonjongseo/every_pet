@@ -27,6 +27,13 @@ class NutritionController extends GetxController {
 
   FocusNode focusNode1 = FocusNode();
   FocusNode focusNode2 = FocusNode();
+  FocusNode focusNode3 = FocusNode();
+
+  void clearFocusNode() {
+    focusNode1.unfocus();
+    focusNode2.unfocus();
+    focusNode3.unfocus();
+  }
 
   NutritionModel nutritionModel = NutritionModel();
   MakerModel? makerModel;
@@ -40,15 +47,14 @@ class NutritionController extends GetxController {
     teController4.dispose();
     teController5.dispose();
     teController6.dispose();
+
+    focusNode1.dispose();
+    focusNode2.dispose();
+    focusNode3.dispose();
     super.onClose();
   }
 
   void changeBody(int newPageIndex) {
-    if (newPageIndex == 0) {
-      focusNode1.requestFocus();
-    } else {
-      focusNode2.requestFocus();
-    }
     pageIndex = newPageIndex;
     update();
   }
@@ -59,6 +65,8 @@ class NutritionController extends GetxController {
     } else {
       submitHandmadeData(petsController, pet);
     }
+
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   void submitMakerData(PetsController petsController, PetModel pet) {
@@ -92,7 +100,7 @@ class NutritionController extends GetxController {
     nutritionModel.makerModel = makerModel!;
 
     PetModel newPet = pet.copyWith(nutritionModel: nutritionModel);
-    petsController.updatePetModel(pet, newPet, isProfileScreen: false);
+    petsController.updatePetModel(newPet, isProfileScreen: false);
 
     AppFunction.showSuccessEnrollMsgSnackBar(AppString.makterText.tr);
   }
@@ -130,7 +138,7 @@ class NutritionController extends GetxController {
 
     PetModel newPet = pet.copyWith(nutritionModel: nutritionModel);
 
-    petsController.updatePetModel(pet, newPet, isProfileScreen: false);
+    petsController.updatePetModel(newPet, isProfileScreen: false);
 
     AppFunction.showSuccessEnrollMsgSnackBar(AppString.handmadeTextTr.tr);
   }

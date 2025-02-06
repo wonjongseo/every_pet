@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:every_pet/common/admob/global_banner_admob.dart';
-import 'package:every_pet/models/dog_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -58,11 +55,12 @@ class MainScreen extends StatelessWidget {
                 children: List.generate(
                   petsController.pets!.length,
                   (index) {
+                    print(
+                        'petsController.pets!.length : ${petsController.pets!.length}');
+
                     return Padding(
                       padding: EdgeInsets.only(right: Responsive.width22),
                       child: RowPetProfileWidget(
-                        isDog:
-                            petsController.pets![index].runtimeType == DogModel,
                         petName: petsController.pets![index].name,
                         isActive: petsController.petPageIndex == index,
                         imagePath: petsController.pets![index].imageUrl,
@@ -142,39 +140,34 @@ class RowPetProfileWidget extends StatelessWidget {
     required this.petName,
     required this.onTap,
     required this.imagePath,
-    required this.isDog,
   }) : super(key: key);
 
   final bool isActive;
   final String petName;
   final VoidCallback onTap;
   final String imagePath;
-  final bool isDog;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        children: [
-          ProfileImage(
-            isDog: isDog,
-            imagePath: imagePath,
-            width: Responsive.width10 * 4,
-            height: Responsive.width10 * 4,
-            isActive: isActive,
-          ),
-          Text(
-            petName,
-            style: isActive
-                ? TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                    fontSize: Responsive.width14,
-                  )
-                : TextStyle(color: Colors.grey.withOpacity(.7)),
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        ProfileImage(
+          onTap: onTap,
+          imagePath: imagePath,
+          width: Responsive.width10 * 4,
+          height: Responsive.width10 * 4,
+          isActive: isActive,
+        ),
+        Text(
+          petName,
+          style: isActive
+              ? TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: Responsive.width14,
+                )
+              : TextStyle(color: Colors.grey.withOpacity(.7)),
+        ),
+      ],
     );
   }
 }

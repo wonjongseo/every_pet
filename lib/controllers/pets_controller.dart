@@ -55,6 +55,10 @@ class PetsController extends GetxController {
     await petRepository.deletePet(petModel);
     pets!.remove(petModel);
 
+    if (pets!.isEmpty) {
+      Get.offAll(() => EnrollScreen(isFirst: true));
+      return;
+    }
     if (petPageIndex != 0) {
       petPageIndex -= 1;
       SettingRepository.setInt(AppConstant.lastPetIndexKey, petPageIndex);
@@ -118,27 +122,45 @@ class PetsController extends GetxController {
 
   Future<void> getPetModals() async {
     pets = await petRepository.loadPets();
+
+    for (var pet in pets!) {
+      print(pet.runtimeType);
+    }
     update();
   }
 
-  void updatePetModel(PetModel oldPet, PetModel newPet,
-      {bool isProfileScreen = true}) {
-    oldPet.name = newPet.name;
-    oldPet.imageUrl = newPet.imageUrl;
-    oldPet.birthDay = newPet.birthDay;
-    oldPet.genderType = newPet.genderType;
-    oldPet.isNeuter = newPet.isNeuter;
-    oldPet.isPregnancy = newPet.isPregnancy;
-    oldPet.weight = newPet.weight;
-    oldPet.nutritionModel = newPet.nutritionModel;
-
-    petRepository.savePet(oldPet);
+  void updatePetModel(PetModel petModel, {bool isProfileScreen = true}) {
+    petRepository.savePet(petModel);
+    getPetModals();
     if (isProfileScreen) {
       scrollGoToTop();
     }
 
-    update();
+    // update();
   }
+
+  // void updatePetModel(PetModel oldPet, PetModel newPet,
+  //     {bool isProfileScreen = true}) {
+  //   // oldPet.name = newPet.name;
+  //   // oldPet.imageUrl = newPet.imageUrl;
+  //   // oldPet.birthDay = newPet.birthDay;
+  //   // oldPet.genderType = newPet.genderType;
+  //   // oldPet.isNeuter = newPet.isNeuter;
+  //   // oldPet.isPregnancy = newPet.isPregnancy;
+  //   // oldPet.weight = newPet.weight;
+  //   // oldPet.nutritionModel = newPet.nutritionModel;
+  //   // oldPet.hospitalName = newPet.hospitalName;
+  //   // oldPet.hospitalNumber = newPet.hospitalNumber;
+  //   // oldPet.groomingName = newPet.groomingName;
+  //   // oldPet.groomingNumber = newPet.groomingNumber;
+
+  //   petRepository.savePet(oldPet);
+  //   if (isProfileScreen) {
+  //     scrollGoToTop();
+  //   }
+
+  //   update();
+  // }
 
   Future<void> savePetModal(PetModel petModel) async {
     pets!.add(petModel);

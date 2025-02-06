@@ -18,13 +18,13 @@ class MakerBody extends StatelessWidget {
       children: [
         CustomTextField(
           focusNode: controller.focusNode1,
-          autoFocus: true,
           controller: controller.teController1,
           hintText: AppString.makterText.tr,
           textInputAction: TextInputAction.next,
         ),
         SizedBox(height: Responsive.height10),
         CustomTextField(
+          focusNode: controller.focusNode2,
           controller: controller.teController2,
           hintText: AppString.numberOfGivenText.tr,
           sufficIcon: Text(AppString.numberOfGivenSufficText.tr),
@@ -33,6 +33,7 @@ class MakerBody extends StatelessWidget {
         ),
         SizedBox(height: Responsive.height10),
         CustomTextField(
+          focusNode: controller.focusNode3,
           controller: controller.teController3,
           hintText: '1${AppString.countText.tr}',
           keyboardType: TextInputType.number,

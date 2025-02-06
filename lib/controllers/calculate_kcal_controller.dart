@@ -1,12 +1,12 @@
-import 'package:every_pet/common/utilities/app_string.dart';
-import 'package:every_pet/common/utilities/util_function.dart';
-import 'package:every_pet/models/groceries_modal.dart';
-import 'package:every_pet/respository/groceries_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
+import 'package:every_pet/models/groceries_modal.dart';
 import 'package:every_pet/models/pet_model.dart';
+import 'package:every_pet/respository/groceries_repository.dart';
 
 class DisplayGrocery {
   String? name;
@@ -14,6 +14,9 @@ class DisplayGrocery {
   String? gram;
 
   DisplayGrocery({this.name, this.kcal, this.gram});
+
+  @override
+  String toString() => 'DisplayGrocery(name: $name, kcal: $kcal, gram: $gram)';
 }
 
 class CalculateKcalController extends GetxController {
@@ -156,14 +159,20 @@ class CalculateKcalController extends GetxController {
   }
 
   void distributeDER() {
+    print(pet.runtimeType);
     double? derValue = pet.getDER();
+    print('derValue : ${derValue}');
+
     if (derValue > 0) {
       double ratioKcal =
           derValue / selectedGroceriesModels.length / givenCountPerDay;
 
       for (var i = 0; i < selectedGroceriesModels.length; i++) {
         var gram = (ratioKcal / selectedGroceriesModels[i].kcalPerGram);
+        print('gram : ${gram}');
+
         var kcal = gram * selectedGroceriesModels[i].kcalPerGram;
+        print('kcal : ${kcal}');
 
         displayGroceries[i].name = selectedGroceriesModels[i].name;
         displayGroceries[i].kcal = (kcal.toStringAsFixed(1));

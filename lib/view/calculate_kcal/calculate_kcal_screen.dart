@@ -31,10 +31,11 @@ class CalculateKcalScreen extends StatelessWidget {
                 notionDer(controller),
                 Text.rich(
                   TextSpan(
-                      text: AppString.calculateKcalScreenSubText.tr,
-                      style: const TextStyle(
-                        letterSpacing: 1.2,
-                      )),
+                    text: AppString.calculateKcalScreenSubText.tr,
+                    style: const TextStyle(
+                      letterSpacing: 1.2,
+                    ),
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: Responsive.height30),
@@ -98,28 +99,34 @@ class CalculateKcalScreen extends StatelessWidget {
     return Column(
       children: List.generate(
         controller.displayGroceries.length,
-        (index) => ListTile(
-          iconColor: AppColors.primaryColor,
-          leading: Text(
-            controller.displayGroceries[index].name ?? '',
-            style: contentStyle,
-          ),
-          minLeadingWidth: MediaQuery.of(context).size.width / 3,
-          title: Text.rich(
-            TextSpan(
-                text: '${controller.displayGroceries[index].gram}Gram',
-                style: contentStyle,
-                children: [
-                  TextSpan(
-                      text: '(${controller.displayGroceries[index].kcal}Kcal)',
-                      style: contentStyle)
-                ]),
-          ),
-          trailing: IconButton(
-            onPressed: () => controller.onRemoteBtnClick(index),
-            icon: Icon(Icons.remove),
-          ),
-        ),
+        (index) {
+          print(
+              'controller.displayGroceries[index] : ${controller.displayGroceries[index]}');
+
+          return ListTile(
+            iconColor: AppColors.primaryColor,
+            leading: Text(
+              controller.displayGroceries[index].name ?? '',
+              style: contentStyle,
+            ),
+            minLeadingWidth: MediaQuery.of(context).size.width / 3,
+            title: Text.rich(
+              TextSpan(
+                  text: '${controller.displayGroceries[index].gram}Gram',
+                  style: contentStyle,
+                  children: [
+                    TextSpan(
+                        text:
+                            '(${controller.displayGroceries[index].kcal}Kcal)',
+                        style: contentStyle)
+                  ]),
+            ),
+            trailing: IconButton(
+              onPressed: () => controller.onRemoteBtnClick(index),
+              icon: Icon(Icons.remove),
+            ),
+          );
+        },
       ),
     );
   }
@@ -156,6 +163,7 @@ class CalculateKcalScreen extends StatelessWidget {
 
   Text notionDer(CalculateKcalController controller) {
     return Text.rich(
+      textAlign: TextAlign.center,
       TextSpan(
         children: [
           TextSpan(

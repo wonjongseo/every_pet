@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:every_pet/common/theme/theme.dart';
+import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
@@ -22,6 +23,8 @@ class ExpensiveScreen extends StatefulWidget {
 class _ExpensiveScreenState extends State<ExpensiveScreen> {
   ExpensiveController expensiveController = Get.put(ExpensiveController());
 
+  GlobalKey todayKey = GlobalKey();
+
   int totalPrice = 0;
   DateTime now = DateTime.now();
   List<DateTime> days = [];
@@ -32,6 +35,7 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
     log("OPEN ExpensiveScreen");
     super.initState();
     days = _generateMonthDays(now);
+
     setState(() {});
   }
 
@@ -73,12 +77,12 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       DateFormat('y${AppString.yearText.tr}').format(now),
                       style: headingStyle,
                     ),
-                    SizedBox(width: Responsive.width20),
                     Row(
                       children: [
                         IconButton(
@@ -97,6 +101,34 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                         ),
                       ],
                     ),
+                    InkWell(
+                      onTap: () {
+                        Scrollable.ensureVisible(
+                          todayKey.currentContext!,
+                          duration: const Duration(milliseconds: 700),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.only(bottom: Responsive.height10 * .8),
+                        margin: EdgeInsets.only(right: Responsive.width10 * .8),
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: AppColors.primaryColor,
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          AppString.todayText.tr,
+                          style: headingStyle.copyWith(
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -114,6 +146,7 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                           expensiveController.expensivesByDay(days[index]);
 
                       return ListTile(
+                        key: now.day - 1 == index ? todayKey : null,
                         title: Text(
                           DateFormat.MMMEd(Platform.localeName)
                               .format(days[index]),
@@ -150,18 +183,25 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                 return GestureDetector(
                   onTap: () {
                     Get.dialog(
+                      name: "totalPriceDialog",
                       AlertDialog(
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: expensiveController.categoryAndPrice.entries
-                              .map((entry) => Row(
-                                    children: [
-                                      Text(
-                                        '${entry.key}: ${AppString.moneySign.tr}${NumberFormat("#,###").format(entry.value)}',
-                                      ),
-                                    ],
-                                  ))
-                              .toList(),
+                              .map((entry) {
+                            return ListTile(
+                              tileColor: Colors.transparent,
+                              title: Row(
+                                children: [
+                                  Text('${entry.key}:'),
+                                  Spacer(),
+                                  Text(
+                                    '${AppString.moneySign.tr}${NumberFormat("#,###").format(entry.value)}',
+                                  )
+                                ],
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ),
                     );
@@ -174,7 +214,7 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                     ),
                     padding: EdgeInsets.symmetric(
                       horizontal: Responsive.width20,
-                      vertical: Responsive.height10 / 2,
+                      vertical: Responsive.height10,
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),

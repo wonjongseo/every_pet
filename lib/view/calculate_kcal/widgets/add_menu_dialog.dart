@@ -43,8 +43,8 @@ class AddMenuDialog extends StatelessWidget {
                       style: activeHintStyle,
                     ),
                     minLeadingWidth: MediaQuery.of(context).size.width / 4.5,
-                    title:
-                        Text('${controller.groceriesModels[index].kcal}Kcal'),
+                    title: Text(
+                        '${controller.groceriesModels[index].kcal.toStringAsFixed(1)}Kcal'),
                     subtitle: Text(
                       '(${controller.groceriesModels[index].gram}Gram)',
                     ),

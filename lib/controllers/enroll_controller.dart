@@ -2,20 +2,19 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/dog_model.dart';
-import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/view/image_picker_screen.dart';
 import 'package:every_pet/view/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
-import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 enum PET_TYPE { DOG, CAT }
 
@@ -27,14 +26,16 @@ class EnrollController extends GetxController {
   late TextEditingController nameEditingController;
   late TextEditingController birthDayEditingController;
   late TextEditingController weightEditingController;
-  late TextEditingController hosipitalNameEditingController;
-  late TextEditingController hosipitalNumberEditingController;
+  late TextEditingController hospitalNameEditingController;
+  late TextEditingController hospitalNumberEditingController;
+
+  late TextEditingController groomingNameEditingController;
+  late TextEditingController groomingNumberEditingController;
 
   late FocusNode nameEditingFocusNode;
   late FocusNode birthDayEditingFocusNode;
   late FocusNode weightEditingFocusNode;
 
-  late GlobalKey<FormState> formKey;
   DateTime? birthDay;
   PetsController petsController = Get.find<PetsController>();
   GENDER_TYPE genderType = GENDER_TYPE.MALE;
@@ -43,12 +44,18 @@ class EnrollController extends GetxController {
   bool isPregnancy = false;
 
   // File? imageFile;
-  String? imagePath;
+  String imagePath = AppImagePath.bisyon;
   PET_TYPE petType = PET_TYPE.DOG;
 
   void toogleRadio(PET_TYPE? value) {
     if (value == null) return;
     petType = value;
+
+    if (petType == PET_TYPE.DOG) {
+      imagePath = AppImagePath.bisyon;
+    } else {
+      imagePath = AppImagePath.defaultCat;
+    }
     update();
   }
 
@@ -56,49 +63,24 @@ class EnrollController extends GetxController {
   void onInit() {
     super.onInit();
 
-    formKey = GlobalKey<FormState>();
-
     nameEditingController = TextEditingController();
     birthDayEditingController = TextEditingController();
     weightEditingController = TextEditingController();
-    hosipitalNameEditingController = TextEditingController();
-    hosipitalNumberEditingController = TextEditingController();
+    hospitalNameEditingController = TextEditingController();
+    hospitalNumberEditingController = TextEditingController();
+    groomingNameEditingController = TextEditingController();
+    groomingNumberEditingController = TextEditingController();
 
     nameEditingFocusNode = FocusNode();
     birthDayEditingFocusNode = FocusNode();
     weightEditingFocusNode = FocusNode();
   }
 
-  String? nameValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return AppString.nameCtrHintText.tr;
-    }
-
-    if (petsController.pets == null) {
-      return null;
-    } else {
-      for (var pet in petsController.pets!) {
-        if (pet.name == value) {
-          return '$value${AppString.duplicateNameTr.tr}';
-        }
-      }
-    }
-
-    return null;
-  }
-
-  String? weightValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return AppString.weightCtrHint.tr;
-    }
-    return null;
-  }
-
-  String? birthDayValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return AppString.birthdayCtrHint.tr;
-    }
-    return null;
+  @override
+  void onReady() async {
+    final permission = await PhotoManager.requestPermissionExtend();
+    if (!permission.isAuth) return PhotoManager.openSetting();
+    super.onReady();
   }
 
   @override
@@ -108,13 +90,33 @@ class EnrollController extends GetxController {
     birthDayEditingController.dispose();
     weightEditingController.dispose();
 
+    groomingNameEditingController.dispose();
+    groomingNumberEditingController.dispose();
+
     nameEditingFocusNode.dispose();
     birthDayEditingFocusNode.dispose();
     weightEditingFocusNode.dispose();
   }
 
   void onClickSaveBtn(BuildContext context) async {
-    if (!formKey.currentState!.validate()) {
+    if (nameEditingController.text.isEmpty) {
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.nameCtrHintText.tr,
+      );
+      return;
+    }
+
+    if (weightEditingController.text.isEmpty) {
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.weightCtrHint.tr,
+      );
+      return;
+    }
+
+    if (birthDayEditingController.text.isEmpty) {
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.birthdayCtrHint.tr,
+      );
       return;
     }
 
@@ -122,29 +124,35 @@ class EnrollController extends GetxController {
     String? savedImagePath = null;
 
     try {
-      if (imagePath != null) {
+      if (imagePath != AppImagePath.bisyon &&
+          imagePath != AppImagePath.defaultCat) {
         savedImagePath =
             await AppFunction.saveFileFromTempDirectory(imagePath!, name);
       }
 
       if (petType == PET_TYPE.DOG) {
         DogModel dogModel = DogModel(
-          name: name,
-          weight: double.parse(weightEditingController.text),
-          imageUrl:
-              imagePath != null && savedImagePath != null ? savedImagePath : '',
-          birthDay: birthDay!,
-          genderType: genderType,
-        );
+            name: name,
+            weight: double.parse(weightEditingController.text),
+            imageUrl: savedImagePath ?? AppImagePath.bisyon,
+            birthDay: birthDay!,
+            genderType: genderType,
+            hospitalName: hospitalNameEditingController.text,
+            hospitalNumber: hospitalNumberEditingController.text,
+            groomingName: groomingNameEditingController.text,
+            groomingNumber: groomingNameEditingController.text);
         await petsController.savePetModal(dogModel);
       } else {
         CatModel catModel = CatModel(
           name: name,
           weight: double.parse(weightEditingController.text),
-          imageUrl:
-              imagePath != null && savedImagePath != null ? savedImagePath : '',
+          imageUrl: savedImagePath ?? AppImagePath.defaultCat,
           birthDay: birthDay!,
           genderType: genderType,
+          hospitalName: hospitalNameEditingController.text,
+          hospitalNumber: hospitalNumberEditingController.text,
+          groomingName: groomingNameEditingController.text,
+          groomingNumber: groomingNameEditingController.text,
         );
 
         await petsController.savePetModal(catModel);
@@ -152,8 +160,11 @@ class EnrollController extends GetxController {
     } catch (e) {
       log("image Picker error$e");
     }
+
+    petsController.getPetModals();
     if (isFirst) {
       Get.offAll(() => MainScreen());
+      Get.delete<EnrollController>(); // Do not remote
     } else {
       Get.back();
     }
@@ -174,8 +185,7 @@ class EnrollController extends GetxController {
   }
 
   void onChangeGendar(GENDER_TYPE? value) {
-    print(value);
-    if (value == null || value! == genderType) {
+    if (value == null || value == genderType) {
       return;
     } else {
       isNeuter = false;
@@ -185,8 +195,6 @@ class EnrollController extends GetxController {
   }
 
   void selectBirthDayPicker(BuildContext context) {
-    print('Get.locale : ${Get.locale}');
-
     DatePicker.showDatePicker(
       context,
       showTitleActions: true,
@@ -199,13 +207,17 @@ class EnrollController extends GetxController {
         update();
       },
       currentTime: DateTime.now(),
-      locale: Get.locale.toString() == 'ko_KR' ? LocaleType.ko : LocaleType.jp,
+      locale:
+          Get.locale.toString().contains('ko') ? LocaleType.ko : LocaleType.jp,
     );
   }
 
   void pickImageFromCamera(BuildContext context) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      final image = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        imageQuality: 100,
+      );
 
       if (image == null) return;
       // imageFile = File(image.path);
@@ -218,9 +230,8 @@ class EnrollController extends GetxController {
   }
 
   void goToImagePickerScreen() async {
-    imagePath = null;
     try {
-      final image = await Get.to(() => ImagePickerScreen());
+      final image = await Get.to(() => const ImagePickerScreen());
       if (image == null) return;
 
       File file = await AppFunction.uint8ListToFile(image);

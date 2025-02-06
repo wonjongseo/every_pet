@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
@@ -38,7 +39,6 @@ class _SettingScreenState extends State<SettingScreen> {
   void getSettingLanguage() async {
     settingLanguage =
         await SettingRepository.getString(AppConstant.settingLanguageKey);
-    print('settingLanguage : ${settingLanguage}');
 
     if (settingLanguage.isEmpty) {
       settingLanguage = Get.locale.toString();
@@ -55,7 +55,6 @@ class _SettingScreenState extends State<SettingScreen> {
     } else {
       displayLanguage = AppString.koreanText.tr;
     }
-    print('displayLanguage : ${displayLanguage}');
 
     setState(() {});
   }
@@ -76,7 +75,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   Get.to(() => ProfileScreen());
                 },
               ),
-              SizedBox(height: Responsive.height10),
+              SizedBox(height: Responsive.height15),
               _customListTIle(
                 title: AppString.editStampText.tr,
                 iconData: FontAwesomeIcons.pencil,
@@ -84,7 +83,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   Get.to(() => StampCustomScreen());
                 },
               ),
-              SizedBox(height: Responsive.height10),
+              SizedBox(height: Responsive.height15),
               _customListTIle(
                 title: AppString.editMenuText.tr,
                 iconData: FontAwesomeIcons.pencil,
@@ -95,7 +94,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   });
                 },
               ),
-              SizedBox(height: Responsive.height10),
+              SizedBox(height: Responsive.height15),
               _customListTIle(
                 title: AppString.changeCategoryText.tr,
                 iconData: FontAwesomeIcons.pencil,
@@ -106,7 +105,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   });
                 },
               ),
-              SizedBox(height: Responsive.height10),
+              SizedBox(height: Responsive.height15),
               _customListTIle(
                   title: 'Change System Language',
                   subTitle: AppString.setLanguage.tr,
@@ -138,7 +137,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         ]
                       ],
                       onChanged: changeSystemLanguage)),
-              Spacer(flex: 1),
+              const Spacer(flex: 1),
               _customListTIle(
                 title: AppString.fnOrErorreport.tr,
                 subTitle: AppString.tipOffMessage.tr,
@@ -167,6 +166,9 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   void changeSystemLanguage(v) async {
+    if (displayLanguage == v) {
+      return;
+    }
     displayLanguage = v!;
 
     // Get.deleteAll(); // Dont' delete
@@ -174,20 +176,16 @@ class _SettingScreenState extends State<SettingScreen> {
     if (displayLanguage == AppString.koreanText.tr) {
       await SettingRepository.setString(AppConstant.settingLanguageKey, 'ko');
       Get.updateLocale(const Locale('ko'));
-
-      AppFunction.showMessageSnackBar(
-        title: '완료',
-        message: '시스템 언어가 변경되었습니다.\n폰트를 적용 시키려면 앱을 재기동 해주세요.',
-        duration: Duration(milliseconds: 7000),
-      );
     } else if (displayLanguage == AppString.japaneseText.tr) {
       await SettingRepository.setString(AppConstant.settingLanguageKey, 'ja');
       Get.updateLocale(const Locale('ja'));
-      AppFunction.showMessageSnackBar(
-        title: '完了',
-        message: 'システム言語が変更されました。\nフォントを適用させるにはアプリを再起動してください。',
-        duration: Duration(milliseconds: 7000),
-      );
+    }
+    await Future.delayed(Duration(milliseconds: 500));
+
+    bool result = await CommonDialog.changeSystemLanguage();
+
+    if (result) {
+      exit(0);
     }
 
     setState(() {});

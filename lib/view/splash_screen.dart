@@ -46,8 +46,7 @@ class SplashController extends GetxController {
     if ((await categoryRepository.getCategorys()).isEmpty) {
       log('add default cagetory datas to local db');
       for (var category in AppConstant.defaultCategoryStringList) {
-        await categoryRepository
-            .saveCategory(ProductCategoryModel(name: category));
+        await categoryRepository.saveCategory(category);
       }
     }
   }

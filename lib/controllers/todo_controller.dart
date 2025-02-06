@@ -8,7 +8,7 @@ import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
 import 'package:every_pet/respository/todo_repository.dart';
 import 'package:every_pet/view/todo/widgets/bottom_sheet_widget.dart';
-import 'package:every_pet/view/todo/widgets/enroll_todo_alert_dialog.dart';
+import 'package:every_pet/view/todo/widgets/add_todo_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -161,7 +161,7 @@ class TodoController extends GetxController {
             child: AlertDialog(
               insetPadding:
                   EdgeInsets.symmetric(horizontal: Responsive.width15),
-              content: EnrollTodoDialog(memo: savedMemo),
+              content: AddTodoDialog(memo: savedMemo),
             ),
           ),
         ),

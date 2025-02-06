@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/controllers/nutrition_controller.dart';
@@ -27,14 +26,13 @@ class NutritionScreen extends StatelessWidget {
       return GetBuilder<NutritionController>(builder: (controller) {
         controller.initPetsNutrion(pet);
         return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: controller.clearFocusNode,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: Responsive.width10 / 2),
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   NutritionScreenHeader(pet: pet),
-                  const Divider(),
                   const BodyNavigation(),
                   SizedBox(height: Responsive.height10),
                   Padding(
@@ -49,7 +47,9 @@ class NutritionScreen extends StatelessWidget {
                   SizedBox(height: Responsive.height10),
                   CustomButton(
                     label: AppString.saveText.tr,
-                    onTap: () => controller.onClickSaveBtn(petcontroller, pet),
+                    onTap: () {
+                      controller.onClickSaveBtn(petcontroller, pet);
+                    },
                   )
                 ],
               ),

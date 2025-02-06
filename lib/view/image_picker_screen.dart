@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:every_pet/common/extension/custom_theme_extension.dart';
@@ -33,8 +34,6 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
 
   void fetchAllImages() async {
     lastPage = currentPage;
-    final permission = await PhotoManager.requestPermissionExtend();
-    if (!permission.isAuth) return PhotoManager.openSetting();
 
     List<AssetPathEntity> albums = await PhotoManager.getAssetPathList(
       type: RequestType.image,
@@ -52,6 +51,7 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
       temp.add(
         FutureBuilder(
           future: asset.thumbnailDataWithSize(const ThumbnailSize(200, 200)),
+          // future: asset.originFile,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return ClipRRect(
@@ -74,6 +74,10 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
                         image: MemoryImage(snapshot.data as Uint8List),
                         fit: BoxFit.cover,
                       ),
+                      // image: DecorationImage(
+                      //   image: FileImage(snapshot.data as File),
+                      //   fit: BoxFit.cover,
+                      // ),
                       borderRadius: BorderRadius.circular(5),
                     ),
                   ),
@@ -95,7 +99,6 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
         centerTitle: true,
         // leading: CustomIconButton(

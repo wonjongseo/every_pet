@@ -4,7 +4,6 @@ import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
-import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/calculate_kcal_controller.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +30,7 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
     nameEditingController.dispose();
     kcalEditingController.dispose();
     gramEditingController.dispose();
+    emptyEditingController.dispose();
     super.dispose();
   }
 
@@ -64,47 +64,10 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
                       child: ListView.separated(
                           itemBuilder: (context, index) {
                             bool isSelected = selectedIndex == index;
-                            return ListTile(
-                              isThreeLine: true,
-                              iconColor: AppColors.primaryColor,
-                              title: groceryTextField(
-                                  isSelected, controller, index),
-                              subtitle:
-                                  const SizedBox(), // For isThreeLine: true, Don't Delete
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  if (selectedIndex != index)
-                                    IconButton(
-                                      onPressed: () => onClickEditBtn(
-                                        index,
-                                        controller,
-                                      ),
-                                      icon:
-                                          const FaIcon(FontAwesomeIcons.pencil),
-                                    )
-                                  else
-                                    IconButton(
-                                      onPressed: () {
-                                        controller.updateGrocery(
-                                            index,
-                                            nameEditingController.text,
-                                            kcalEditingController.text,
-                                            gramEditingController.text);
-                                        selectedIndex = -1;
-                                        setState(() {});
-                                      },
-                                      icon: const FaIcon(FontAwesomeIcons.save),
-                                    ),
-                                  IconButton(
-                                    onPressed: () => controller.deleteGrocery(
-                                      controller.groceriesModels[index],
-                                    ),
-                                    icon: const FaIcon(
-                                        FontAwesomeIcons.deleteLeft),
-                                  ),
-                                ],
-                              ),
+                            return editGroceryListTile(
+                              isSelected,
+                              controller,
+                              index,
                             );
                           },
                           separatorBuilder: (context, index) {
@@ -122,6 +85,47 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
     );
   }
 
+  ListTile editGroceryListTile(
+      bool isSelected, CalculateKcalController controller, int index) {
+    return ListTile(
+      isThreeLine: true,
+      iconColor: AppColors.primaryColor,
+      title: groceryTextField(isSelected, controller, index),
+      subtitle: const SizedBox(), // For isThreeLine: true, Don't Delete
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (!isSelected)
+            IconButton(
+              onPressed: () => onClickEditBtn(
+                index,
+                controller,
+              ),
+              icon: const FaIcon(FontAwesomeIcons.pencil),
+            )
+          else
+            IconButton(
+              onPressed: () {
+                controller.updateGrocery(index, nameEditingController.text,
+                    kcalEditingController.text, gramEditingController.text);
+                selectedIndex = -1;
+                setState(() {});
+              },
+              icon: const FaIcon(FontAwesomeIcons.save),
+            ),
+          IconButton(
+            onPressed: () => controller.deleteGrocery(
+              controller.groceriesModels[index],
+            ),
+            icon: const FaIcon(FontAwesomeIcons.deleteLeft),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextEditingController emptyEditingController = TextEditingController();
+
   Column groceryTextField(
       bool isSelected, CalculateKcalController controller, int index) {
     return Column(
@@ -129,18 +133,17 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
         CustomTextField(
           readOnly: !(isSelected),
           focusNode: isSelected ? focusNode : null,
-          controller: isSelected ? nameEditingController : null,
-          hintStyle: isSelected ? activeHintStyle : null,
+          controller:
+              isSelected ? nameEditingController : emptyEditingController,
           hintText: controller.groceriesModels[index].name,
           textInputAction: TextInputAction.next,
         ),
         SizedBox(height: Responsive.height10),
         CustomTextField(
           readOnly: !(isSelected),
-          controller: isSelected ? kcalEditingController : null,
+          controller:
+              isSelected ? kcalEditingController : emptyEditingController,
           hintText: controller.groceriesModels[index].kcal.toStringAsFixed(1),
-          textInputAction: isSelected ? TextInputAction.next : null,
-          hintStyle: isSelected ? activeHintStyle : null,
           sufficIcon: Text(
             'kcal',
             style: subTitleStyle,
@@ -149,7 +152,8 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
         SizedBox(height: Responsive.height10),
         CustomTextField(
           readOnly: !(isSelected),
-          controller: isSelected ? gramEditingController : null,
+          controller:
+              isSelected ? gramEditingController : emptyEditingController,
           hintText: controller.groceriesModels[index].gram.toString(),
           onFieldSubmitted: (p0) {
             controller.updateGrocery(
@@ -158,10 +162,10 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
               kcalEditingController.text,
               gramEditingController.text,
             );
+
             selectedIndex = -1;
             setState(() {});
           },
-          hintStyle: isSelected ? activeHintStyle : null,
           sufficIcon: Text(
             'gram',
             style: subTitleStyle,
@@ -172,18 +176,25 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
   }
 
   void onClickEditBtn(int index, CalculateKcalController controller) {
-    nameEditingController.dispose();
-    kcalEditingController.dispose();
-    gramEditingController.dispose();
+    selectedIndex = index;
+    // nameEditingController.dispose();
+    // kcalEditingController.dispose();
+    // gramEditingController.dispose();
 
-    nameEditingController = TextEditingController();
-    kcalEditingController = TextEditingController();
-    gramEditingController = TextEditingController();
+    // nameEditingController = TextEditingController(text: '');
+    // kcalEditingController = TextEditingController(text: '');
+    // gramEditingController = TextEditingController(text: '');
+
+    nameEditingController.clear();
+    kcalEditingController.clear();
+    gramEditingController.clear();
+
+    setState(() {});
 
     selectedIndex = index;
     nameEditingController.text = controller.groceriesModels[selectedIndex].name;
     kcalEditingController.text =
-        controller.groceriesModels[selectedIndex].kcal.toString();
+        controller.groceriesModels[selectedIndex].kcal.toStringAsFixed(1);
     gramEditingController.text =
         controller.groceriesModels[selectedIndex].gram.toString();
 

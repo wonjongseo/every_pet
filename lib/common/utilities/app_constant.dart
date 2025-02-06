@@ -1,5 +1,6 @@
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/models/groceries_modal.dart';
+import 'package:every_pet/models/product_category_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:get/get.dart';
 
@@ -35,30 +36,67 @@ class AppConstant {
 
   static const String editCategorySign = "-@+편집+@-";
 
-  static const int invalidNumber = -9999;
+  static const int invalidNumber = -9192939;
 
   static List<GroceriesModel> defaultgroceriesModels = [
-    GroceriesModel(name: AppString.riceText.tr, kcalPer100g: 148, gram: 100),
-    GroceriesModel(name: AppString.potatoText.tr, kcalPer100g: 86, gram: 100),
     GroceriesModel(
-        name: AppString.sweetPotatoText.tr, kcalPer100g: 114, gram: 100),
+      name: AppString.riceText.tr,
+      kcalPer100g: 148,
+      gram: 100,
+    ),
     GroceriesModel(
-        name: AppString.chickenbreastText.tr, kcalPer100g: 109, gram: 100),
-    GroceriesModel(name: AppString.carrotText.tr, kcalPer100g: 34, gram: 100),
-    GroceriesModel(name: AppString.bananaText.tr, kcalPer100g: 93, gram: 100),
-    GroceriesModel(name: AppString.appleText.tr, kcalPer100g: 52, gram: 100),
-    GroceriesModel(name: AppString.tara.tr, kcalPer100g: 77, gram: 100),
+      name: AppString.potatoText.tr,
+      kcalPer100g: 86,
+      gram: 100,
+    ),
     GroceriesModel(
-        name: AppString.salmonText.tr, kcalPer100g: 139.9, gram: 100),
-    GroceriesModel(name: AppString.cucumberText.tr, kcalPer100g: 11, gram: 100),
+      name: AppString.sweetPotatoText.tr,
+      kcalPer100g: 114,
+      gram: 100,
+    ),
+    GroceriesModel(
+      name: AppString.chickenbreastText.tr,
+      kcalPer100g: 109,
+      gram: 100,
+    ),
+    GroceriesModel(
+      name: AppString.carrotText.tr,
+      kcalPer100g: 34,
+      gram: 100,
+    ),
+    GroceriesModel(
+      name: AppString.bananaText.tr,
+      kcalPer100g: 93,
+      gram: 100,
+    ),
+    GroceriesModel(
+      name: AppString.appleText.tr,
+      kcalPer100g: 52,
+      gram: 100,
+    ),
+    GroceriesModel(
+      name: AppString.tara.tr,
+      kcalPer100g: 77,
+      gram: 100,
+    ),
+    GroceriesModel(
+      name: AppString.salmonText.tr,
+      kcalPer100g: 139.9,
+      gram: 100,
+    ),
+    GroceriesModel(
+      name: AppString.cucumberText.tr,
+      kcalPer100g: 11,
+      gram: 100,
+    ),
   ];
 
-  static List<String> defaultCategoryStringList = [
-    AppString.foodExpenses.tr,
-    AppString.beautyExpenses.tr,
-    AppString.hospitalExpenses.tr,
-    AppString.entertainmentExpenses.tr,
-    AppString.lifeExpenses.tr,
+  static List<ProductCategoryModel> defaultCategoryStringList = [
+    ProductCategoryModel(name: AppString.foodExpenses.tr),
+    ProductCategoryModel(name: AppString.beautyExpenses.tr),
+    ProductCategoryModel(name: AppString.hospitalExpenses.tr),
+    ProductCategoryModel(name: AppString.entertainmentExpenses.tr),
+    ProductCategoryModel(name: AppString.lifeExpenses.tr),
   ];
 
   static List<StampModel> defaultStampModels = [

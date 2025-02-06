@@ -4,12 +4,11 @@ import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/view/enroll/widgets/gender_selector.dart';
+import 'package:every_pet/view/full_profile_image_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
@@ -20,6 +19,7 @@ class EnrollScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EnrollController controller = Get.put(EnrollController(isFirst));
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -93,7 +93,13 @@ class EnrollScreenBody extends StatelessWidget {
                           children: [
                             ProfileImage(
                               imagePath: controller.imagePath,
-                              isDog: controller.petType == PET_TYPE.DOG,
+                              onTap: () {
+                                Get.to(
+                                  () => FullProfileImageScreen(
+                                    imagePath: controller.imagePath,
+                                  ),
+                                );
+                              },
                             ),
                             ImagePickIconRow(
                               onClickCamaraIcon: () =>
@@ -105,7 +111,6 @@ class EnrollScreenBody extends StatelessWidget {
                         ),
                         SizedBox(height: Responsive.height10 * 2),
                         Form(
-                          key: controller.formKey,
                           child: Column(
                             children: [
                               CustomTextField(
@@ -114,7 +119,7 @@ class EnrollScreenBody extends StatelessWidget {
                                 textInputAction: TextInputAction.next,
                                 hintText: AppString.nameTextTr.tr,
                                 fontSize: Responsive.width16,
-                                validator: controller.nameValidator,
+                                // validator: controller.nameValidator,
                               ),
                               SizedBox(height: Responsive.height14),
                               CustomTextField(
@@ -128,7 +133,7 @@ class EnrollScreenBody extends StatelessWidget {
                                 ),
                                 hintText: AppString.weightTextTr.tr,
                                 sufficIcon: const Text('kg'),
-                                validator: controller.weightValidator,
+                                // validator: controller.weightValidator,
                               ),
                               SizedBox(height: Responsive.height14),
                               CustomTextField(
@@ -140,7 +145,7 @@ class EnrollScreenBody extends StatelessWidget {
                                 controller:
                                     controller.birthDayEditingController,
                                 hintText: AppString.birthDayTextTr.tr,
-                                validator: controller.birthDayValidator,
+                                // validator: controller.birthDayValidator,
                               ),
                             ],
                           ),
@@ -229,10 +234,9 @@ class EnrollScreenBody extends StatelessWidget {
                           ),
                           child: CustomTextField(
                             hintText: AppString.hasipitalTextTr.tr,
-                            maxLines: 1,
                             textInputAction: TextInputAction.next,
                             controller:
-                                controller.hosipitalNameEditingController,
+                                controller.hospitalNameEditingController,
                           ),
                         ),
                         Padding(
@@ -240,8 +244,7 @@ class EnrollScreenBody extends StatelessWidget {
                               horizontal: Responsive.width10),
                           child: CustomTextField(
                             controller:
-                                controller.hosipitalNumberEditingController,
-                            maxLines: 1,
+                                controller.hospitalNumberEditingController,
                             keyboardType: TextInputType.phone,
                             hintText: AppString.hasipitalNumTextTr.tr,
                           ),
@@ -270,10 +273,9 @@ class EnrollScreenBody extends StatelessWidget {
                           ),
                           child: CustomTextField(
                             hintText: AppString.regularTrmingShopName.tr,
-                            maxLines: 1,
                             textInputAction: TextInputAction.next,
                             controller:
-                                controller.hosipitalNameEditingController,
+                                controller.groomingNameEditingController,
                           ),
                         ),
                         Padding(
@@ -281,8 +283,7 @@ class EnrollScreenBody extends StatelessWidget {
                               horizontal: Responsive.width10),
                           child: CustomTextField(
                             controller:
-                                controller.hosipitalNumberEditingController,
-                            maxLines: 1,
+                                controller.groomingNumberEditingController,
                             keyboardType: TextInputType.phone,
                             hintText: AppString.regularTrmingShopNumber.tr,
                           ),

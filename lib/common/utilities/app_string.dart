@@ -4,6 +4,10 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'ja_JP': {
+          AppString.askShutDownMsg: AppString.askShutDownMsgJp,
+          AppString.changedSystemLanguageMsg:
+              AppString.changedSystemLanguageMsgJp,
+          AppString.todayText: AppString.todayTextJp,
           AppString.editProfile: AppString.editProfileJp,
           AppString.setLanguage: AppString.setLanguageJp,
           AppString.japaneseText: AppString.japaneseTextJp,
@@ -39,7 +43,7 @@ class AppTranslations extends Translations {
           AppString.duplicateNameTr: AppString.duplicateNameJp,
           AppString.monthText: AppString.monthTextJp,
           AppString.yearText: AppString.yearTextJp,
-          AppString.dayTextTr: AppString.dayTextJp,
+          AppString.dayText: AppString.dayTextJp,
           AppString.dogTextTr: AppString.dogTextJp,
           AppString.catTextTr: AppString.catTextJp,
           AppString.hasipitalTextTr: AppString.hasipitalTextJp,
@@ -51,7 +55,7 @@ class AppTranslations extends Translations {
           AppString.previousDeletePetMsg2Tr: AppString.previousDeletePetMsg2Jp,
           AppString.previousDeletePetMsg3Tr: AppString.previousDeletePetMsg3Jp,
           AppString.previousDeletePetMsg4Tr: AppString.previousDeletePetMsg4Jp,
-          AppString.editStampText: AppString.changeStampTextJp,
+          AppString.editStampText: AppString.editStampTextJp,
           AppString.stamp1Tr: AppString.stamp1Jp,
           AppString.stamp2Tr: AppString.stamp2Jp,
           AppString.stamp3Tr: AppString.stamp3Jp,
@@ -69,8 +73,8 @@ class AppTranslations extends Translations {
           AppString.handmadeTextTr: AppString.handmadeTextJp,
           AppString.updateBtnText: AppString.updateBtnTextJp,
           AppString.cancelBtnTextTr: AppString.cancelBtnTextJp,
-          AppString.completeTextTr: AppString.completeTextJp,
-          AppString.updateMsgTr: AppString.updateMsgJp,
+          AppString.completeText: AppString.completeTextJp,
+          AppString.updateMsg: AppString.updateMsgJp,
           AppString.notTextScheduleText: AppString.notTextScheduleTextJp,
           AppString.addScheduleText: AppString.addScheduleTextJp,
           AppString.foodTextTr: AppString.foodTextJp,
@@ -128,8 +132,8 @@ class AppTranslations extends Translations {
           AppString.doneAddtionMsg: AppString.doneAddtionMsgJp,
           AppString.doneUpdatedMsg: AppString.doneUpdatedMsgJp,
           AppString.stampIsText: AppString.stampIsTextJp,
-          AppString.visiableText: AppString.visiableTextJp,
-          AppString.inVisiableText: AppString.inVisiableTextJp,
+          AppString.changedVisiableMsg: AppString.changedVisiableMsgJp,
+          AppString.changedInVisiableMsg: AppString.changedInVisiableMsgJp,
           AppString.yesBtn: AppString.yesBtnJp,
           AppString.noBtn: AppString.noBtnJp,
           AppString.errorCreateEmail1: AppString.errorCreateEmail1Jp,
@@ -140,6 +144,10 @@ class AppTranslations extends Translations {
           AppString.reportMsgContect: AppString.reportMsgContectJp,
         },
         'ko_KR': {
+          AppString.askShutDownMsg: AppString.askShutDownMsgKr,
+          AppString.changedSystemLanguageMsg:
+              AppString.changedSystemLanguageMsgKr,
+          AppString.todayText: AppString.todayTextKr,
           AppString.editProfile: AppString.editProfileKr,
           AppString.meiText: AppString.meiTextKr,
           AppString.editMenuText: AppString.editMenuTextKr,
@@ -172,7 +180,7 @@ class AppTranslations extends Translations {
           AppString.duplicateNameTr: AppString.duplicateNameKr,
           AppString.monthText: AppString.monthTextKr,
           AppString.yearText: AppString.yearTextKr,
-          AppString.dayTextTr: AppString.dayTextKr,
+          AppString.dayText: AppString.dayTextKr,
           AppString.dogTextTr: AppString.dogTextKr,
           AppString.catTextTr: AppString.catTextKr,
           AppString.hasipitalTextTr: AppString.hasipitalTextKr,
@@ -184,7 +192,7 @@ class AppTranslations extends Translations {
           AppString.previousDeletePetMsg2Tr: AppString.previousDeletePetMsg2Kr,
           AppString.previousDeletePetMsg3Tr: AppString.previousDeletePetMsg3Kr,
           AppString.previousDeletePetMsg4Tr: AppString.previousDeletePetMsg4Kr,
-          AppString.editStampText: AppString.changeStampTextKr,
+          AppString.editStampText: AppString.editStampTextKr,
           AppString.stamp1Tr: AppString.stamp1Kr,
           AppString.stamp2Tr: AppString.stamp2Kr,
           AppString.stamp3Tr: AppString.stamp3Kr,
@@ -202,8 +210,8 @@ class AppTranslations extends Translations {
           AppString.handmadeTextTr: AppString.handmadeTextKr,
           AppString.updateBtnText: AppString.updateBtnTextKr,
           AppString.cancelBtnTextTr: AppString.cancelBtnTextKr,
-          AppString.completeTextTr: AppString.completeTextKr,
-          AppString.updateMsgTr: AppString.updateMsgKr,
+          AppString.completeText: AppString.completeTextKr,
+          AppString.updateMsg: AppString.updateMsgKr,
           AppString.notTextScheduleText: AppString.notTextScheduleTextKr,
           AppString.addScheduleText: AppString.addScheduleTextKr,
           AppString.foodTextTr: AppString.foodTextKr,
@@ -261,8 +269,8 @@ class AppTranslations extends Translations {
           AppString.doneAddtionMsg: AppString.doneAddtionMsgKr,
           AppString.doneUpdatedMsg: AppString.doneUpdatedMsgKr,
           AppString.stampIsText: AppString.stampIsTextKr,
-          AppString.visiableText: AppString.visiableTextKr,
-          AppString.inVisiableText: AppString.inVisiableTextKr,
+          AppString.changedVisiableMsg: AppString.changedVisiableMsgKr,
+          AppString.changedInVisiableMsg: AppString.changedInVisiableMsgkr,
           AppString.yesBtn: AppString.yesBtnKr,
           AppString.noBtn: AppString.noBtnKr,
           AppString.errorCreateEmail1: AppString.errorCreateEmail1Kr,
@@ -301,9 +309,24 @@ class AppString {
 
 //-----------------------//
 
+  static String changedSystemLanguageMsg = 'changedSystemLanguageMsgTr';
+  static String changedSystemLanguageMsgKr =
+      '시스템 언어가 변경되었습니다.\n폰트를 적용 시키려면 앱을 재기동 할 필요가 있습니다.';
+  static String changedSystemLanguageMsgJp =
+      'システム言語が変更されました。\nフォントを適用させるにはアプリを再起動する必要があります。';
+
+  static String askShutDownMsg = 'askShutDownMsgTr';
+  static String askShutDownMsgKr = '재기동 하시겠습니까?';
+  static String askShutDownMsgJp = '再起動しますか。';
+
+  static String todayText = 'todayTextTr';
+  static String todayTextKr = '오늘';
+  static String todayTextJp = '今日';
+
   static String editProfile = 'editProfileTr';
   static String editProfileKr = '프로필 변경';
   static String editProfileJp = 'プロフィール編集';
+
   static String setLanguage = 'setLanguageTr';
   static String setLanguageKr = '언어 선택';
   static String setLanguageJp = '言語選択';
@@ -437,7 +460,7 @@ class AppString {
   static String monthTextKr = '월';
   static String monthTextJp = "月";
 
-  static String dayTextTr = "dayTextTr";
+  static String dayText = "dayTextTr";
   static String dayTextKr = '일';
   static String dayTextJp = "日";
 
@@ -486,8 +509,8 @@ class AppString {
   static String previousDeletePetMsg4Jp = "を削除しますか？";
 
   static String editStampText = "changeStampTextTr";
-  static String changeStampTextKr = '스탬프 편집';
-  static String changeStampTextJp = "スタンプ編集";
+  static String editStampTextKr = '스탬프 편집';
+  static String editStampTextJp = "スタンプ編集";
 
   static String stamp1Tr = "stamp1Tr";
   static String stamp1Kr = '약 1';
@@ -557,13 +580,13 @@ class AppString {
   static String cancelBtnTextKr = '취소';
   static String cancelBtnTextJp = "取消";
 
-  static String completeTextTr = "completeTextTr";
+  static String completeText = "completeTextTr";
   static String completeTextKr = '완료';
   static String completeTextJp = "完了";
 
-  static String updateMsgTr = "updateMsgTr";
-  static String updateMsgKr = '更新されました';
-  static String updateMsgJp = "변경 되었습니다.";
+  static String updateMsg = "updateMsgTr";
+  static String updateMsgKr = '변경 되었습니다.';
+  static String updateMsgJp = "更新されました。";
 
   static String notTextScheduleText = "notTextScheduleTextTr";
   static String notTextScheduleTextKr = '일정이 없습니다.';
@@ -777,13 +800,13 @@ class AppString {
   static String stampIsTextKr = "스탬프가";
   static String stampIsTextJp = 'スタンプが';
 
-  static String visiableText = "visiableTextTr";
-  static String visiableTextKr = "표시";
-  static String visiableTextJp = '表示';
+  static String changedVisiableMsg = "changedVisiableMsgTr";
+  static String changedVisiableMsgKr = "표시로 변경되었습니다.";
+  static String changedVisiableMsgJp = '表示に変更されました。';
 
-  static String inVisiableText = "inVisiableTextTr";
-  static String inVisiableTextKr = "미표시";
-  static String inVisiableTextJp = '未表示';
+  static String changedInVisiableMsg = "changedInVisiableMsgTr";
+  static String changedInVisiableMsgkr = "표시안함으로 변경되었습니다.";
+  static String changedInVisiableMsgJp = '未表示';
 
   static String yesBtn = "yesBtnTr";
   static String yesBtnKr = '네!';
@@ -804,7 +827,7 @@ class AppString {
       "携帯にメールが登録されていなければ、 $appNameJpからメールを作成することができません。\n別途のメールアプリからお問い合わせして頂ければ幸いと存じております。\n\nメール　[visionwill3322@gmail.com]をコピーしますか。";
 
   static String tipOffMessage = "tipOffMessageTr";
-  static String tipOffMessageKr = '제보는 개발자에게 \n아주 큰 힘이 됩니다!';
+  static String tipOffMessageKr = '제보는 개발자에게 아주 큰 힘이 됩니다!';
   static String tipOffMessageJp = "お問い合わせは開発者にとても大きな力になります！";
 
   static String copyWordMsg = "copyWordMsgTr";

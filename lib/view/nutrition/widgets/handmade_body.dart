@@ -15,32 +15,30 @@ class HandmadeBody extends StatelessWidget {
     return Column(
       children: [
         CustomTextField(
-          focusNode: controller.focusNode2,
-          autoFocus: true,
+          focusNode: controller.focusNode1,
           controller: controller.teController4,
           hintText: AppString.amountGivenGramText.tr,
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.number,
-          sufficIcon: const Text('g'),
-          maxLines: 1,
+          sufficIcon: Text('1${AppString.dayText.tr}/ g'),
         ),
         SizedBox(height: Responsive.height10),
         CustomTextField(
+          focusNode: controller.focusNode2,
           controller: controller.teController5,
           hintText: AppString.vegetableText.tr,
-          sufficIcon: const Text('g'),
-          maxLines: 1,
+          sufficIcon: Text('1${AppString.dayText.tr}/ g'),
           textInputAction: TextInputAction.next,
           keyboardType: TextInputType.number,
         ),
         SizedBox(height: Responsive.height10),
         CustomTextField(
+          focusNode: controller.focusNode3,
           controller: controller.teController6,
           hintText: AppString.proteinText.tr,
           textInputAction: TextInputAction.done,
           keyboardType: TextInputType.number,
-          sufficIcon: const Text('g'),
-          maxLines: 1,
+          sufficIcon: Text('1${AppString.dayText.tr}/ g'),
         ),
         Align(
           alignment: Alignment.centerRight,

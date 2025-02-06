@@ -33,14 +33,27 @@ class PetModel {
   @HiveField(6)
   double weight;
 
-  @HiveField(9)
-  NutritionModel? nutritionModel;
-
   @HiveField(7)
   late String id;
 
   @HiveField(8)
   late DateTime createdAt;
+
+  @HiveField(9)
+  NutritionModel? nutritionModel;
+
+  @HiveField(10)
+  String? hospitalName;
+
+  @HiveField(11)
+  String? hospitalNumber;
+
+  @HiveField(12)
+  String? groomingName;
+
+  @HiveField(13)
+  String? groomingNumber;
+
   PetModel({
     required this.name,
     required this.imageUrl,
@@ -50,6 +63,10 @@ class PetModel {
     this.isNeuter,
     this.nutritionModel,
     this.isPregnancy,
+    this.hospitalName,
+    this.hospitalNumber,
+    this.groomingName,
+    this.groomingNumber,
   }) {
     id = const Uuid().v4();
     createdAt = DateTime.now();
@@ -86,17 +103,28 @@ class PetModel {
     bool? isPregnancy,
     NutritionModel? nutritionModel,
     double? weight,
+    String? hospitalName,
+    String? hospitalNumber,
+    String? groomingName,
+    String? groomingNumber,
   }) {
-    return PetModel(
+    PetModel pet = PetModel(
       name: name ?? this.name,
       imageUrl: imageUrl ?? this.imageUrl,
       birthDay: birthDay ?? this.birthDay,
       genderType: genderType ?? this.genderType,
       isNeuter: isNeuter ?? this.isNeuter,
       isPregnancy: isPregnancy ?? this.isPregnancy,
-      nutritionModel: nutritionModel ?? this.nutritionModel,
       weight: weight ?? this.weight,
+      nutritionModel: nutritionModel ?? this.nutritionModel,
+      hospitalName: hospitalName ?? this.hospitalName,
+      hospitalNumber: hospitalNumber ?? this.hospitalNumber,
+      groomingName: groomingName ?? this.groomingName,
+      groomingNumber: groomingNumber ?? this.groomingNumber,
     );
+    pet.id = id;
+    pet.createdAt = createdAt;
+    return pet;
   }
 
   Map<String, dynamic> toMap() {

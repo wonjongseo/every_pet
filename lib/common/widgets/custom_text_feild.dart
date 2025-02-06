@@ -22,7 +22,6 @@ class CustomTextField extends StatelessWidget {
     this.maxLines,
     this.autoFocus,
     this.maxLength,
-    this.validator,
     this.focusNode,
     this.textInputAction,
     this.inputFormatters,
@@ -48,15 +47,15 @@ class CustomTextField extends StatelessWidget {
   final bool? autoFocus;
   final int? maxLength;
   final int? maxLines;
-  final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputAction? textInputAction;
   final Widget? widget;
   final Function(String)? onFieldSubmitted;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 52,
+      height: maxLines == null ? 52 : (40 * maxLines!).toDouble(),
       padding: const EdgeInsets.only(left: 10.0),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey, width: 1.0),
@@ -79,7 +78,6 @@ class CustomTextField extends StatelessWidget {
               maxLength: maxLength,
               onFieldSubmitted: onFieldSubmitted,
               autofocus: autoFocus ?? false,
-              validator: validator,
               style: contentStyle,
               cursorColor: Get.isDarkMode ? Colors.grey[100] : Colors.grey[700],
               decoration: InputDecoration(

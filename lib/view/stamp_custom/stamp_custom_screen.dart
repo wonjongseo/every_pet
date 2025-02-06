@@ -57,7 +57,6 @@ class StampCustomScreen extends StatelessWidget {
                     ),
                   ),
                   title: CustomTextField(
-                    maxLines: 1,
                     hintText: controller.stamps[index].name,
                     hintStyle: activeHintStyle,
                     onTap: () {
@@ -94,124 +93,6 @@ class StampCustomScreen extends StatelessWidget {
                 return const Divider(thickness: .5);
               },
               itemCount: controller.stamps.length),
-        );
-        return SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: Responsive.width20,
-              bottom: Responsive.width20,
-              left: Responsive.width20,
-              right: Responsive.width10,
-            ),
-            child: Column(
-              children: [
-                Column(
-                  children: List.generate(
-                    controller.stamps.length,
-                    (index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryColor.withOpacity(.5),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Image.asset(
-                                StampModel.getIcon(
-                                    controller.stamps[index].iconIndex),
-                              ),
-                            ),
-                            SizedBox(width: Responsive.width10),
-                            Expanded(
-                              child: CustomTextField(
-                                // controller: textEditingControllers[index],
-                                maxLines: 1,
-                                hintText: controller.stamps[index].name,
-                                onTap: () {
-                                  Get.dialog(AlertDialog(
-                                    insetPadding: EdgeInsets.symmetric(
-                                      horizontal: Responsive.width15,
-                                    ),
-                                    content: EnrollStampDialog(
-                                        stamp: controller.stamps[index]),
-                                  ));
-                                },
-                                readOnly: true,
-                                // readOnly: isReadOnly,
-                              ),
-                            ),
-                            Checkbox(
-                              value: controller.stamps[index].isVisible,
-                              onChanged: (v) => controller.toggleVisable(index),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.remove),
-                            )
-                          ],
-                        ),
-                        // child: RowStampWidget(
-                        //   stamp: controller.stamps[index],
-                        // ),
-                      );
-                    },
-                  ),
-                ),
-                // if (newTextEditingControllers != null)
-                //   Column(
-                //     children: List.generate(newTextEditingControllers!.length,
-                //         (index) {
-                //       return Padding(
-                //         padding: const EdgeInsets.all(8.0),
-                //         child: Row(
-                //           children: [
-                //             DropdownButton(
-                //                 value: newStamp![index].iconIndex,
-                //                 items: List.generate(
-                //                   controller.addstampsIcon.length,
-                //                   (index) {
-                //                     return DropdownMenuItem(
-                //                       value: controller
-                //                           .addstampsIcon[index].iconIndex,
-                //                       child: Container(
-                //                         width: Responsive.width10 * 4,
-                //                         height: Responsive.width10 * 4,
-                //                         child: Image.asset(
-                //                           StampModel.getIcon(controller
-                //                               .addstampsIcon[index].iconIndex),
-                //                         ),
-                //                       ),
-                //                     );
-                //                   },
-                //                 ),
-                //                 onChanged: (v) {
-                //                   newStamp![index].iconIndex = v!;
-                //                   setState(() {});
-                //                 }),
-                //             SizedBox(width: Responsive.width10),
-                //             Expanded(
-                //               child: CustomTextField(
-                //                 controller: newTextEditingControllers![index],
-                //                 maxLines: 1,
-                //               ),
-                //             ),
-                //             Checkbox(
-                //               value: controller.stamps[index].isVisible,
-                //               onChanged: (v) =>
-                //                   controller.toogleVisualbe(index),
-                //             )
-                //           ],
-                //         ),
-                //       );
-                //     }),
-                //   ),
-              ],
-            ),
-          ),
         );
       }),
     );
