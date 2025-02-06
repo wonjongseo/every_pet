@@ -27,7 +27,7 @@ class DogModelAdapter extends TypeAdapter<DogModel> {
     )
       ..nutritionModel = fields[9] as NutritionModel?
       ..id = fields[7] as String
-      ..createdAt = fields[8] as DateTime;
+      ..createdAt = fields[8] as int;
   }
 
   @override

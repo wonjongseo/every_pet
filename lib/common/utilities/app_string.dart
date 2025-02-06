@@ -602,7 +602,7 @@ class AppString {
   static String regularHospitalEn = "Regular Hospital";
 
   static String hasipitalCtrHintTr = "hasipitalCtrHintTr";
-  static String hasipitalCtrHintKr = "병원명을 입력해주세요.";
+  static String hasipitalCtrHintKr = "병원 명을 입력해주세요.";
   static String hasipitalCtrHintJp = "病院名を入力してください";
   static String hasipitalCtrHintEn = "Please Enter The name of Hasipital";
 
@@ -678,12 +678,12 @@ class AppString {
   static String catTextEn = "Kitten";
 
   static String hasipitalTextTr = "hasipitalTextTr";
-  static String hasipitalTextKr = '병원명';
+  static String hasipitalTextKr = '병원 명';
   static String hasipitalTextJp = "病院名";
   static String hasipitalTextEn = "Hasipital name";
 
   static String hasipitalNumTextTr = "hasipitalNumTextTr";
-  static String hasipitalNumTextKr = '병원번호';
+  static String hasipitalNumTextKr = '병원 번호';
   static String hasipitalNumTextJp = "病院の電話番号";
   static String hasipitalNumTextEn = "Hasipital phone number";
 
@@ -708,9 +708,9 @@ class AppString {
   static String previousDeletePetMsg1En = "Once deleted, Data related to";
 
   static String previousDeletePetMsg2Tr = "previousDeletePetMsg2Tr";
-  static String previousDeletePetMsg2Kr = 'cannot be recovered.';
+  static String previousDeletePetMsg2Kr = '에 관한 데이터를 복구할 수 없습니다.';
   static String previousDeletePetMsg2Jp = "に関するデータを戻すことができません。";
-  static String previousDeletePetMsg2En = "";
+  static String previousDeletePetMsg2En = "cannot be recovered.";
 
   static String previousDeletePetMsg3Tr = "previousDeletePetMsg3Tr";
   static String previousDeletePetMsg3Kr = '그래도 ';
@@ -823,7 +823,7 @@ In other words, it means the amount of energy you need to rest.""";
   static String dryTextEn = "Feed";
 
   static String handmadeTextTr = "handmadeTextTr";
-  static String handmadeTextKr = '수제';
+  static String handmadeTextKr = '손수 만듬';
   static String handmadeTextJp = "手作り";
   static String handmadeTextEn = "Handmade";
 
@@ -909,7 +909,7 @@ In other words, it means the amount of energy you need to rest.""";
 
   static String makterText = "makterTextTr";
   static String makterTextKr = '제조사';
-  static String makterTextJp = "メーカ";
+  static String makterTextJp = "メーカー";
   static String makterTextEn = "Maker";
 
   static String numberOfGivenText = "numberOfGivenTr";
@@ -933,7 +933,7 @@ In other words, it means the amount of energy you need to rest.""";
   static String amountGivenGramTextEn = "Serving size";
 
   static String vegetableText = "vegetableText";
-  static String vegetableTextKr = '야체';
+  static String vegetableTextKr = '야채';
   static String vegetableTextJp = '野菜';
   static String vegetableTextEn = "Vegetable";
 
@@ -1154,10 +1154,9 @@ Would you like to copy the email [visionwill3322@gmail.com]?"
 """;
 
   static String tipOffMessage = "tipOffMessageTr";
-  static String tipOffMessageKr = '제보는 개발자에게 아주 큰 힘이 됩니다!';
-  static String tipOffMessageJp = "お問い合わせは開発者にとても大きな力になります！";
-  static String tipOffMessageEn =
-      "Your feedback is greatly appreciated and\nhelps the developer a lot!";
+  static String tipOffMessageKr = '여러분의 의견은 큰 힘이 됩니다!';
+  static String tipOffMessageJp = "皆さんのご意見が大きな力になります！";
+  static String tipOffMessageEn = "Your opinions are a great help for me!";
 
   static String copyWordMsg = "copyWordMsgTr";
   static String copyWordMsgKr = '가\n 복사(Ctrl + C) 되었습니다.';

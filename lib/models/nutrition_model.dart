@@ -18,14 +18,14 @@ class NutritionModel {
   late String id;
 
   @HiveField(3)
-  late DateTime createdAt;
+  late int createdAt;
 
   NutritionModel({
     this.makerModel,
     this.handmadeModel,
   }) {
     id = const Uuid().v4();
-    createdAt = DateTime.now();
+    createdAt = DateTime.now().microsecondsSinceEpoch;
   }
 
   @override

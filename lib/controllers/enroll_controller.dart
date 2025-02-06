@@ -61,8 +61,6 @@ class EnrollController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
-
     nameEditingController = TextEditingController();
     birthDayEditingController = TextEditingController();
     weightEditingController = TextEditingController();
@@ -70,12 +68,14 @@ class EnrollController extends GetxController {
     hospitalNumberEditingController = TextEditingController();
     groomingNameEditingController = TextEditingController();
     groomingNumberEditingController = TextEditingController();
+    super.onInit();
   }
 
   @override
   void onReady() async {
     final permission = await PhotoManager.requestPermissionExtend();
     if (!permission.isAuth) return PhotoManager.openSetting();
+
     super.onReady();
   }
 
@@ -153,9 +153,18 @@ class EnrollController extends GetxController {
       log("image Picker error$e");
     }
 
-    petsController.getPetModals();
+    await petsController.getPetModals();
     if (isFirst) {
       Get.off(() => const MainScreen());
+      // if (Get.isRegistered<EnrollController>()) {
+      //   print(
+      //       'Get.isRegistered<EnrollController>() : ${Get.isRegistered<EnrollController>()}');
+
+      //   await Get.delete<EnrollController>();
+
+      //   print(
+      //       'Get.isRegistered<EnrollController>() : ${Get.isRegistered<EnrollController>()}');
+      // }
     } else {
       Get.back();
     }

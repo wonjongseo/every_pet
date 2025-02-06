@@ -31,7 +31,7 @@ class PetModelAdapter extends TypeAdapter<PetModel> {
       groomingNumber: fields[13] as String?,
     )
       ..id = fields[7] as String
-      ..createdAt = fields[8] as DateTime;
+      ..createdAt = fields[8] as int;
   }
 
   @override

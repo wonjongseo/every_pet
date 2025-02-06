@@ -24,7 +24,9 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
     )
       ..startTime = fields[4] as DateTime?
       ..endTime = fields[5] as DateTime?
-      ..color = fields[7] as int?;
+      ..color = fields[7] as int?
+      ..id = fields[8] as String
+      ..createdAt = fields[9] as int;
   }
 
   @override
@@ -44,7 +46,11 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
       ..writeByte(6)
       ..write(obj.petModel)
       ..writeByte(7)
-      ..write(obj.color);
+      ..write(obj.color)
+      ..writeByte(8)
+      ..write(obj.id)
+      ..writeByte(9)
+      ..write(obj.createdAt);
   }
 
   @override

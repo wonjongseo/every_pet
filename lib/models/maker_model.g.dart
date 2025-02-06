@@ -22,7 +22,7 @@ class MakerModelAdapter extends TypeAdapter<MakerModel> {
       givenGramOnce: fields[2] as int,
     )
       ..id = fields[3] as String
-      ..createdAt = fields[4] as DateTime;
+      ..createdAt = fields[4] as int;
   }
 
   @override

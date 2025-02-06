@@ -37,7 +37,7 @@ class PetModel {
   late String id;
 
   @HiveField(8)
-  late DateTime createdAt;
+  late int createdAt;
 
   @HiveField(9)
   NutritionModel? nutritionModel;
@@ -69,7 +69,7 @@ class PetModel {
     this.groomingNumber,
   }) {
     id = const Uuid().v4();
-    createdAt = DateTime.now();
+    createdAt = DateTime.now().microsecondsSinceEpoch;
   }
 
   double getRER() {

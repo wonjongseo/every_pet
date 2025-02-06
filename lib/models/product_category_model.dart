@@ -11,11 +11,11 @@ class ProductCategoryModel {
   @HiveField(1)
   late String id;
   @HiveField(2)
-  late DateTime createdAt;
+  late int createdAt;
 
   ProductCategoryModel({required this.name}) {
     id = const Uuid().v4();
-    createdAt = DateTime.now();
+    createdAt = DateTime.now().microsecondsSinceEpoch;
   }
 
   @override

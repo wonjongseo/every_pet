@@ -18,7 +18,7 @@ class ExpensiveModel {
   @HiveField(4)
   late String id;
   @HiveField(5)
-  late DateTime createdAt;
+  late int createdAt;
 
   ExpensiveModel({
     required this.date,
@@ -27,7 +27,7 @@ class ExpensiveModel {
     required this.price,
   }) {
     id = const Uuid().v4();
-    createdAt = DateTime.now();
+    createdAt = DateTime.now().microsecondsSinceEpoch;
   }
 
   @override

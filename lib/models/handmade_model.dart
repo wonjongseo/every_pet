@@ -21,7 +21,7 @@ class HandmadeModel {
   late String id;
 
   @HiveField(4)
-  late DateTime createdAt;
+  late int createdAt;
 
   HandmadeModel({
     required this.givenGramPerDay,
@@ -29,7 +29,7 @@ class HandmadeModel {
     required this.givenProteinGram,
   }) {
     id = const Uuid().v4();
-    createdAt = DateTime.now();
+    createdAt = DateTime.now().microsecondsSinceEpoch;
   }
 
   @override

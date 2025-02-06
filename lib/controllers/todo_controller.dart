@@ -71,7 +71,7 @@ class TodoController extends GetxController {
     _selectedDay = _focusedDay;
     // getTodos();
 
-    await getAllTodos();
+    getAllTodos();
   }
 
   Future<void> getAllTodos() async {

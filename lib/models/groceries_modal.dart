@@ -18,14 +18,14 @@ class GroceriesModel {
   late String id;
 
   @HiveField(8)
-  late DateTime createdAt;
+  late int createdAt;
 
   GroceriesModel(
       {required this.name, required double kcalPer100g, int gram = 100})
       : _kcalPerGram = kcalPer100g / 100,
         _gram = gram {
     id = const Uuid().v4();
-    createdAt = DateTime.now();
+    createdAt = DateTime.now().microsecondsSinceEpoch;
   }
 
   double get kcal {

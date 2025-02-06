@@ -21,7 +21,7 @@ class StampModel {
   late String id;
 
   @HiveField(4)
-  late DateTime createdAt;
+  late int createdAt;
 
   // @HiveField(2, defaultValue: false)
   // bool isDone;
@@ -32,7 +32,7 @@ class StampModel {
     required this.isVisible,
   }) {
     id = const Uuid().v4();
-    createdAt = DateTime.now();
+    createdAt = DateTime.now().microsecondsSinceEpoch;
   }
 
   static String getIcon(iconIndex) {
@@ -105,7 +105,7 @@ class StampModel {
         return const Color(0xFF229cff);
 
       case 2:
-        return const Color(0xFF56e1ff);
+        return const Color(0xFF56e1ff); //ok
 
       case 3:
         return const Color(0xFFf59b23);
@@ -114,10 +114,10 @@ class StampModel {
         return const Color(0xFFf59b23);
 
       case 5:
-        return const Color(0xFF7ec636);
+        return const Color(0xFFe5b7ff);
 
       case 6:
-        return const Color(0xFFe5b7ff);
+        return const Color(0xFF7ec636);
 
       case 7:
         return const Color(0xFFdbff85);

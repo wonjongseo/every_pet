@@ -23,7 +23,7 @@ class ExpensiveModelAdapter extends TypeAdapter<ExpensiveModel> {
       price: fields[2] as int,
     )
       ..id = fields[4] as String
-      ..createdAt = fields[5] as DateTime;
+      ..createdAt = fields[5] as int;
   }
 
   @override

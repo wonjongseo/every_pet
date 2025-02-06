@@ -18,11 +18,10 @@ class SplashController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    petsController = Get.put(PetsController());
-    await initDefaultDatas();
 
-    Get.put(TodoController());
-    Get.put(NutritionController());
+    await initDefaultDatas(); // don't swap to petsController = Get.put(PetsController());
+    petsController = Get.put(PetsController());
+
     navigate();
   }
 

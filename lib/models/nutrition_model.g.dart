@@ -21,7 +21,7 @@ class NutritionModelAdapter extends TypeAdapter<NutritionModel> {
       handmadeModel: fields[1] as HandmadeModel?,
     )
       ..id = fields[2] as String
-      ..createdAt = fields[3] as DateTime;
+      ..createdAt = fields[3] as int;
   }
 
   @override

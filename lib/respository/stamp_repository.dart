@@ -14,9 +14,7 @@ class StampRepository {
   Future<List<StampModel>> getStamps() async {
     var box = await Hive.openBox<StampModel>(AppConstant.stampModelBox);
 
-    // 데이터 읽기
     List<StampModel> stamps = box.values.toList();
-    print('stamps.length : ${stamps.length}');
 
     stamps.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
@@ -25,7 +23,6 @@ class StampRepository {
 
   void deleteStamp(StampModel stampModel) async {
     var box = await Hive.openBox<StampModel>(AppConstant.stampModelBox);
-    // 데이터 읽기
     await box.delete(stampModel.id);
   }
 }

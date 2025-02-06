@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
+import 'package:uuid/uuid.dart';
 
 part 'todo_model.g.dart';
 
@@ -27,11 +28,18 @@ class TodoModel {
   PetModel? petModel;
   @HiveField(7)
   int? color;
+  @HiveField(8)
+  late String id;
+  @HiveField(9)
+  late int createdAt;
   TodoModel(
       {required this.stamps,
       required this.memo,
       required this.dateTime,
-      this.petModel});
+      this.petModel}) {
+    id = const Uuid().v4();
+    createdAt = DateTime.now().microsecondsSinceEpoch;
+  }
 
   @override
   String toString() =>

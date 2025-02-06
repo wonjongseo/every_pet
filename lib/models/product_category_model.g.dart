@@ -20,7 +20,7 @@ class ProductCategoryModelAdapter extends TypeAdapter<ProductCategoryModel> {
       name: fields[0] as String,
     )
       ..id = fields[1] as String
-      ..createdAt = fields[2] as DateTime;
+      ..createdAt = fields[2] as int;
   }
 
   @override

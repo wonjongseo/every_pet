@@ -21,7 +21,7 @@ class MakerModel {
   late String id;
 
   @HiveField(4)
-  late DateTime createdAt;
+  late int createdAt;
 
   MakerModel({
     required this.makerName,
@@ -29,7 +29,7 @@ class MakerModel {
     required this.givenGramOnce,
   }) {
     id = const Uuid().v4();
-    createdAt = DateTime.now();
+    createdAt = DateTime.now().microsecondsSinceEpoch;
   }
 
   @override

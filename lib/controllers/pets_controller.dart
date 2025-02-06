@@ -44,13 +44,13 @@ class PetsController extends GetxController {
     bottomTapIndex =
         await SettingRepository.getInt(AppConstant.lastBottomTapIndexKey);
 
-    await getPetModals();
+    await getPetModals(); // dont't swap to  calendarController = Get.put(TodoController()); and  nutritionController = Get.put(NutritionController());
+    calendarController = Get.put(TodoController());
+    nutritionController = Get.put(NutritionController());
   }
 
   @override
   void onReady() async {
-    calendarController = Get.find<TodoController>();
-    nutritionController = Get.find<NutritionController>();
     await setAppReviewRequest();
     super.onReady();
   }
@@ -134,10 +134,8 @@ class PetsController extends GetxController {
 
   Future<void> getPetModals() async {
     pets = await petRepository.loadPets();
+    print('pets : ${pets}');
 
-    for (var pet in pets!) {
-      print(pet.runtimeType);
-    }
     update();
   }
 

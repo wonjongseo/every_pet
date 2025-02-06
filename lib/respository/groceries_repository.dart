@@ -28,7 +28,6 @@ class GroceriesRepository {
   Future<List<GroceriesModel>> getGroceries() async {
     var box =
         await Hive.openBox<GroceriesModel>(AppConstant.groceriesModelModelBox);
-    print('GroceriesModel.length : ${box.values.length}');
     List<GroceriesModel> groceries = box.values.toList();
     groceries.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 

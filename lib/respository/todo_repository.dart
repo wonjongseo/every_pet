@@ -31,6 +31,8 @@ class TodoRepository {
   }
 
   Future<List<TodoModel>> getTodos() async {
+    print('asdfsdnfjsadf');
+
     var box = await Hive.openBox<TodoModel>(AppConstant.todoModelBox);
 
     // 데이터 읽기
