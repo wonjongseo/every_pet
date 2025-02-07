@@ -1,8 +1,9 @@
-import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
+
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 
 part 'stamp_model.g.dart';
@@ -151,5 +152,21 @@ class StampModel {
         id.hashCode ^
         createdAt.hashCode ^
         isVisible.hashCode;
+  }
+
+  StampModel copyWith({
+    String? name,
+    int? iconIndex,
+    bool? isVisible,
+  }) {
+    StampModel stampModel = StampModel(
+      name: name ?? this.name,
+      iconIndex: iconIndex ?? this.iconIndex,
+      isVisible: isVisible ?? this.isVisible,
+    );
+    stampModel.id = id;
+    stampModel.createdAt = createdAt;
+
+    return stampModel;
   }
 }

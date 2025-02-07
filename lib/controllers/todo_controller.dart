@@ -197,7 +197,6 @@ class TodoController extends GetxController {
         petModel: petsController.getPetOfIndex(selectedProfileIndex)!,
       );
 
-      // int isSavedIndex = -1;
       TodoModel? savedTodoModel;
 
       for (var tempTodoModel in _todoModels) {
@@ -211,7 +210,6 @@ class TodoController extends GetxController {
         addTodos(newTodoModel);
       } else {
         // 既存に保存されていれば、アップデート
-
         if (newTodoModel.stamps.isEmpty && memo.isEmpty) {
           // Stampもメモもなかったら削除
           await deleteTodo(savedTodoModel);

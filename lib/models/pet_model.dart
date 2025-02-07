@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'package:every_pet/common/utilities/app_constant.dart';
-import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/nutrition_model.dart';
-import 'package:every_pet/models/todo_model.dart';
 import 'package:hive/hive.dart';
-import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:age_calculator/age_calculator.dart';
 import 'package:uuid/uuid.dart';
 part 'pet_model.g.dart';

@@ -21,10 +21,10 @@ class PetModelAdapter extends TypeAdapter<PetModel> {
       imageUrl: fields[1] as String,
       birthDay: fields[2] as DateTime,
       genderType: fields[3] as GENDER_TYPE,
-      isNeuter: fields[4] as bool?,
-      isPregnancy: fields[5] as bool?,
       weight: fields[6] as double,
+      isNeuter: fields[4] as bool?,
       nutritionModel: fields[9] as NutritionModel?,
+      isPregnancy: fields[5] as bool?,
       hospitalName: fields[10] as String?,
       hospitalNumber: fields[11] as String?,
       groomingName: fields[12] as String?,
@@ -37,7 +37,7 @@ class PetModelAdapter extends TypeAdapter<PetModel> {
   @override
   void write(BinaryWriter writer, PetModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -52,12 +52,12 @@ class PetModelAdapter extends TypeAdapter<PetModel> {
       ..write(obj.isPregnancy)
       ..writeByte(6)
       ..write(obj.weight)
-      ..writeByte(9)
-      ..write(obj.nutritionModel)
       ..writeByte(7)
       ..write(obj.id)
       ..writeByte(8)
       ..write(obj.createdAt)
+      ..writeByte(9)
+      ..write(obj.nutritionModel)
       ..writeByte(10)
       ..write(obj.hospitalName)
       ..writeByte(11)

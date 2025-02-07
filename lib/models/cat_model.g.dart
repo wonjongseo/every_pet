@@ -23,9 +23,13 @@ class CatModelAdapter extends TypeAdapter<CatModel> {
       genderType: fields[3] as GENDER_TYPE,
       weight: fields[6] as double,
       isNeuter: fields[4] as bool?,
+      nutritionModel: fields[9] as NutritionModel?,
       isPregnancy: fields[5] as bool?,
+      hospitalName: fields[10] as String?,
+      hospitalNumber: fields[11] as String?,
+      groomingName: fields[12] as String?,
+      groomingNumber: fields[13] as String?,
     )
-      ..nutritionModel = fields[9] as NutritionModel?
       ..id = fields[7] as String
       ..createdAt = fields[8] as int;
   }
@@ -33,7 +37,7 @@ class CatModelAdapter extends TypeAdapter<CatModel> {
   @override
   void write(BinaryWriter writer, CatModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -48,12 +52,20 @@ class CatModelAdapter extends TypeAdapter<CatModel> {
       ..write(obj.isPregnancy)
       ..writeByte(6)
       ..write(obj.weight)
-      ..writeByte(9)
-      ..write(obj.nutritionModel)
       ..writeByte(7)
       ..write(obj.id)
       ..writeByte(8)
-      ..write(obj.createdAt);
+      ..write(obj.createdAt)
+      ..writeByte(9)
+      ..write(obj.nutritionModel)
+      ..writeByte(10)
+      ..write(obj.hospitalName)
+      ..writeByte(11)
+      ..write(obj.hospitalNumber)
+      ..writeByte(12)
+      ..write(obj.groomingName)
+      ..writeByte(13)
+      ..write(obj.groomingNumber);
   }
 
   @override

@@ -148,9 +148,9 @@ class CalculateKcalScreen extends StatelessWidget {
           children: [
             CustomTextField(
               readOnly: true,
-              hintText: AppFunction.isEn()
-                  ? '${controller.givenCountPerDay}${AppString.countText.tr}'
-                  : '${controller.givenCountPerDay}${AppString.countText.tr} / ${AppString.perOneDayText.tr}',
+              hintText: AppFunction.isKo()
+                  ? '${controller.givenCountPerDay}${AppString.countText.tr} / ${AppString.perOneDayText.tr}'
+                  : '${controller.givenCountPerDay}${AppString.countText.tr}',
               hintStyle: contentStyle,
               widget: DropdownButton(
                 iconSize: 32,
@@ -166,7 +166,7 @@ class CalculateKcalScreen extends StatelessWidget {
                 onChanged: controller.changeCountPerDay,
               ),
             ),
-            if (AppFunction.isEn())
+            if (!AppFunction.isKo())
               Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: Text(

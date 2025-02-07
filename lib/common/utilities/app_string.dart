@@ -557,9 +557,9 @@ class AppString {
   static String requiredTextEn = "Required";
 
   static String appName = "appNameTr";
-  static String appNameKr = "Every Pets";
-  static String appNameJp = "Every Pets";
-  static String appNameEn = "Every Pets";
+  static String appNameKr = "うちのこ記録";
+  static String appNameJp = "우리 아이 기록";
+  static String appNameEn = "Our Little One’s Record";
 
   static String nameCtrHintText = "nameCtrHintTextTr";
   static String nameCtrHintTextKr = "이름을 입력해주세요.";
@@ -588,7 +588,7 @@ class AppString {
 
   static String fuinnTr = "fuinnTrTr";
   static String fuinnKr = "중성화";
-  static String fuinnJp = "不妊";
+  static String fuinnJp = "避妊";
   static String fuinnEn = "Spaying";
 
   static String pregentText = "pregentText";
@@ -730,7 +730,7 @@ class AppString {
   static String stamp1Tr = "stamp1Tr";
   static String stamp1Kr = '약 1';
   static String stamp1Jp = "薬１";
-  static String stamp1En = "Pill !";
+  static String stamp1En = "Pill 1";
 
   static String stamp2Tr = "stamp2Tr";
   static String stamp2Kr = '약 2';

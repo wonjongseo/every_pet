@@ -2,15 +2,10 @@ import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
-import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
-import 'package:every_pet/models/cat_model.dart';
-import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
-import 'package:every_pet/respository/setting_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
@@ -54,15 +49,16 @@ class ProfileController extends EnrollController {
       text: pet.groomingNumber,
     );
 
-    // nameEditingFocusNode = FocusNode();
-    // birthDayEditingFocusNode = FocusNode();
-    // weightEditingFocusNode = FocusNode();
     isPregnancy = pet.isPregnancy ?? false;
     isNeuter = pet.isNeuter ?? false;
     imagePath = pet.imageUrl;
   }
 
   void updatePet(PetModel oldPetModel) {
+    print('oldPetModel : ${oldPetModel}');
+
+    print('nameEditingController.text : ${nameEditingController.text}');
+
     PetModel updatedPet = oldPetModel.copyWith(
       name: nameEditingController.text,
       imageUrl: imagePath,

@@ -12,12 +12,12 @@ class StampController extends GetxController {
 
   void updateStamp(StampModel updateStamp) {
     stampRepository.saveStamp(updateStamp);
-    for (var i = 0; i < stamps.length; i++) {
-      if (stamps[i].id == updateStamp.id) {
-        stamps[i] = updateStamp;
-      }
-    }
-    update();
+    // for (var i = 0; i < stamps.length; i++) {
+    //   if (stamps[i].id == updateStamp.id) {
+    //     stamps[i] = updateStamp;
+    //   }
+    // }
+    getAllStamps();
   }
 
   void deleteStamp(StampModel stamp) {
@@ -63,7 +63,6 @@ class StampController extends GetxController {
 
   Future<void> getAllStamps() async {
     stamps = await stampRepository.getStamps();
-    print('stamps.length : ${stamps.length}');
 
     update();
   }

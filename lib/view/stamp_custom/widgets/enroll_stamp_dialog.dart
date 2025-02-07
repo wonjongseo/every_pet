@@ -1,4 +1,3 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
@@ -47,36 +46,6 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
       children: [
         Row(
           children: [
-            // DropdownButton2<int>(
-            //   isExpanded: true,
-            //   items: List.generate(
-            //     AppConstant.countOfStampIcon,
-            //     (index) {
-            //       return DropdownMenuItem(
-            //         value: index,
-            //         child: SizedBox(
-            //           width: Responsive.width10 * 5,
-            //           height: Responsive.width10 * 5,
-            //           child: Image.asset(
-            //             StampModel.getIcon(index),
-            //           ),
-            //         ),
-            //       );
-            //     },
-            //   ),
-            //   value: stampIconIndexValue,
-            //   onChanged: (int? value) {
-            //     setState(() {
-            //       stampIconIndexValue = value!;
-            //     });
-            //   },
-            //   buttonStyleData: ButtonStyleData(
-            //     padding:
-            //         EdgeInsets.symmetric(horizontal: Responsive.height16),
-            //     width: Responsive.width10 * 10,
-            //   ),
-            // ),
-
             DropdownButton(
               underline: Container(),
               value: stampIconIndexValue,
@@ -111,12 +80,6 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
                 key: _formKey,
                 child: CustomTextField(
                   autoFocus: true,
-                  // validator: (p0) { //TODO
-                  //   if (p0 == null || p0 == "") {
-                  //     return AppString.stampNameCtlMsg.tr;
-                  //   }
-                  //   return null;
-                  // },
                   controller: textEditingController,
                   hintText: AppString.stampName,
                 ),
@@ -163,11 +126,10 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    StampModel updatedStamp = widget.stamp!.copyWith(
+        name: textEditingController.text, iconIndex: stampIconIndexValue);
 
-    widget.stamp!.name = textEditingController.text;
-    widget.stamp!.iconIndex = stampIconIndexValue;
-
-    stampController.updateStamp(widget.stamp!);
+    stampController.updateStamp(updatedStamp);
     Get.back();
   }
 }
