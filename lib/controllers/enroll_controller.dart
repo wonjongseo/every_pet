@@ -23,14 +23,15 @@ class EnrollController extends GetxController {
 
   EnrollController(this.isFirst);
 
-  late TextEditingController nameEditingController;
-  late TextEditingController birthDayEditingController;
-  late TextEditingController weightEditingController;
-  late TextEditingController hospitalNameEditingController;
-  late TextEditingController hospitalNumberEditingController;
-
-  late TextEditingController groomingNameEditingController;
-  late TextEditingController groomingNumberEditingController;
+  TextEditingController nameEditingController = TextEditingController();
+  TextEditingController birthDayEditingController = TextEditingController();
+  TextEditingController weightEditingController = TextEditingController();
+  TextEditingController hospitalNameEditingController = TextEditingController();
+  TextEditingController hospitalNumberEditingController =
+      TextEditingController();
+  TextEditingController groomingNameEditingController = TextEditingController();
+  TextEditingController groomingNumberEditingController =
+      TextEditingController();
 
   // late FocusNode nameEditingFocusNode;
   // late FocusNode birthDayEditingFocusNode;
@@ -61,13 +62,6 @@ class EnrollController extends GetxController {
 
   @override
   void onInit() {
-    nameEditingController = TextEditingController();
-    birthDayEditingController = TextEditingController();
-    weightEditingController = TextEditingController();
-    hospitalNameEditingController = TextEditingController();
-    hospitalNumberEditingController = TextEditingController();
-    groomingNameEditingController = TextEditingController();
-    groomingNumberEditingController = TextEditingController();
     super.onInit();
   }
 
@@ -82,12 +76,13 @@ class EnrollController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    nameEditingController.dispose();
-    birthDayEditingController.dispose();
-    weightEditingController.dispose();
+    // MUST TO FIX
+    // nameEditingController.dispose();
+    // birthDayEditingController.dispose();
+    // weightEditingController.dispose();
 
-    groomingNameEditingController.dispose();
-    groomingNumberEditingController.dispose();
+    // groomingNameEditingController.dispose();
+    // groomingNumberEditingController.dispose();
   }
 
   void onClickSaveBtn(BuildContext context) async {
@@ -132,7 +127,7 @@ class EnrollController extends GetxController {
             hospitalName: hospitalNameEditingController.text,
             hospitalNumber: hospitalNumberEditingController.text,
             groomingName: groomingNameEditingController.text,
-            groomingNumber: groomingNameEditingController.text);
+            groomingNumber: groomingNumberEditingController.text);
         await petsController.savePetModal(dogModel);
       } else {
         CatModel catModel = CatModel(
@@ -144,7 +139,7 @@ class EnrollController extends GetxController {
           hospitalName: hospitalNameEditingController.text,
           hospitalNumber: hospitalNumberEditingController.text,
           groomingName: groomingNameEditingController.text,
-          groomingNumber: groomingNameEditingController.text,
+          groomingNumber: groomingNumberEditingController.text,
         );
 
         await petsController.savePetModal(catModel);
@@ -156,15 +151,6 @@ class EnrollController extends GetxController {
     await petsController.getPetModals();
     if (isFirst) {
       Get.off(() => const MainScreen());
-      // if (Get.isRegistered<EnrollController>()) {
-      //   print(
-      //       'Get.isRegistered<EnrollController>() : ${Get.isRegistered<EnrollController>()}');
-
-      //   await Get.delete<EnrollController>();
-
-      //   print(
-      //       'Get.isRegistered<EnrollController>() : ${Get.isRegistered<EnrollController>()}');
-      // }
     } else {
       Get.back();
     }

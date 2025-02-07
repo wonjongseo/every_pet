@@ -75,9 +75,9 @@ class TodoController extends GetxController {
   }
 
   Future<void> getAllTodos() async {
-    if (petsController.pets != null && petsController.pets!.isNotEmpty) {
+    if (petsController.hasPets) {
       _todoModels = await todoRepository.getTodos();
-      getTodos(petsController.pets![petsController.petPageIndex].name);
+      getTodos(petsController.pet!.name);
     }
   }
 
@@ -194,7 +194,7 @@ class TodoController extends GetxController {
         stamps: selectedStamps,
         memo: memo,
         dateTime: focusedDay,
-        petModel: petsController.pets![selectedProfileIndex],
+        petModel: petsController.getPetOfIndex(selectedProfileIndex)!,
       );
 
       // int isSavedIndex = -1;
@@ -221,7 +221,7 @@ class TodoController extends GetxController {
       }
     }
 
-    getTodos(petsController.pets![petsController.petPageIndex].name);
+    getTodos(petsController.pet!.name);
   }
 
   Future<void> deleteTodoByPet(PetModel petModel) async {

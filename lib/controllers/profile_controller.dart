@@ -25,7 +25,8 @@ class ProfileController extends EnrollController {
     super.onInit();
   }
 
-  loadPetInfo(PetModel pet) {
+  void loadPetInfo(PetModel? pet) {
+    if (pet == null) return;
     // petsController = Get.find<PetsController>();
 
     nameEditingController = TextEditingController(
@@ -149,7 +150,6 @@ class ProfileController extends EnrollController {
 
     if (result) {
       Get.back();
-      Get.delete<ProfileController>();
       petsController.deletePet();
     }
   }

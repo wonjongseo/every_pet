@@ -55,18 +55,21 @@ class MainScreen extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: List.generate(
-                  petsController.pets!.length,
-                  (index) => Padding(
-                    padding: EdgeInsets.only(right: Responsive.width22),
-                    child: RowPetProfileWidget(
-                      petName: petsController.pets![index].name,
-                      isActive: petsController.petPageIndex == index,
-                      imagePath: petsController.pets![index].imageUrl,
-                      onTap: () {
-                        petsController.onTapTopBar(index);
-                      },
-                    ),
-                  ),
+                  petsController.petsLength,
+                  (index) {
+                    return Padding(
+                      padding: EdgeInsets.only(right: Responsive.width22),
+                      child: RowPetProfileWidget(
+                        petName: petsController.getPetOfIndex(index)!.name,
+                        isActive: petsController.petPageIndex == index,
+                        imagePath:
+                            petsController.getPetOfIndex(index)!.imageUrl,
+                        onTap: () {
+                          petsController.onTapTopBar(index);
+                        },
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

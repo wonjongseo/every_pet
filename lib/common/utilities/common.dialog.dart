@@ -1,3 +1,4 @@
+import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:flutter/material.dart';
@@ -116,14 +117,15 @@ class JonggackAvator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Responsive.width10 * 11,
-      height: Responsive.width10 * 11,
-      decoration: const BoxDecoration(
+      width: Responsive.width10 * 15,
+      height: Responsive.width10 * 15,
+      decoration: BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
           fit: BoxFit.fill,
           image: AssetImage(
-            'assets/images/my_avator.jpeg',
+            // 'assets/images/my_avator.jpeg',
+            AppImagePath.circleMe,
           ),
         ),
       ),

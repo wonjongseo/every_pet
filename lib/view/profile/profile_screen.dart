@@ -16,7 +16,10 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ProfileController controller = Get.put(ProfileController());
     return GetBuilder<PetsController>(builder: (petController) {
-      PetModel pet = petController.pets![petController.petPageIndex];
+      if (!petController.hasPets) {
+        return Container();
+      }
+      PetModel pet = petController.pet!;
       controller.loadPetInfo(pet);
       return Scaffold(
         appBar: AppBar(),
@@ -35,13 +38,13 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           CustomButton(
                             label: AppString.updateBtnText.tr,
-                            onTap: () => controller.updatePet(pet),
+                            onTap: () => controller.updatePet(pet!),
                           ),
                           SizedBox(height: Responsive.height15),
                           CustomButton(
                             label: AppString.deleteBtnText.tr,
                             color: AppColors.secondaryColor,
-                            onTap: () => controller.deletePet(pet.name),
+                            onTap: () => controller.deletePet(pet!.name),
                           ),
                         ],
                       ),

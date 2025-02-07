@@ -1,6 +1,4 @@
-import 'package:every_pet/common/extension/custom_theme_extension.dart';
 import 'package:every_pet/common/theme/theme.dart';
-import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

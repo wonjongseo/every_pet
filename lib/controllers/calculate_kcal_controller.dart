@@ -31,7 +31,7 @@ class CalculateKcalController extends GetxController {
 
   @override
   void onInit() {
-    pet = petsController.pets![petsController.petPageIndex];
+    pet = petsController.pet!;
     super.onInit();
   }
 

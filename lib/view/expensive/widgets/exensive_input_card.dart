@@ -10,7 +10,6 @@ import 'package:every_pet/view/expensive/change_category_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:every_pet/common/theme/theme.dart';
-import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -77,7 +76,8 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
                     ? AppString.categoryText.tr
                     : selectedCategory,
                 readOnly: true,
-                // style: isReadOnly ? activeHintStyle : null,
+                hintStyle: isReadOnly ? contentStyle : null,
+                style: isReadOnly ? contentStyle : null,
                 // hintStyle: isReadOnly ? activeHintStyle : null,
                 widget: DropdownButton<String>(
                   iconSize: 32,

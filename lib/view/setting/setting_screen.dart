@@ -74,13 +74,13 @@ class _SettingScreenState extends State<SettingScreen> {
                 // iconData: FontAwesomeIcons.pencil,
                 imagePath: AppImagePath.circleProfile,
                 onTap: () {
-                  Get.to(() => ProfileScreen());
+                  Get.to(() => const ProfileScreen());
                 },
               ),
               SizedBox(height: Responsive.height15),
               _customListTIle(
                 title: AppString.editStampText.tr,
-                iconData: FontAwesomeIcons.pencil,
+                imagePath: AppImagePath.circleStamp,
                 onTap: () {
                   Get.to(() => StampCustomScreen());
                 },
@@ -88,7 +88,7 @@ class _SettingScreenState extends State<SettingScreen> {
               SizedBox(height: Responsive.height15),
               _customListTIle(
                 title: AppString.editMenuText.tr,
-                iconData: FontAwesomeIcons.pencil,
+                imagePath: AppImagePath.circleMeal,
                 onTap: () {
                   Get.to(() {
                     Get.put(CalculateKcalController());
@@ -99,7 +99,7 @@ class _SettingScreenState extends State<SettingScreen> {
               SizedBox(height: Responsive.height15),
               _customListTIle(
                 title: AppString.changeCategoryText.tr,
-                iconData: FontAwesomeIcons.pencil,
+                imagePath: AppImagePath.circleCategory,
                 onTap: () {
                   Get.to(() {
                     Get.put(CategoryController());
@@ -111,7 +111,7 @@ class _SettingScreenState extends State<SettingScreen> {
               _customListTIle(
                 title: 'Change Language',
                 subTitle: AppString.setLanguage.tr,
-                iconData: FontAwesomeIcons.earthAfrica,
+                imagePath: AppImagePath.circleGlobal,
                 onTap: () {},
                 widget: DropdownButton(
                     // isDense: true,

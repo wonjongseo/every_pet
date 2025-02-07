@@ -20,8 +20,37 @@ class PetsController extends GetxController {
   ScrollController scrollController = ScrollController();
   late TodoController calendarController;
   late NutritionController nutritionController;
-  List<PetModel>? pets;
-  int petPageIndex = 0;
+  List<PetModel>? _pets;
+
+  PetModel? get pet => hasPets ? _pets![_petPageIndex] : null;
+
+  bool get hasPets => _pets != null && _pets!.isNotEmpty;
+
+  int get petsLength => hasPets ? _pets!.length : 0;
+
+  int _petPageIndex = 0;
+
+  int get petPageIndex => _petPageIndex;
+
+  void changePetIndex(int newIndex) {
+    if (!hasPets) {
+      return;
+    }
+    // // 2 1
+    // if (_pets!.length < newIndex) {
+    //   return;
+    // }
+    _petPageIndex = newIndex;
+    update();
+  }
+
+  PetModel? getPetOfIndex(int index) {
+    if (!hasPets) {
+      return null;
+    }
+    return _pets![index];
+  }
+
   PersistentBottomSheetController? bottomSheetController;
   int bottomTapIndex = 0;
 
@@ -40,7 +69,7 @@ class PetsController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    petPageIndex = await SettingRepository.getInt(AppConstant.lastPetIndexKey);
+    _petPageIndex = await SettingRepository.getInt(AppConstant.lastPetIndexKey);
     bottomTapIndex =
         await SettingRepository.getInt(AppConstant.lastBottomTapIndexKey);
 
@@ -61,19 +90,19 @@ class PetsController extends GetxController {
   }
 
   Future<void> deletePet() async {
-    PetModel petModel = pets![petPageIndex];
+    PetModel petModel = _pets![_petPageIndex];
 
     await calendarController.deleteTodoByPet(petModel);
     await petRepository.deletePet(petModel);
-    pets!.remove(petModel);
+    _pets!.remove(petModel);
 
-    if (pets!.isEmpty) {
+    if (_pets!.isEmpty) {
       Get.offAll(() => EnrollScreen(isFirst: true));
       return;
     }
-    if (petPageIndex != 0) {
-      petPageIndex -= 1;
-      SettingRepository.setInt(AppConstant.lastPetIndexKey, petPageIndex);
+    if (_petPageIndex != 0) {
+      _petPageIndex -= 1;
+      SettingRepository.setInt(AppConstant.lastPetIndexKey, _petPageIndex);
     }
 
     scrollGoToTop();
@@ -81,8 +110,8 @@ class PetsController extends GetxController {
   }
 
   void increasePetPageIndex() {
-    petPageIndex = petPageIndex + 1;
-    SettingRepository.setInt(AppConstant.lastPetIndexKey, petPageIndex);
+    _petPageIndex = _petPageIndex + 1;
+    SettingRepository.setInt(AppConstant.lastPetIndexKey, _petPageIndex);
     update();
   }
 
@@ -97,16 +126,16 @@ class PetsController extends GetxController {
     closeBottomSheet();
     // Get.put(EnrollController());
 
-    Get.to(() => EnrollScreen(isFirst: pets!.isEmpty));
+    Get.to(() => EnrollScreen(isFirst: _pets!.isEmpty));
   }
 
   void onTapTopBar(int index) {
-    petPageIndex = index;
-    calendarController.getTodos(pets![petPageIndex].name);
+    _petPageIndex = index;
+    calendarController.getTodos(_pets![_petPageIndex].name);
 
     update();
 
-    SettingRepository.setInt(AppConstant.lastPetIndexKey, petPageIndex);
+    SettingRepository.setInt(AppConstant.lastPetIndexKey, _petPageIndex);
     // if (bottomTapIndex == 3) {
     //   scrollGoToTop();
     // }
@@ -133,8 +162,8 @@ class PetsController extends GetxController {
   }
 
   Future<void> getPetModals() async {
-    pets = await petRepository.loadPets();
-    print('pets : ${pets}');
+    _pets = await petRepository.loadPets();
+    print('pets : ${_pets}');
 
     update();
   }
@@ -173,13 +202,13 @@ class PetsController extends GetxController {
   // }
 
   Future<void> savePetModal(PetModel petModel) async {
-    pets!.add(petModel);
+    _pets!.add(petModel);
     petRepository.savePet(petModel);
     // getPetModals();
   }
 
   void aa() {
-    petPageIndex = pets!.length - 1;
+    _petPageIndex = _pets!.length - 1;
     update();
   }
 }

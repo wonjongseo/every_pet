@@ -50,13 +50,14 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
         SizedBox(height: Responsive.height10),
         Row(
           children: List.generate(
-            controller.petsController.pets!.length,
+            controller.petsController.petsLength,
             (index) {
               return Padding(
                 padding: EdgeInsets.only(right: Responsive.width22),
                 child: RowPetProfileWidget(
-                  imagePath: controller.petsController.pets![index].imageUrl,
-                  petName: controller.petsController.pets![index].name,
+                  imagePath:
+                      controller.petsController.getPetOfIndex(index)!.imageUrl,
+                  petName: controller.petsController.getPetOfIndex(index)!.name,
                   isActive: selectedProfileIndexs.contains(index),
                   onTap: () {
                     if (selectedProfileIndexs.contains(index)) {
