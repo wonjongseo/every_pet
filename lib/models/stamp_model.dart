@@ -90,6 +90,12 @@ class StampModel {
       case 16:
         imagePath = AppImagePath.cirlceSyunauza;
         break;
+      case 17:
+        imagePath = AppImagePath.circleMilk;
+        break;
+      case 18:
+        imagePath = AppImagePath.circlePuddle;
+        break;
       default:
         imagePath = AppImagePath.circleBisyon;
         break;

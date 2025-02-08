@@ -763,8 +763,8 @@ class AppString {
   static String stamp7En = "Dog Park";
 
   static String stamp8Tr = "stamp8Tr";
-  static String stamp8Kr = '필라리아';
-  static String stamp8Jp = "フィライア";
+  static String stamp8Kr = '진득이';
+  static String stamp8Jp = "だに";
   static String stamp8En = "Heartworm";
 
   static String sufficMaleText = "sufficMaleTextTr";

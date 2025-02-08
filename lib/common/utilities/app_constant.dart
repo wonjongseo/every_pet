@@ -35,7 +35,7 @@ class AppConstant {
   static const String countOfReiveRequestionKey = 'countOfReiveRequestion';
   static const String hasReviewedKey = 'hasReviewed';
 
-  static const int countOfStampIcon = 16;
+  static const int countOfStampIcon = 18;
 
   static const String editCategorySign = "-@+편집+@-";
 
