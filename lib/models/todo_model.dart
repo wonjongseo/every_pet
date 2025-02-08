@@ -1,10 +1,10 @@
-import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:uuid/uuid.dart';
 
+import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
-import 'package:uuid/uuid.dart';
 
 part 'todo_model.g.dart';
 
@@ -47,7 +47,24 @@ class TodoModel {
 
   @override
   int get hashCode {
-    return memo.hashCode ^ dateTime.hashCode ^ petModel.hashCode;
+    return dateTime.hashCode ^ petModel.hashCode;
+  }
+
+  TodoModel copyWith({
+    List<StampModel>? stamps,
+    String? memo,
+    DateTime? dateTime,
+    PetModel? petModel,
+  }) {
+    TodoModel newTodo = TodoModel(
+      stamps: stamps ?? this.stamps,
+      memo: memo ?? this.memo,
+      dateTime: dateTime ?? this.dateTime,
+      petModel: petModel ?? this.petModel,
+    );
+    newTodo.id = id;
+    newTodo.createdAt = createdAt;
+    return newTodo;
   }
 }
 

@@ -29,11 +29,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>This app required NSCameraUsageDescription permission</string>
+	<string>Pet Log app required NSCameraUsageDescription permission</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>This app required NSMicrophoneUsageDescription permission</string>
+	<string>Pet Log app required NSMicrophoneUsageDescription permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app required NSPhotoLibraryUsageDescription permission</string>
+	<string>Pet Log app required NSPhotoLibraryUsageDescription permission</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

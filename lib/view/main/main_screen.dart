@@ -25,8 +25,8 @@ class MainScreen extends StatelessWidget {
           bottomNavigationBar: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              bottomNavigtionBar(petsController),
               const GlobalBannerAdmob(),
+              bottomNavigtionBar(petsController),
             ],
           ),
           body: SafeArea(

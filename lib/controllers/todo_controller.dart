@@ -167,6 +167,7 @@ class TodoController extends GetxController {
       return;
     }
     String memo = result['memo'];
+    memo = memo.trim();
 
     List<StampModel> selectedStamps =
         result['selectedStamps'] as List<StampModel>;
@@ -177,12 +178,12 @@ class TodoController extends GetxController {
     if (kEvents[focusedDay] == null) {
       kEvents[focusedDay] = [];
     }
-    for (var selectedProfileIndex in selectedProfileIndexs) {
+    for (var selectedPetIndex in selectedProfileIndexs) {
       TodoModel newTodoModel = TodoModel(
         stamps: selectedStamps,
         memo: memo,
         dateTime: focusedDay,
-        petModel: petsController.getPetOfIndex(selectedProfileIndex)!,
+        petModel: petsController.getPetOfIndex(selectedPetIndex)!,
       );
 
       TodoModel? savedTodoModel;
@@ -200,6 +201,7 @@ class TodoController extends GetxController {
         // 既存に保存されていれば、アップデート
         if (newTodoModel.stamps.isEmpty && memo.isEmpty) {
           // Stampもメモもなかったら削除
+          kEvents[focusedDay] = [];
           await deleteTodo(savedTodoModel);
         } else {
           updateTodo(savedTodoModel, newTodoModel);
