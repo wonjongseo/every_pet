@@ -2,8 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 
-// APP ID ca-app-pub-9712392194582442~4276550727
-// Banner ID ca-app-pub-9712392194582442/7074104456
+//IOS APP ID ca-app-pub-9712392194582442~4276550727
+//IOS Banner ID ca-app-pub-9712392194582442/7074104456
+
+// ANDROID APP ID ca-app-pub-9712392194582442~1032731281
+// Banner ID ca-app-pub-9712392194582442/2476802751
 class AdUnitId {
   Map<String, String> appOpen = {};
   Map<String, String> banner = {};
@@ -25,7 +28,7 @@ class AdUnitId {
       };
       banner = {
         'ios': 'ca-app-pub-9712392194582442/7074104456', // OK
-        'android': 'ca-app-pub-9712392194582442/7058112149'
+        'android': 'ca-app-pub-9712392194582442/2476802751'
       };
       jlptInterstitial = {
         'ios': 'ca-app-pub-9712392194582442/9082878326',

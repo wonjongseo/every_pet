@@ -31,14 +31,58 @@ class CalculateKcalController extends GetxController {
 
   @override
   void onInit() {
-    pet = petsController.pet!;
+    initPetInfo();
     super.onInit();
+  }
+
+  initPetInfo() async {
+    pet = petsController.pet!;
+
+    int? savedGivenCountPerDay =
+        await groceriesRepository.getGivenCountPerDay();
+
+    if (savedGivenCountPerDay == null) {
+      givenCountPerDay = pet.nutritionModel?.makerModel?.givenCountPerDay ?? 1;
+    } else {
+      givenCountPerDay = savedGivenCountPerDay;
+    }
   }
 
   @override
   void onReady() {
     getAllGroceries();
+    getSavedMenuIndex();
     super.onReady();
+  }
+
+  @override
+  void onClose() {
+    putSavedMenuIndex();
+    putGivenCountPerDay();
+
+    super.onClose();
+  }
+
+  void putGivenCountPerDay() {
+    groceriesRepository.savedGivenCountPerDay(givenCountPerDay);
+  }
+
+  void getSavedMenuIndex() async {
+    List<int> selectedMenus = await groceriesRepository.getSelectedMenus();
+
+    for (var index in selectedMenus) {
+      onAddBtnClick(groceriesModels[index]);
+    }
+  }
+
+  void putSavedMenuIndex() {
+    List<int> selectedMenus = [];
+    for (var i = 0; i < groceriesModels.length; i++) {
+      if (selectedGroceriesModels.contains(groceriesModels[i])) {
+        selectedMenus.add(i);
+      }
+    }
+    groceriesRepository.savedSelectedMenus(selectedMenus);
   }
 
   void addNewGrocery() async {

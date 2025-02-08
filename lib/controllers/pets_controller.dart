@@ -36,10 +36,6 @@ class PetsController extends GetxController {
     if (!hasPets) {
       return;
     }
-    // // 2 1
-    // if (_pets!.length < newIndex) {
-    //   return;
-    // }
     _petPageIndex = newIndex;
     update();
   }

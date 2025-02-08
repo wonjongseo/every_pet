@@ -1,15 +1,31 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/models/groceries_modal.dart';
-import 'package:every_pet/models/nutrition_model.dart';
-import 'package:every_pet/models/product_category_model.dart';
 import 'package:hive/hive.dart';
 
 class GroceriesRepository {
+  void savedGivenCountPerDay(int selectedMenus) async {
+    var box = await Hive.openBox<int>("givenCountPerDayKey");
+    box.put('givenCountPerDay', selectedMenus);
+  }
+
+  Future<int?> getGivenCountPerDay() async {
+    var box = await Hive.openBox<int>("givenCountPerDayKey");
+    return box.get('givenCountPerDay');
+  }
+
+  void savedSelectedMenus(List<int> selectedMenus) async {
+    var box = await Hive.openBox<List<int>>("savedMenusKey");
+    box.put('savedMenus', selectedMenus);
+  }
+
+  Future<List<int>> getSelectedMenus() async {
+    var box = await Hive.openBox<List<int>>("savedMenusKey");
+    return box.get('savedMenus') ?? [] as List<int>;
+  }
+
   Future<void> saveGrocery(GroceriesModel groceriesModel) async {
     var box =
         await Hive.openBox<GroceriesModel>(AppConstant.groceriesModelModelBox);
-
-    print('groceriesModel : ${groceriesModel}');
 
     await box.put(groceriesModel.id, groceriesModel);
 
