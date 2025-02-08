@@ -5,19 +5,22 @@ import 'package:flutter/material.dart';
 enum AddOrRemoveType { ADD, REMOVE }
 
 class AddOrRemoveButton extends StatelessWidget {
-  const AddOrRemoveButton({
+  AddOrRemoveButton({
     super.key,
-    required this.onTap,
+    this.onTap,
     this.width,
+    this.isSelected = false,
     required this.addOrRemove,
   });
 
   final AddOrRemoveType addOrRemove;
-  final Function() onTap;
+  Function()? onTap;
   final double? width;
+  final bool isSelected;
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: BorderRadius.circular(Responsive.width10 * 5),
       onTap: onTap,
       child: Image.asset(
         addOrRemove == AddOrRemoveType.ADD
@@ -25,6 +28,8 @@ class AddOrRemoveButton extends StatelessWidget {
             : AppImagePath.circleRemoteBtn,
         width: width ?? Responsive.width10 * 4.5,
         height: width ?? Responsive.width10 * 4.5,
+        color: isSelected ? Colors.white.withOpacity(.5) : null,
+        colorBlendMode: isSelected ? BlendMode.modulate : null,
       ),
     );
   }

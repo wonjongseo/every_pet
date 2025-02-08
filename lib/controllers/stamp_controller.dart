@@ -12,11 +12,7 @@ class StampController extends GetxController {
 
   void updateStamp(StampModel updateStamp) {
     stampRepository.saveStamp(updateStamp);
-    // for (var i = 0; i < stamps.length; i++) {
-    //   if (stamps[i].id == updateStamp.id) {
-    //     stamps[i] = updateStamp;
-    //   }
-    // }
+
     getAllStamps();
   }
 

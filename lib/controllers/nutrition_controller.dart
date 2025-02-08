@@ -110,7 +110,7 @@ class NutritionController extends GetxController {
     PetModel newPet = pet.copyWith(nutritionModel: nutritionModel);
     petsController.updatePetModel(newPet, isProfileScreen: false);
 
-    AppFunction.showSuccessEnrollMsgSnackBar(AppString.makterText.tr);
+    AppFunction.showSuccessEnrollMsgSnackBar(AppString.dryText.tr);
   }
 
   void submitHandmadeData(PetsController petsController, PetModel pet) {

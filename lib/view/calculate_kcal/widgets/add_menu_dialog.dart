@@ -35,10 +35,9 @@ class AddMenuDialog extends StatelessWidget {
                 itemBuilder: (context, index) {
                   bool isSelected = controller.selectedGroceriesModels
                       .contains(controller.groceriesModels[index]);
+
                   return ListTile(
                     dense: true,
-                    iconColor:
-                        isSelected ? Colors.grey[400] : AppColors.primaryColor,
                     leading: Text(
                       controller.groceriesModels[index].name,
                       style: activeHintStyle,
@@ -49,25 +48,20 @@ class AddMenuDialog extends StatelessWidget {
                     subtitle: Text(
                       '(${controller.groceriesModels[index].gram}Gram)',
                     ),
-
                     trailing: AddOrRemoveButton(
-                      onTap: () => isSelected
+                      onTap: isSelected
                           ? null
-                          : controller
-                              .onAddBtnClick(controller.groceriesModels[index]),
+                          : () => controller.onAddBtnClick(
+                                controller.groceriesModels[index],
+                              ),
                       addOrRemove: AddOrRemoveType.ADD,
+                      isSelected: isSelected,
                     ),
-                    // trailing: GestureDetector(
-                    //   onTap: () => isSelected
-                    //       ? null
-                    //       : controller
-                    //           .onAddBtnClick(controller.groceriesModels[index]),
-                    //   child: const Icon(Icons.add),
-                    // ),
-                    onTap: () => isSelected
+                    onTap: isSelected
                         ? null
-                        : controller
-                            .onAddBtnClick(controller.groceriesModels[index]),
+                        : () => controller.onAddBtnClick(
+                              controller.groceriesModels[index],
+                            ),
                   );
                 },
                 separatorBuilder: (context, index) {

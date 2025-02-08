@@ -26,7 +26,8 @@ class CalculateKcalScreen extends StatelessWidget {
         appBar: appBar(controller),
         bottomNavigationBar: const GlobalBannerAdmob(),
         body: SafeArea(
-          child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 SizedBox(height: Responsive.height10),
@@ -104,31 +105,34 @@ class CalculateKcalScreen extends StatelessWidget {
       children: List.generate(
         controller.displayGroceries.length,
         (index) {
-          return ListTile(
-            iconColor: AppColors.primaryColor,
-            leading: Text(
-              controller.displayGroceries[index].name ?? '',
-              style: contentStyle,
-            ),
-            minLeadingWidth: MediaQuery.of(context).size.width / 4,
-            title: Text.rich(
-              TextSpan(
-                  text: '${controller.displayGroceries[index].gram}Gram',
-                  style: contentStyle,
-                  children: [
-                    TextSpan(
-                        text:
-                            '(${controller.displayGroceries[index].kcal}Kcal)',
-                        style: contentStyle)
-                  ]),
-            ),
-            // trailing: IconButton(
-            //   onPressed: () => controller.onRemoteBtnClick(index),
-            //   icon: Icon(Icons.remove),
-            // ),
-            trailing: AddOrRemoveButton(
-              onTap: () => controller.onRemoteBtnClick(index),
-              addOrRemove: AddOrRemoveType.REMOVE,
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: Responsive.height10 / 2),
+            child: ListTile(
+              iconColor: AppColors.primaryColor,
+              leading: Text(
+                controller.displayGroceries[index].name ?? '',
+                style: contentStyle,
+              ),
+              minLeadingWidth: MediaQuery.of(context).size.width / 4,
+              title: Text.rich(
+                TextSpan(
+                    text: '${controller.displayGroceries[index].gram}Gram',
+                    style: contentStyle,
+                    children: [
+                      TextSpan(
+                          text:
+                              '(${controller.displayGroceries[index].kcal}Kcal)',
+                          style: contentStyle)
+                    ]),
+              ),
+              // trailing: IconButton(
+              //   onPressed: () => controller.onRemoteBtnClick(index),
+              //   icon: Icon(Icons.remove),
+              // ),
+              trailing: AddOrRemoveButton(
+                onTap: () => controller.onRemoteBtnClick(index),
+                addOrRemove: AddOrRemoveType.REMOVE,
+              ),
             ),
           );
         },

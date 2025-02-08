@@ -11,6 +11,7 @@ import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/calculate_kcal_controller.dart';
 import 'package:every_pet/controllers/category_controller.dart';
+import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/view/calculate_kcal/edit_groceries_screen.dart';
 import 'package:every_pet/view/expensive/change_category_screen.dart';
@@ -31,6 +32,7 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   String settingLanguage = '';
   String displayLanguage = '';
+  PetsController petsController = Get.find<PetsController>();
   @override
   void initState() {
     super.initState();
@@ -74,7 +76,9 @@ class _SettingScreenState extends State<SettingScreen> {
                 // iconData: FontAwesomeIcons.pencil,
                 imagePath: AppImagePath.circleProfile,
                 onTap: () {
-                  Get.to(() => const ProfileScreen());
+                  Get.to(() => ProfileScreen(
+                        pet: petsController.pet!,
+                      ));
                 },
               ),
               SizedBox(height: Responsive.height15),

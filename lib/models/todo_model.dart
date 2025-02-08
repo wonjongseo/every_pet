@@ -10,28 +10,19 @@ part 'todo_model.g.dart';
 
 @HiveType(typeId: AppConstant.todoModelHiveId)
 class TodoModel {
-  // @HiveField(0)
-  // String id;
-  @HiveField(1)
+  @HiveField(0)
   List<StampModel> stamps;
-
-  @HiveField(2)
+  @HiveField(1)
   String memo;
-  @HiveField(3)
+  @HiveField(2)
   DateTime dateTime;
-
-  @HiveField(4)
-  DateTime? startTime;
-  @HiveField(5)
-  DateTime? endTime;
-  @HiveField(6)
+  @HiveField(3)
   PetModel? petModel;
-  @HiveField(7)
-  int? color;
-  @HiveField(8)
+  @HiveField(4)
   late String id;
-  @HiveField(9)
+  @HiveField(5)
   late int createdAt;
+
   TodoModel(
       {required this.stamps,
       required this.memo,

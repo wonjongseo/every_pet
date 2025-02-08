@@ -163,7 +163,6 @@ class PetsController extends GetxController {
 
   Future<void> getPetModals() async {
     _pets = await petRepository.loadPets();
-    print('pets : ${_pets}');
 
     update();
   }

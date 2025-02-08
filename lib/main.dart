@@ -49,60 +49,33 @@ class _MyAppState extends State<MyApp> {
   void getSystemLanguage() async {
     systemLanguage =
         await SettingRepository.getString(AppConstant.settingLanguageKey);
-    if (systemLanguage!.isEmpty) {
-      systemLanguage = Get.deviceLocale.toString();
-    }
-    setState(() {});
+
+    setState(() {
+      if (systemLanguage!.isEmpty) {
+        systemLanguage = Get.deviceLocale.toString();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (systemLanguage == null) {
-      return Container();
-    }
-    return GetMaterialApp(
-      title: 'Every Pets',
-      theme: lightTheme(systemLanguage!),
-      debugShowCheckedModeBanner: false,
-      // darkTheme: darkTheme(),
-      themeMode: ThemeMode.system,
-      translations: AppTranslations(),
-      locale: Locale(systemLanguage!),
-      fallbackLocale: const Locale('ko', 'KR'),
-      home: const SplashScreen(),
-    );
-
-    return FutureBuilder(
-        future: SettingRepository.getString(AppConstant.settingLanguageKey),
-        builder: (context, snapShot) {
-          if (snapShot.connectionState == ConnectionState.waiting) {
-            return Container();
-          }
-
-          String systemLanguage = snapShot.data!;
-
-          if (systemLanguage.isEmpty) {
-            systemLanguage = Get.deviceLocale.toString();
-          }
-
-          return GetMaterialApp(
+    return systemLanguage == null
+        ? Container()
+        : GetMaterialApp(
             title: 'Every Pets',
-            theme: lightTheme(systemLanguage),
+            theme: lightTheme(systemLanguage!),
             debugShowCheckedModeBanner: false,
             // darkTheme: darkTheme(),
             themeMode: ThemeMode.system,
             translations: AppTranslations(),
-            locale: Locale(systemLanguage),
+            locale: Locale(systemLanguage!),
             fallbackLocale: const Locale('ko', 'KR'),
             home: const SplashScreen(),
           );
-        });
   }
 }
 
 //flutter pub run build_runner build
-
-//  /var/mobile/Containers/Data/Application/47AF36D6-3213-4753-90E5-97F29322EDF7/Documents/コマ.png
 
 Future<void> initHive() async {
   await Hive.initFlutter();

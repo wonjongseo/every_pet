@@ -558,8 +558,8 @@ class AppString {
 
   static String appName = "appNameTr";
   static String appNameKr = "うちのこ記録";
-  static String appNameJp = "우리 아이 기록";
-  static String appNameEn = "Our Little One’s Record";
+  static String appNameJp = "우리의 아이 기록";
+  static String appNameEn = "Your Little One’s Record";
 
   static String nameCtrHintText = "nameCtrHintTextTr";
   static String nameCtrHintTextKr = "이름을 입력해주세요.";
@@ -1165,7 +1165,7 @@ Would you like to copy the email [visionwill3322@gmail.com]?"
 
   static String fnOrErorreport = "fnOrErorreportTr";
   static String fnOrErorreportKr = '희망 기능 또는 에러 제보';
-  static String fnOrErorreportJp = "希望の機能及びエラー届け";
+  static String fnOrErorreportJp = "ご要望及びエラーの申告";
   static String fnOrErorreportEn = "Feature requests or Error reports";
 
   static String reportMsgContect = "reportMsgContectTr";
@@ -1192,22 +1192,23 @@ Would you like to copy the email [visionwill3322@gmail.com]?"
 """;
   static String reportMsgContectJp = """
 
-⭐️ 「希望の機能のお届け」 
+⭐️ 「ご要望の機能」 
 
 ：
+
 ==========================
 
-⭐️ [バグ・エラーのお届け]
+⭐️ [バグ・エラーの申告]
 
 🔸 バグ・エラーの画面 :　  
-   예) カレンダーの画面　Or 費用の画面
+   例）カレンダーの画面　Or 費用の画面
 
 🔸 バグ・エラーの内容 :　
-   예) カレンダーの画面から予定を追加したら、エラーが発生。
+   例）カレンダーの画面から予定を追加したら、エラーが出た。
 
 
 ==========================
 
-▪️イメージを添付して頂ければ、バグ・エラーを修正するのにとても助かります！！🙇‍♂️▪️
+▪️イメージを添付して頂ければ、バグ・エラーを修正するのにとても助かります！🙇‍♂️▪️
 """;
 }

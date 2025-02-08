@@ -59,7 +59,9 @@ class NutritionScreenHeader extends StatelessWidget {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: pet.getAgeYear().toString(),
+                        text: AppFunction.isKo()
+                            ? '${pet.getAgeYear() + 1}'
+                            : '${pet.getAgeYear()}',
                         style: TextStyle(
                           color: AppColors.primaryColor,
                           fontWeight: FontWeight.w500,

@@ -26,7 +26,7 @@ class NavigationController extends GetxController {
     TodoScreen(),
     NutritionScreen(),
     ExpensiveScreen(),
-    ProfileScreen()
+    // ProfileScreen(pet: ,)
   ];
 
   @override

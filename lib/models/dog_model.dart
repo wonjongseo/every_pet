@@ -1,3 +1,4 @@
+import 'package:age_calculator/age_calculator.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/nutrition_model.dart';
@@ -74,28 +75,20 @@ class DogModel extends PetModel {
     return 30 * weight + 70;
   }
 
-/**
- 
- 강아지 몇살부터가 성견이야 ?
- 강아지느 몇키로부터 비만이야 ?
- 비만인데 중성화한 경우는 DER을 어떻게 구해?
- */
+  bool get isPuppy => ageInMonths < 12;
+
+  double get kFactor {
+    if (isPregnancy == true) return 4.0; // 임신 중
+    if (isPuppy) return ageInMonths <= 4 ? 3.0 : 2.0; // 강아지 성장기
+    if (isNeuter == true) return 1.6;
+    return 1.8;
+  }
+
   @override
   double getDER() {
     double der = getRER();
 
-    if (genderType == GENDER_TYPE.MALE) {
-      if (isNeuter == true) {
-        der *= 1.6;
-      } else {
-        der *= 1.8;
-      }
-    } else {
-      if (isPregnancy == true) {
-        der *= 3;
-      }
-    }
-    return der;
+    return der * kFactor;
   }
 }
 

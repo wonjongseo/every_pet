@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/view/full_profile_image_screen.dart';

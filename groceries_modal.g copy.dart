@@ -8,15 +8,14 @@
 
 // class GroceriesModelAdapter extends TypeAdapter<GroceriesModel> {
 //   @override
-//   final int typeId = AppConstant.groceriesModelHiveId;
+//   final int typeId = 9;
 
 //   @override
 //   GroceriesModel read(BinaryReader reader) {
 //     final numOfFields = reader.readByte();
-//     final fields = <int, dynamic>{};
-//     for (int i = 0; i < numOfFields; i++) {
-//       fields[reader.readByte()] = reader.read();
-//     }
+//     final fields = <int, dynamic>{
+//       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+//     };
 //     return GroceriesModel(
 //       name: fields[0] as String,
 //       kcalPer100g: (fields[1] as double) * 100,
@@ -35,7 +34,7 @@
 //       ..writeByte(1)
 //       ..write(obj._kcalPerGram)
 //       ..writeByte(2)
-//       ..write(obj.gram)
+//       ..write(obj._gram)
 //       ..writeByte(7)
 //       ..write(obj.id)
 //       ..writeByte(8)

@@ -75,22 +75,20 @@ class CatModel extends PetModel {
     return 30 * weight + 70;
   }
 
+  bool get isKitten => ageInMonths < 12;
+
+  double get kFactor {
+    if (isPregnancy == true) return 4.0; // 임신 중
+    if (isKitten) return 2.5; // 고양이 성장기
+    if (isNeuter == true) return 1.2; // 중성화 여부
+    return 1.4;
+  }
+
   @override
   double getDER() {
     double der = getRER();
 
-    if (genderType == GENDER_TYPE.MALE) {
-      if (isNeuter == true) {
-        der *= 1.6;
-      } else {
-        der *= 1.8;
-      }
-    } else {
-      if (isPregnancy == true) {
-        der *= 3;
-      }
-    }
-    return der;
+    return der * kFactor;
   }
 }
 

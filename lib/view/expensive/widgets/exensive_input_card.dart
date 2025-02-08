@@ -183,7 +183,7 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
                 selectedCategory = '';
                 productNameController.text = '';
                 itemPriceController.text = '';
-                FocusScope.of(context).unfocus();
+                FocusManager.instance.primaryFocus?.unfocus();
               },
               addOrRemove: AddOrRemoveType.ADD,
             ),

@@ -5,6 +5,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/todo_model.dart';
+import 'package:every_pet/view/todo/widgets/todo_small_circle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -18,55 +19,34 @@ class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log("OPEN TodoScreen");
-    return GetBuilder<TodoController>(builder: (contoller) {
-      return TableCalendar(
-        locale: Get.locale.toString(),
-        shouldFillViewport: true,
-        firstDay: contoller.kFirstDay,
-        lastDay: contoller.kLastDay,
-        headerStyle: const HeaderStyle(
-          formatButtonVisible: false,
-          titleCentered: true,
-        ),
-        focusedDay: contoller.focusedDay,
-        selectedDayPredicate: (day) => isSameDay(contoller.selectedDay, day),
-        calendarBuilders: CalendarBuilders(
-          singleMarkerBuilder: (context, day, focusedDay) {
-            if ((focusedDay as TodoModel).stamps.isEmpty) return null;
-            return SizedBox(
-              width: Responsive.width10 * 2.5,
-              height: Responsive.width10 * 2.5,
-              child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemCount:
-                    focusedDay.stamps.length > 4 ? 4 : focusedDay.stamps.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: focusedDay.stamps[index].getColor(),
-                    ),
-                  );
-                },
-              ),
-            );
-          },
-        ),
-        eventLoader: contoller.getEventsForDay,
-        onFormatChanged: contoller.onFormatChanged,
-        calendarStyle: const CalendarStyle(
-          outsideDaysVisible: true,
-        ),
-        onDaySelected: (selectedDay, focusedDay) => contoller.onDaySelected(
-          context,
-          selectedDay,
-          focusedDay,
-        ),
-      );
-    });
+    return GetBuilder<TodoController>(
+      builder: (contoller) {
+        return TableCalendar(
+          locale: Get.locale.toString(),
+          shouldFillViewport: true,
+          firstDay: contoller.kFirstDay,
+          lastDay: contoller.kLastDay,
+          headerStyle: const HeaderStyle(
+            formatButtonVisible: false,
+            titleCentered: true,
+          ),
+          focusedDay: contoller.focusedDay,
+          selectedDayPredicate: (day) => isSameDay(contoller.selectedDay, day),
+          calendarBuilders: CalendarBuilders(
+            singleMarkerBuilder: (context, day, focusedDay) {
+              if ((focusedDay as TodoModel).stamps.isEmpty) return null;
+              return TodoSmallCricle(focusedDay: focusedDay);
+            },
+          ),
+          eventLoader: contoller.getEventsForDay,
+          onDaySelected: (selectedDay, focusedDay) => contoller.onDaySelected(
+            context,
+            selectedDay,
+            focusedDay,
+          ),
+        );
+      },
+    );
   }
 }
 
@@ -85,7 +65,6 @@ class ColIconButton extends StatelessWidget {
   final bool isActive;
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

@@ -15,17 +15,14 @@ import 'package:table_calendar/table_calendar.dart';
 
 class TodoController extends GetxController {
   final kToday = DateTime.now();
-  late DateTime kFirstDay;
-  late DateTime kLastDay;
-  StampController stampController = Get.put(StampController());
+  late DateTime kFirstDay, kLastDay;
 
+  StampController stampController = Get.put(StampController());
   DateTime _focusedDay = DateTime.now();
 
   DateTime get focusedDay => _focusedDay;
   DateTime? _selectedDay;
   DateTime? get selectedDay => _selectedDay;
-
-  // List<StampModel> stamps = tempStamps;
 
   TodoRepository todoRepository = TodoRepository();
 
@@ -44,15 +41,6 @@ class TodoController extends GetxController {
     }
 
     return true;
-  }
-
-  CalendarFormat calendarFormat = CalendarFormat.month;
-  void onFormatChanged(CalendarFormat format) {
-    if (format != calendarFormat) {
-      return;
-    }
-    calendarFormat = format;
-    update();
   }
 
   final kEvents = LinkedHashMap<DateTime, List<TodoModel>>(

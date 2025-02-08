@@ -26,13 +26,15 @@ class EnrollScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-            onPressed: () => controller.onClickSaveBtn(context),
+            onPressed: () {
+              controller.onClickSaveBtn(context);
+            },
             icon: const FaIcon(FontAwesomeIcons.check, color: Colors.black),
           )
         ],
       ),
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: SafeArea(
           child: GetBuilder<EnrollController>(
             builder: (controller) {

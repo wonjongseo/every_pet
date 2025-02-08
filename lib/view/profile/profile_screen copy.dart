@@ -62,6 +62,18 @@ class _ProfileScreenBackupState extends State<ProfileScreenBackup> {
     setState(() {});
   }
 
+  void toogleRadio(PET_TYPE? value) {
+    if (value == null) return;
+    petType = value;
+
+    if (petType == PET_TYPE.DOG) {
+      imagePath = AppImagePath.bisyon;
+    } else {
+      imagePath = AppImagePath.defaultCat;
+    }
+    setState(() {});
+  }
+
   void aa() async {
     final permission = await PhotoManager.requestPermissionExtend();
     if (!permission.isAuth) return PhotoManager.openSetting();
@@ -252,87 +264,116 @@ class _ProfileScreenBackupState extends State<ProfileScreenBackup> {
 
     if (result) {
       Get.back();
-      // Get.delete<ProfileController>();
       petsController.deletePet();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // ProfileController controller = Get.put(ProfileController());
     return GetBuilder<PetsController>(builder: (petController) {
       PetModel pet = petController.pet!;
       loadPetInfo(pet);
       return Scaffold(
         appBar: AppBar(),
         body: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: SafeArea(
             child: SingleChildScrollView(
               controller: petController.scrollController,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: Responsive.width10),
-                child: Column(
-                  children: [
-                    SingleChildScrollView(
+              child: Column(
+                children: [
+                  // koko
+                  SingleChildScrollView(
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: Responsive.width10),
                       child: Column(
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
                             children: [
-                              Column(
-                                children: [
-                                  ProfileImage(
-                                    imagePath: imagePath,
-                                    onTap: () {
-                                      Get.to(
-                                        () => FullProfileImageScreen(
-                                            imagePath: imagePath),
-                                      );
-                                    },
-                                  ),
-                                  ImagePickIconRow(
-                                    onClickCamaraIcon: () =>
-                                        pickImageFromCamera(context),
-                                    onClickFolderIcon: goToImagePickerScreen,
-                                  ),
-                                ],
+                              Expanded(
+                                child: RadioListTile(
+                                  title: Text(AppString.dogTextTr.tr),
+                                  value: PET_TYPE.DOG,
+                                  groupValue: petType,
+                                  onChanged: toogleRadio,
+                                ),
                               ),
-                              SizedBox(height: Responsive.height10 * 2),
-                              Form(
-                                child: Column(
-                                  children: [
-                                    CustomTextField(
-                                      controller: nameEditingController,
-                                      textInputAction: TextInputAction.next,
-                                      hintText: AppString.nameTextTr.tr,
-                                      fontSize: Responsive.width16,
-                                    ),
-                                    SizedBox(height: Responsive.height14),
-                                    CustomTextField(
-                                      fontSize: Responsive.width16,
-                                      controller: weightEditingController,
-                                      textInputAction: TextInputAction.next,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                        decimal: true,
-                                      ),
-                                      hintText: AppString.weightTextTr.tr,
-                                      sufficIcon: const Text('kg'),
-                                    ),
-                                    SizedBox(height: Responsive.height14),
-                                    CustomTextField(
-                                      onTap: () =>
-                                          selectBirthDayPicker(context),
-                                      fontSize: Responsive.width16,
-                                      readOnly: true,
-                                      controller: birthDayEditingController,
-                                      hintText: AppString.birthDayTextTr.tr,
-                                    ),
-                                  ],
+                              Expanded(
+                                child: RadioListTile(
+                                  title: Text(AppString.catTextTr.tr),
+                                  value: PET_TYPE.CAT,
+                                  groupValue: petType,
+                                  onChanged: toogleRadio,
                                 ),
                               ),
                             ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: Responsive.height16 * 2,
+                              horizontal: Responsive.width16,
+                            ),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    children: [
+                                      ProfileImage(
+                                        imagePath: imagePath,
+                                        onTap: () {
+                                          Get.to(
+                                            () => FullProfileImageScreen(
+                                                imagePath: imagePath),
+                                          );
+                                        },
+                                      ),
+                                      ImagePickIconRow(
+                                        onClickCamaraIcon: () =>
+                                            pickImageFromCamera(context),
+                                        onClickFolderIcon:
+                                            goToImagePickerScreen,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: Responsive.height10 * 2),
+                                  Form(
+                                    child: Column(
+                                      children: [
+                                        CustomTextField(
+                                          controller: nameEditingController,
+                                          textInputAction: TextInputAction.next,
+                                          hintText: AppString.nameTextTr.tr,
+                                          fontSize: Responsive.width16,
+                                        ),
+                                        SizedBox(height: Responsive.height14),
+                                        CustomTextField(
+                                          fontSize: Responsive.width16,
+                                          controller: weightEditingController,
+                                          textInputAction: TextInputAction.next,
+                                          keyboardType: const TextInputType
+                                              .numberWithOptions(
+                                            decimal: true,
+                                          ),
+                                          hintText: AppString.weightTextTr.tr,
+                                          sufficIcon: const Text('kg'),
+                                        ),
+                                        SizedBox(height: Responsive.height14),
+                                        CustomTextField(
+                                          onTap: () =>
+                                              selectBirthDayPicker(context),
+                                          fontSize: Responsive.width16,
+                                          readOnly: true,
+                                          controller: birthDayEditingController,
+                                          hintText: AppString.birthDayTextTr.tr,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                           Divider(height: Responsive.height10 * 4),
                           Padding(
@@ -496,25 +537,25 @@ class _ProfileScreenBackupState extends State<ProfileScreenBackup> {
                         ],
                       ),
                     ),
-                    SizedBox(height: Responsive.height20),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CustomButton(
-                          label: AppString.updateBtnText.tr,
-                          onTap: () => updatePet(pet),
-                        ),
-                        SizedBox(height: Responsive.height15),
-                        CustomButton(
-                          label: AppString.deleteBtnText.tr,
-                          color: AppColors.secondaryColor,
-                          onTap: () => deletePet(pet.name),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: Responsive.height20),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: Responsive.height20),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CustomButton(
+                        label: AppString.updateBtnText.tr,
+                        onTap: () => updatePet(pet),
+                      ),
+                      SizedBox(height: Responsive.height15),
+                      CustomButton(
+                        label: AppString.deleteBtnText.tr,
+                        color: AppColors.secondaryColor,
+                        onTap: () => deletePet(pet.name),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: Responsive.height20),
+                ],
               ),
             ),
           ),

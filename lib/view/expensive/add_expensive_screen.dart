@@ -67,7 +67,7 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
       appBar: AppBar(),
       bottomSheet: const GlobalBannerAdmob(),
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(

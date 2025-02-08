@@ -77,15 +77,19 @@ class PetModel {
     return 0;
   }
 
+  int get ageInMonths {
+    DateTime now = DateTime.now();
+    int months = (now.year - birthDay.year) * 12 + (now.month - birthDay.month);
+    return months > 0 ? months : 0;
+  }
+
   int getAgeYear() {
-    // UtilFunction.age(DateTime.now(), birthDay);
     DateDuration duration = AgeCalculator.age(birthDay);
 
     return duration.years;
   }
 
   int getAgeMonth() {
-    // UtilFunction.age(DateTime.now(), birthDay);
     DateDuration duration = AgeCalculator.age(birthDay);
 
     return duration.months;

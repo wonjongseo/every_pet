@@ -252,7 +252,7 @@ class _EnrollScreenBackupState extends State<EnrollScreenBackup> {
         ],
       ),
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: SafeArea(
             child: SingleChildScrollView(
           child: Padding(

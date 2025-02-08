@@ -1,7 +1,6 @@
 import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
-import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/add_button.dart';
@@ -39,43 +38,46 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<CalculateKcalController>(
       builder: (controller) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(AppString.editMenuText.tr, style: headingStyle),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: AddOrRemoveButton(
-                  onTap: controller.addNewGrocery,
-                  addOrRemove: AddOrRemoveType.ADD,
-                ),
-              ),
-            ],
-          ),
-          bottomNavigationBar: const GlobalBannerAdmob(),
-          body: SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: Responsive.height20),
-                  Expanded(
-                    child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        bool isSelected = selectedIndex == index;
-                        return editGroceryListTile(
-                          isSelected,
-                          controller,
-                          index,
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const Divider(thickness: .3);
-                      },
-                      itemCount: controller.groceriesModels.length,
-                    ),
+        return GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(AppString.editMenuText.tr, style: headingStyle),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: AddOrRemoveButton(
+                    onTap: controller.addNewGrocery,
+                    addOrRemove: AddOrRemoveType.ADD,
                   ),
-                ],
+                ),
+              ],
+            ),
+            bottomNavigationBar: const GlobalBannerAdmob(),
+            body: SafeArea(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: Responsive.height20),
+                    Expanded(
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          bool isSelected = selectedIndex == index;
+                          return editGroceryListTile(
+                            isSelected,
+                            controller,
+                            index,
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Divider(thickness: .3);
+                        },
+                        itemCount: controller.groceriesModels.length,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
