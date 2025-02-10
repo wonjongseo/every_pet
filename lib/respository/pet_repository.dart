@@ -8,12 +8,6 @@ class PetRepository {
   Future<void> savePet(PetModel pet) async {
     var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
-    // 데이터 저장
-    // await box.add(pet);
-    // await box.put(
-    //     '${pet.name}-${UtilFunction.getDayYYYYMMDD(pet.birthDay)}-${pet.genderType.gender}',
-    //     pet);
-
     await box.put(pet.id, pet);
 
     print('pet saved!');

@@ -30,8 +30,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Pet Log app required NSCameraUsageDescription permission</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Pet Log app required NSMicrophoneUsageDescription permission</string>
+	<!-- <key>NSMicrophoneUsageDescription</key>
+	<string>Pet Log app required NSMicrophoneUsageDescription permission</string> -->
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Pet Log app required NSPhotoLibraryUsageDescription permission</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

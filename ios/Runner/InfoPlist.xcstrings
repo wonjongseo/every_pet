@@ -1,0 +1,52 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "NSCameraUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To use the feature for taking My Little One (Pet)'s profile picture, permission to access the camera is required. You can change this in the settings."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "うちのこ（ペット）のプロフィル写真を撮影するを使用するためには、カメラへのアクセス許可が必要です。\n設定から権限を変えることができます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "우리 아이 (펫)의 프로필 사진 촬영 기능 사용을 위해 카메라 접근 권한 동의가 필요합니다. 설정에서 이를 변경할 수 있습니다."
+          }
+        }
+      }
+    },
+    "NSPhotoLibraryUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To use the feature for attaching My Little One (Pet)'s profile picture,  permission to access the photo library is required. You can change this in the settings."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "うちのこ（ペット）のプロフィル写真を添付する機能を使用するためには、写真ライブラリへのアクセス権限が必要です。\n設定から権限を変えることができます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "우리 아이 (펫)의 프로필 사진 첨부 기능 사용을 위해 사진 라이브러리 접근 권한 동의가 필요합니다. 설정에서 이를 변경할 수 있습니다."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
