@@ -74,8 +74,10 @@ class _MyAppState extends State<MyApp> {
           );
   }
 }
-
+// Android Command - flutter build appbundle
 //flutter pub run build_runner build
+
+//dart run change_app_package_name:main com.wonjongseo.every_pet
 
 Future<void> initHive() async {
   await Hive.initFlutter();

@@ -1,4 +1,4 @@
-package com.example.every_pet
+package com.wonjongseo.every_pet
 
 // import io.flutter.embedding.android.FlutterActivity
 
