@@ -69,8 +69,8 @@ class EnrollController extends GetxController {
   @override
   void onReady() async {
     final permission = await PhotoManager.requestPermissionExtend();
-
-    if (!permission.isAuth) Get.back();
+    // print('permission');
+    // if (!permission.isAuth) Get.back();
 
     super.onReady();
   }
@@ -222,8 +222,6 @@ class EnrollController extends GetxController {
       );
       if (result) {
         await PhotoManager.openSetting();
-      } else {
-        Get.back();
       }
       // AppFunction.showAlertDialog(context: context, message: e.toString());
     }

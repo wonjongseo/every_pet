@@ -26,7 +26,6 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
 
   void checkPermission() async {
     final permission = await PhotoManager.requestPermissionExtend();
-    print('asdasd');
 
     if (!permission.hasAccess) {
       bool result = await CommonDialog.selectionDialog(
