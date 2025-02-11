@@ -4,6 +4,10 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'ja_JP': {
+          AppString.requiredCameraPermssionMsg:
+              AppString.requiredCameraPermssionMsgJp,
+          AppString.requiredLibaryPermssionMsg:
+              AppString.requiredLibaryPermssionMsgJp,
           AppString.englishText: AppString.englishTextJp,
           AppString.noCostMsg: AppString.noCostMsgJp,
           AppString.savedText: AppString.savedTextJp,
@@ -149,6 +153,10 @@ class AppTranslations extends Translations {
           AppString.reportMsgContect: AppString.reportMsgContectJp,
         },
         'ko_KR': {
+          AppString.requiredCameraPermssionMsg:
+              AppString.requiredCameraPermssionMsgKr,
+          AppString.requiredLibaryPermssionMsg:
+              AppString.requiredLibaryPermssionMsgKr,
           AppString.englishText: AppString.englishTextKr,
           AppString.noCostMsg: AppString.noCostMsgKr,
           AppString.savedText: AppString.savedTextKr,
@@ -294,6 +302,10 @@ class AppTranslations extends Translations {
           AppString.setLanguage: AppString.setLanguageKr,
         },
         'en_US': {
+          AppString.requiredCameraPermssionMsg:
+              AppString.requiredCameraPermssionMsgEn,
+          AppString.requiredLibaryPermssionMsg:
+              AppString.requiredLibaryPermssionMsgEn,
           AppString.englishText: AppString.englishTextEn,
           AppString.noCostMsg: AppString.noCostMsgEn,
           AppString.savedText: AppString.savedTextEn,
@@ -469,6 +481,24 @@ class AppString {
       'システム言語が変更されました。\nフォントを適用させるにはアプリを再起動する必要があります。';
   static String changedSystemLanguageMsgEn =
       "The System Language is changed.\nIf you want to change the app font, It is required to Restart";
+
+  static String requiredCameraPermssionMsg = 'requiredCameraPermssionMsgTr';
+  static String requiredCameraPermssionMsgKr =
+      '카메라 접근 권한이 없습니다.\n설정에서 권한을 변경하시겠습니까?';
+  static String requiredCameraPermssionMsgJp =
+      'カメラのアクセス権限がないです。\n設定から権限を変更しますか？';
+  static String requiredCameraPermssionMsgEn =
+      "You do not have access to the camera.\nWould you like to change the permissions in Settings?";
+
+  static String requiredLibaryPermssionMsg = 'requiredLibaryPermssionMsgTr';
+  static String requiredLibaryPermssionMsgKr =
+      '라이브러리 접근 권한이 없습니다.\n설정에서 권한을 변경하시겠습니까?';
+
+  static String requiredLibaryPermssionMsgJp =
+      'ライブラリのアクセス権限がないです。\n設定から権限を変更しますか？';
+
+  static String requiredLibaryPermssionMsgEn =
+      "You do not have access to the library.\nWould you like to change the permissions in Settings?";
 
   static String askShutDownMsg = 'askShutDownMsgTr';
   static String askShutDownMsgKr = '재기동 하시겠습니까?';

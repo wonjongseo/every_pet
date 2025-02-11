@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/common.dialog.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/cat_model.dart';
@@ -68,7 +69,8 @@ class EnrollController extends GetxController {
   @override
   void onReady() async {
     final permission = await PhotoManager.requestPermissionExtend();
-    if (!permission.isAuth) return PhotoManager.openSetting();
+
+    if (!permission.isAuth) Get.back();
 
     super.onReady();
   }
@@ -214,7 +216,16 @@ class EnrollController extends GetxController {
 
       update();
     } catch (e) {
-      AppFunction.showAlertDialog(context: context, message: e.toString());
+      bool result = await CommonDialog.selectionDialog(
+        title: Text(AppString.requiredText.tr),
+        connent: Text(AppString.requiredCameraPermssionMsg.tr),
+      );
+      if (result) {
+        await PhotoManager.openSetting();
+      } else {
+        Get.back();
+      }
+      // AppFunction.showAlertDialog(context: context, message: e.toString());
     }
   }
 

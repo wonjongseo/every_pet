@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/common.dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -17,8 +19,28 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
 
   @override
   void initState() {
-    fetchAllImages();
+    checkPermission();
+
     super.initState();
+  }
+
+  void checkPermission() async {
+    final permission = await PhotoManager.requestPermissionExtend();
+    print('asdasd');
+    if (!permission.isAuth) {
+      bool result = await CommonDialog.selectionDialog(
+        title: Text(AppString.requiredText.tr),
+        connent: Text(AppString.requiredLibaryPermssionMsg.tr),
+      );
+      if (result) {
+        await PhotoManager.openSetting();
+      } else {
+        Get.back();
+      }
+    }
+    // if (!permission.isAuth) Get.back();
+
+    fetchAllImages();
   }
 
   handleScrollEvent(ScrollNotification scroll) {
