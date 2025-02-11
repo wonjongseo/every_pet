@@ -197,7 +197,7 @@ DER (1 日にあたり必要なエネルギー(kcal))を確認
 
 # Pet-Log (My Little One's Log)
 
-![alt text](ka_android_graph_image.jpg)
+![alt text](en_android_graph_image_figma.jpg)
 
 <details><summary>Promotional Text<strong></strong></summary>
 
