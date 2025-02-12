@@ -107,6 +107,15 @@ class AppFunction {
     }
   }
 
+  static showNoPermissionSnackBar({required String message}) {
+    AppFunction.showSnackBar(
+      title: AppString.permission.tr,
+      message: message,
+      icon: Icons.warning_amber_rounded,
+      color: pinkClr,
+    );
+  }
+
   static showInvalidTextFieldSnackBar({required String message}) {
     AppFunction.showSnackBar(
       title: AppString.requiredText.tr,

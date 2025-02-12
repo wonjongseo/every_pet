@@ -216,13 +216,16 @@ class EnrollController extends GetxController {
 
       update();
     } catch (e) {
-      bool result = await CommonDialog.selectionDialog(
-        title: Text(AppString.requiredText.tr),
-        connent: Text(AppString.requiredCameraPermssionMsg.tr),
-      );
-      if (result) {
-        await PhotoManager.openSetting();
-      }
+      AppFunction.showNoPermissionSnackBar(
+          message: AppString.noCameraPermssionMsg.tr);
+
+      // bool result = await CommonDialog.selectionDialog(
+      //   title: Text(AppString.requiredText.tr),
+      //   connent: Text(AppString.requiredCameraPermssionMsg.tr),
+      // );
+      // if (result) {
+      //   await PhotoManager.openSetting();
+      // }
       // AppFunction.showAlertDialog(context: context, message: e.toString());
     }
   }

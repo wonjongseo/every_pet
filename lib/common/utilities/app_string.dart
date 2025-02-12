@@ -4,8 +4,9 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'ja_JP': {
-          AppString.requiredCameraPermssionMsg:
-              AppString.requiredCameraPermssionMsgJp,
+          AppString.permission: AppString.permissionJp,
+          AppString.selectProfile: AppString.selectProfileJp,
+          AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgJp,
           AppString.requiredLibaryPermssionMsg:
               AppString.requiredLibaryPermssionMsgJp,
           AppString.englishText: AppString.englishTextJp,
@@ -153,8 +154,9 @@ class AppTranslations extends Translations {
           AppString.reportMsgContect: AppString.reportMsgContectJp,
         },
         'ko_KR': {
-          AppString.requiredCameraPermssionMsg:
-              AppString.requiredCameraPermssionMsgKr,
+          AppString.permission: AppString.permissionKr,
+          AppString.selectProfile: AppString.selectProfileKr,
+          AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgKr,
           AppString.requiredLibaryPermssionMsg:
               AppString.requiredLibaryPermssionMsgKr,
           AppString.englishText: AppString.englishTextKr,
@@ -302,8 +304,9 @@ class AppTranslations extends Translations {
           AppString.setLanguage: AppString.setLanguageKr,
         },
         'en_US': {
-          AppString.requiredCameraPermssionMsg:
-              AppString.requiredCameraPermssionMsgEn,
+          AppString.permission: AppString.permissionEn,
+          AppString.selectProfile: AppString.selectProfileEn,
+          AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgEn,
           AppString.requiredLibaryPermssionMsg:
               AppString.requiredLibaryPermssionMsgEn,
           AppString.englishText: AppString.englishTextEn,
@@ -482,23 +485,24 @@ class AppString {
   static String changedSystemLanguageMsgEn =
       "The System Language is changed.\nIf you want to change the app font, It is required to Restart";
 
-  static String requiredCameraPermssionMsg = 'requiredCameraPermssionMsgTr';
-  static String requiredCameraPermssionMsgKr =
-      '카메라 접근 권한이 없습니다.\n설정에서 권한을 변경하시겠습니까?';
-  static String requiredCameraPermssionMsgJp =
-      'カメラのアクセス権限がないです。\n設定から権限を変更しますか？';
-  static String requiredCameraPermssionMsgEn =
-      "You do not have access to the camera.\nWould you like to change the permissions in Settings?";
+  static String noCameraPermssionMsg = 'noCameraPermssionMsgTr';
+  static String noCameraPermssionMsgKr = '카메라 접근 권한이 없습니다.';
+  static String noCameraPermssionMsgJp = 'カメラのアクセス権限がないです。';
+  static String noCameraPermssionMsgEn =
+      "You do not have access to the camera.";
 
   static String requiredLibaryPermssionMsg = 'requiredLibaryPermssionMsgTr';
   static String requiredLibaryPermssionMsgKr =
       '라이브러리 접근 권한이 없습니다.\n설정에서 권한을 변경하시겠습니까?';
-
   static String requiredLibaryPermssionMsgJp =
       'ライブラリのアクセス権限がないです。\n設定から権限を変更しますか？';
-
   static String requiredLibaryPermssionMsgEn =
       "You do not have access to the library.\nWould you like to change the permissions in Settings?";
+
+  static String permission = 'permissionTr';
+  static String permissionKr = '권한';
+  static String permissionJp = '権限';
+  static String permissionEn = "Permission";
 
   static String askShutDownMsg = 'askShutDownMsgTr';
   static String askShutDownMsgKr = '재기동 하시겠습니까?';
@@ -514,6 +518,11 @@ class AppString {
   static String todayTextKr = '오늘';
   static String todayTextJp = '今日';
   static String todayTextEn = "Today";
+
+  static String selectProfile = 'selectProfileTR';
+  static String selectProfileKr = '프로필 선택';
+  static String selectProfileJp = 'プロフィール選択';
+  static String selectProfileEn = "Select Profile";
 
   static String editProfile = 'editProfileTr';
   static String editProfileKr = '프로필 변경';

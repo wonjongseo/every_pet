@@ -28,15 +28,16 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
     final permission = await PhotoManager.requestPermissionExtend();
 
     if (!permission.hasAccess) {
-      bool result = await CommonDialog.selectionDialog(
-        title: Text(AppString.requiredText.tr),
-        connent: Text(AppString.requiredLibaryPermssionMsg.tr),
-      );
-      if (result) {
-        await PhotoManager.openSetting();
-      } else {
-        Get.back();
-      }
+      // bool result = await CommonDialog.selectionDialog(
+      //   title: Text(AppString.requiredText.tr),
+      //   connent: Text(AppString.requiredLibaryPermssionMsg.tr),
+      // );
+      // if (result) {
+      //   await PhotoManager.openSetting();
+      // } else {
+      //   Get.back();
+      // }
+      return;
     }
     // if (!permission.isAuth) Get.back();
 
@@ -119,17 +120,12 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        // leading: CustomIconButton(
-        //   onTap: () => Navigator.pop(context),
-        //   icon: Icons.arrow_back,
-        // ), こま
-        // title: Text(
-        //   'GakChat',
-        //   style: TextStyle(
-        //       // color: context.theme.authAppbarTextColor,
-        //       ),
-        // ),
-        // actions: [CustomIconButton(onTap: () {}, icon: Icons.more_vert)],
+        title: Text(
+          AppString.selectProfile.tr,
+          style: const TextStyle(
+            color: Colors.black,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(5.0),
