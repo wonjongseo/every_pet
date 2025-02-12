@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/widgets/add_button.dart';
@@ -66,70 +67,72 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
     return Scaffold(
       appBar: AppBar(),
       bottomSheet: const GlobalBannerAdmob(),
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: Responsive.height10 * .8,
-              horizontal: Responsive.width10 * 2,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppFunction.getDayYYYYMMDD(widget.selectedDay),
-                    style: headingStyle,
-                  ),
-                  SizedBox(height: Responsive.height10),
-                  Column(
-                    children: [
-                      ExpensiveInputCard(streamController: streamController),
-                    ],
-                  ),
-                  SizedBox(height: Responsive.height10),
-                  Obx(
-                    () {
-                      var expensiveModels = expensiveController
-                          .expensivesByDay(widget.selectedDay);
-                      return Column(
-                        children: List.generate(
-                          expensiveModels.length,
-                          (index) => Padding(
-                            padding: EdgeInsets.only(
-                              bottom: Responsive.height10,
-                            ),
-                            child: Column(
-                              children: [
-                                ExpensiveInputCard(
-                                  key: ValueKey(expensiveModels[index].id),
-                                  selectedCategory:
-                                      expensiveModels[index].category,
-                                  productName:
-                                      expensiveModels[index].productName,
-                                  itemPrice:
-                                      expensiveModels[index].price.toString(),
-                                ),
-                                SizedBox(height: Responsive.height10),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: AddOrRemoveButton(
-                                    addOrRemove: AddOrRemoveType.REMOVE,
-                                    width: Responsive.width10 * 4,
-                                    onTap: () => deleteExpensive(
-                                      expensiveModels[index],
-                                    ),
+      body: BackGround2(
+        widget: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: Responsive.height10 * .8,
+                horizontal: Responsive.width10 * 2,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppFunction.getDayYYYYMMDD(widget.selectedDay),
+                      style: headingStyle,
+                    ),
+                    SizedBox(height: Responsive.height10),
+                    Column(
+                      children: [
+                        ExpensiveInputCard(streamController: streamController),
+                      ],
+                    ),
+                    SizedBox(height: Responsive.height10),
+                    Obx(
+                      () {
+                        var expensiveModels = expensiveController
+                            .expensivesByDay(widget.selectedDay);
+                        return Column(
+                          children: List.generate(
+                            expensiveModels.length,
+                            (index) => Padding(
+                              padding: EdgeInsets.only(
+                                bottom: Responsive.height10,
+                              ),
+                              child: Column(
+                                children: [
+                                  ExpensiveInputCard(
+                                    key: ValueKey(expensiveModels[index].id),
+                                    selectedCategory:
+                                        expensiveModels[index].category,
+                                    productName:
+                                        expensiveModels[index].productName,
+                                    itemPrice:
+                                        expensiveModels[index].price.toString(),
                                   ),
-                                )
-                              ],
+                                  SizedBox(height: Responsive.height10),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: AddOrRemoveButton(
+                                      addOrRemove: AddOrRemoveType.REMOVE,
+                                      width: Responsive.width10 * 4,
+                                      onTap: () => deleteExpensive(
+                                        expensiveModels[index],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,5 +1,5 @@
-import 'dart:math';
-
+import 'dart:math' as math;
+import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/view/full_profile_image_screen.dart';
@@ -29,15 +29,17 @@ class MainScreen extends StatelessWidget {
               bottomNavigtionBar(petsController),
             ],
           ),
-          body: SafeArea(
-            child: Column(
-              children: [
-                topNavigationBar(petsController),
-                const Divider(),
-                Expanded(
-                  child: petsController.body[petsController.bottomTapIndex],
-                )
-              ],
+          body: BackGround2(
+            widget: SafeArea(
+              child: Column(
+                children: [
+                  topNavigationBar(petsController),
+                  const Divider(),
+                  Expanded(
+                    child: petsController.body[petsController.bottomTapIndex],
+                  )
+                ],
+              ),
             ),
           ),
         ),

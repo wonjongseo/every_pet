@@ -1,4 +1,7 @@
 class AppImagePath {
+  static String background3 = 'assets/images/background3.png'; // No Stamp
+  static String background4 = 'assets/images/background4.png'; // No Stamp
+  static String background5 = 'assets/images/background5.png'; // No Stamp
   static String bisyon = 'assets/images/bisyon.png'; // No Stamp
   static String circleAddBtn = 'assets/images/circle_add_btn.png'; // No Stamp
   static String circleCalendar =

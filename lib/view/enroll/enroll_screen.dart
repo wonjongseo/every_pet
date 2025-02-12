@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/native_caller.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
@@ -15,7 +16,7 @@ import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
 
 class EnrollScreen extends StatelessWidget {
-  EnrollScreen({super.key, required this.isFirst});
+  const EnrollScreen({super.key, required this.isFirst});
   final bool isFirst;
   @override
   Widget build(BuildContext context) {
@@ -33,13 +34,15 @@ class EnrollScreen extends StatelessWidget {
           )
         ],
       ),
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: SafeArea(
-          child: GetBuilder<EnrollController>(
-            builder: (controller) {
-              return EnrollScreenBody(controller: controller);
-            },
+      body: BackGround2(
+        widget: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: SafeArea(
+            child: GetBuilder<EnrollController>(
+              builder: (controller) {
+                return EnrollScreenBody(controller: controller);
+              },
+            ),
           ),
         ),
       ),

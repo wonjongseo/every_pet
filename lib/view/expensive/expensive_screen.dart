@@ -67,197 +67,192 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: Responsive.width10),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: Responsive.width10),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  DateFormat('y${AppString.yearText.tr}').format(now),
+                  style: headingStyle,
+                ),
+                Row(
                   children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios),
+                      onPressed: () => _changeMonth(-1),
+                    ),
+                    SizedBox(width: Responsive.width10),
                     Text(
-                      DateFormat('y${AppString.yearText.tr}').format(now),
+                      AppFunction.isEn()
+                          ? DateFormat('MMMM').format(now)
+                          : '${now.month}${AppString.monthText.tr}',
                       style: headingStyle,
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back_ios),
-                          onPressed: () => _changeMonth(-1),
-                        ),
-                        SizedBox(width: Responsive.width10),
-                        Text(
-                          AppFunction.isEn()
-                              ? DateFormat('MMMM').format(now)
-                              : '${now.month}${AppString.monthText.tr}',
-                          style: headingStyle,
-                        ),
-                        SizedBox(width: Responsive.width10),
-                        IconButton(
-                          icon: const Icon(Icons.arrow_forward_ios),
-                          onPressed: () => _changeMonth(1),
-                        ),
-                      ],
-                    ),
-                    InkWell(
-                      onTap: () => Scrollable.ensureVisible(
-                        todayKey.currentContext!,
-                        duration: const Duration(milliseconds: 700),
-                        curve: Curves.easeInOut,
-                      ),
-                      child: Container(
-                        padding:
-                            EdgeInsets.only(bottom: Responsive.height10 * .8),
-                        margin: EdgeInsets.only(right: Responsive.width10 * .8),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: AppColors.primaryColor,
-                              width: 2,
-                            ),
-                          ),
-                        ),
-                        child: Text(
-                          AppString.todayText.tr,
-                          style: headingStyle.copyWith(
-                            color: AppColors.primaryColor,
-                          ),
-                        ),
-                      ),
+                    SizedBox(width: Responsive.width10),
+                    IconButton(
+                      icon: const Icon(Icons.arrow_forward_ios),
+                      onPressed: () => _changeMonth(1),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: Responsive.height10),
-              Expanded(
-                child: ListView.separated(
-                  controller: scrollController,
-                  itemCount: days.length,
-                  separatorBuilder: (context, index) {
-                    return const Divider(thickness: .3);
-                  },
-                  itemBuilder: (context, index) {
-                    return Obx(() {
-                      var expensives =
-                          expensiveController.expensivesByDay(days[index]);
-
-                      return ListTile(
-                        key: now.day - 1 == index ? todayKey : null,
-                        title: Text(
-                          DateFormat.MMMEd(Get.locale.toString())
-                              .format(days[index]),
-                        ),
-                        isThreeLine: expensives.isNotEmpty ? true : false,
-                        subtitle: expensives.isNotEmpty
-                            ? Column(
-                                children: List.generate(
-                                  expensives.length,
-                                  (index) => Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(expensives[index].productName),
-                                      Text(
-                                          '${AppString.moneySign.tr} ${NumberFormat("#,###").format(expensives[index].price)}'),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : null,
-                        onTap: () => Get.to(
-                          () => AddExpensiveScreen(selectedDay: days[index]),
-                        ),
-                      );
-                    });
-                  },
-                ),
-              ),
-              Obx(() {
-                expensiveController.calculateTotalPricePerMonth(now.month);
-                return GestureDetector(
-                  onTap: () {
-                    Get.dialog(
-                      name: "totalPriceDialog",
-                      AlertDialog(
-                        content: expensiveController.categoryAndPrice.isEmpty
-                            ? Text(
-                                AppFunction.isEn()
-                                    ? '${AppString.noCostMsg.tr}${DateFormat('MMMM').format(now)}'
-                                    : '${now.month}${AppString.monthText.tr}${AppString.noCostMsg.tr}',
-                                textAlign: TextAlign.center,
-                              )
-                            : Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: expensiveController
-                                    .categoryAndPrice.entries
-                                    .map((entry) {
-                                  return ListTile(
-                                    tileColor: Colors.transparent,
-                                    title: Row(
-                                      children: [
-                                        Text('${entry.key}:'),
-                                        const Spacer(),
-                                        Text(
-                                          '${AppString.moneySign.tr}${NumberFormat("#,###").format(entry.value)}',
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
-                              ),
-                      ),
-                    );
-                  },
+                InkWell(
+                  onTap: () => Scrollable.ensureVisible(
+                    todayKey.currentContext!,
+                    duration: const Duration(milliseconds: 700),
+                    curve: Curves.easeInOut,
+                  ),
                   child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.symmetric(
-                      horizontal: Responsive.width20,
-                      vertical: Responsive.height20,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: Responsive.width20,
-                      vertical: Responsive.height10,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        width: 2,
-                        color: Colors.grey,
+                    padding: EdgeInsets.only(bottom: Responsive.height10 * .8),
+                    margin: EdgeInsets.only(right: Responsive.width10 * .8),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: AppColors.primaryColor,
+                          width: 2,
+                        ),
                       ),
                     ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppFunction.isEn()
-                              ? DateFormat('MMMM').format(now)
-                              : '${now.month}${AppString.monthText.tr}',
-                          style: subHeadingStyle,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              AppString.totalPrice.tr,
-                              style: subHeadingStyle,
-                            ),
-                            Text(
-                              '${AppString.moneySign.tr} ${NumberFormat("#,###").format(expensiveController.getPricePerMonth())}',
-                              style: subHeadingStyle,
-                            )
-                          ],
-                        )
-                      ],
+                    child: Text(
+                      AppString.todayText.tr,
+                      style: headingStyle.copyWith(
+                        color: AppColors.primaryColor,
+                      ),
                     ),
                   ),
-                );
-              })
-            ],
+                ),
+              ],
+            ),
           ),
-        ),
+          SizedBox(height: Responsive.height10),
+          Expanded(
+            child: ListView.separated(
+              controller: scrollController,
+              itemCount: days.length,
+              separatorBuilder: (context, index) {
+                return const Divider(thickness: .3);
+              },
+              itemBuilder: (context, index) {
+                return Obx(() {
+                  var expensives =
+                      expensiveController.expensivesByDay(days[index]);
+
+                  return ListTile(
+                    key: now.day - 1 == index ? todayKey : null,
+                    title: Text(
+                      DateFormat.MMMEd(Get.locale.toString())
+                          .format(days[index]),
+                    ),
+                    isThreeLine: expensives.isNotEmpty ? true : false,
+                    subtitle: expensives.isNotEmpty
+                        ? Column(
+                            children: List.generate(
+                              expensives.length,
+                              (index) => Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(expensives[index].productName),
+                                  Text(
+                                      '${AppString.moneySign.tr} ${NumberFormat("#,###").format(expensives[index].price)}'),
+                                ],
+                              ),
+                            ),
+                          )
+                        : null,
+                    onTap: () => Get.to(
+                      () => AddExpensiveScreen(selectedDay: days[index]),
+                    ),
+                  );
+                });
+              },
+            ),
+          ),
+          Obx(() {
+            expensiveController.calculateTotalPricePerMonth(now.month);
+            return GestureDetector(
+              onTap: () {
+                Get.dialog(
+                  name: "totalPriceDialog",
+                  AlertDialog(
+                    content: expensiveController.categoryAndPrice.isEmpty
+                        ? Text(
+                            AppFunction.isEn()
+                                ? '${AppString.noCostMsg.tr}${DateFormat('MMMM').format(now)}'
+                                : '${now.month}${AppString.monthText.tr}${AppString.noCostMsg.tr}',
+                            textAlign: TextAlign.center,
+                          )
+                        : Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: expensiveController
+                                .categoryAndPrice.entries
+                                .map((entry) {
+                              return ListTile(
+                                tileColor: Colors.transparent,
+                                title: Row(
+                                  children: [
+                                    Text('${entry.key}:'),
+                                    const Spacer(),
+                                    Text(
+                                      '${AppString.moneySign.tr}${NumberFormat("#,###").format(entry.value)}',
+                                    )
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                  ),
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(
+                  horizontal: Responsive.width20,
+                  vertical: Responsive.height20,
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: Responsive.width20,
+                  vertical: Responsive.height10,
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.grey,
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppFunction.isEn()
+                          ? DateFormat('MMMM').format(now)
+                          : '${now.month}${AppString.monthText.tr}',
+                      style: subHeadingStyle,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          AppString.totalPrice.tr,
+                          style: subHeadingStyle,
+                        ),
+                        Text(
+                          '${AppString.moneySign.tr} ${NumberFormat("#,###").format(expensiveController.getPricePerMonth())}',
+                          style: subHeadingStyle,
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+          })
+        ],
       ),
     );
   }

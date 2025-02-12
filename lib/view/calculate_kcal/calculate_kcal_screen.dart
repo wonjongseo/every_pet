@@ -1,3 +1,4 @@
+import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
@@ -25,53 +26,55 @@ class CalculateKcalScreen extends StatelessWidget {
       return Scaffold(
         appBar: appBar(controller),
         bottomNavigationBar: const GlobalBannerAdmob(),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                SizedBox(height: Responsive.height10),
-                notionDer(controller),
-                Text.rich(
-                  TextSpan(
-                    text: AppString.calculateKcalScreenSubText.tr,
-                    style: const TextStyle(
-                      letterSpacing: 1.2,
+        body: BackGround2(
+          widget: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  SizedBox(height: Responsive.height10),
+                  notionDer(controller),
+                  Text.rich(
+                    TextSpan(
+                      text: AppString.calculateKcalScreenSubText.tr,
+                      style: const TextStyle(
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: Responsive.height30),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _givenCountPerDayDropDownBtn(context, controller),
+                              TextButton(
+                                onPressed: () {
+                                  Get.dialog(
+                                    name: "AddMenuDialog",
+                                    const AlertDialog(
+                                      surfaceTintColor: Colors.white,
+                                      contentPadding: EdgeInsets.all(8),
+                                      content: AddMenuDialog(),
+                                    ),
+                                  );
+                                },
+                                child: Text(AppString.addmMenuText.tr),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: Responsive.height10),
+                          _selectedGroceries(controller, context),
+                        ],
+                      ),
                     ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: Responsive.height30),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _givenCountPerDayDropDownBtn(context, controller),
-                            TextButton(
-                              onPressed: () {
-                                Get.dialog(
-                                  name: "AddMenuDialog",
-                                  const AlertDialog(
-                                    surfaceTintColor: Colors.white,
-                                    contentPadding: EdgeInsets.all(8),
-                                    content: AddMenuDialog(),
-                                  ),
-                                );
-                              },
-                              child: Text(AppString.addmMenuText.tr),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: Responsive.height10),
-                        _selectedGroceries(controller, context),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

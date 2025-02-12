@@ -1,3 +1,4 @@
+import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
@@ -54,29 +55,31 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
               ],
             ),
             bottomNavigationBar: const GlobalBannerAdmob(),
-            body: SafeArea(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: Responsive.height20),
-                    Expanded(
-                      child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          bool isSelected = selectedIndex == index;
-                          return editGroceryListTile(
-                            isSelected,
-                            controller,
-                            index,
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return const Divider(thickness: .3);
-                        },
-                        itemCount: controller.groceriesModels.length,
+            body: BackGround2(
+              widget: SafeArea(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: Responsive.height20),
+                      Expanded(
+                        child: ListView.separated(
+                          itemBuilder: (context, index) {
+                            bool isSelected = selectedIndex == index;
+                            return editGroceryListTile(
+                              isSelected,
+                              controller,
+                              index,
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return const Divider(thickness: .3);
+                          },
+                          itemCount: controller.groceriesModels.length,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
