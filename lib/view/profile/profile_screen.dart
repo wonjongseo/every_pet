@@ -177,15 +177,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void goToImagePickerScreen() async {
     try {
-      final image = await Get.to(() => const ImagePickerScreen());
-      if (image == null) return;
-
-      File file = await AppFunction.uint8ListToFile(image);
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (image == null) {
+        return;
+      }
+      File file = File(image.path);
       imagePath = file.path;
       setState(() {});
     } catch (e) {
-      log('Image Picker Error $e');
+      AppFunction.showNoPermissionSnackBar(
+          message: AppString.noLibaryPermssion.tr);
     }
+    // try {
+    //   final image = await Get.to(() => const ImagePickerScreen());
+    //   if (image == null) return;
+
+    //   File file = await AppFunction.uint8ListToFile(image);
+    //   imagePath = file.path;
+    //   setState(() {});
+    // } catch (e) {
+    //   log('Image Picker Error $e');
+    // }
   }
 
   void updatePet(PetModel oldPetModel) {

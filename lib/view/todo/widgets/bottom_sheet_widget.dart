@@ -67,19 +67,22 @@ class BottomSheetWidget extends StatelessWidget {
                     Column(
                       children: List.generate(
                         controller.getFocusedDayEvent()![0].stamps.length,
-                        (index) => Padding(
-                          padding: EdgeInsets.only(
-                            bottom: Responsive.height10,
-                            left: Responsive.width10,
-                          ),
+                        (index) => GestureDetector(
+                          onTap: () => controller.subtractStamp(index),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: Responsive.width10 * 2,
+                            padding: EdgeInsets.only(
+                              bottom: Responsive.height10,
+                              left: Responsive.width10,
                             ),
-                            child: RowStampWidget(
-                                stamp: controller
-                                    .getFocusedDayEvent()![0]
-                                    .stamps[index]),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: Responsive.width10 * 2,
+                              ),
+                              child: RowStampWidget(
+                                  stamp: controller
+                                      .getFocusedDayEvent()![0]
+                                      .stamps[index]),
+                            ),
                           ),
                         ),
                       ),

@@ -7,8 +7,7 @@ class AppTranslations extends Translations {
           AppString.permission: AppString.permissionJp,
           AppString.selectProfile: AppString.selectProfileJp,
           AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgJp,
-          AppString.requiredLibaryPermssionMsg:
-              AppString.requiredLibaryPermssionMsgJp,
+          AppString.noLibaryPermssion: AppString.noLibaryPermssionMsgJp,
           AppString.englishText: AppString.englishTextJp,
           AppString.noCostMsg: AppString.noCostMsgJp,
           AppString.savedText: AppString.savedTextJp,
@@ -157,8 +156,7 @@ class AppTranslations extends Translations {
           AppString.permission: AppString.permissionKr,
           AppString.selectProfile: AppString.selectProfileKr,
           AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgKr,
-          AppString.requiredLibaryPermssionMsg:
-              AppString.requiredLibaryPermssionMsgKr,
+          AppString.noLibaryPermssion: AppString.noLibaryPermssionMsgKr,
           AppString.englishText: AppString.englishTextKr,
           AppString.noCostMsg: AppString.noCostMsgKr,
           AppString.savedText: AppString.savedTextKr,
@@ -307,8 +305,7 @@ class AppTranslations extends Translations {
           AppString.permission: AppString.permissionEn,
           AppString.selectProfile: AppString.selectProfileEn,
           AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgEn,
-          AppString.requiredLibaryPermssionMsg:
-              AppString.requiredLibaryPermssionMsgEn,
+          AppString.noLibaryPermssion: AppString.requiredLibaryPermssionMsgEn,
           AppString.englishText: AppString.englishTextEn,
           AppString.noCostMsg: AppString.noCostMsgEn,
           AppString.savedText: AppString.savedTextEn,
@@ -491,13 +488,11 @@ class AppString {
   static String noCameraPermssionMsgEn =
       "You do not have access to the camera.";
 
-  static String requiredLibaryPermssionMsg = 'requiredLibaryPermssionMsgTr';
-  static String requiredLibaryPermssionMsgKr =
-      '라이브러리 접근 권한이 없습니다.\n설정에서 권한을 변경하시겠습니까?';
-  static String requiredLibaryPermssionMsgJp =
-      'ライブラリのアクセス権限がないです。\n設定から権限を変更しますか？';
+  static String noLibaryPermssion = 'noLibaryPermssionMsgTr';
+  static String noLibaryPermssionMsgKr = '라이브러리 접근 권한이 없습니다.';
+  static String noLibaryPermssionMsgJp = 'ライブラリのアクセス権限がないです。';
   static String requiredLibaryPermssionMsgEn =
-      "You do not have access to the library.\nWould you like to change the permissions in Settings?";
+      "You do not have access to the library.";
 
   static String permission = 'permissionTr';
   static String permissionKr = '권한';

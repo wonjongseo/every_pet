@@ -87,6 +87,12 @@ class TodoController extends GetxController {
       kEvents[todoModel.dateTime]!.add(todoModel);
     }
     update();
+    // delete dummy todos
+    for (var todoModel in tempTodoModel) {
+      if (todoModel.stamps.isEmpty && todoModel.memo.isEmpty) {
+        todoRepository.deleteTodo(todoModel);
+      }
+    }
   }
 
   void onDaySelected(
@@ -210,6 +216,15 @@ class TodoController extends GetxController {
     }
 
     getTodos(petsController.pet!.name);
+  }
+
+  void subtractStamp(int index) {
+    if (getFocusedDayEvent() == null) return;
+
+    getFocusedDayEvent()![0].stamps.removeAt(index);
+    update();
+    todoRepository.saveTodo(getFocusedDayEvent()![0]);
+    getAllTodos();
   }
 
   Future<void> deleteTodoByPet(PetModel petModel) async {

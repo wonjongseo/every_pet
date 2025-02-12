@@ -34,8 +34,10 @@ class TodoScreen extends StatelessWidget {
           selectedDayPredicate: (day) => isSameDay(contoller.selectedDay, day),
           calendarBuilders: CalendarBuilders(
             singleMarkerBuilder: (context, day, focusedDay) {
-              if ((focusedDay as TodoModel).stamps.isEmpty) return null;
-              return TodoSmallCricle(focusedDay: focusedDay);
+              if ((focusedDay as TodoModel).stamps.isNotEmpty) {
+                return TodoSmallCricle(focusedDay: focusedDay);
+              }
+              return Container();
             },
           ),
           eventLoader: contoller.getEventsForDay,
