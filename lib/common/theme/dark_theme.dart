@@ -9,7 +9,6 @@ ThemeData darkTheme() {
     textTheme: ThemeData.dark().textTheme.apply(
           fontFamily: "ZenMaruGothic",
         ),
-    backgroundColor: AppColors.backgroundDark,
     scaffoldBackgroundColor: AppColors.greyBackground,
     extensions: [
       CustomThemeExtension.darkMode,

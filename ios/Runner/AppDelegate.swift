@@ -2,7 +2,7 @@ import UIKit
 import Flutter
 import ContactsUI
 
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate {
     private let channelName = "com.wonjongseo.every_pets/channel"
     

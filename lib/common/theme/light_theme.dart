@@ -12,7 +12,6 @@ ThemeData lightTheme(String systemLanguage) {
     textTheme: ThemeData.light().textTheme.apply(
         fontFamily:
             systemLanguage.contains('ja') ? "ZenMaruGothic" : "CookieRunFont"),
-    backgroundColor: AppColors.backgroundDark,
     scaffoldBackgroundColor: AppColors.backgroundLight,
     extensions: [CustomThemeExtension.lightMode],
     cardTheme: CardTheme(elevation: 2),

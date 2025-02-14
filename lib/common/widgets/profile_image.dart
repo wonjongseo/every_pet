@@ -1,12 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
-
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
-import 'package:every_pet/view/full_profile_image_screen.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({
@@ -46,7 +42,9 @@ class ProfileImage extends StatelessWidget {
               : Border.all(color: Colors.grey.withOpacity(.7)),
           shape: BoxShape.circle,
           image: DecorationImage(
-            onError: (exception, stackTrace) {},
+            onError: (exception, stackTrace) {
+              log(exception.toString());
+            },
             image: imagePath == AppImagePath.bisyon ||
                     imagePath == AppImagePath.defaultCat
                 ? AssetImage(imagePath!)

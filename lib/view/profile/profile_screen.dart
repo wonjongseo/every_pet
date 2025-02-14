@@ -24,6 +24,7 @@ import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -183,23 +184,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (image == null) {
         return;
       }
-      File file = File(image.path);
-      imagePath = file.path;
+
+      final directory = await getLibraryDirectory();
+      final appDirPath = directory.path;
+
+      final fileName = DateTime.now().millisecondsSinceEpoch;
+
+      final savedImage = File('$appDirPath/$fileName');
+
+      File newFile = await File(image!.path).copy(savedImage.path);
+
+      imagePath = newFile.path;
       setState(() {});
     } catch (e) {
       AppFunction.showNoPermissionSnackBar(
           message: AppString.noLibaryPermssion.tr);
     }
-    // try {
-    //   final image = await Get.to(() => const ImagePickerScreen());
-    //   if (image == null) return;
-
-    //   File file = await AppFunction.uint8ListToFile(image);
-    //   imagePath = file.path;
-    //   setState(() {});
-    // } catch (e) {
-    //   log('Image Picker Error $e');
-    // }
   }
 
   void updatePet(PetModel oldPetModel) {
@@ -305,7 +305,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               controller: petController.scrollController,
               child: Column(
                 children: [
-                  // koko
                   SingleChildScrollView(
                     child: Padding(
                       padding:
@@ -944,9 +943,6 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
