@@ -51,14 +51,10 @@ class ProfileController extends EnrollController {
 
     isPregnancy = pet.isPregnancy ?? false;
     isNeuter = pet.isNeuter ?? false;
-    imagePath = pet.imageUrl;
+    imagePath = pet.imageName;
   }
 
   void updatePet(PetModel oldPetModel) {
-    print('oldPetModel : ${oldPetModel}');
-
-    print('nameEditingController.text : ${nameEditingController.text}');
-
     PetModel updatedPet = oldPetModel.copyWith(
       name: nameEditingController.text,
       imageUrl: imagePath,

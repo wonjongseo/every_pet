@@ -55,8 +55,9 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
               return Padding(
                 padding: EdgeInsets.only(right: Responsive.width22),
                 child: RowPetProfileWidget(
-                  imagePath:
-                      controller.petsController.getPetOfIndex(index)!.imageUrl,
+                  imagePath: controller.petsController
+                      .getPetOfIndex(index)!
+                      .profilePath,
                   petName: controller.petsController.getPetOfIndex(index)!.name,
                   isActive: selectedProfileIndexs.contains(index),
                   onTap: () {

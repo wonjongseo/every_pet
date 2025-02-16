@@ -41,7 +41,7 @@ class DogModelAdapter extends TypeAdapter<DogModel> {
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.imageUrl)
+      ..write(obj.imageName)
       ..writeByte(2)
       ..write(obj.birthDay)
       ..writeByte(3)

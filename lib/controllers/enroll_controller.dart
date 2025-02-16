@@ -1,20 +1,18 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
-import 'package:every_pet/common/utilities/common.dialog.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/dog_model.dart';
-import 'package:every_pet/view/image_picker_screen.dart';
 import 'package:every_pet/view/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 enum PET_TYPE { DOG, CAT }
@@ -33,10 +31,6 @@ class EnrollController extends GetxController {
   TextEditingController groomingNameEditingController = TextEditingController();
   TextEditingController groomingNumberEditingController =
       TextEditingController();
-
-  // late FocusNode nameEditingFocusNode;
-  // late FocusNode birthDayEditingFocusNode;
-  // late FocusNode weightEditingFocusNode;
 
   DateTime? birthDay;
   PetsController petsController = Get.find<PetsController>();
@@ -115,15 +109,18 @@ class EnrollController extends GetxController {
     try {
       if (imagePath != AppImagePath.bisyon &&
           imagePath != AppImagePath.defaultCat) {
-        savedImagePath =
-            await AppFunction.saveFileFromTempDirectory(imagePath!, name);
+        if (tempFile != null) {
+          final directory = await getLibraryDirectory();
+          final String path = '${directory.path}/$name.png';
+          await tempFile!.copy(path);
+        }
       }
 
       if (petType == PET_TYPE.DOG) {
         DogModel dogModel = DogModel(
             name: name,
             weight: double.parse(weightEditingController.text),
-            imageUrl: savedImagePath ?? AppImagePath.bisyon,
+            imageUrl: tempFile != null ? '$name.png' : AppImagePath.bisyon,
             birthDay: birthDay!,
             genderType: genderType,
             hospitalName: hospitalNameEditingController.text,
@@ -230,6 +227,8 @@ class EnrollController extends GetxController {
     }
   }
 
+  String fileName = '';
+  File? tempFile;
   void goToImagePickerScreen() async {
     try {
       final ImagePicker picker = ImagePicker();
@@ -237,23 +236,13 @@ class EnrollController extends GetxController {
       if (image == null) {
         return;
       }
-      File file = File(image.path);
-      imagePath = file.path;
+      tempFile = File(image.path);
+      imagePath = tempFile!.path;
+      fileName = image!.name;
       update();
     } catch (e) {
       AppFunction.showNoPermissionSnackBar(
           message: AppString.noLibaryPermssion.tr);
     }
-
-    // try {
-    //   final image = await Get.to(() => const ImagePickerScreen());
-    //   if (image == null) return;
-
-    //   File file = await AppFunction.uint8ListToFile(image);
-    //   imagePath = file.path;
-    //   update();
-    // } catch (e) {
-    //   log('Image Picker Error $e');
-    // }
   }
 }

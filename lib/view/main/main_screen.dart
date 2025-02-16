@@ -67,7 +67,7 @@ class MainScreen extends StatelessWidget {
                         petName: petsController.getPetOfIndex(index)!.name,
                         isActive: petsController.petPageIndex == index,
                         imagePath:
-                            petsController.getPetOfIndex(index)!.imageUrl,
+                            petsController.getPetOfIndex(index)!.profilePath,
                         onTap: () {
                           petsController.onTapTopBar(index);
                         },

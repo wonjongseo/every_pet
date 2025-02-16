@@ -121,7 +121,6 @@ class EnrollScreenBody extends StatelessWidget {
                             children: [
                               CustomTextField(
                                 controller: controller.nameEditingController,
-                                // focusNode: controller.nameEditingFocusNode,
                                 textInputAction: TextInputAction.next,
                                 hintText: AppString.nameTextTr.tr,
                                 fontSize: Responsive.width16,

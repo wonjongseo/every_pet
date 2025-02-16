@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/app_image_path.dart';
+import 'package:every_pet/controllers/image_path_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/nutrition_model.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:age_calculator/age_calculator.dart';
 import 'package:uuid/uuid.dart';
@@ -13,7 +16,7 @@ class PetModel {
   String name;
 
   @HiveField(1)
-  String imageUrl;
+  String imageName;
 
   @HiveField(2)
   DateTime birthDay;
@@ -51,9 +54,19 @@ class PetModel {
   @HiveField(13)
   String? groomingNumber;
 
+  String get profilePath {
+    String path = Get.find<ImagePathController>().path;
+
+    if (imageName.contains(AppImagePath.bisyon) ||
+        imageName.contains(AppImagePath.defaultCat)) {
+      return imageName;
+    }
+    return '$path/$imageName';
+  }
+
   PetModel({
     required this.name,
-    required this.imageUrl,
+    required this.imageName,
     required this.birthDay,
     required this.genderType,
     required this.weight,
@@ -111,7 +124,7 @@ class PetModel {
   }) {
     PetModel pet = PetModel(
       name: name ?? this.name,
-      imageUrl: imageUrl ?? this.imageUrl,
+      imageName: imageUrl ?? this.imageName,
       birthDay: birthDay ?? this.birthDay,
       genderType: genderType ?? this.genderType,
       isNeuter: isNeuter ?? this.isNeuter,
@@ -132,7 +145,7 @@ class PetModel {
     final result = <String, dynamic>{};
 
     result.addAll({'name': name});
-    result.addAll({'imageUrl': imageUrl});
+    result.addAll({'imageUrl': imageName});
     result.addAll({'birthDay': birthDay.millisecondsSinceEpoch});
     result.addAll({'weight': weight});
     result.addAll({'id': id});
@@ -152,7 +165,7 @@ class PetModel {
     return PetModel(
       name: map['name'] ?? '',
       weight: map['weight'] ?? '',
-      imageUrl: map['imageUrl'] ?? '',
+      imageName: map['imageUrl'] ?? '',
       birthDay: DateTime.fromMillisecondsSinceEpoch(map['birthDay']),
       genderType:
           (map['genderType'] == 'male' ? GENDER_TYPE.MALE : GENDER_TYPE.FEMALE),
@@ -168,7 +181,7 @@ class PetModel {
 
   @override
   String toString() {
-    return 'PetModel(id: $id, name: $name, weight: $weight, imageUrl: $imageUrl, birthDay: $birthDay, genderType: $genderType, isNeuter: $isNeuter, isPregnancy: $isPregnancy,)';
+    return 'PetModel(id: $id, name: $name, weight: $weight, imageUrl: $imageName, birthDay: $birthDay, genderType: $genderType, isNeuter: $isNeuter, isPregnancy: $isPregnancy,)';
   }
 
   @override
@@ -177,7 +190,7 @@ class PetModel {
 
     return other is PetModel &&
         other.name == name &&
-        other.imageUrl == imageUrl &&
+        other.imageName == imageName &&
         other.birthDay == birthDay &&
         other.genderType == genderType &&
         other.isNeuter == isNeuter &&
@@ -190,7 +203,7 @@ class PetModel {
   @override
   int get hashCode {
     return name.hashCode ^
-        imageUrl.hashCode ^
+        imageName.hashCode ^
         birthDay.hashCode ^
         weight.hashCode ^
         genderType.hashCode ^

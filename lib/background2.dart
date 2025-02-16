@@ -5,12 +5,15 @@ import 'package:get/get.dart';
 import 'dart:math' as math;
 
 class BackGround2 extends StatelessWidget {
-  const BackGround2({super.key, required this.widget});
+  const BackGround2({
+    super.key,
+    required this.widget,
+  });
   final Widget widget;
   @override
   Widget build(BuildContext context) {
-    int randomTop1 = math.Random().nextInt(70) + 50; // 120
-    int randomTop2 = math.Random().nextInt(370) + 50; // 410
+    int randomTop1 = 120; // 120
+    int randomTop2 = 410; // 410
     Color color = Colors.white.withOpacity(.2);
     return SizedBox(
       height: MediaQuery.of(context).size.height,
@@ -20,7 +23,6 @@ class BackGround2 extends StatelessWidget {
           Positioned(
             left: -120,
             right: 120,
-            // top: 100,
             top: randomTop1.toDouble(),
             child: Transform(
               alignment: Alignment.center,

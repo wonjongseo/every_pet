@@ -118,7 +118,6 @@ class _SettingScreenState extends State<SettingScreen> {
                 imagePath: AppImagePath.circleGlobal,
                 onTap: () {},
                 widget: DropdownButton(
-                    // isDense: true,
                     underline: const SizedBox(),
                     items: [
                       if (AppFunction.isEn()) ...[

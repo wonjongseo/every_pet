@@ -112,7 +112,7 @@ class _ProfileScreenBackupState extends State<ProfileScreenBackup> {
     // weightEditingFocusNode = FocusNode();
     isPregnancy = pet.isPregnancy ?? false;
     isNeuter = pet.isNeuter ?? false;
-    imagePath = pet.imageUrl;
+    imagePath = pet.imageName;
   }
 
   void onChangeGendar(GENDER_TYPE? value) {

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
+import 'package:every_pet/controllers/image_path_controller.dart';
 import 'package:every_pet/controllers/nutrition_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
@@ -20,8 +21,8 @@ class SplashController extends GetxController {
     super.onReady();
 
     await initDefaultDatas(); // don't swap to petsController = Get.put(PetsController());
+    Get.put(ImagePathController());
     petsController = Get.put(PetsController());
-
     navigate();
   }
 

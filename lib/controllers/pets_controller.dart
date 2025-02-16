@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/controllers/app_review_controller.dart';
 import 'package:every_pet/controllers/nutrition_controller.dart';
@@ -14,6 +16,7 @@ import 'package:every_pet/view/todo/todo_screen.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 
 class PetsController extends GetxController {
   PetRepository petRepository = PetRepository();

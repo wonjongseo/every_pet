@@ -65,7 +65,6 @@ class _MyAppState extends State<MyApp> {
             title: 'Every Pets',
             theme: lightTheme(systemLanguage!),
             debugShowCheckedModeBanner: false,
-            // darkTheme: darkTheme(),
             themeMode: ThemeMode.system,
             translations: AppTranslations(),
             locale: Locale(systemLanguage!),

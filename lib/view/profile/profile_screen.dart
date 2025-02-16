@@ -95,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (!permission.isAuth) return PhotoManager.openSetting();
   }
 
-  loadPetInfo(PetModel pet) {
+  loadPetInfo(PetModel pet) async {
     // petsController = Get.find<PetsController>();
 
     nameEditingController = TextEditingController(
@@ -122,10 +122,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     groomingNumberEditingController = TextEditingController(
       text: pet.groomingNumber,
     );
-
+    genderType = pet.genderType;
     isPregnancy = pet.isPregnancy ?? false;
     isNeuter = pet.isNeuter ?? false;
-    imagePath = pet.imageUrl;
+    imagePath = pet.profilePath;
     setState(() {});
   }
 

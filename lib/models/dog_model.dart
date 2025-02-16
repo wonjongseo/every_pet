@@ -23,7 +23,7 @@ class DogModel extends PetModel {
     String? groomingNumber,
   }) : super(
           name: name,
-          imageUrl: imageUrl,
+          imageName: imageUrl,
           weight: weight,
           birthDay: birthDay,
           genderType: genderType,
@@ -53,7 +53,7 @@ class DogModel extends PetModel {
   }) {
     DogModel pet = DogModel(
       name: name ?? this.name,
-      imageUrl: imageUrl ?? this.imageUrl,
+      imageUrl: imageUrl ?? this.imageName,
       birthDay: birthDay ?? this.birthDay,
       genderType: genderType ?? this.genderType,
       isNeuter: isNeuter ?? this.isNeuter,

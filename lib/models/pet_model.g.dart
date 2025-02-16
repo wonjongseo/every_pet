@@ -18,7 +18,7 @@ class PetModelAdapter extends TypeAdapter<PetModel> {
     };
     return PetModel(
       name: fields[0] as String,
-      imageUrl: fields[1] as String,
+      imageName: fields[1] as String,
       birthDay: fields[2] as DateTime,
       genderType: fields[3] as GENDER_TYPE,
       weight: fields[6] as double,
@@ -41,7 +41,7 @@ class PetModelAdapter extends TypeAdapter<PetModel> {
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.imageUrl)
+      ..write(obj.imageName)
       ..writeByte(2)
       ..write(obj.birthDay)
       ..writeByte(3)
