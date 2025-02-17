@@ -14,6 +14,7 @@ import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:uuid/uuid.dart';
 
 enum PET_TYPE { DOG, CAT }
 
@@ -21,7 +22,7 @@ class EnrollController extends GetxController {
   final bool isFirst;
 
   EnrollController(this.isFirst);
-
+  ScrollController scrollController = ScrollController();
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController birthDayEditingController = TextEditingController();
   TextEditingController weightEditingController = TextEditingController();
@@ -42,6 +43,14 @@ class EnrollController extends GetxController {
   // File? imageFile;
   String imagePath = AppImagePath.bisyon;
   PET_TYPE petType = PET_TYPE.DOG;
+
+  void scrollGoToTop() {
+    scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
 
   void toogleRadio(PET_TYPE? value) {
     if (value == null) return;
@@ -71,18 +80,21 @@ class EnrollController extends GetxController {
 
   @override
   void onClose() {
-    super.onClose();
-    // MUST TO FIX
-    // nameEditingController.dispose();
-    // birthDayEditingController.dispose();
-    // weightEditingController.dispose();
+    scrollController.dispose();
+    nameEditingController.dispose();
+    birthDayEditingController.dispose();
+    weightEditingController.dispose();
+    hospitalNameEditingController.dispose();
+    hospitalNumberEditingController.dispose();
+    groomingNameEditingController.dispose();
+    groomingNumberEditingController.dispose();
 
-    // groomingNameEditingController.dispose();
-    // groomingNumberEditingController.dispose();
+    super.onClose();
   }
 
   void onClickSaveBtn(BuildContext context) async {
     if (nameEditingController.text.isEmpty) {
+      scrollGoToTop();
       AppFunction.showInvalidTextFieldSnackBar(
         message: AppString.nameCtrHintText.tr,
       );
@@ -90,6 +102,7 @@ class EnrollController extends GetxController {
     }
 
     if (weightEditingController.text.isEmpty) {
+      scrollGoToTop();
       AppFunction.showInvalidTextFieldSnackBar(
         message: AppString.weightCtrHint.tr,
       );
@@ -97,6 +110,7 @@ class EnrollController extends GetxController {
     }
 
     if (birthDayEditingController.text.isEmpty) {
+      scrollGoToTop();
       AppFunction.showInvalidTextFieldSnackBar(
         message: AppString.birthdayCtrHint.tr,
       );
@@ -104,14 +118,21 @@ class EnrollController extends GetxController {
     }
 
     String name = nameEditingController.text;
-    String? savedImagePath;
 
+    if (await petsController.isSavedName(name)) {
+      scrollGoToTop();
+      AppFunction.showInvalidTextFieldSnackBar(
+          message: '$name${AppString.isExistName.tr}');
+      return;
+    }
+
+    String imageName = const Uuid().v4();
     try {
       if (imagePath != AppImagePath.bisyon &&
           imagePath != AppImagePath.defaultCat) {
         if (tempFile != null) {
           final directory = await getLibraryDirectory();
-          final String path = '${directory.path}/$name.png';
+          final String path = '${directory.path}/$imageName.png';
           await tempFile!.copy(path);
         }
       }
@@ -120,7 +141,7 @@ class EnrollController extends GetxController {
         DogModel dogModel = DogModel(
             name: name,
             weight: double.parse(weightEditingController.text),
-            imageUrl: tempFile != null ? '$name.png' : AppImagePath.bisyon,
+            imageUrl: tempFile != null ? '$imageName.png' : AppImagePath.bisyon,
             birthDay: birthDay!,
             genderType: genderType,
             hospitalName: hospitalNameEditingController.text,
@@ -132,7 +153,8 @@ class EnrollController extends GetxController {
         CatModel catModel = CatModel(
           name: name,
           weight: double.parse(weightEditingController.text),
-          imageUrl: savedImagePath ?? AppImagePath.defaultCat,
+          imageUrl:
+              tempFile != null ? '$imageName.png' : AppImagePath.defaultCat,
           birthDay: birthDay!,
           genderType: genderType,
           hospitalName: hospitalNameEditingController.text,
@@ -208,37 +230,21 @@ class EnrollController extends GetxController {
       );
 
       if (image == null) return;
-      // imageFile = File(image.path);
+      tempFile = File(image.path);
       imagePath = image.path;
 
       update();
     } catch (e) {
       AppFunction.showNoPermissionSnackBar(
           message: AppString.noCameraPermssionMsg.tr);
-
-      // bool result = await CommonDialog.selectionDialog(
-      //   title: Text(AppString.requiredText.tr),
-      //   connent: Text(AppString.requiredCameraPermssionMsg.tr),
-      // );
-      // if (result) {
-      //   await PhotoManager.openSetting();
-      // }
-      // AppFunction.showAlertDialog(context: context, message: e.toString());
     }
   }
 
-  String fileName = '';
   File? tempFile;
   void goToImagePickerScreen() async {
     try {
-      final ImagePicker picker = ImagePicker();
-      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image == null) {
-        return;
-      }
-      tempFile = File(image.path);
+      tempFile = await AppFunction.goToImagePickerScreen();
       imagePath = tempFile!.path;
-      fileName = image!.name;
       update();
     } catch (e) {
       AppFunction.showNoPermissionSnackBar(

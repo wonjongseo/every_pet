@@ -110,6 +110,12 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    if (textEditingController.text.isEmpty) {
+      AppFunction.showInvalidTextFieldSnackBar(
+          message: AppString.stampNameCtlMsg.tr);
+      return;
+    }
+
     StampModel stampModel = StampModel(
       name: textEditingController.text,
       iconIndex: stampIconIndexValue,
@@ -122,14 +128,30 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     AppFunction.showSuccessEnrollMsgSnackBar(stampModel.name);
   }
 
-  void updateStamp() {
+  void updateStamp() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
+    // 1.2.0+4 스탬프 변경 하면 show snack Bar
+    if (widget.stamp == null) return;
+    if (textEditingController.text.isEmpty) {
+      AppFunction.showInvalidTextFieldSnackBar(
+          message: AppString.stampNameCtlMsg.tr);
+      return;
+    }
+    if (widget.stamp!.name == textEditingController.text) {
+      Get.back();
+      return;
+    }
+    // 1.2.0+4 스탬프 변경 하면 show snack Bar
+
     StampModel updatedStamp = widget.stamp!.copyWith(
         name: textEditingController.text, iconIndex: stampIconIndexValue);
 
     stampController.updateStamp(updatedStamp);
+    // 1.2.0+4 스탬프 변경 하면 show snack Bar
     Get.back();
+    AppFunction.showSuccessChangedMsgSnackBar(updatedStamp.name);
+    // 1.2.0+4 스탬프 변경 하면 show snack Bar
   }
 }

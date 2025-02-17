@@ -31,8 +31,7 @@ class AppReviewController {
   static bool _shouldRequestReview(int count) {
     int n = 1;
     while (true) {
-      int geometricTerm =
-          n * (n + 1) * 5; // 등비수열: 5 * n(n + 1) (10, 30, 60, 100, ...)
+      int geometricTerm = n * (n + 1) * 5;
       if (count == geometricTerm) {
         return true;
       } else if (count < geometricTerm) {

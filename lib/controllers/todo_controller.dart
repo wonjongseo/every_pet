@@ -218,6 +218,16 @@ class TodoController extends GetxController {
     getTodos(petsController.pet!.name);
   }
 
+  // 등록한 스탬프의 이름을 변경할 경우, 삭제 가능
+  bool checkStamp(String name) {
+    for (var stamp in stampController.stamps) {
+      if (stamp.name == name) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   void subtractStamp(int index) {
     if (getFocusedDayEvent() == null) return;
 

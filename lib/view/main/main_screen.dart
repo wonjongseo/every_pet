@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/widgets/add_button.dart';
+import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/view/full_profile_image_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -64,6 +65,8 @@ class MainScreen extends StatelessWidget {
                     return Padding(
                       padding: EdgeInsets.only(right: Responsive.width22),
                       child: RowPetProfileWidget(
+                        genderType:
+                            petsController.getPetOfIndex(index)!.genderType,
                         petName: petsController.getPetOfIndex(index)!.name,
                         isActive: petsController.petPageIndex == index,
                         imagePath:
@@ -140,11 +143,13 @@ class RowPetProfileWidget extends StatelessWidget {
     required this.isActive,
     required this.petName,
     required this.onTap,
+    required this.genderType,
     required this.imagePath,
   }) : super(key: key);
 
   final bool isActive;
   final String petName;
+  final GENDER_TYPE genderType;
   final VoidCallback onTap;
   final String imagePath;
   @override
@@ -157,9 +162,10 @@ class RowPetProfileWidget extends StatelessWidget {
             () => FullProfileImageScreen(imagePath: imagePath),
           ),
           imagePath: imagePath,
-          width: Responsive.width10 * 4,
-          height: Responsive.width10 * 4,
+          width: Responsive.width10 * 4.5,
+          height: Responsive.width10 * 4.5,
           isActive: isActive,
+          genderType: genderType,
         ),
         Text(
           petName,

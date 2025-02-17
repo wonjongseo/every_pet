@@ -56,7 +56,7 @@ class SplashController extends GetxController {
     await Future.delayed(
         const Duration(milliseconds: 500)); // 네비게이션 호출 전에 약간 대기
     if (!petsController.hasPets) {
-      Get.off(() => EnrollScreen(isFirst: true));
+      Get.off(() => const EnrollScreen(isFirst: true));
     } else {
       Get.off(() => const MainScreen());
       return;

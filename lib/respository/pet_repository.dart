@@ -13,13 +13,21 @@ class PetRepository {
     print('pet saved!');
   }
 
+  Future<bool> isExistPetName(String petName) async {
+    var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
+
+    List<PetModel> pets = box.values.toList();
+    for (var pet in pets) {
+      if (pet.name == petName) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   Future<bool> isExistPet(PetModel pet) async {
     var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
-    // 데이터 저장
-    // await box.add(pet);
-    // bool isExistPet = await box.containsKey(
-    //     '${pet.name}-${UtilFunction.getDayYYYYMMDD(pet.birthDay)}-${pet.genderType.gender}');
     bool isExistPet = await box.containsKey(pet.id);
 
     return isExistPet;

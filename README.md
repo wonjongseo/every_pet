@@ -290,3 +290,29 @@ Create / Change / Delete Category
 
 5. Add Little Your One
 </details>
+
+<br/><br><br/><br>
+
+# Release
+
+<details><summary>Version 1.2.0+4</summary>
+
+    <ko-KR>
+    1. UI/UX 수정
+    2. 펫 프로필 이미지가 삭제되는 버그 수정,
+    3. 펫 성별 적용 안되는 버그 수정
+    </ko-KR>
+
+    <en-US>
+    1. Modify UI/UX
+    2. Fix a bug that causes pet profile images to be deleted,
+    3. Fix a bug that doesn't apply to pet gender
+    </en-US>
+
+    <ja-JP>
+    1. UI/UX 修正
+    2. ペットプロフィール写真が削除されるバグ修正
+    3. ペットの性別が適用されないバグ修正
+    </ja-JP>
+
+</details>

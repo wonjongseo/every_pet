@@ -5,6 +5,7 @@ import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/common/widgets/short_bar.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
+import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/view/todo/widgets/row_stamp_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,24 +68,33 @@ class BottomSheetWidget extends StatelessWidget {
                     Column(
                       children: List.generate(
                         controller.getFocusedDayEvent()![0].stamps.length,
-                        (index) => GestureDetector(
-                          onTap: () => controller.subtractStamp(index),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              bottom: Responsive.height10,
-                              left: Responsive.width10,
-                            ),
+                        (index) {
+                          StampModel stampModel =
+                              controller.getFocusedDayEvent()![0].stamps[index];
+                          bool isExsit = controller.checkStamp(stampModel.name);
+                          print('isExsit : ${isExsit}');
+
+                          return GestureDetector(
+                            onTap: isExsit
+                                ? null
+                                : () => controller.subtractStamp(index),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Responsive.width10 * 2,
+                              padding: EdgeInsets.only(
+                                bottom: Responsive.height10,
+                                left: Responsive.width10,
                               ),
-                              child: RowStampWidget(
-                                  stamp: controller
-                                      .getFocusedDayEvent()![0]
-                                      .stamps[index]),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: Responsive.width10 * 2,
+                                ),
+                                child: RowStampWidget(
+                                  stamp: stampModel,
+                                  isExsit: isExsit,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ),
                   ],

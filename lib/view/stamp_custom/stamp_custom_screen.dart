@@ -69,6 +69,7 @@ class StampCustomScreen extends StatelessWidget {
                       hintStyle: activeHintStyle,
                       onTap: () {
                         Get.dialog(
+                          name: "EnrollStampDialog",
                           AlertDialog(
                             content: EnrollStampDialog(
                               stamp: controller.stamps[index],

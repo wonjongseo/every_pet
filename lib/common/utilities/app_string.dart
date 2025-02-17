@@ -4,6 +4,8 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'ja_JP': {
+          AppString.updatedText: AppString.updatedTextJp,
+          AppString.isExistName: AppString.isExistNameJp,
           AppString.permission: AppString.permissionJp,
           AppString.selectProfile: AppString.selectProfileJp,
           AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgJp,
@@ -153,6 +155,8 @@ class AppTranslations extends Translations {
           AppString.reportMsgContect: AppString.reportMsgContectJp,
         },
         'ko_KR': {
+          AppString.updatedText: AppString.updatedTextKr,
+          AppString.isExistName: AppString.isExistNameKr,
           AppString.permission: AppString.permissionKr,
           AppString.selectProfile: AppString.selectProfileKr,
           AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgKr,
@@ -302,6 +306,8 @@ class AppTranslations extends Translations {
           AppString.setLanguage: AppString.setLanguageKr,
         },
         'en_US': {
+          AppString.updatedText: AppString.updatedTextEn,
+          AppString.isExistName: AppString.isExistNameEn,
           AppString.permission: AppString.permissionEn,
           AppString.selectProfile: AppString.selectProfileEn,
           AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgEn,
@@ -480,7 +486,7 @@ class AppString {
   static String changedSystemLanguageMsgJp =
       'システム言語が変更されました。\nフォントを適用させるにはアプリを再起動する必要があります。';
   static String changedSystemLanguageMsgEn =
-      "The System Language is changed.\nIf you want to change the app font, It is required to Restart";
+      "The System Language is changed.\nIf you want to change the app font, It is required to Restart.";
 
   static String noCameraPermssionMsg = 'noCameraPermssionMsgTr';
   static String noCameraPermssionMsgKr = '카메라 접근 권한이 없습니다.';
@@ -926,6 +932,11 @@ In other words, it means the amount of energy you need to rest.""";
   static String savedTextJp = "保存済み";
   static String savedTextEn = "Saved";
 
+  static String updatedText = "updatedTextTr";
+  static String updatedTextKr = '변경됨';
+  static String updatedTextJp = "変更済み";
+  static String updatedTextEn = "Updated";
+
   static String stampText = "stampTextTr";
   static String stampTextKr = '스탬프';
   static String stampTextJp = "スタンプ";
@@ -1142,9 +1153,9 @@ In other words, it means the amount of energy you need to rest.""";
   static String doneAddtionMsgEn = " is Saved";
 
   static String doneUpdatedMsg = "doneUpdatedMsgTr";
-  static String doneUpdatedMsgKr = "으로 변경되었습니다.";
+  static String doneUpdatedMsgKr = "(으)로 변경되었습니다.";
   static String doneUpdatedMsgJp = 'に変更されました。';
-  static String doneUpdatedMsgEn = "";
+  static String doneUpdatedMsgEn = " is Updated";
 
   static String stampIsText = "stampIsTextTr";
   static String stampIsTextKr = "스탬프가";
@@ -1195,15 +1206,36 @@ Would you like to copy the email [visionwill3322@gmail.com]?"
   static String copyWordMsg = "copyWordMsgTr";
   static String copyWordMsgKr = '가\n 복사(Ctrl + C) 되었습니다.';
   static String copyWordMsgJp = "が\n コピー(Ctrl + C)されました。";
-  static String copyWordMsgEn = "";
+  static String copyWordMsgEn = " has been copied. (Ctrl + C)";
 
   static String fnOrErorreport = "fnOrErorreportTr";
   static String fnOrErorreportKr = '희망 기능 또는 에러 제보';
   static String fnOrErorreportJp = "ご要望及びエラーの申告";
   static String fnOrErorreportEn = "Feature requests or Error reports";
 
+  static String isExistName = "isExistNameTr";
+  static String isExistNameKr = '은(는) 이미 등록되어있습니다.';
+  static String isExistNameJp = "は既に登録されています。";
+  static String isExistNameEn = " is already registered";
+
   static String reportMsgContect = "reportMsgContectTr";
-  static String reportMsgContectEn = "";
+  static String reportMsgContectEn = """"
+
+⭐️ [Feature Information You Want]
+
+
+==========================
+
+⭐️ [BUG ・ ERROR Report]
+
+🔸 BUG ・ ERROR Screens :　 
+   EX) Calendar Screen Or Cost Screen
+   
+🔸 BUG ・ ERROR Contents :　
+   EX) An error occurred when I added a schedule on the calendar screen.
+
+
+""";
   static String reportMsgContectKr = """
 
 ⭐️ [희망 기능 제보]

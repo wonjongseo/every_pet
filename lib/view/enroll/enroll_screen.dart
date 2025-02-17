@@ -7,6 +7,7 @@ import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/view/enroll/widgets/gender_selector.dart';
 import 'package:every_pet/view/full_profile_image_screen.dart';
+import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -60,6 +61,7 @@ class EnrollScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: controller.scrollController,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: Responsive.width10),
         child: Column(
@@ -324,6 +326,12 @@ class EnrollScreenBody extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            CustomButton(
+              label: AppString.enrollTextBtnTr.tr,
+              onTap: () {
+                controller.onClickSaveBtn(context);
+              },
             ),
           ],
         ),

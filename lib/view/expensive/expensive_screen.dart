@@ -142,12 +142,16 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                       expensiveController.expensivesByDay(days[index]);
 
                   return ListTile(
+                    iconColor: Colors.black,
                     key: now.day - 1 == index ? todayKey : null,
                     title: Text(
                       DateFormat.MMMEd(Get.locale.toString())
                           .format(days[index]),
                     ),
                     isThreeLine: expensives.isNotEmpty ? true : false,
+                    trailing: expensives.isEmpty
+                        ? Icon(Icons.keyboard_arrow_right)
+                        : null,
                     subtitle: expensives.isNotEmpty
                         ? Column(
                             children: List.generate(
@@ -244,9 +248,11 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                         Text(
                           '${AppString.moneySign.tr} ${NumberFormat("#,###").format(expensiveController.getPricePerMonth())}',
                           style: subHeadingStyle,
-                        )
+                        ),
+                        SizedBox(width: Responsive.width10),
+                        const Icon(Icons.keyboard_arrow_down)
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

@@ -8,8 +8,9 @@ class RowStampWidget extends StatelessWidget {
   const RowStampWidget({
     super.key,
     required this.stamp,
+    required this.isExsit,
   });
-
+  final bool isExsit;
   final StampModel stamp;
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,8 @@ class RowStampWidget extends StatelessWidget {
         Row(
           children: [
             Container(
-              height: 40,
-              width: 40,
+              height: Responsive.width10 * 4,
+              width: Responsive.width10 * 4,
               decoration: BoxDecoration(
                 color: AppColors.primaryColor.withOpacity(.5),
                 shape: BoxShape.circle,
@@ -28,15 +29,14 @@ class RowStampWidget extends StatelessWidget {
               child: Image.asset(StampModel.getIcon(stamp.iconIndex)),
             ),
             SizedBox(width: Responsive.width10),
-            Text(
-              stamp.name,
-            ),
+            Text(stamp.name),
           ],
         ),
-        AddOrRemoveButton(
-          addOrRemove: AddOrRemoveType.REMOVE,
-          width: Responsive.width10 * 4,
-        )
+        if (!isExsit)
+          AddOrRemoveButton(
+            addOrRemove: AddOrRemoveType.REMOVE,
+            width: Responsive.width10 * 4,
+          )
       ],
     );
   }

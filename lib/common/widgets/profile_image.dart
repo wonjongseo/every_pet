@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/models/dog_model.dart';
 import 'package:flutter/material.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
@@ -11,6 +13,7 @@ class ProfileImage extends StatelessWidget {
     this.width,
     this.file,
     this.imagePath,
+    this.genderType,
     this.isActive,
     this.onLongPress,
     required this.onTap,
@@ -21,6 +24,7 @@ class ProfileImage extends StatelessWidget {
   final File? file;
   final String? imagePath;
   final bool? isActive;
+  final GENDER_TYPE? genderType;
   final Function() onTap;
   final Function()? onLongPress;
 
@@ -38,8 +42,12 @@ class ProfileImage extends StatelessWidget {
               ? AppColors.primaryColor
               : Colors.grey.withOpacity(.7),
           border: isActive ?? false
-              ? Border.all(color: AppColors.primaryColor, width: 3)
-              : Border.all(color: Colors.grey.withOpacity(.7)),
+              ? Border.all(color: AppColors.primaryColor, width: 4)
+              : genderType == null
+                  ? Border.all(color: Colors.grey.withOpacity(.7))
+                  : genderType! == GENDER_TYPE.MALE
+                      ? Border.all(color: Colors.blueAccent, width: 2)
+                      : Border.all(color: Colors.redAccent, width: 2),
           shape: BoxShape.circle,
           image: DecorationImage(
             onError: (exception, stackTrace) {

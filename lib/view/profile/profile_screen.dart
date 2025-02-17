@@ -11,7 +11,6 @@ import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/view/enroll/widgets/gender_selector.dart';
 import 'package:every_pet/view/full_profile_image_screen.dart';
-import 'package:every_pet/view/image_picker_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,6 +25,7 @@ import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:uuid/uuid.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key, required this.pet});
@@ -52,6 +52,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isPregnancy = false;
   PET_TYPE petType = PET_TYPE.DOG;
 
+  bool isSavedImage = true;
+
   void togglePregnancy(bool? value) {
     if (value == null) return;
 
@@ -60,13 +62,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void toggleNeuter(bool? value) {
-    print('value : ${value}');
-
     if (value == null) return;
 
     setState(() {
       isNeuter = value;
-      print('isNeuter : ${isNeuter}');
     });
   }
 
@@ -96,8 +95,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   loadPetInfo(PetModel pet) async {
-    // petsController = Get.find<PetsController>();
-
     nameEditingController = TextEditingController(
       text: pet.name,
     );
@@ -125,7 +122,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     genderType = pet.genderType;
     isPregnancy = pet.isPregnancy ?? false;
     isNeuter = pet.isNeuter ?? false;
-    imagePath = pet.profilePath;
+
+    if (pet.imageName.contains(AppImagePath.bisyon) ||
+        pet.imageName.contains(AppImagePath.defaultCat)) {
+      isSavedImage = false;
+      imagePath = pet.profilePath;
+    } else {
+      // imagePath = '${Get.find<ImagePathController>().path}/${pet.imageName}';
+      imagePath = pet.profilePath;
+    }
     setState(() {});
   }
 
@@ -168,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
 
       if (image == null) return;
-      // imageFile = File(image.path);
+      tempFile = File(image.path);
       imagePath = image.path;
 
       setState(() {});
@@ -177,35 +182,92 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  String fileName = '';
+  File? tempFile;
   void goToImagePickerScreen() async {
     try {
-      final ImagePicker picker = ImagePicker();
-      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      if (image == null) {
-        return;
-      }
-
-      final directory = await getLibraryDirectory();
-      final appDirPath = directory.path;
-
-      final fileName = DateTime.now().millisecondsSinceEpoch;
-
-      final savedImage = File('$appDirPath/$fileName');
-
-      File newFile = await File(image!.path).copy(savedImage.path);
-
-      imagePath = newFile.path;
+      tempFile = await AppFunction.goToImagePickerScreen();
+      imagePath = tempFile!.path;
       setState(() {});
+      ();
     } catch (e) {
       AppFunction.showNoPermissionSnackBar(
           message: AppString.noLibaryPermssion.tr);
     }
   }
 
-  void updatePet(PetModel oldPetModel) {
+  void scrollGoToTop() {
+    scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  ScrollController scrollController = ScrollController();
+  void updatePet(PetModel oldPetModel) async {
+    if (nameEditingController.text.isEmpty) {
+      petController.scrollGoToTop();
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.nameCtrHintText.tr,
+      );
+      return;
+    }
+
+    if (weightEditingController.text.isEmpty) {
+      petController.scrollGoToTop();
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.weightCtrHint.tr,
+      );
+      return;
+    }
+
+    if (birthDayEditingController.text.isEmpty) {
+      petController.scrollGoToTop();
+      AppFunction.showInvalidTextFieldSnackBar(
+        message: AppString.birthdayCtrHint.tr,
+      );
+      return;
+    }
+    String name = nameEditingController.text;
+    if (widget.pet.name != name) {
+      if (await petController.isSavedName(name)) {
+        petController.scrollGoToTop();
+        AppFunction.showInvalidTextFieldSnackBar(
+            message: '$name${AppString.isExistName.tr}');
+        return;
+      }
+    }
+
+    String imageUrl = widget.pet.imageName;
+    String imageName = widget.pet.imageName;
+
+    String newName = "${const Uuid().v4()}.png";
+
+    final directory = await getLibraryDirectory();
+
+    if (isSavedImage && tempFile != null) {
+      // Delete
+      final directory = await getLibraryDirectory();
+      imageUrl = '${directory.path}/${widget.pet.imageName}';
+
+      File oldFile = File(imageUrl);
+      if (await oldFile.exists()) {
+        await oldFile.delete();
+      }
+
+      imageUrl = '${directory.path}/$newName';
+      tempFile!.copy(imageUrl);
+      imageName = newName;
+    } else if (!isSavedImage && tempFile != null) {
+      imageUrl = '${directory.path}/$newName';
+      tempFile!.copy(imageUrl);
+      imageName = newName;
+    }
+
     PetModel updatedPet = oldPetModel.copyWith(
-      name: nameEditingController.text,
-      imageUrl: imagePath,
+      name: name,
+      imageUrl: imageName,
       birthDay: birthDay ?? oldPetModel.birthDay,
       genderType: genderType,
       weight: double.parse(weightEditingController.text),
@@ -560,7 +622,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: Responsive.height20),
+                  SizedBox(height: Responsive.height40),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -584,318 +646,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
-
-    // return GetBuilder<PetsController>(builder: (petController) {
-    //   if (!petsController.hasPets) {
-    //     return Container();
-    //   }
-    //   // PetModel pet = petController.pet!;
-    //   // loadPetInfo(pet);
-    //   return Scaffold(
-    //     appBar: AppBar(),
-    //     body: GestureDetector(
-    //       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-    //       child: SafeArea(
-    //         child: SingleChildScrollView(
-    //           controller: petController.scrollController,
-    //           child: Column(
-    //             children: [
-    //               // koko
-    //               SingleChildScrollView(
-    //                 child: Padding(
-    //                   padding:
-    //                       EdgeInsets.symmetric(horizontal: Responsive.width10),
-    //                   child: Column(
-    //                     children: [
-    //                       Row(
-    //                         children: [
-    //                           Expanded(
-    //                             child: RadioListTile(
-    //                               title: Text(AppString.dogTextTr.tr),
-    //                               value: PET_TYPE.DOG,
-    //                               groupValue: petType,
-    //                               onChanged: toogleRadio,
-    //                             ),
-    //                           ),
-    //                           Expanded(
-    //                             child: RadioListTile(
-    //                               title: Text(AppString.catTextTr.tr),
-    //                               value: PET_TYPE.CAT,
-    //                               groupValue: petType,
-    //                               onChanged: toogleRadio,
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                       Padding(
-    //                         padding: EdgeInsets.symmetric(
-    //                           vertical: Responsive.height16 * 2,
-    //                           horizontal: Responsive.width16,
-    //                         ),
-    //                         child: SingleChildScrollView(
-    //                           child: Column(
-    //                             crossAxisAlignment: CrossAxisAlignment.start,
-    //                             children: [
-    //                               Column(
-    //                                 children: [
-    //                                   ProfileImage(
-    //                                     imagePath: imagePath,
-    //                                     onTap: () {
-    //                                       Get.to(
-    //                                         () => FullProfileImageScreen(
-    //                                             imagePath: imagePath),
-    //                                       );
-    //                                     },
-    //                                   ),
-    //                                   ImagePickIconRow(
-    //                                     onClickCamaraIcon: () =>
-    //                                         pickImageFromCamera(context),
-    //                                     onClickFolderIcon:
-    //                                         goToImagePickerScreen,
-    //                                   ),
-    //                                 ],
-    //                               ),
-    //                               SizedBox(height: Responsive.height10 * 2),
-    //                               Form(
-    //                                 child: Column(
-    //                                   children: [
-    //                                     CustomTextField(
-    //                                       controller: nameEditingController,
-    //                                       textInputAction: TextInputAction.next,
-    //                                       hintText: AppString.nameTextTr.tr,
-    //                                       fontSize: Responsive.width16,
-    //                                     ),
-    //                                     SizedBox(height: Responsive.height14),
-    //                                     CustomTextField(
-    //                                       fontSize: Responsive.width16,
-    //                                       controller: weightEditingController,
-    //                                       textInputAction: TextInputAction.next,
-    //                                       keyboardType: const TextInputType
-    //                                           .numberWithOptions(
-    //                                         decimal: true,
-    //                                       ),
-    //                                       hintText: AppString.weightTextTr.tr,
-    //                                       sufficIcon: const Text('kg'),
-    //                                     ),
-    //                                     SizedBox(height: Responsive.height14),
-    //                                     CustomTextField(
-    //                                       onTap: () =>
-    //                                           selectBirthDayPicker(context),
-    //                                       fontSize: Responsive.width16,
-    //                                       readOnly: true,
-    //                                       controller: birthDayEditingController,
-    //                                       hintText: AppString.birthDayTextTr.tr,
-    //                                     ),
-    //                                   ],
-    //                                 ),
-    //                               ),
-    //                             ],
-    //                           ),
-    //                         ),
-    //                       ),
-    //                       Divider(height: Responsive.height10 * 4),
-    //                       Padding(
-    //                         padding: EdgeInsets.symmetric(
-    //                             horizontal: Responsive.width10),
-    //                         child: Column(
-    //                           children: [
-    //                             GendarSelector(
-    //                               genderType: genderType,
-    //                               onChangeGender: onChangeGendar,
-    //                             ),
-    //                             SizedBox(height: Responsive.height10),
-    //                             Row(
-    //                               mainAxisAlignment:
-    //                                   MainAxisAlignment.spaceBetween,
-    //                               children: [
-    //                                 Text(
-    //                                   genderType == GENDER_TYPE.MALE
-    //                                       ? AppString.kyoseiTr.tr
-    //                                       : AppString.fuinnTr.tr,
-    //                                   style: TextStyle(
-    //                                     fontSize: Responsive.width16,
-    //                                     fontWeight: FontWeight.w500,
-    //                                   ),
-    //                                 ),
-    //                                 Checkbox(
-    //                                   value: isNeuter,
-    //                                   //toggleNeuter
-    //                                   onChanged: (v) {
-    //                                     print('v : ${v}');
-    //                                     isNeuter = v!;
-    //                                     setState(() {});
-    //                                   },
-    //                                   materialTapTargetSize:
-    //                                       MaterialTapTargetSize.shrinkWrap,
-    //                                 ),
-    //                                 Transform.scale(
-    //                                   scale: 1.25,
-    //                                   child: Checkbox(
-    //                                     value: isNeuter,
-    //                                     //toggleNeuter
-    //                                     onChanged: (v) {
-    //                                       print('v : ${v}');
-    //                                       isNeuter = v!;
-    //                                       setState(() {});
-    //                                     },
-    //                                     materialTapTargetSize:
-    //                                         MaterialTapTargetSize.shrinkWrap,
-    //                                   ),
-    //                                 )
-    //                               ],
-    //                             ),
-    //                             SizedBox(height: Responsive.height10),
-    //                             if (genderType == GENDER_TYPE.FEMALE)
-    //                               Row(
-    //                                 mainAxisAlignment:
-    //                                     MainAxisAlignment.spaceBetween,
-    //                                 children: [
-    //                                   Text(
-    //                                     AppString.pregentText.tr,
-    //                                     style: TextStyle(
-    //                                       fontSize: Responsive.width16,
-    //                                       fontWeight: FontWeight.w500,
-    //                                     ),
-    //                                   ),
-    //                                   Transform.scale(
-    //                                     scale: 1.25,
-    //                                     child: Checkbox(
-    //                                       value: isPregnancy,
-    //                                       onChanged: togglePregnancy,
-    //                                       materialTapTargetSize:
-    //                                           MaterialTapTargetSize.shrinkWrap,
-    //                                     ),
-    //                                   )
-    //                                 ],
-    //                               ),
-    //                           ],
-    //                         ),
-    //                       ),
-    //                       Divider(height: Responsive.height10 * 4),
-    //                       Column(
-    //                         children: [
-    //                           Row(
-    //                             crossAxisAlignment: CrossAxisAlignment.start,
-    //                             children: [
-    //                               SizedBox(width: Responsive.width10 / 2),
-    //                               Text(
-    //                                 AppString.regularHospital.tr,
-    //                                 style: TextStyle(
-    //                                   fontSize: Responsive.width18,
-    //                                 ),
-    //                               )
-    //                             ],
-    //                           ),
-    //                           Padding(
-    //                             padding: EdgeInsets.symmetric(
-    //                               horizontal: Responsive.width10,
-    //                               vertical: Responsive.height10,
-    //                             ),
-    //                             child: CustomTextField(
-    //                               hintText: AppString.hasipitalTextTr.tr,
-    //                               textInputAction: TextInputAction.next,
-    //                               controller: hospitalNameEditingController,
-    //                             ),
-    //                           ),
-    //                           Padding(
-    //                             padding: EdgeInsets.symmetric(
-    //                                 horizontal: Responsive.width10),
-    //                             child: CustomTextField(
-    //                               controller: hospitalNumberEditingController,
-    //                               keyboardType: TextInputType.phone,
-    //                               hintText: AppString.hasipitalNumTextTr.tr,
-    //                               widget: IconButton(
-    //                                 onPressed: hospitalNumberEditingController
-    //                                         .text.isNotEmpty
-    //                                     ? () {
-    //                                         NativeCaller.callPhone(
-    //                                             hospitalNumberEditingController
-    //                                                 .text);
-    //                                       }
-    //                                     : null,
-    //                                 icon: const Icon(Icons.phone),
-    //                               ),
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                       SizedBox(height: Responsive.height10 * 4),
-    //                       Column(
-    //                         children: [
-    //                           Row(
-    //                             crossAxisAlignment: CrossAxisAlignment.start,
-    //                             children: [
-    //                               SizedBox(width: Responsive.width10 / 2),
-    //                               Text(
-    //                                 AppString.regularTrmingShop.tr,
-    //                                 style: TextStyle(
-    //                                   fontSize: Responsive.width18,
-    //                                 ),
-    //                               )
-    //                             ],
-    //                           ),
-    //                           Padding(
-    //                             padding: EdgeInsets.symmetric(
-    //                               horizontal: Responsive.width10,
-    //                               vertical: Responsive.height10,
-    //                             ),
-    //                             child: CustomTextField(
-    //                               hintText: AppString.regularTrmingShopName.tr,
-    //                               textInputAction: TextInputAction.next,
-    //                               controller: groomingNameEditingController,
-    //                             ),
-    //                           ),
-    //                           Padding(
-    //                             padding: EdgeInsets.symmetric(
-    //                                 horizontal: Responsive.width10),
-    //                             child: CustomTextField(
-    //                               controller: groomingNumberEditingController,
-    //                               keyboardType: TextInputType.phone,
-    //                               hintText:
-    //                                   AppString.regularTrmingShopNumber.tr,
-    //                               widget: IconButton(
-    //                                 onPressed: groomingNumberEditingController
-    //                                         .text.isNotEmpty
-    //                                     ? () {
-    //                                         NativeCaller.callPhone(
-    //                                             groomingNumberEditingController
-    //                                                 .text);
-    //                                       }
-    //                                     : null,
-    //                                 icon: const Icon(Icons.phone),
-    //                               ),
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       )
-    //                     ],
-    //                   ),
-    //                 ),
-    //               ),
-    //               SizedBox(height: Responsive.height20),
-    //               Column(
-    //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //                 children: [
-    //                   CustomButton(
-    //                     label: AppString.updateBtnText.tr,
-    //                     onTap: () => updatePet(pet),
-    //                   ),
-    //                   SizedBox(height: Responsive.height15),
-    //                   CustomButton(
-    //                     label: AppString.deleteBtnText.tr,
-    //                     color: AppColors.secondaryColor,
-    //                     onTap: () => deletePet(pet.name),
-    //                   ),
-    //                 ],
-    //               ),
-    //               SizedBox(height: Responsive.height20),
-    //             ],
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   );
-    // });
   }
 }
 
@@ -943,111 +693,3 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-
-// import 'package:every_pet/common/utilities/app_color.dart';
-// import 'package:every_pet/common/utilities/app_string.dart';
-// import 'package:every_pet/common/utilities/responsive.dart';
-// import 'package:every_pet/controllers/pets_controller.dart';
-// import 'package:every_pet/controllers/profile_controller.dart';
-// import 'package:every_pet/models/pet_model.dart';
-// import 'package:every_pet/view/enroll/enroll_screen.dart';
-
-// class ProfileScreen extends StatelessWidget {
-//   const ProfileScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     ProfileController controller = Get.put(ProfileController());
-//     return GetBuilder<PetsController>(builder: (petController) {
-//       if (!petController.hasPets) {
-//         return Container();
-//       }
-//       PetModel pet = petController.pet!;
-//       controller.loadPetInfo(pet);
-//       return Scaffold(
-//         appBar: AppBar(),
-//         body: GestureDetector(
-//           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-//           child: SafeArea(
-//             child: GetBuilder<ProfileController>(builder: (controller) {
-//               return Center(
-//                 child: SingleChildScrollView(
-//                   controller: petController.scrollController,
-//                   child: Column(
-//                     children: [
-//                       EnrollScreenBody(controller: controller),
-//                       Column(
-//                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                         children: [
-//                           CustomButton(
-//                             label: AppString.updateBtnText.tr,
-//                             onTap: () => controller.updatePet(pet!),
-//                           ),
-//                           SizedBox(height: Responsive.height15),
-//                           CustomButton(
-//                             label: AppString.deleteBtnText.tr,
-//                             color: AppColors.secondaryColor,
-//                             onTap: () => controller.deletePet(pet!.name),
-//                           ),
-//                         ],
-//                       ),
-//                       SizedBox(height: Responsive.height20),
-//                     ],
-//                   ),
-//                 ),
-//               );
-//             }),
-//           ),
-//         ),
-//       );
-//     });
-//   }
-// }
-
-// class CustomButton extends StatelessWidget {
-//   const CustomButton({
-//     Key? key,
-//     required this.label,
-//     // required this.pet,
-//     required this.onTap,
-//     this.height,
-//     this.color,
-//   }) : super(key: key);
-
-//   final String label;
-//   final double? height;
-//   // final PetModel pet;
-//   final Function() onTap;
-//   final Color? color;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: Container(
-//         width: double.infinity,
-//         height: height ?? Responsive.height10 * 5.2,
-//         margin: EdgeInsets.symmetric(
-//           horizontal: Responsive.width20,
-//         ),
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(20),
-//           color: color ?? AppColors.primaryColor,
-//         ),
-//         child: Center(
-//           child: Text(
-//             label,
-//             style: TextStyle(
-//               fontSize: Responsive.width18,
-//               fontWeight: FontWeight.w600,
-//               color: AppColors.white,
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

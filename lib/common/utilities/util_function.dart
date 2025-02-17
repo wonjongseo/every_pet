@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:every_pet/common/extension/custom_theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -63,20 +64,20 @@ class AppFunction {
     return data;
   }
 
-  // static Future<File> uint8ListToFile(Uint8List data) async {
-  //   final tempDir = await getTemporaryDirectory();
-
-  //   final filePath =
-  //       join(tempDir.path, '${DateTime.now().microsecondsSinceEpoch}.png');
-
-  //   File file = File(filePath);
-  //   if (await file.exists()) {
-  //     await file.delete();
-  //   }
-  //   await file.writeAsBytes(data);
-
-  //   return file;
-  // }
+  static Future<File?> goToImagePickerScreen() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      if (image == null) {
+        return null;
+      }
+      return File(image.path);
+    } catch (e) {
+      AppFunction.showNoPermissionSnackBar(
+          message: AppString.noLibaryPermssion.tr);
+    }
+    return null;
+  }
 
   static Future<String> saveFileFromTempDirectory(
       String tempFileImage, String fileName) async {
@@ -129,6 +130,13 @@ class AppFunction {
     showMessageSnackBar(
       title: AppString.savedText.tr,
       message: '$name${AppString.doneAddtionMsg.tr}',
+    );
+  }
+
+  static showSuccessChangedMsgSnackBar(String name) {
+    showMessageSnackBar(
+      title: AppString.updatedText.tr,
+      message: '$name${AppString.doneUpdatedMsg.tr}',
     );
   }
 

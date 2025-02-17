@@ -135,16 +135,13 @@ class PetsController extends GetxController {
     update();
 
     SettingRepository.setInt(AppConstant.lastPetIndexKey, _petPageIndex);
-    // if (bottomTapIndex == 3) {
-    //   scrollGoToTop();
-    // }
   }
 
   void scrollGoToTop() {
     scrollController.animateTo(
       0,
-      duration: Duration(milliseconds: 300), // 애니메이션 지속 시간
-      curve: Curves.easeInOut, // 애니메이션 곡선
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
     );
   }
 
@@ -172,41 +169,15 @@ class PetsController extends GetxController {
     if (isProfileScreen) {
       scrollGoToTop();
     }
-
-    // update();
   }
 
-  // void updatePetModel(PetModel oldPet, PetModel newPet,
-  //     {bool isProfileScreen = true}) {
-  //   // oldPet.name = newPet.name;
-  //   // oldPet.imageUrl = newPet.imageUrl;
-  //   // oldPet.birthDay = newPet.birthDay;
-  //   // oldPet.genderType = newPet.genderType;
-  //   // oldPet.isNeuter = newPet.isNeuter;
-  //   // oldPet.isPregnancy = newPet.isPregnancy;
-  //   // oldPet.weight = newPet.weight;
-  //   // oldPet.nutritionModel = newPet.nutritionModel;
-  //   // oldPet.hospitalName = newPet.hospitalName;
-  //   // oldPet.hospitalNumber = newPet.hospitalNumber;
-  //   // oldPet.groomingName = newPet.groomingName;
-  //   // oldPet.groomingNumber = newPet.groomingNumber;
-
-  //   petRepository.savePet(oldPet);
-  //   if (isProfileScreen) {
-  //     scrollGoToTop();
-  //   }
-
-  //   update();
-  // }
+  Future<bool> isSavedName(String name) async {
+    return await petRepository.isExistPetName(name);
+  }
 
   Future<void> savePetModal(PetModel petModel) async {
     _pets!.add(petModel);
     petRepository.savePet(petModel);
     // getPetModals();
-  }
-
-  void aa() {
-    _petPageIndex = _pets!.length - 1;
-    update();
   }
 }

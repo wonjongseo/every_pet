@@ -1,5 +1,6 @@
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/widgets/ok_or_no_row_btn.dart';
+import 'package:every_pet/controllers/image_path_controller.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -46,31 +47,40 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: Responsive.height10),
-        Row(
-          children: List.generate(
-            controller.petsController.petsLength,
-            (index) {
-              return Padding(
-                padding: EdgeInsets.only(right: Responsive.width22),
-                child: RowPetProfileWidget(
-                  imagePath: controller.petsController
-                      .getPetOfIndex(index)!
-                      .profilePath,
-                  petName: controller.petsController.getPetOfIndex(index)!.name,
-                  isActive: selectedProfileIndexs.contains(index),
-                  onTap: () {
-                    if (selectedProfileIndexs.contains(index)) {
-                      selectedProfileIndexs.remove(index);
-                    } else {
-                      selectedProfileIndexs.add(index);
-                    }
-                    setState(() {});
-                  },
-                ),
-              );
-            },
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: List.generate(
+              controller.petsController.petsLength,
+              (index) {
+                return Padding(
+                  padding: EdgeInsets.only(right: Responsive.width22),
+                  child: RowPetProfileWidget(
+                    genderType: controller.petsController
+                        .getPetOfIndex(index)!
+                        .genderType,
+                    imagePath: controller.petsController
+                        .getPetOfIndex(index)!
+                        .profilePath,
+                    petName:
+                        controller.petsController.getPetOfIndex(index)!.name,
+                    isActive: selectedProfileIndexs.contains(index),
+                    onTap: () {
+                      if (selectedProfileIndexs.contains(index)) {
+                        selectedProfileIndexs.remove(index);
+                      } else {
+                        selectedProfileIndexs.add(index);
+                      }
+                      setState(() {});
+                    },
+                  ),
+                );
+              },
+            ),
           ),
         ),
         Divider(height: Responsive.height20),
@@ -88,7 +98,10 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            onPressed: () => Get.to(() => const StampCustomScreen()),
+            onPressed: () {
+              Get.back(); // 1.2.0+4 StampCustomScreen 이동 후 스탬프 변경하고, 다시 StampCustomScreen으로 이동하려면 버튼 작용 안하는 버그해결
+              Get.to(() => const StampCustomScreen());
+            },
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
