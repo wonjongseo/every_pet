@@ -9,8 +9,14 @@ class ImagePathController extends GetxController {
 
   @override
   void onInit() async {
-    directory = await getLibraryDirectory();
-    path = directory.path;
+    try {
+      directory = Platform.isIOS || Platform.isMacOS
+          ? await getLibraryDirectory()
+          : await getApplicationSupportDirectory();
+      path = directory.path;
+    } catch (e) {
+      print('e.toString() : ${e.toString()}');
+    }
     super.onInit();
   }
 }

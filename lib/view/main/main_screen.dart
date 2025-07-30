@@ -27,6 +27,7 @@ class MainScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               const GlobalBannerAdmob(),
+              const SizedBox(height: 5),
               bottomNavigtionBar(petsController),
             ],
           ),

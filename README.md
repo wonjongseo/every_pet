@@ -316,3 +316,22 @@ Create / Change / Delete Category
     </ja-JP>
 
 </details>
+
+<details><summary>Version 1.3.0+5</summary>
+
+    <ko-KR>
+      1. Android 15 대응
+      2. 프로필 사진 등록 관한 에러 수정
+    </ko-KR>
+    <en-US>
+    1. Support Android 15
+    2. Fixed error related to enroll profile image
+    </en-US>
+
+    <ja-JP>
+
+1.  For Android 15 対応
+2.  プロフィール写真登録に関する不具合修正
+    </ja-JP>
+
+</details>

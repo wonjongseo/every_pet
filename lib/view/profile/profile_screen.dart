@@ -669,23 +669,26 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        height: height ?? Responsive.height10 * 5.2,
-        margin: EdgeInsets.symmetric(
-          horizontal: Responsive.width20,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: color ?? AppColors.primaryColor,
-        ),
-        child: Center(
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: Responsive.width18,
-              fontWeight: FontWeight.w600,
-              color: AppColors.white,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: Platform.isAndroid ? 10 : 0),
+        child: Container(
+          width: double.infinity,
+          height: height ?? Responsive.height10 * 5.2,
+          margin: EdgeInsets.symmetric(
+            horizontal: Responsive.width20,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: color ?? AppColors.primaryColor,
+          ),
+          child: Center(
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: Responsive.width18,
+                fontWeight: FontWeight.w600,
+                color: AppColors.white,
+              ),
             ),
           ),
         ),

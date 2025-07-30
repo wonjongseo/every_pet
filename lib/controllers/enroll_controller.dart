@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/controllers/image_path_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/dog_model.dart';
@@ -131,8 +132,10 @@ class EnrollController extends GetxController {
       if (imagePath != AppImagePath.bisyon &&
           imagePath != AppImagePath.defaultCat) {
         if (tempFile != null) {
-          final directory = await getLibraryDirectory();
-          final String path = '${directory.path}/$imageName.png';
+          // final directory = await getLibraryDirectory();
+
+          final String path =
+              '${Get.find<ImagePathController>().path}/$imageName.png';
           await tempFile!.copy(path);
         }
       }
