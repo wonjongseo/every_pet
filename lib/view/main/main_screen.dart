@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math' as math;
 import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/admob/global_banner_admob.dart';
@@ -49,7 +50,7 @@ class MainScreen extends StatelessWidget {
     });
   }
 
-  Padding topNavigationBar(PetsController petsController) {
+  Widget topNavigationBar(PetsController petsController) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Responsive.width10 * 1.5),
       child: Row(
@@ -64,7 +65,8 @@ class MainScreen extends StatelessWidget {
                   petsController.petsLength,
                   (index) {
                     return Padding(
-                      padding: EdgeInsets.only(right: Responsive.width22),
+                      padding: EdgeInsets.only(right: Responsive.width22)
+                          .copyWith(top: Platform.isAndroid ? 10 : 0),
                       child: RowPetProfileWidget(
                         genderType:
                             petsController.getPetOfIndex(index)!.genderType,

@@ -66,120 +66,121 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     log("OPEN SettingScreen");
 
-    return settingLanguage.isEmpty
-        ? Container()
-        : Column(
-            children: [
-              SizedBox(height: Responsive.height20),
-              _customListTIle(
-                title: AppString.editProfile.tr,
-                // iconData: FontAwesomeIcons.pencil,
-                imagePath: AppImagePath.circleProfile,
-                onTap: () {
-                  Get.to(() => ProfileScreen(
-                        pet: petsController.pet!,
-                      ));
-                },
-              ),
-              SizedBox(height: Responsive.height15),
-              _customListTIle(
-                title: AppString.editStampText.tr,
-                imagePath: AppImagePath.circleStamp,
-                onTap: () {
-                  Get.to(() => StampCustomScreen());
-                },
-              ),
-              SizedBox(height: Responsive.height15),
-              _customListTIle(
-                title: AppString.editMenuText.tr,
-                imagePath: AppImagePath.circleMeal,
-                onTap: () {
-                  Get.to(() {
-                    Get.put(CalculateKcalController());
-                    return const EditGroceriesScreen();
-                  });
-                },
-              ),
-              SizedBox(height: Responsive.height15),
-              _customListTIle(
-                title: AppString.changeCategoryText.tr,
-                imagePath: AppImagePath.circleCategory,
-                onTap: () {
-                  Get.to(() {
-                    Get.put(CategoryController());
-                    return const ChangeCategoryScreen();
-                  });
-                },
-              ),
-              SizedBox(height: Responsive.height15),
-              _customListTIle(
-                title: 'Change Language',
-                subTitle: AppString.setLanguage.tr,
-                imagePath: AppImagePath.circleGlobal,
-                onTap: () {},
-                widget: DropdownButton(
-                    underline: const SizedBox(),
-                    items: [
-                      if (AppFunction.isEn()) ...[
-                        DropdownMenuItem(
-                          value: AppString.koreanText.tr,
-                          child: const Text('Korean'),
-                        ),
-                        DropdownMenuItem(
-                          value: AppString.japaneseText.tr,
-                          child: const Text('Japenese'),
-                        ),
-                      ],
-                      if (AppFunction.isKo()) ...[
-                        DropdownMenuItem(
-                          value: AppString.japaneseText.tr,
-                          child:
-                              Text('Japenese (${AppString.japaneseText.tr})'),
-                        ),
-                        DropdownMenuItem(
-                          value: AppString.englishText.tr,
-                          child: Text('English (${AppString.englishText.tr})'),
-                        ),
-                      ],
-                      if (AppFunction.isJp()) ...[
-                        DropdownMenuItem(
-                          value: AppString.koreanText.tr,
-                          child: Text('Korean (${AppString.koreanText.tr})'),
-                        ),
-                        DropdownMenuItem(
-                          value: AppString.englishText.tr,
-                          child: Text('English (${AppString.englishText.tr})'),
-                        ),
-                      ],
+    if (settingLanguage.isEmpty) {
+      return Container();
+    } else {
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: Responsive.height20),
+            _customListTIle(
+              title: AppString.editProfile.tr,
+              imagePath: AppImagePath.circleProfile,
+              onTap: () {
+                Get.to(() => ProfileScreen(
+                      pet: petsController.pet!,
+                    ));
+              },
+            ),
+            SizedBox(height: Responsive.height15),
+            _customListTIle(
+              title: AppString.editStampText.tr,
+              imagePath: AppImagePath.circleStamp,
+              onTap: () {
+                Get.to(() => StampCustomScreen());
+              },
+            ),
+            SizedBox(height: Responsive.height15),
+            _customListTIle(
+              title: AppString.editMenuText.tr,
+              imagePath: AppImagePath.circleMeal,
+              onTap: () {
+                Get.to(() {
+                  Get.put(CalculateKcalController());
+                  return const EditGroceriesScreen();
+                });
+              },
+            ),
+            SizedBox(height: Responsive.height15),
+            _customListTIle(
+              title: AppString.changeCategoryText.tr,
+              imagePath: AppImagePath.circleCategory,
+              onTap: () {
+                Get.to(() {
+                  Get.put(CategoryController());
+                  return const ChangeCategoryScreen();
+                });
+              },
+            ),
+            SizedBox(height: Responsive.height15),
+            _customListTIle(
+              title: 'Change Language',
+              subTitle: AppString.setLanguage.tr,
+              imagePath: AppImagePath.circleGlobal,
+              onTap: () {},
+              widget: DropdownButton(
+                  underline: const SizedBox(),
+                  items: [
+                    if (AppFunction.isEn()) ...[
+                      DropdownMenuItem(
+                        value: AppString.koreanText.tr,
+                        child: const Text('Korean'),
+                      ),
+                      DropdownMenuItem(
+                        value: AppString.japaneseText.tr,
+                        child: const Text('Japenese'),
+                      ),
                     ],
-                    onChanged: changeSystemLanguage),
-              ),
-              const Spacer(flex: 1),
-              _customListTIle(
-                title: AppString.fnOrErorreport.tr,
-                subTitle: AppString.tipOffMessage.tr,
-                iconData: Icons.mail,
-                onTap: () async {
-                  final Email email = Email(
-                    body: AppString.reportMsgContect.tr,
-                    subject:
-                        '[${AppString.appName.tr}] ${AppString.fnOrErorreport.tr}',
-                    recipients: ['visionwill3322@gmail.com'],
-                    isHTML: false,
-                  );
-                  try {
-                    await FlutterEmailSender.send(email);
-                  } catch (e) {
-                    bool result = await CommonDialog.errorNoEnrolledEmail();
-                    if (result) {
-                      AppFunction.copyWord('visionwill3322@gmail.com');
-                    }
+                    if (AppFunction.isKo()) ...[
+                      DropdownMenuItem(
+                        value: AppString.japaneseText.tr,
+                        child: Text('Japenese (${AppString.japaneseText.tr})'),
+                      ),
+                      DropdownMenuItem(
+                        value: AppString.englishText.tr,
+                        child: Text('English (${AppString.englishText.tr})'),
+                      ),
+                    ],
+                    if (AppFunction.isJp()) ...[
+                      DropdownMenuItem(
+                        value: AppString.koreanText.tr,
+                        child: Text('Korean (${AppString.koreanText.tr})'),
+                      ),
+                      DropdownMenuItem(
+                        value: AppString.englishText.tr,
+                        child: Text('English (${AppString.englishText.tr})'),
+                      ),
+                    ],
+                  ],
+                  onChanged: changeSystemLanguage),
+            ),
+            SizedBox(height: Responsive.height15),
+            _customListTIle(
+              title: AppString.fnOrErorreport.tr,
+              subTitle: AppString.tipOffMessage.tr,
+              iconData: Icons.mail,
+              onTap: () async {
+                final Email email = Email(
+                  body: AppString.reportMsgContect.tr,
+                  subject:
+                      '[${AppString.appName.tr}] ${AppString.fnOrErorreport.tr}',
+                  recipients: ['visionwill3322@gmail.com'],
+                  isHTML: false,
+                );
+                try {
+                  await FlutterEmailSender.send(email);
+                } catch (e) {
+                  bool result = await CommonDialog.errorNoEnrolledEmail();
+                  if (result) {
+                    AppFunction.copyWord('visionwill3322@gmail.com');
                   }
-                },
-              ),
-              const Spacer(flex: 3),
-            ],
-          );
+                }
+              },
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   void changeSystemLanguage(v) async {

@@ -324,14 +324,12 @@ Create / Change / Delete Category
       2. 프로필 사진 등록 관한 에러 수정
     </ko-KR>
     <en-US>
-    1. Support Android 15
-    2. Fixed error related to enroll profile image
+       1. Support Android 15
+       2. Fixed error related to enroll profile image
     </en-US>
-
     <ja-JP>
-
-1.  For Android 15 対応
-2.  プロフィール写真登録に関する不具合修正
+         1.For Android 15 対応
+         2.プロフィール写真登録に関する不具合修正
     </ja-JP>
 
 </details>
