@@ -19,17 +19,29 @@ class AddOrRemoveButton extends StatelessWidget {
   final bool isSelected;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(Responsive.width10 * 5),
-      onTap: onTap,
-      child: Image.asset(
-        addOrRemove == AddOrRemoveType.ADD
-            ? AppImagePath.circleAddBtn
-            : AppImagePath.circleRemoteBtn,
-        width: width ?? Responsive.width10 * 4.5,
-        height: width ?? Responsive.width10 * 4.5,
-        color: isSelected ? Colors.white.withOpacity(.5) : null,
-        colorBlendMode: isSelected ? BlendMode.modulate : null,
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.orange[400] ?? Colors.orange,
+            blurRadius: 5,
+            spreadRadius: .01,
+          ),
+        ],
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(Responsive.width10 * 5),
+        onTap: onTap,
+        child: Image.asset(
+          addOrRemove == AddOrRemoveType.ADD
+              ? AppImagePath.circleAddBtn
+              : AppImagePath.circleRemoteBtn,
+          width: width ?? Responsive.width10 * 4.5,
+          height: width ?? Responsive.width10 * 4.5,
+          color: isSelected ? Colors.white.withOpacity(.5) : null,
+          colorBlendMode: isSelected ? BlendMode.modulate : null,
+        ),
       ),
     );
   }

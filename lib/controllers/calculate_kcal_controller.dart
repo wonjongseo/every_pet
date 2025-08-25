@@ -1,3 +1,4 @@
+import 'package:every_pet/common/admob/interstitial_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -120,6 +121,7 @@ class CalculateKcalController extends GetxController {
 
     AppFunction.showSuccessEnrollMsgSnackBar(groceriesModel.name);
     saveCategory(groceriesModel);
+    InterstitialManager.instance.maybeShow();
   }
 
   void saveCategory(GroceriesModel groceriesModel) {

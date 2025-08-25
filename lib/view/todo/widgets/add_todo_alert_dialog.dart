@@ -1,6 +1,7 @@
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/widgets/ok_or_no_row_btn.dart';
 import 'package:every_pet/controllers/image_path_controller.dart';
+import 'package:every_pet/view/main/widgets/row_pet_profile_widget.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +12,6 @@ import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/stamp_model.dart';
-import 'package:every_pet/view/main/main_screen.dart';
 import 'package:every_pet/view/todo/todo_screen.dart';
 
 class AddTodoDialog extends StatefulWidget {
@@ -60,14 +60,8 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
                 return Padding(
                   padding: EdgeInsets.only(right: Responsive.width22),
                   child: RowPetProfileWidget(
-                    genderType: controller.petsController
-                        .getPetOfIndex(index)!
-                        .genderType,
-                    imagePath: controller.petsController
-                        .getPetOfIndex(index)!
-                        .profilePath,
-                    petName:
-                        controller.petsController.getPetOfIndex(index)!.name,
+                    imageWidth: 40,
+                    petModel: controller.petsController.getPetOfIndex(index)!,
                     isActive: selectedProfileIndexs.contains(index),
                     onTap: () {
                       if (selectedProfileIndexs.contains(index)) {

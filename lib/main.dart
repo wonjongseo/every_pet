@@ -1,3 +1,4 @@
+import 'package:every_pet/common/admob/interstitial_manager.dart';
 import 'package:every_pet/common/theme/light_theme.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
@@ -24,6 +25,15 @@ import 'package:intl/date_symbol_data_local.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+
+  InterstitialManager.instance.configure(
+      maxPerDay: 10, // 3,
+      showChance: 0.60, // 0.35,
+      cooldownMinutes: 15 // 5,
+      );
+
+  InterstitialManager.instance.preload();
+
   initializeDateFormatting();
   await initHive();
 

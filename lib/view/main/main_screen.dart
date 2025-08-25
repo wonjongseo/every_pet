@@ -1,18 +1,17 @@
 import 'dart:io';
 import 'dart:math' as math;
-import 'package:every_pet/background2.dart';
-import 'package:every_pet/common/admob/global_banner_admob.dart';
-import 'package:every_pet/common/widgets/add_button.dart';
-import 'package:every_pet/models/dog_model.dart';
-import 'package:every_pet/view/full_profile_image_screen.dart';
+
+import 'package:every_pet/view/main/widgets/row_pet_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:every_pet/background2.dart';
+import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
-import 'package:every_pet/common/widgets/profile_image.dart';
+import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 
 class MainScreen extends StatelessWidget {
@@ -20,34 +19,37 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PetsController>(builder: (petsController) {
-      return GestureDetector(
-        onTap: petsController.closeBottomSheet,
-        child: Scaffold(
-          bottomNavigationBar: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const GlobalBannerAdmob(),
-              const SizedBox(height: 5),
-              bottomNavigtionBar(petsController),
-            ],
-          ),
-          body: BackGround2(
-            widget: SafeArea(
-              child: Column(
-                children: [
-                  topNavigationBar(petsController),
-                  const Divider(),
-                  Expanded(
-                    child: petsController.body[petsController.bottomTapIndex],
-                  )
-                ],
+    return GetBuilder<PetsController>(
+      builder: (petsController) {
+        return GestureDetector(
+          onTap: petsController.closeBottomSheet,
+          child: Scaffold(
+            bottomNavigationBar: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const GlobalBannerAdmob(),
+                const SizedBox(height: 5),
+                bottomNavigtionBar(petsController),
+              ],
+            ),
+            body: BackGround2(
+              widget: SafeArea(
+                bottom: false,
+                child: Column(
+                  children: [
+                    const TopNavigationBar(),
+                    const Divider(),
+                    Expanded(
+                      child: petsController.body[petsController.bottomTapIndex],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
   Widget topNavigationBar(PetsController petsController) {
@@ -68,12 +70,8 @@ class MainScreen extends StatelessWidget {
                       padding: EdgeInsets.only(right: Responsive.width22)
                           .copyWith(top: Platform.isAndroid ? 10 : 0),
                       child: RowPetProfileWidget(
-                        genderType:
-                            petsController.getPetOfIndex(index)!.genderType,
-                        petName: petsController.getPetOfIndex(index)!.name,
+                        petModel: petsController.getPetOfIndex(index)!,
                         isActive: petsController.petPageIndex == index,
-                        imagePath:
-                            petsController.getPetOfIndex(index)!.profilePath,
                         onTap: () {
                           petsController.onTapTopBar(index);
                         },
@@ -95,6 +93,8 @@ class MainScreen extends StatelessWidget {
 
   Widget bottomNavigtionBar(PetsController petsController) {
     return BottomNavigationBar(
+      selectedFontSize: 10,
+      unselectedFontSize: 10,
       currentIndex: petsController.bottomTapIndex,
       type: BottomNavigationBarType.fixed,
       backgroundColor: Colors.white,
@@ -140,47 +140,46 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class RowPetProfileWidget extends StatelessWidget {
-  const RowPetProfileWidget({
-    Key? key,
-    required this.isActive,
-    required this.petName,
-    required this.onTap,
-    required this.genderType,
-    required this.imagePath,
-  }) : super(key: key);
+class TopNavigationBar extends StatelessWidget {
+  const TopNavigationBar({super.key});
 
-  final bool isActive;
-  final String petName;
-  final GENDER_TYPE genderType;
-  final VoidCallback onTap;
-  final String imagePath;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ProfileImage(
-          onTap: onTap,
-          onLongPress: () => Get.to(
-            () => FullProfileImageScreen(imagePath: imagePath),
-          ),
-          imagePath: imagePath,
-          width: Responsive.width10 * 4.5,
-          height: Responsive.width10 * 4.5,
-          isActive: isActive,
-          genderType: genderType,
+    return GetBuilder<PetsController>(builder: (controller) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: Responsive.width10 * 1.5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    controller.petsLength,
+                    (index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: Responsive.width22)
+                            .copyWith(top: Platform.isAndroid ? 10 : 0),
+                        child: RowPetProfileWidget(
+                          petModel: controller.getPetOfIndex(index)!,
+                          isActive: controller.petPageIndex == index,
+                          onTap: () => controller.onTapTopBar(index),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+            AddOrRemoveButton(
+              onTap: controller.goToEnrollScreen,
+              addOrRemove: AddOrRemoveType.ADD,
+            ),
+          ],
         ),
-        Text(
-          petName,
-          style: isActive
-              ? TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  fontSize: Responsive.width14,
-                )
-              : TextStyle(color: Colors.grey.withOpacity(.7)),
-        ),
-      ],
-    );
+      );
+    });
   }
 }

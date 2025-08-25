@@ -1,3 +1,4 @@
+import 'package:every_pet/common/admob/interstitial_manager.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
@@ -52,6 +53,7 @@ class CategoryController extends GetxController {
         message: '${categoryModel.name}　${AppString.doneAddtionMsg.tr}');
 
     saveCategory(categoryModel);
+    InterstitialManager.instance.maybeShow();
   }
 
   void deleteCategory(ProductCategoryModel category) {

@@ -29,6 +29,14 @@ class TodoScreen extends StatelessWidget {
           headerStyle: const HeaderStyle(
             formatButtonVisible: false,
             titleCentered: true,
+            headerPadding: EdgeInsets.zero,
+          ),
+          daysOfWeekStyle: const DaysOfWeekStyle(
+            weekendStyle: TextStyle(color: Colors.red),
+          ),
+          calendarStyle: const CalendarStyle(
+            weekendTextStyle: TextStyle(color: Colors.red),
+            outsideDaysVisible: false,
           ),
           focusedDay: contoller.focusedDay,
           selectedDayPredicate: (day) => isSameDay(contoller.selectedDay, day),

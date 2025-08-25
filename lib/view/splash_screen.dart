@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/controllers/image_path_controller.dart';
-import 'package:every_pet/controllers/nutrition_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
-import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/respository/category_repository.dart';
 import 'package:every_pet/respository/groceries_repository.dart';
 import 'package:every_pet/respository/stamp_repository.dart';
@@ -72,9 +70,7 @@ class SplashScreen extends StatelessWidget {
     Get.put(SplashController());
     return Scaffold(
       body: Center(
-        child: Image.asset(
-          AppImagePath.bisyon,
-        ),
+        child: Image.asset(AppImagePath.bisyon),
       ),
     );
   }

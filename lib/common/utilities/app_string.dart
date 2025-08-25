@@ -793,17 +793,17 @@ class AppString {
   static String stamp5En = "Discharge";
 
   static String stamp6Tr = "stamp6Tr";
-  static String stamp6Kr = '애견 미용';
+  static String stamp6Kr = '미용';
   static String stamp6Jp = "トリミング";
   static String stamp6En = "Pet Grooming";
 
   static String stamp7Tr = "stamp7Tr";
-  static String stamp7Kr = '애견 운동장';
+  static String stamp7Kr = '운동장';
   static String stamp7Jp = "ドッグラン";
   static String stamp7En = "Dog Park";
 
   static String stamp8Tr = "stamp8Tr";
-  static String stamp8Kr = '진득이';
+  static String stamp8Kr = '진드기';
   static String stamp8Jp = "だに";
   static String stamp8En = "Heartworm";
 
@@ -863,7 +863,7 @@ In other words, it means the amount of energy you need to rest.""";
   static String dryTextEn = "Feed";
 
   static String handmadeTextTr = "handmadeTextTr";
-  static String handmadeTextKr = '손수 만듬';
+  static String handmadeTextKr = '손수 만듦';
   static String handmadeTextJp = "手作り";
   static String handmadeTextEn = "Handmade";
 

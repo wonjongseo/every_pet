@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:every_pet/common/admob/interstitial_manager.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
@@ -53,11 +54,10 @@ class TodoController extends GetxController {
   void onInit() async {
     super.onInit();
     petsController = Get.find<PetsController>();
-    kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
-    kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
+    kFirstDay = DateTime(2024);
+    kLastDay = DateTime(kToday.year + 2);
 
     _selectedDay = _focusedDay;
-    // getTodos();
 
     getAllTodos();
   }
@@ -214,6 +214,7 @@ class TodoController extends GetxController {
         }
       }
     }
+    await InterstitialManager.instance.maybeShow();
 
     getTodos(petsController.pet!.name);
   }

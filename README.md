@@ -333,3 +333,21 @@ Create / Change / Delete Category
     </ja-JP>
 
 </details>
+
+<details><summary>Version 1.5.0+7</summary>
+
+    <ko-KR>
+
+1.  UI/UX 변경
+2.  경비한 수정
+    </ko-KR>
+    <en-US>
+3.  UI/UX Change
+4.  minor correction
+    </en-US>
+    <ja-JP>
+5.  UI・UX 変更
+6.  軽微な修正
+    </ja-JP>
+
+</details>

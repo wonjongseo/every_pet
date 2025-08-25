@@ -16,7 +16,6 @@ import 'package:every_pet/view/todo/todo_screen.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 
 class PetsController extends GetxController {
   PetRepository petRepository = PetRepository();

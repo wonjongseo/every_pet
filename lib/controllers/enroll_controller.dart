@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:every_pet/common/admob/interstitial_manager.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
@@ -132,8 +133,6 @@ class EnrollController extends GetxController {
       if (imagePath != AppImagePath.bisyon &&
           imagePath != AppImagePath.defaultCat) {
         if (tempFile != null) {
-          // final directory = await getLibraryDirectory();
-
           final String path =
               '${Get.find<ImagePathController>().path}/$imageName.png';
           await tempFile!.copy(path);
@@ -176,6 +175,7 @@ class EnrollController extends GetxController {
     if (isFirst) {
       Get.off(() => const MainScreen());
     } else {
+      InterstitialManager.instance.maybeShow();
       Get.back();
     }
   }
