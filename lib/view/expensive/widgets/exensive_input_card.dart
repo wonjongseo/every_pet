@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class ExpensiveInputCard extends StatefulWidget {
@@ -116,8 +115,6 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(AppString.changeCategoryText.tr),
-                                SizedBox(width: Responsive.width10),
-                                const FaIcon(FontAwesomeIcons.pencil),
                               ],
                             ),
                           ),

@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
@@ -11,6 +10,7 @@ import 'package:every_pet/view/expensive/add_expensive_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ExpensiveScreen extends StatefulWidget {
   const ExpensiveScreen({super.key});
@@ -20,6 +20,9 @@ class ExpensiveScreen extends StatefulWidget {
 }
 
 class _ExpensiveScreenState extends State<ExpensiveScreen> {
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
   ExpensiveController expensiveController = Get.put(ExpensiveController());
 
   GlobalKey todayKey = GlobalKey();
@@ -31,11 +34,31 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
 
   @override
   void initState() {
-    log("OPEN ExpensiveScreen");
     super.initState();
     days = _generateMonthDays(now);
 
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToTodayIndex());
+  }
+
+  void _changeMonth(int offset) {
+    now = DateTime(now.year, now.month + offset, 1);
+    days = _generateMonthDays(now);
     setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToTodayIndex());
+  }
+
+  void _scrollToTodayIndex() {
+    if (now.year == DateTime.now().year && now.month == DateTime.now().month) {
+      final idx = DateTime.now().day - 1;
+      if (itemScrollController.isAttached) {
+        itemScrollController.scrollTo(
+          index: idx,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut,
+          alignment: 0.3, // 살짝 아래에 위치
+        );
+      }
+    }
   }
 
   @override
@@ -48,13 +71,6 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
     int daysInMonth = DateTime(date.year, date.month + 1, 0).day;
     return List.generate(
         daysInMonth, (index) => DateTime(date.year, date.month, index + 1));
-  }
-
-  void _changeMonth(int offset) {
-    now = DateTime(now.year, now.month + offset, 1);
-    days = _generateMonthDays(now);
-    scrollGoToTop();
-    setState(() {});
   }
 
   void scrollGoToTop() {
@@ -71,106 +87,107 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
       padding: EdgeInsets.symmetric(horizontal: Responsive.width10),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  DateFormat('y${AppString.yearText.tr}').format(now),
-                  style: headingStyle,
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back_ios),
-                      onPressed: () => _changeMonth(-1),
-                    ),
-                    SizedBox(width: Responsive.width10),
-                    Text(
-                      AppFunction.isEn()
-                          ? DateFormat('MMMM').format(now)
-                          : '${now.month}${AppString.monthText.tr}',
-                      style: headingStyle,
-                    ),
-                    SizedBox(width: Responsive.width10),
-                    IconButton(
-                      icon: const Icon(Icons.arrow_forward_ios),
-                      onPressed: () => _changeMonth(1),
-                    ),
-                  ],
-                ),
-                InkWell(
-                  onTap: () => Scrollable.ensureVisible(
-                    todayKey.currentContext!,
-                    duration: const Duration(milliseconds: 700),
-                    curve: Curves.easeInOut,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                DateFormat('y${AppString.yearText.tr}').format(now),
+                style: headingStyle,
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios),
+                    onPressed: () => _changeMonth(-1),
                   ),
-                  child: Container(
-                    padding: EdgeInsets.only(bottom: Responsive.height10 * .8),
-                    margin: EdgeInsets.only(right: Responsive.width10 * .8),
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: AppColors.primaryColor,
-                          width: 2,
-                        ),
-                      ),
-                    ),
-                    child: Text(
-                      AppString.todayText.tr,
-                      style: headingStyle.copyWith(
+                  SizedBox(width: Responsive.width10),
+                  Text(
+                    AppFunction.isEn()
+                        ? DateFormat('MMMM').format(now)
+                        : '${now.month}${AppString.monthText.tr}',
+                    style: headingStyle,
+                  ),
+                  SizedBox(width: Responsive.width10),
+                  IconButton(
+                    icon: const Icon(Icons.arrow_forward_ios),
+                    onPressed: () => _changeMonth(1),
+                  ),
+                ],
+              ),
+              InkWell(
+                onTap: _scrollToTodayIndex,
+                child: Container(
+                  padding: EdgeInsets.all(Responsive.height10 * .4),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
                         color: AppColors.primaryColor,
+                        width: 2,
                       ),
                     ),
                   ),
+                  child: Text(
+                    AppString.todayText.tr,
+                    style: headingStyle.copyWith(
+                      color: AppColors.primaryColor,
+                    ),
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          SizedBox(height: Responsive.height10),
           Expanded(
-            child: ListView.separated(
-              controller: scrollController,
+            child: ScrollablePositionedList.separated(
+              itemScrollController: itemScrollController,
+              itemPositionsListener: itemPositionsListener,
               itemCount: days.length,
-              separatorBuilder: (context, index) {
-                return const Divider(thickness: .3);
-              },
+              separatorBuilder: (_, __) => const Divider(thickness: .3),
               itemBuilder: (context, index) {
                 return Obx(() {
-                  var expensives =
+                  final expensives =
                       expensiveController.expensivesByDay(days[index]);
-
                   return ListTile(
-                    iconColor: Colors.black,
-                    key: now.day - 1 == index ? todayKey : null,
                     title: Text(
                       DateFormat.MMMEd(Get.locale.toString())
                           .format(days[index]),
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.bold),
                     ),
-                    isThreeLine: expensives.isNotEmpty ? true : false,
+                    isThreeLine: expensives.isNotEmpty,
                     trailing: expensives.isEmpty
-                        ? Icon(Icons.keyboard_arrow_right)
+                        ? const Icon(
+                            Icons.keyboard_arrow_right,
+                            color: Colors.black,
+                          )
                         : null,
                     subtitle: expensives.isNotEmpty
-                        ? Column(
-                            children: List.generate(
-                              expensives.length,
-                              (index) => Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(expensives[index].productName),
-                                  Text(
-                                      '${AppString.moneySign.tr} ${NumberFormat("#,###").format(expensives[index].price)}'),
-                                ],
+                        ? Card(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: List.generate(
+                                  expensives.length,
+                                  (i) => Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(expensives[i].productName),
+                                        Text('${AppString.moneySign.tr} '
+                                            '${NumberFormat("#,###").format(expensives[i].price)}'),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           )
                         : null,
                     onTap: () => Get.to(
-                      () => AddExpensiveScreen(selectedDay: days[index]),
-                    ),
+                        () => AddExpensiveScreen(selectedDay: days[index])),
                   );
                 });
               },

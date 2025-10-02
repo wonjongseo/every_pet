@@ -142,6 +142,7 @@ class TodoController extends GetxController {
   }
 
   void clickAddbtn() async {
+    bool showAd = true;
     String? savedMemo;
 
     if (getFocusedDayEvent() != null) {
@@ -208,13 +209,16 @@ class TodoController extends GetxController {
         if (newTodoModel.stamps.isEmpty && memo.isEmpty) {
           // Stampもメモもなかったら削除
           kEvents[focusedDay] = [];
+          showAd = false;
           await deleteTodo(savedTodoModel);
         } else {
           updateTodo(savedTodoModel, newTodoModel);
         }
       }
     }
-    await InterstitialManager.instance.maybeShow();
+    if (showAd) {
+      await InterstitialManager.instance.maybeShow();
+    }
 
     getTodos(petsController.pet!.name);
   }

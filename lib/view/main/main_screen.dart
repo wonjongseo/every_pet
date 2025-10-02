@@ -29,7 +29,7 @@ class MainScreen extends StatelessWidget {
               children: [
                 const GlobalBannerAdmob(),
                 const SizedBox(height: 5),
-                bottomNavigtionBar(petsController),
+                bottomNavigationBar(petsController),
               ],
             ),
             body: BackGround2(
@@ -38,7 +38,7 @@ class MainScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const TopNavigationBar(),
-                    const Divider(),
+                    const Divider(height: 10),
                     Expanded(
                       child: petsController.body[petsController.bottomTapIndex],
                     )
@@ -138,6 +138,63 @@ class MainScreen extends StatelessWidget {
       ],
     );
   }
+
+  Widget bottomNavigationBar(PetsController petsController) {
+    return NavigationBar(
+      height: 60,
+      selectedIndex: petsController.bottomTapIndex,
+      backgroundColor: Colors.white,
+      indicatorColor: Colors.transparent,
+      onDestinationSelected: petsController.onTapBottomBar,
+      labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+      labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.selected)) {
+            return const TextStyle(
+              color: AppColors.primaryColor,
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+            );
+          }
+          return const TextStyle(
+            color: Colors.grey,
+            fontWeight: FontWeight.w400,
+            fontSize: 12,
+          );
+        },
+      ),
+      destinations: [
+        NavigationDestination(
+          label: AppString.calendarTextTr.tr,
+          icon: Image.asset(
+            AppImagePath.circleCalendar,
+            width: Responsive.width10 * 5,
+          ),
+        ),
+        NavigationDestination(
+          label: AppString.foodTextTr.tr,
+          icon: Image.asset(
+            AppImagePath.circleFood,
+            width: Responsive.width10 * 5,
+          ),
+        ),
+        NavigationDestination(
+          label: AppString.expensiveTextTr.tr,
+          icon: Image.asset(
+            AppImagePath.circleWallet,
+            width: Responsive.width10 * 5,
+          ),
+        ),
+        NavigationDestination(
+          label: AppString.settingTr.tr,
+          icon: Image.asset(
+            AppImagePath.circleSetting,
+            width: Responsive.width10 * 5,
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class TopNavigationBar extends StatelessWidget {
@@ -147,10 +204,8 @@ class TopNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PetsController>(builder: (controller) {
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: Responsive.width10 * 1.5),
+        padding: EdgeInsets.symmetric(horizontal: Responsive.width10),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: SingleChildScrollView(
@@ -160,7 +215,7 @@ class TopNavigationBar extends StatelessWidget {
                     controller.petsLength,
                     (index) {
                       return Padding(
-                        padding: EdgeInsets.only(right: Responsive.width22)
+                        padding: EdgeInsets.only(right: Responsive.width15)
                             .copyWith(top: Platform.isAndroid ? 10 : 0),
                         child: RowPetProfileWidget(
                           petModel: controller.getPetOfIndex(index)!,

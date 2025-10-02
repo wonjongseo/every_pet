@@ -87,7 +87,7 @@ class _SettingScreenState extends State<SettingScreen> {
               title: AppString.editStampText.tr,
               imagePath: AppImagePath.circleStamp,
               onTap: () {
-                Get.to(() => StampCustomScreen());
+                Get.to(() => const StampCustomScreen());
               },
             ),
             SizedBox(height: Responsive.height15),
@@ -221,9 +221,9 @@ class _SettingScreenState extends State<SettingScreen> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: Responsive.width15),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: AppColors.primaryColor),
-      ),
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: AppColors.primaryColor),
+          color: Colors.white),
       child: ListTile(
         titleTextStyle: TextStyle(
           fontWeight: FontWeight.w500,

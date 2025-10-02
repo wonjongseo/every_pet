@@ -27,8 +27,8 @@ class RowPetProfileWidget extends StatelessWidget {
             () => FullProfileImageScreen(imagePath: petModel.profilePath),
           ),
           imagePath: petModel.profilePath,
-          width: imageWidth ?? 45,
-          height: imageWidth ?? 45,
+          width: imageWidth ?? 40,
+          height: imageWidth ?? 40,
           isActive: isActive,
           genderType: petModel.genderType,
         ),
@@ -38,9 +38,9 @@ class RowPetProfileWidget extends StatelessWidget {
               ? const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
-                  fontSize: 14,
+                  fontSize: 13,
                 )
-              : TextStyle(fontSize: 12, color: Colors.grey.withOpacity(.7)),
+              : TextStyle(fontSize: 11, color: Colors.grey.withOpacity(.7)),
         ),
       ],
     );

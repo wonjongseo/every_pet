@@ -20,7 +20,7 @@ TextStyle get subHeadingStyle {
 
 TextStyle get headingStyle {
   return TextStyle(
-    fontSize: Responsive.width10 * 2,
+    fontSize: Responsive.width10 * 1.6,
     fontWeight: FontWeight.w600,
     color: Get.isDarkMode ? Colors.white : Colors.black,
   );

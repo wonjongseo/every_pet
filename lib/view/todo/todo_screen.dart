@@ -29,7 +29,7 @@ class TodoScreen extends StatelessWidget {
           headerStyle: const HeaderStyle(
             formatButtonVisible: false,
             titleCentered: true,
-            headerPadding: EdgeInsets.zero,
+            headerPadding: EdgeInsets.only(top: 4, bottom: 10),
           ),
           daysOfWeekStyle: const DaysOfWeekStyle(
             weekendStyle: TextStyle(color: Colors.red),

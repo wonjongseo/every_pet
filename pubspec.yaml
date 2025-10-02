@@ -38,6 +38,7 @@ dependencies:
   flutter_email_sender: ^6.0.3
   auto_size_text: ^3.0.0
   in_app_review: ^2.0.10
+  scrollable_positioned_list: ^0.3.8
 
 dev_dependencies:
   flutter_test:
