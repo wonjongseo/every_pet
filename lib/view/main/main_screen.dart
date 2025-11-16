@@ -27,14 +27,13 @@ class MainScreen extends StatelessWidget {
             bottomNavigationBar: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const GlobalBannerAdmob(),
-                const SizedBox(height: 5),
                 bottomNavigationBar(petsController),
+                const SizedBox(height: 5),
+                const GlobalBannerAdmob(),
               ],
             ),
             body: BackGround2(
               widget: SafeArea(
-                bottom: false,
                 child: Column(
                   children: [
                     const TopNavigationBar(),
@@ -141,7 +140,8 @@ class MainScreen extends StatelessWidget {
 
   Widget bottomNavigationBar(PetsController petsController) {
     return NavigationBar(
-      height: 60,
+      height: 50,
+      labelPadding: EdgeInsets.zero,
       selectedIndex: petsController.bottomTapIndex,
       backgroundColor: Colors.white,
       indicatorColor: Colors.transparent,

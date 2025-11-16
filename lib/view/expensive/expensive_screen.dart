@@ -83,11 +83,11 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Responsive.width10),
-      child: Column(
-        children: [
-          Row(
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: Responsive.width22),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -136,32 +136,34 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
               ),
             ],
           ),
-          Expanded(
-            child: ScrollablePositionedList.separated(
-              itemScrollController: itemScrollController,
-              itemPositionsListener: itemPositionsListener,
-              itemCount: days.length,
-              separatorBuilder: (_, __) => const Divider(thickness: .3),
-              itemBuilder: (context, index) {
-                return Obx(() {
-                  final expensives =
-                      expensiveController.expensivesByDay(days[index]);
-                  return ListTile(
-                    title: Text(
-                      DateFormat.MMMEd(Get.locale.toString())
-                          .format(days[index]),
-                      style: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.bold),
-                    ),
-                    isThreeLine: expensives.isNotEmpty,
-                    trailing: expensives.isEmpty
-                        ? const Icon(
-                            Icons.keyboard_arrow_right,
-                            color: Colors.black,
-                          )
-                        : null,
-                    subtitle: expensives.isNotEmpty
-                        ? Card(
+        ),
+        Expanded(
+          child: ScrollablePositionedList.separated(
+            itemScrollController: itemScrollController,
+            itemPositionsListener: itemPositionsListener,
+            itemCount: days.length,
+            separatorBuilder: (_, __) => const Divider(thickness: .3),
+            itemBuilder: (context, index) {
+              return Obx(() {
+                final expensives =
+                    expensiveController.expensivesByDay(days[index]);
+                return ListTile(
+                  title: Text(
+                    DateFormat.MMMEd(Get.locale.toString()).format(days[index]),
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                  isThreeLine: expensives.isNotEmpty,
+                  trailing: expensives.isEmpty
+                      ? const Icon(
+                          Icons.keyboard_arrow_right,
+                          color: Colors.black,
+                        )
+                      : null,
+                  subtitle: expensives.isNotEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Card(
                             color: Colors.white,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -184,99 +186,99 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                                 ),
                               ),
                             ),
-                          )
-                        : null,
-                    onTap: () => Get.to(
-                        () => AddExpensiveScreen(selectedDay: days[index])),
-                  );
-                });
-              },
-            ),
-          ),
-          Obx(() {
-            expensiveController.calculateTotalPricePerMonth(now.month);
-            return GestureDetector(
-              onTap: () {
-                Get.dialog(
-                  name: "totalPriceDialog",
-                  AlertDialog(
-                    content: expensiveController.categoryAndPrice.isEmpty
-                        ? Text(
-                            AppFunction.isEn()
-                                ? '${AppString.noCostMsg.tr}${DateFormat('MMMM').format(now)}'
-                                : '${now.month}${AppString.monthText.tr}${AppString.noCostMsg.tr}',
-                            textAlign: TextAlign.center,
-                          )
-                        : Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: expensiveController
-                                .categoryAndPrice.entries
-                                .map((entry) {
-                              return ListTile(
-                                tileColor: Colors.transparent,
-                                title: Row(
-                                  children: [
-                                    Text('${entry.key}:'),
-                                    const Spacer(),
-                                    Text(
-                                      '${AppString.moneySign.tr}${NumberFormat("#,###").format(entry.value)}',
-                                    )
-                                  ],
-                                ),
-                              );
-                            }).toList(),
                           ),
-                  ),
+                        )
+                      : null,
+                  onTap: () => Get.to(
+                      () => AddExpensiveScreen(selectedDay: days[index])),
                 );
-              },
-              child: Container(
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(
-                  horizontal: Responsive.width20,
-                  vertical: Responsive.height20,
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: Responsive.width20,
-                  vertical: Responsive.height10,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    width: 2,
-                    color: Colors.grey,
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppFunction.isEn()
-                          ? DateFormat('MMMM').format(now)
-                          : '${now.month}${AppString.monthText.tr}',
-                      style: subHeadingStyle,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          AppString.totalPrice.tr,
-                          style: subHeadingStyle,
+              });
+            },
+          ),
+        ),
+        Obx(() {
+          expensiveController.calculateTotalPricePerMonth(now.month);
+          return GestureDetector(
+            onTap: () {
+              Get.dialog(
+                name: "totalPriceDialog",
+                AlertDialog(
+                  content: expensiveController.categoryAndPrice.isEmpty
+                      ? Text(
+                          AppFunction.isEn()
+                              ? '${AppString.noCostMsg.tr}${DateFormat('MMMM').format(now)}'
+                              : '${now.month}${AppString.monthText.tr}${AppString.noCostMsg.tr}',
+                          textAlign: TextAlign.center,
+                        )
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: expensiveController.categoryAndPrice.entries
+                              .map((entry) {
+                            return ListTile(
+                              tileColor: Colors.transparent,
+                              title: Row(
+                                children: [
+                                  Text('${entry.key}:'),
+                                  const Spacer(),
+                                  Text(
+                                    '${AppString.moneySign.tr}${NumberFormat("#,###").format(entry.value)}',
+                                  )
+                                ],
+                              ),
+                            );
+                          }).toList(),
                         ),
-                        Text(
-                          '${AppString.moneySign.tr} ${NumberFormat("#,###").format(expensiveController.getPricePerMonth())}',
-                          style: subHeadingStyle,
-                        ),
-                        SizedBox(width: Responsive.width10),
-                        const Icon(Icons.keyboard_arrow_down)
-                      ],
-                    ),
-                  ],
+                ),
+              );
+            },
+            child: Container(
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(
+                horizontal: Responsive.width20,
+                vertical: Responsive.height20,
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: Responsive.width20,
+                vertical: Responsive.height10,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                border: Border.all(
+                  width: 2,
+                  color: Colors.grey,
                 ),
               ),
-            );
-          })
-        ],
-      ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    AppFunction.isEn()
+                        ? DateFormat('MMMM').format(now)
+                        : '${now.month}${AppString.monthText.tr}',
+                    style: subHeadingStyle,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        AppString.totalPrice.tr,
+                        style: subHeadingStyle,
+                      ),
+                      Text(
+                        '${AppString.moneySign.tr} ${NumberFormat("#,###").format(expensiveController.getPricePerMonth())}',
+                        style: subHeadingStyle,
+                      ),
+                      SizedBox(width: Responsive.width10),
+                      const Icon(Icons.keyboard_arrow_down)
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        })
+      ],
     );
   }
 }

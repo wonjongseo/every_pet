@@ -49,7 +49,6 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: Responsive.height10),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -77,7 +76,7 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
             ),
           ),
         ),
-        Divider(height: Responsive.height20),
+        Divider(height: Responsive.height10),
         SizedBox(height: Responsive.height10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +105,7 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
             ),
           ),
         ),
-        SizedBox(height: Responsive.height10),
+        SizedBox(height: Responsive.height10 / 2),
         GetBuilder<StampController>(builder: (stampController) {
           return SizedBox(
             height: MediaQuery.of(context).size.height / 3.5,

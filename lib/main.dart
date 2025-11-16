@@ -28,7 +28,7 @@ void main() async {
 
   InterstitialManager.instance.configure(
       maxPerDay: 10000, // 3,
-      showChance: 0.60, // 0.35,
+      showChance: 0.65, // 0.35,
       cooldownMinutes: 15 // 5,
       );
 

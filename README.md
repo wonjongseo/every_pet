@@ -337,17 +337,30 @@ Create / Change / Delete Category
 <details><summary>Version 1.5.0+7</summary>
 
     <ko-KR>
-
-1.  UI/UX 변경
-2.  경비한 수정
+       1.  UI/UX 변경
+       2.  경비한 수정
     </ko-KR>
     <en-US>
-3.  UI/UX Change
-4.  minor correction
+        3.  UI/UX Change
+        4.  minor correction
     </en-US>
     <ja-JP>
-5.  UI・UX 変更
-6.  軽微な修正
+        5.  UI・UX 変更
+        6.  軽微な修正
+    </ja-JP>
+
+</details>
+
+<details><summary>Version 1.6.0+8</summary>
+
+    <ko-KR>
+      ・ 텍스트가 배경에 의해 잘 보이지 않는 문제를 해결했습니다.
+    </ko-KR>
+    <en-US>
+      · Fixed an issue where the text was hard to see due to the background.
+    </en-US>
+    <ja-JP>
+      · テキストが背景によって見えにくい問題を解決しました。
     </ja-JP>
 
 </details>

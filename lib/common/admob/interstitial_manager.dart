@@ -114,6 +114,7 @@ class InterstitialManager {
       await SettingRepository.setString(_kDateKey, today);
       await SettingRepository.setInt(_kCountKey, 0);
       await SettingRepository.setInt(_kLastTsKey, 0);
+      return false;
     }
 
     // 일일 캡
