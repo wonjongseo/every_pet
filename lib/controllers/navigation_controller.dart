@@ -32,9 +32,9 @@ class NavigationController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    petPageIndex = await SettingRepository.getInt(AppConstant.lastPetIndexKey);
+    petPageIndex = SettingRepository.getInt(AppConstant.lastPetIndexKey) ?? 0;
     bottomTapIndex =
-        await SettingRepository.getInt(AppConstant.lastBottomTapIndexKey);
+        SettingRepository.getInt(AppConstant.lastBottomTapIndexKey) ?? 0;
   }
 
   @override

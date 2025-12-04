@@ -1,5 +1,6 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/handmade_model.dart';
@@ -36,8 +37,9 @@ class NutritionController extends GetxController {
 
   @override
   void onReady() async {
-    pageIndex = await SettingRepository.getInt(
-        AppConstant.lastNutritionBottomPageIndexKey);
+    pageIndex =
+        SettingRepository.getInt(AppConstant.lastNutritionBottomPageIndexKey) ??
+            0;
     update();
     super.onReady();
   }
@@ -84,21 +86,15 @@ class NutritionController extends GetxController {
     );
 
     if (makerModel!.makerName.isEmpty) {
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.requiredMakerName,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.requiredMakerName);
       return;
     }
     if (makerModel!.givenCountPerDay == AppConstant.invalidNumber) {
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.requiredGivenCountPerDay,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.requiredGivenCountPerDay);
       return;
     }
     if (makerModel!.givenGramOnce == AppConstant.invalidNumber) {
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.requiredGivenGramOnce,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.requiredGivenGramOnce);
       return;
     }
 
@@ -107,7 +103,7 @@ class NutritionController extends GetxController {
     PetModel newPet = pet.copyWith(nutritionModel: nutritionModel);
     petsController.updatePetModel(newPet, isProfileScreen: false);
 
-    AppFunction.showSuccessEnrollMsgSnackBar(AppString.dryText.tr);
+    SnackBarHelper.showSuccessSnackBar(AppString.dryText.tr);
   }
 
   void submitHandmadeData(PetsController petsController, PetModel pet) {
@@ -121,21 +117,15 @@ class NutritionController extends GetxController {
     );
 
     if (handmadeModel!.givenGramPerDay == AppConstant.invalidNumber) {
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.requiredAmountGivenGramText,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.requiredAmountGivenGramText);
       return;
     }
     if (handmadeModel!.givenVegetableGram == AppConstant.invalidNumber) {
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.requiredVegetableGram,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.requiredVegetableGram);
       return;
     }
     if (handmadeModel!.givenProteinGram == AppConstant.invalidNumber) {
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.requiredProteinGram,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.requiredProteinGram);
       return;
     }
 
@@ -145,7 +135,7 @@ class NutritionController extends GetxController {
 
     petsController.updatePetModel(newPet, isProfileScreen: false);
 
-    AppFunction.showSuccessEnrollMsgSnackBar(AppString.handmadeTextTr.tr);
+    SnackBarHelper.showSuccessSnackBar(AppString.handmadeTextTr.tr);
   }
 
   void initPetsNutrion(PetModel pet) {

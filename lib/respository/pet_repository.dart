@@ -1,16 +1,17 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
-import 'package:every_pet/common/utilities/util_function.dart';
-import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:hive/hive.dart';
 
 class PetRepository {
+  Future<bool> hasPets() async {
+    var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
+    return box.values.isNotEmpty;
+  }
+
   Future<void> savePet(PetModel pet) async {
     var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
     await box.put(pet.id, pet);
-
-    print('pet saved!');
   }
 
   Future<bool> isExistPetName(String petName) async {
@@ -50,7 +51,6 @@ class PetRepository {
     List<PetModel> pets = box.values.toList();
     pets.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
-    for (var pet in pets) {}
     return pets;
   }
 }

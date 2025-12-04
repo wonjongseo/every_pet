@@ -1,6 +1,7 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/common/widgets/ok_or_no_row_btn.dart';
@@ -111,8 +112,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
       return;
     }
     if (textEditingController.text.isEmpty) {
-      AppFunction.showInvalidTextFieldSnackBar(
-          message: AppString.stampNameCtlMsg.tr);
+      SnackBarHelper.showErrorSnackBar(AppString.stampNameCtlMsg.tr);
       return;
     }
 
@@ -122,10 +122,10 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
       isVisible: true,
     );
 
-    stampController.saveStamp(stampModel);
+    stampController.putStamp(stampModel);
     Get.back();
 
-    AppFunction.showSuccessEnrollMsgSnackBar(stampModel.name);
+    SnackBarHelper.showSuccessSnackBar(stampModel.name);
   }
 
   void updateStamp() async {
@@ -135,8 +135,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     // 1.2.0+4 스탬프 변경 하면 show snack Bar
     if (widget.stamp == null) return;
     if (textEditingController.text.isEmpty) {
-      AppFunction.showInvalidTextFieldSnackBar(
-          message: AppString.stampNameCtlMsg.tr);
+      SnackBarHelper.showErrorSnackBar(AppString.stampNameCtlMsg.tr);
       return;
     }
     if (widget.stamp!.name == textEditingController.text) {
@@ -148,10 +147,10 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     StampModel updatedStamp = widget.stamp!.copyWith(
         name: textEditingController.text, iconIndex: stampIconIndexValue);
 
-    stampController.updateStamp(updatedStamp);
+    stampController.putStamp(updatedStamp);
     // 1.2.0+4 스탬프 변경 하면 show snack Bar
     Get.back();
-    AppFunction.showSuccessChangedMsgSnackBar(updatedStamp.name);
+    SnackBarHelper.showSuccessSnackBar(updatedStamp.name);
     // 1.2.0+4 스탬프 변경 하면 show snack Bar
   }
 }

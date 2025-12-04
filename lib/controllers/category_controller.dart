@@ -2,6 +2,7 @@ import 'package:every_pet/common/admob/interstitial_manager.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/models/product_category_model.dart';
@@ -48,18 +49,16 @@ class CategoryController extends GetxController {
     ProductCategoryModel categoryModel =
         ProductCategoryModel(name: teController.text);
 
-    AppFunction.showMessageSnackBar(
-        title: AppString.deleteBtnText.tr,
-        message: '${categoryModel.name}　${AppString.doneAddtionMsg.tr}');
+    SnackBarHelper.showSuccessSnackBar(
+        '${categoryModel.name}　${AppString.doneAddtionMsg.tr}');
 
     saveCategory(categoryModel);
     InterstitialManager.instance.maybeShow();
   }
 
   void deleteCategory(ProductCategoryModel category) {
-    AppFunction.showMessageSnackBar(
-        title: AppString.deleteBtnText.tr,
-        message: '${category.name}　${AppString.doneDeletionMsg.tr}');
+    SnackBarHelper.showSuccessSnackBar(
+        '${category.name}　${AppString.doneDeletionMsg.tr}');
     categoryRepository.deleteCategory(category);
     getAllCategories();
   }
@@ -71,9 +70,8 @@ class CategoryController extends GetxController {
       return;
     }
     categoryModel.name = name;
-    AppFunction.showMessageSnackBar(
-        title: AppString.completeText.tr,
-        message: '${categoryModel.name}　${AppString.doneAddtionMsg.tr}');
+    SnackBarHelper.showSuccessSnackBar(
+        '${categoryModel.name}　${AppString.doneAddtionMsg.tr}');
     saveCategory(categoryModel);
   }
 

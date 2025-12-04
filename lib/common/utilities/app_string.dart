@@ -153,6 +153,7 @@ class AppTranslations extends Translations {
           AppString.copyWordMsg: AppString.copyWordMsgJp,
           AppString.fnOrErorreport: AppString.fnOrErorreportJp,
           AppString.reportMsgContect: AppString.reportMsgContectJp,
+          AppString.plzNoBlack: AppString.plzNoBlackJp,
         },
         'ko_KR': {
           AppString.updatedText: AppString.updatedTextKr,
@@ -304,6 +305,7 @@ class AppTranslations extends Translations {
           AppString.japaneseText: AppString.japaneseTextKr,
           AppString.koreanText: AppString.koreanTextKr,
           AppString.setLanguage: AppString.setLanguageKr,
+          AppString.plzNoBlack: AppString.plzNoBlackKr,
         },
         'en_US': {
           AppString.updatedText: AppString.updatedTextEn,
@@ -455,6 +457,7 @@ class AppTranslations extends Translations {
           AppString.japaneseText: AppString.japaneseTextEn,
           AppString.koreanText: AppString.koreanTextEn,
           AppString.setLanguage: AppString.setLanguageEn,
+          AppString.plzNoBlack: AppString.plzNoBlackEn,
         },
       };
 }
@@ -1277,4 +1280,9 @@ Would you like to copy the email [visionwill3322@gmail.com]?"
 
 ▪️イメージを添付して頂ければ、バグ・エラーを修正するのにとても助かります！🙇‍♂️▪️
 """;
+
+  static String plzNoBlack = "plzNoBlackTr";
+  static String plzNoBlackKr = '빈 항목 없이 입력해주세요.';
+  static String plzNoBlackJp = "空欄がないように入力してください。";
+  static String plzNoBlackEn = " Please fill in all required fields.";
 }

@@ -4,6 +4,7 @@ import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:flutter/services.dart';
@@ -73,8 +74,7 @@ class AppFunction {
       }
       return File(image.path);
     } catch (e) {
-      AppFunction.showNoPermissionSnackBar(
-          message: AppString.noLibaryPermssion.tr);
+      SnackBarHelper.showSuccessSnackBar(AppString.noLibaryPermssion.tr);
     }
     return null;
   }
@@ -106,49 +106,6 @@ class AppFunction {
           icon: Icons.done,
           color: AppColors.primaryColor);
     }
-  }
-
-  static showNoPermissionSnackBar({required String message}) {
-    AppFunction.showSnackBar(
-      title: AppString.permission.tr,
-      message: message,
-      icon: Icons.warning_amber_rounded,
-      color: pinkClr,
-    );
-  }
-
-  static showInvalidTextFieldSnackBar({required String message}) {
-    AppFunction.showSnackBar(
-      title: AppString.requiredText.tr,
-      message: message,
-      icon: Icons.warning_amber_rounded,
-      color: pinkClr,
-    );
-  }
-
-  static showSuccessEnrollMsgSnackBar(String name) {
-    showMessageSnackBar(
-      title: AppString.savedText.tr,
-      message: '$name${AppString.doneAddtionMsg.tr}',
-    );
-  }
-
-  static showSuccessChangedMsgSnackBar(String name) {
-    showMessageSnackBar(
-      title: AppString.updatedText.tr,
-      message: '$name${AppString.doneUpdatedMsg.tr}',
-    );
-  }
-
-  static showMessageSnackBar(
-      {required String title, required String message, Duration? duration}) {
-    AppFunction.showSnackBar(
-      title: title,
-      message: message,
-      icon: Icons.done,
-      color: AppColors.primaryColor,
-      duration: duration,
-    );
   }
 
   static showSnackBar({
@@ -259,36 +216,6 @@ class AppFunction {
           ],
         ),
       ),
-    );
-  }
-
-  static showAlertDialog({
-    required BuildContext context,
-    required String message,
-    String? btnText,
-  }) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-          content: Text(
-            message,
-            style: TextStyle(color: context.exTheme.greyColor),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                btnText ?? "OK",
-                style: TextStyle(
-                  color: context.exTheme.circleImageColor,
-                ),
-              ),
-            )
-          ],
-        );
-      },
     );
   }
 }

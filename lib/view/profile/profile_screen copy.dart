@@ -271,7 +271,7 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return GetBuilder<PetsController>(builder: (petController) {
-//       PetModel pet = petController.pet!;
+//       PetModel pet = petController.pet;
 //       loadPetInfo(pet);
 //       return Scaffold(
 //         appBar: AppBar(),

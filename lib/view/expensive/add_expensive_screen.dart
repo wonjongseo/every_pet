@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/admob/global_banner_admob.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/controllers/expensive_controller.dart';
 import 'package:every_pet/models/expensive_model.dart';
@@ -44,7 +45,7 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
 
       expensiveController.saveExpensive(expensiveModel);
       setState(() {}); // Dont' Remote
-      AppFunction.showSuccessEnrollMsgSnackBar(expensiveModel.productName);
+      SnackBarHelper.showSuccessSnackBar(expensiveModel.productName);
     });
   }
 
@@ -56,10 +57,8 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
   void deleteExpensive(ExpensiveModel expensiveModel) async {
     expensiveController.delete(expensiveModel);
 
-    AppFunction.showMessageSnackBar(
-        title: AppString.deleteBtnText.tr,
-        message:
-            '${expensiveModel.productName}${AppString.doneDeletionMsg.tr}');
+    SnackBarHelper.showSuccessSnackBar(
+        '${expensiveModel.productName}${AppString.doneDeletionMsg.tr}');
   }
 
   @override

@@ -12,13 +12,13 @@ class AppReviewController {
     await _inAppReview.isAvailable();
 
     int usageCount =
-        await SettingRepository.getInt(AppConstant.countOfReiveRequestionKey);
+        SettingRepository.getInt(AppConstant.countOfReiveRequestionKey) ?? 0;
 
     SettingRepository.setInt(
         AppConstant.countOfReiveRequestionKey, usageCount + 1);
 
     bool hasReviewed =
-        await SettingRepository.getBool(AppConstant.hasReviewedKey);
+        SettingRepository.getBool(AppConstant.hasReviewedKey) ?? false;
 
     if (!hasReviewed) {
       // 등비수열 (10, 30, 60, 100, ...)

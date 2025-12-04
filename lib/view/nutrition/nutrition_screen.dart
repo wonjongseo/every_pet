@@ -21,7 +21,7 @@ class NutritionScreen extends StatelessWidget {
     log("OPEN NutritionScreen");
     Get.put(NutritionController());
     return GetBuilder<PetsController>(builder: (petcontroller) {
-      PetModel pet = petcontroller.pet!;
+      PetModel pet = petcontroller.pet;
 
       return GetBuilder<NutritionController>(builder: (controller) {
         controller.initPetsNutrion(pet);

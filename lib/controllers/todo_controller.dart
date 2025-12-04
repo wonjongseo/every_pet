@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:every_pet/common/admob/interstitial_manager.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/controllers/main_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
@@ -15,15 +16,13 @@ import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TodoController extends GetxController {
-  final kToday = DateTime.now();
-  late DateTime kFirstDay, kLastDay;
+  late DateTime _focusedDay;
+  DateTime get focusedDay => _focusedDay;
+  set focusedDay(DateTime date) {
+    _focusedDay = date;
+  }
 
   StampController stampController = Get.put(StampController());
-  DateTime _focusedDay = DateTime.now();
-
-  DateTime get focusedDay => _focusedDay;
-  DateTime? _selectedDay;
-  DateTime? get selectedDay => _selectedDay;
 
   TodoRepository todoRepository = TodoRepository();
 
@@ -49,36 +48,28 @@ class TodoController extends GetxController {
     hashCode: getHashCode,
   );
 
-  late PetsController petsController;
+  late PetsController petsController = Get.find<PetsController>();
+
   @override
   void onInit() async {
     super.onInit();
-    petsController = Get.find<PetsController>();
-    kFirstDay = DateTime(2024);
-    kLastDay = DateTime(kToday.year + 2);
-
-    _selectedDay = _focusedDay;
 
     getAllTodos();
   }
 
   Future<void> getAllTodos() async {
-    if (petsController.hasPets) {
-      _todoModels = await todoRepository.getTodos();
-      getTodos(petsController.pet!.name);
-    }
+    _todoModels = await todoRepository.getTodos();
+    getTodos(petsController.pet);
   }
 
   List<TodoModel> _todoModels = [];
 
-  List<TodoModel> getTodoByPetName(String petName) {
-    return _todoModels
-        .where((element) => element.petModel!.name == petName)
-        .toList();
+  List<TodoModel> getTodoByPetName(PetModel pet) {
+    return _todoModels.where((element) => element.petModel == pet).toList();
   }
 
-  void getTodos(String petName) async {
-    List<TodoModel> tempTodoModel = getTodoByPetName(petName);
+  void getTodos(PetModel pet) async {
+    List<TodoModel> tempTodoModel = getTodoByPetName(pet);
     kEvents.clear();
     for (var todoModel in tempTodoModel) {
       if (kEvents[todoModel.dateTime] == null) {
@@ -97,17 +88,15 @@ class TodoController extends GetxController {
 
   void onDaySelected(
     BuildContext context,
-    DateTime selectedDay,
     DateTime focusedDay,
   ) async {
-    _selectedDay = selectedDay;
     _focusedDay = focusedDay;
     update();
     if (!isNotEmptyFocusedDayEvent()) {
       clickAddbtn();
       return;
     }
-    petsController.bottomSheetController = showBottomSheet(
+    MainController.to.bottomSheetController = showBottomSheet(
       context: context,
       builder: (context) {
         return const BottomSheetWidget();
@@ -116,19 +105,16 @@ class TodoController extends GetxController {
   }
 
   List<StampModel> getSavedStampIndex() {
-    List<StampModel> savedStampIndex = [];
     if (kEvents[focusedDay] == null) {
       return [];
     }
 
-    for (var stamps in kEvents[focusedDay]![0].stamps) {
-      savedStampIndex.add(stamps);
-    }
+    List<StampModel> savedStampIndex = kEvents[focusedDay]![0].stamps;
 
     return savedStampIndex;
   }
 
-  bool isSaved(int index) {
+  bool isSaved(DataTable focusedDay, int index) {
     if (kEvents[focusedDay] == null) {
       return false;
     }
@@ -148,6 +134,7 @@ class TodoController extends GetxController {
     if (getFocusedDayEvent() != null) {
       savedMemo = getFocusedDayEvent()![0].memo;
     }
+
     final result = await Get.dialog(
       name: "AddTodoDialog",
       GestureDetector(
@@ -220,7 +207,7 @@ class TodoController extends GetxController {
       await InterstitialManager.instance.maybeShow();
     }
 
-    getTodos(petsController.pet!.name);
+    getTodos(petsController.pet);
   }
 
   // 등록한 스탬프의 이름을 변경할 경우, 삭제 가능
@@ -245,7 +232,7 @@ class TodoController extends GetxController {
   Future<void> deleteTodoByPet(PetModel petModel) async {
     List tempTodoList = List.from(_todoModels);
     for (var todo in tempTodoList) {
-      if (todo.petModel! == petModel) {
+      if (todo.petModel == petModel) {
         await deleteTodo(todo);
       }
     }

@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -11,21 +10,54 @@ import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:every_pet/common/utilities/responsive.dart';
-// import 'package:every_pet/event.dart';
 
-class TodoScreen extends StatelessWidget {
+class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
+
+  @override
+  State<TodoScreen> createState() => _TodoScreenState();
+}
+
+class _TodoScreenState extends State<TodoScreen> {
+  final kToday = DateTime.now();
+  late DateTime kFirstDay, kLastDay;
+
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+  final controller = Get.find<TodoController>();
+  @override
+  void initState() {
+    kFirstDay = DateTime(2024);
+    kLastDay = DateTime(kToday.year + 2);
+
+    _selectedDay = _focusedDay;
+    super.initState();
+  }
+
+  void onDaySelected(
+    DateTime selectedDay,
+    DateTime focusedDay,
+  ) {
+    controller.onDaySelected(
+      context,
+      focusedDay,
+    );
+    setState(() {
+      _selectedDay = selectedDay;
+      _focusedDay = focusedDay;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     log("OPEN TodoScreen");
     return GetBuilder<TodoController>(
-      builder: (contoller) {
+      builder: (controller) {
         return TableCalendar(
           locale: Get.locale.toString(),
           shouldFillViewport: true,
-          firstDay: contoller.kFirstDay,
-          lastDay: contoller.kLastDay,
+          firstDay: kFirstDay,
+          lastDay: kLastDay,
           headerStyle: const HeaderStyle(
             formatButtonVisible: false,
             titleCentered: true,
@@ -38,8 +70,8 @@ class TodoScreen extends StatelessWidget {
             weekendTextStyle: TextStyle(color: Colors.red),
             outsideDaysVisible: false,
           ),
-          focusedDay: contoller.focusedDay,
-          selectedDayPredicate: (day) => isSameDay(contoller.selectedDay, day),
+          focusedDay: _focusedDay,
+          selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
           calendarBuilders: CalendarBuilders(
             singleMarkerBuilder: (context, day, focusedDay) {
               if ((focusedDay as TodoModel).stamps.isNotEmpty) {
@@ -48,12 +80,8 @@ class TodoScreen extends StatelessWidget {
               return Container();
             },
           ),
-          eventLoader: contoller.getEventsForDay,
-          onDaySelected: (selectedDay, focusedDay) => contoller.onDaySelected(
-            context,
-            selectedDay,
-            focusedDay,
-          ),
+          eventLoader: controller.getEventsForDay,
+          onDaySelected: onDaySelected,
         );
       },
     );

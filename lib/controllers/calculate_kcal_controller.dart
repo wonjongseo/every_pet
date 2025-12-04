@@ -1,4 +1,5 @@
 import 'package:every_pet/common/admob/interstitial_manager.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,7 +38,7 @@ class CalculateKcalController extends GetxController {
   }
 
   initPetInfo() async {
-    pet = petsController.pet!;
+    pet = petsController.pet;
 
     int? savedGivenCountPerDay =
         await groceriesRepository.getGivenCountPerDay();
@@ -110,7 +111,7 @@ class CalculateKcalController extends GetxController {
 
     for (var element in teControllers) {
       if (element.text.isEmpty) {
-        AppFunction.showInvalidTextFieldSnackBar(message: '빈 항목 없이 입력해주세요.');
+        SnackBarHelper.showErrorSnackBar(AppString.plzNoBlack.tr);
       }
     }
 
@@ -119,7 +120,7 @@ class CalculateKcalController extends GetxController {
         kcalPer100g: double.parse(teControllers[1].text),
         gram: int.parse(teControllers[2].text));
 
-    AppFunction.showSuccessEnrollMsgSnackBar(groceriesModel.name);
+    SnackBarHelper.showSuccessSnackBar(groceriesModel.name);
     saveCategory(groceriesModel);
     InterstitialManager.instance.maybeShow();
   }
@@ -154,14 +155,13 @@ class CalculateKcalController extends GetxController {
       gram: int.parse(gram),
     );
 
-    AppFunction.showSuccessEnrollMsgSnackBar(newGroceriesModel.name);
+    SnackBarHelper.showSuccessSnackBar(newGroceriesModel.name);
     saveCategory(newGroceriesModel);
   }
 
   void deleteGrocery(GroceriesModel groceriesModel) {
-    AppFunction.showMessageSnackBar(
-        title: AppString.deleteBtnText.tr,
-        message: '${groceriesModel.name}　${AppString.doneDeletionMsg.tr}');
+    SnackBarHelper.showSuccessSnackBar(
+        '${groceriesModel.name}　${AppString.doneDeletionMsg.tr}');
     groceriesRepository.deleteGrocery(groceriesModel);
     getAllGroceries();
   }

@@ -2,6 +2,13 @@ import 'package:every_pet/common/admob/interstitial_manager.dart';
 import 'package:every_pet/common/theme/light_theme.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/controllers/image_path_controller.dart';
+import 'package:every_pet/controllers/main_controller.dart';
+import 'package:every_pet/controllers/nutrition_controller.dart';
+import 'package:every_pet/controllers/pets_controller.dart';
+import 'package:every_pet/controllers/todo_controller.dart';
+import 'package:every_pet/features/todos/screen/add_detail_todo_screen.dart';
+import 'package:every_pet/init_hive.dart';
 import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/groceries_modal.dart';
 import 'package:every_pet/models/product_category_model.dart';
@@ -19,7 +26,6 @@ import 'package:every_pet/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
@@ -58,10 +64,10 @@ class _MyAppState extends State<MyApp> {
 
   void getSystemLanguage() async {
     systemLanguage =
-        await SettingRepository.getString(AppConstant.settingLanguageKey);
+        SettingRepository.getString(AppConstant.settingLanguageKey);
 
     setState(() {
-      if (systemLanguage!.isEmpty) {
+      if (systemLanguage == null || systemLanguage!.isEmpty) {
         systemLanguage = Get.deviceLocale.toString();
       }
     });
@@ -78,60 +84,26 @@ class _MyAppState extends State<MyApp> {
             themeMode: ThemeMode.system,
             translations: AppTranslations(),
             locale: Locale(systemLanguage!),
+            initialBinding: InitialBinding(),
             fallbackLocale: const Locale('ko', 'KR'),
             home: const SplashScreen(),
+            getPages: [
+              GetPage(
+                  name: EditDetailTodoScreen.name,
+                  page: () => const EditDetailTodoScreen())
+            ],
           );
   }
 }
-// Android Command - flutter build appbundle
-//flutter pub run build_runner build
 
-//dart run change_app_package_name:main com.wonjongseo.every_pet
-
-Future<void> initHive() async {
-  await Hive.initFlutter();
-  if (!Hive.isAdapterRegistered(AppConstant.petModelHiveId)) {
-    Hive.registerAdapter(PetModelAdapter());
-  }
-
-  if (!Hive.isAdapterRegistered(AppConstant.dogModelHiveId)) {
-    Hive.registerAdapter(DogModelAdapter());
-  }
-
-  if (!Hive.isAdapterRegistered(AppConstant.genderTypeHiveId)) {
-    Hive.registerAdapter(GENDERTYPEAdapter());
-  }
-  if (!Hive.isAdapterRegistered(AppConstant.stampModelHiveId)) {
-    Hive.registerAdapter(StampModelAdapter());
-  }
-  if (!Hive.isAdapterRegistered(AppConstant.todoModelHiveId)) {
-    Hive.registerAdapter(TodoModelAdapter());
-  }
-
-  if (!Hive.isAdapterRegistered(AppConstant.catModelHiveId)) {
-    Hive.registerAdapter(CatModelAdapter());
-  }
-
-  if (!Hive.isAdapterRegistered(AppConstant.makerModelHiveId)) {
-    Hive.registerAdapter(MakerModelAdapter());
-  }
-
-  if (!Hive.isAdapterRegistered(AppConstant.handmadeModelHiveId)) {
-    Hive.registerAdapter(HandmadeModelAdapter());
-  }
-  if (!Hive.isAdapterRegistered(AppConstant.nutritionModelHiveId)) {
-    Hive.registerAdapter(NutritionModelAdapter());
-  }
-
-  if (!Hive.isAdapterRegistered(AppConstant.expensiveModelHiveId)) {
-    Hive.registerAdapter(ExpensiveModelAdapter());
-  }
-
-  if (!Hive.isAdapterRegistered(AppConstant.categoryModelHiveId)) {
-    Hive.registerAdapter(ProductCategoryModelAdapter());
-  }
-
-  if (!Hive.isAdapterRegistered(AppConstant.groceriesModelHiveId)) {
-    Hive.registerAdapter(GroceriesModelAdapter());
+class InitialBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(ImagePathController());
+    Get.put(MainController(), permanent: true);
+    // Get.put(ImagePathController());
+    // Get.lazyPut(() => PetsController(), fenix: true);
+    Get.lazyPut(() => TodoController(), fenix: true);
+    Get.lazyPut(() => NutritionController(), fenix: true);
   }
 }

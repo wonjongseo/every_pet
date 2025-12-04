@@ -1,6 +1,5 @@
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/widgets/ok_or_no_row_btn.dart';
-import 'package:every_pet/controllers/image_path_controller.dart';
 import 'package:every_pet/view/main/widgets/row_pet_profile_widget.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:flutter/material.dart';
@@ -54,13 +53,13 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: List.generate(
-              controller.petsController.petsLength,
+              controller.petsController.pets.length,
               (index) {
                 return Padding(
                   padding: EdgeInsets.only(right: Responsive.width22),
                   child: RowPetProfileWidget(
                     imageWidth: 40,
-                    petModel: controller.petsController.getPetOfIndex(index)!,
+                    petModel: controller.petsController.getPetOfIndex(index),
                     isActive: selectedProfileIndexs.contains(index),
                     onTap: () {
                       if (selectedProfileIndexs.contains(index)) {

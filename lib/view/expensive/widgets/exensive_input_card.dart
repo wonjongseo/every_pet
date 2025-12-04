@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/controllers/category_controller.dart';
@@ -155,20 +156,20 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
             child: AddOrRemoveButton(
               onTap: () {
                 if (selectedCategory == '') {
-                  AppFunction.showInvalidTextFieldSnackBar(
-                      message: AppString.categoryCtrAlertMsg.tr);
+                  SnackBarHelper.showErrorSnackBar(
+                      AppString.categoryCtrAlertMsg.tr);
                   return;
                 }
 
                 if (productNameController.text == '') {
-                  AppFunction.showInvalidTextFieldSnackBar(
-                      message: AppString.productNameCtrAlertMsg.tr);
+                  SnackBarHelper.showErrorSnackBar(
+                      AppString.productNameCtrAlertMsg.tr);
                   return;
                 }
 
                 if (itemPriceController.text == '') {
-                  AppFunction.showInvalidTextFieldSnackBar(
-                      message: AppString.priceCtrAlertMsg.tr);
+                  SnackBarHelper.showErrorSnackBar(
+                      AppString.priceCtrAlertMsg.tr);
                   return;
                 }
 

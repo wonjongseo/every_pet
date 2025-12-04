@@ -109,7 +109,7 @@ class InterstitialManager {
   Future<bool> _shouldShowNow() async {
     // 날짜 리셋
     final today = _todayKey();
-    final savedDay = await SettingRepository.getString(_kDateKey);
+    final savedDay = SettingRepository.getString(_kDateKey);
     if (savedDay != today) {
       await SettingRepository.setString(_kDateKey, today);
       await SettingRepository.setInt(_kCountKey, 0);
@@ -118,12 +118,12 @@ class InterstitialManager {
     }
 
     // 일일 캡
-    final count = await SettingRepository.getInt(_kCountKey);
+    final count = SettingRepository.getInt(_kCountKey) ?? 0;
     if (count >= _maxPerDay) return false;
 
     // 쿨다운 검사
     if (_cooldownMinutes > 0) {
-      final lastTs = await SettingRepository.getInt(_kLastTsKey);
+      final lastTs = SettingRepository.getInt(_kLastTsKey) ?? 0;
       if (lastTs > 0) {
         final elapsed = DateTime.now().millisecondsSinceEpoch - lastTs;
         if (elapsed < _cooldownMinutes * 60 * 1000) {
@@ -140,7 +140,7 @@ class InterstitialManager {
   }
 
   Future<void> _markShown() async {
-    final count = (await SettingRepository.getInt(_kCountKey)) + 1;
+    final count = (SettingRepository.getInt(_kCountKey) ?? 0) + 1;
     await SettingRepository.setInt(_kCountKey, count);
     await SettingRepository.setInt(
         _kLastTsKey, DateTime.now().millisecondsSinceEpoch);

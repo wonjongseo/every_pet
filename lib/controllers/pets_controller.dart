@@ -1,84 +1,56 @@
-import 'dart:io';
-
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/controllers/app_review_controller.dart';
+import 'package:every_pet/controllers/main_controller.dart';
 import 'package:every_pet/controllers/nutrition_controller.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/respository/setting_repository.dart';
-import 'package:every_pet/view/expensive/expensive_screen.dart';
-
-import 'package:every_pet/view/nutrition/nutrition_screen.dart';
-import 'package:every_pet/view/setting/setting_screen.dart';
-import 'package:every_pet/view/todo/todo_screen.dart';
 
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PetsController extends GetxController {
+  final _isLoading = false.obs;
+  bool get isLoading => _isLoading.value;
+
   PetRepository petRepository = PetRepository();
   ScrollController scrollController = ScrollController();
-  late TodoController calendarController;
-  late NutritionController nutritionController;
-  List<PetModel>? _pets;
 
-  PetModel? get pet => hasPets ? _pets![_petPageIndex] : null;
+  final _pets = <PetModel>[];
+  List<PetModel> get pets => _pets;
+  PetModel get pet => _pets[_petPageIndex.value];
 
-  bool get hasPets => _pets != null && _pets!.isNotEmpty;
+  final _petPageIndex = 0.obs;
+  int get petPageIndex => _petPageIndex.value;
 
-  int get petsLength => hasPets ? _pets!.length : 0;
-
-  int _petPageIndex = 0;
-
-  int get petPageIndex => _petPageIndex;
+  TodoController todoController = Get.find<TodoController>();
+  NutritionController nutritionController = Get.find<NutritionController>();
 
   void changePetIndex(int newIndex) {
-    if (!hasPets) {
-      return;
-    }
-    _petPageIndex = newIndex;
+    _petPageIndex.value = newIndex;
     update();
   }
 
-  PetModel? getPetOfIndex(int index) {
-    if (!hasPets) {
-      return null;
-    }
-    return _pets![index];
-  }
-
-  PersistentBottomSheetController? bottomSheetController;
-  int bottomTapIndex = 0;
-
-  List<Widget> body = const [
-    TodoScreen(),
-    NutritionScreen(),
-    ExpensiveScreen(),
-    SettingScreen()
-  ];
-
-  Future<void> setAppReviewRequest() async {
-    AppReviewController.checkReviewRequest();
+  PetModel getPetOfIndex(int index) {
+    return _pets[index];
   }
 
   @override
   void onInit() async {
     super.onInit();
 
-    _petPageIndex = await SettingRepository.getInt(AppConstant.lastPetIndexKey);
-    bottomTapIndex =
-        await SettingRepository.getInt(AppConstant.lastBottomTapIndexKey);
+    _petPageIndex.value =
+        SettingRepository.getInt(AppConstant.lastPetIndexKey) ?? 0;
 
-    await getPetModals(); // dont't swap to  calendarController = Get.put(TodoController()); and  nutritionController = Get.put(NutritionController());
-    calendarController = Get.put(TodoController());
-    nutritionController = Get.put(NutritionController());
+    await getPetModals();
   }
 
   @override
   void onReady() async {
-    await setAppReviewRequest();
+    await _setAppReviewRequest();
     super.onReady();
   }
 
@@ -88,52 +60,35 @@ class PetsController extends GetxController {
   }
 
   Future<void> deletePet() async {
-    PetModel petModel = _pets![_petPageIndex];
-
-    await calendarController.deleteTodoByPet(petModel);
+    PetModel petModel = _pets[_petPageIndex.value];
+    await todoController.deleteTodoByPet(petModel);
     await petRepository.deletePet(petModel);
-    _pets!.remove(petModel);
+    await getPetModals();
 
-    if (_pets!.isEmpty) {
-      Get.offAll(() => EnrollScreen(isFirst: true));
+    if (_pets.isEmpty) {
+      Get.offAll(() => const EnrollScreen(isFirst: true));
       return;
     }
-    if (_petPageIndex != 0) {
-      _petPageIndex -= 1;
-      SettingRepository.setInt(AppConstant.lastPetIndexKey, _petPageIndex);
+    if (_petPageIndex.value != 0) {
+      _petPageIndex.value -= 1;
+      SettingRepository.setInt(
+          AppConstant.lastPetIndexKey, _petPageIndex.value);
     }
 
     scrollGoToTop();
-    update();
-  }
-
-  void increasePetPageIndex() {
-    _petPageIndex = _petPageIndex + 1;
-    SettingRepository.setInt(AppConstant.lastPetIndexKey, _petPageIndex);
-    update();
-  }
-
-  void closeBottomSheet() {
-    if (bottomSheetController != null) {
-      bottomSheetController!.close();
-      bottomSheetController = null;
-    }
   }
 
   void goToEnrollScreen() async {
-    closeBottomSheet();
-    // Get.put(EnrollController());
+    MainController.to.closeBottomSheet();
 
-    Get.to(() => EnrollScreen(isFirst: _pets!.isEmpty));
+    Get.to(() => EnrollScreen(isFirst: _pets.isEmpty));
   }
 
   void onTapTopBar(int index) {
-    _petPageIndex = index;
-    calendarController.getTodos(_pets![_petPageIndex].name);
+    _petPageIndex.value = index;
+    todoController.getTodos(_pets[_petPageIndex.value]);
 
-    update();
-
-    SettingRepository.setInt(AppConstant.lastPetIndexKey, _petPageIndex);
+    SettingRepository.setInt(AppConstant.lastPetIndexKey, _petPageIndex.value);
   }
 
   void scrollGoToTop() {
@@ -144,22 +99,15 @@ class PetsController extends GetxController {
     );
   }
 
-  void onTapBottomBar(value) async {
-    if (value != 0) {
-      closeBottomSheet();
-    }
-
-    bottomTapIndex = value;
-
-    update();
-
-    SettingRepository.setInt(AppConstant.lastBottomTapIndexKey, bottomTapIndex);
-  }
-
   Future<void> getPetModals() async {
-    _pets = await petRepository.loadPets();
-
-    update();
+    try {
+      _isLoading.value = true;
+      _pets.assignAll(await petRepository.loadPets());
+    } catch (e) {
+      SnackBarHelper.showErrorSnackBar(e.toString());
+    } finally {
+      _isLoading.value = false;
+    }
   }
 
   void updatePetModel(PetModel petModel, {bool isProfileScreen = true}) {
@@ -175,8 +123,11 @@ class PetsController extends GetxController {
   }
 
   Future<void> savePetModal(PetModel petModel) async {
-    _pets!.add(petModel);
-    petRepository.savePet(petModel);
-    // getPetModals();
+    await petRepository.savePet(petModel);
+    await getPetModals();
+  }
+
+  Future<void> _setAppReviewRequest() async {
+    AppReviewController.checkReviewRequest();
   }
 }

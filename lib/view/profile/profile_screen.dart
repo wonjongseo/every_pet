@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/native_caller.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/common/widgets/profile_image.dart';
@@ -24,7 +25,6 @@ import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:photo_manager/photo_manager.dart';
 import 'package:uuid/uuid.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -83,15 +83,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     loadPetInfo(widget.pet);
-  }
-
-  void aa() async {
-    final permission = await PhotoManager.requestPermissionExtend();
-    if (!permission.isAuth) return PhotoManager.openSetting();
   }
 
   loadPetInfo(PetModel pet) async {
@@ -104,21 +98,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     weightEditingController = TextEditingController(
       text: pet.weight.toString(),
     );
-    hospitalNameEditingController = TextEditingController(
-      text: pet.hospitalName,
-    );
+    hospitalNameEditingController =
+        TextEditingController(text: pet.hospitalName);
 
-    hospitalNumberEditingController = TextEditingController(
-      text: pet.hospitalNumber,
-    );
+    hospitalNumberEditingController =
+        TextEditingController(text: pet.hospitalNumber);
 
-    groomingNameEditingController = TextEditingController(
-      text: pet.groomingName,
-    );
+    groomingNameEditingController =
+        TextEditingController(text: pet.groomingName);
 
-    groomingNumberEditingController = TextEditingController(
-      text: pet.groomingNumber,
-    );
+    groomingNumberEditingController =
+        TextEditingController(text: pet.groomingNumber);
+
     genderType = pet.genderType;
     isPregnancy = pet.isPregnancy ?? false;
     isNeuter = pet.isNeuter ?? false;
@@ -178,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       setState(() {});
     } catch (e) {
-      AppFunction.showAlertDialog(context: context, message: e.toString());
+      SnackBarHelper.showErrorSnackBar('$e');
     }
   }
 
@@ -191,8 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {});
       ();
     } catch (e) {
-      AppFunction.showNoPermissionSnackBar(
-          message: AppString.noLibaryPermssion.tr);
+      SnackBarHelper.showErrorSnackBar(AppString.noLibaryPermssion.tr);
     }
   }
 
@@ -208,33 +198,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void updatePet(PetModel oldPetModel) async {
     if (nameEditingController.text.isEmpty) {
       petController.scrollGoToTop();
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.nameCtrHintText.tr,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.nameCtrHintText.tr);
       return;
     }
 
     if (weightEditingController.text.isEmpty) {
       petController.scrollGoToTop();
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.weightCtrHint.tr,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.weightCtrHint.tr);
       return;
     }
 
     if (birthDayEditingController.text.isEmpty) {
       petController.scrollGoToTop();
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.birthdayCtrHint.tr,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.birthdayCtrHint.tr);
       return;
     }
     String name = nameEditingController.text;
     if (widget.pet.name != name) {
       if (await petController.isSavedName(name)) {
         petController.scrollGoToTop();
-        AppFunction.showInvalidTextFieldSnackBar(
-            message: '$name${AppString.isExistName.tr}');
+        SnackBarHelper.showErrorSnackBar('$name${AppString.isExistName.tr}');
         return;
       }
     }
@@ -279,10 +262,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       groomingNumber: groomingNumberEditingController.text,
     );
     petController.updatePetModel(updatedPet);
-    AppFunction.showMessageSnackBar(
-      title: AppString.completeText.tr,
-      message: AppString.updateMsg.tr,
-    );
+    SnackBarHelper.showSuccessSnackBar(AppString.updateMsg.tr);
     return;
   }
 
@@ -308,7 +288,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onPressed: () => Get.back(result: true),
                 child: Text(
                   AppString.yesTextTr.tr,
-                  style: TextStyle(fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontWeight: FontWeight.w500),
                 )),
             SizedBox(width: Responsive.width10),
             ElevatedButton(

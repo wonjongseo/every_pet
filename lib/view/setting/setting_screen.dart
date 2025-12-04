@@ -41,7 +41,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   void getSettingLanguage() async {
     settingLanguage =
-        await SettingRepository.getString(AppConstant.settingLanguageKey);
+        SettingRepository.getString(AppConstant.settingLanguageKey) ?? '';
 
     if (settingLanguage.isEmpty) {
       settingLanguage = Get.locale.toString();
@@ -78,7 +78,7 @@ class _SettingScreenState extends State<SettingScreen> {
               imagePath: AppImagePath.circleProfile,
               onTap: () {
                 Get.to(() => ProfileScreen(
-                      pet: petsController.pet!,
+                      pet: petsController.pet,
                     ));
               },
             ),

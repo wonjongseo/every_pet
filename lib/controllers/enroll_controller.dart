@@ -4,17 +4,18 @@ import 'dart:io';
 import 'package:every_pet/common/admob/interstitial_manager.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/image_path_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/dog_model.dart';
+import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/view/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:uuid/uuid.dart';
 
@@ -24,7 +25,11 @@ class EnrollController extends GetxController {
   final bool isFirst;
 
   EnrollController(this.isFirst);
+
+  PetRepository petRepository = PetRepository();
+
   ScrollController scrollController = ScrollController();
+
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController birthDayEditingController = TextEditingController();
   TextEditingController weightEditingController = TextEditingController();
@@ -42,7 +47,6 @@ class EnrollController extends GetxController {
 
   bool isPregnancy = false;
 
-  // File? imageFile;
   String imagePath = AppImagePath.bisyon;
   PET_TYPE petType = PET_TYPE.DOG;
 
@@ -67,15 +71,8 @@ class EnrollController extends GetxController {
   }
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
   void onReady() async {
-    final permission = await PhotoManager.requestPermissionExtend();
-    // print('permission');
-    // if (!permission.isAuth) Get.back();
+    await PhotoManager.requestPermissionExtend();
 
     super.onReady();
   }
@@ -97,25 +94,19 @@ class EnrollController extends GetxController {
   void onClickSaveBtn(BuildContext context) async {
     if (nameEditingController.text.isEmpty) {
       scrollGoToTop();
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.nameCtrHintText.tr,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.nameCtrHintText.tr);
       return;
     }
 
     if (weightEditingController.text.isEmpty) {
       scrollGoToTop();
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.weightCtrHint.tr,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.weightCtrHint.tr);
       return;
     }
 
     if (birthDayEditingController.text.isEmpty) {
       scrollGoToTop();
-      AppFunction.showInvalidTextFieldSnackBar(
-        message: AppString.birthdayCtrHint.tr,
-      );
+      SnackBarHelper.showErrorSnackBar(AppString.birthdayCtrHint.tr);
       return;
     }
 
@@ -123,8 +114,7 @@ class EnrollController extends GetxController {
 
     if (await petsController.isSavedName(name)) {
       scrollGoToTop();
-      AppFunction.showInvalidTextFieldSnackBar(
-          message: '$name${AppString.isExistName.tr}');
+      SnackBarHelper.showErrorSnackBar('$name${AppString.isExistName.tr}');
       return;
     }
 
@@ -238,8 +228,7 @@ class EnrollController extends GetxController {
 
       update();
     } catch (e) {
-      AppFunction.showNoPermissionSnackBar(
-          message: AppString.noCameraPermssionMsg.tr);
+      SnackBarHelper.showErrorSnackBar(AppString.noCameraPermssionMsg.tr);
     }
   }
 
@@ -250,8 +239,7 @@ class EnrollController extends GetxController {
       imagePath = tempFile!.path;
       update();
     } catch (e) {
-      AppFunction.showNoPermissionSnackBar(
-          message: AppString.noLibaryPermssion.tr);
+      SnackBarHelper.showErrorSnackBar(AppString.noLibaryPermssion.tr);
     }
   }
 }

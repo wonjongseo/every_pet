@@ -1,8 +1,7 @@
 import 'package:every_pet/common/utilities/app_string.dart';
-import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/respository/stamp_repository.dart';
-import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:get/get.dart';
 
 class StampController extends GetxController {
@@ -10,23 +9,16 @@ class StampController extends GetxController {
 
   List<StampModel> stamps = [];
 
-  void updateStamp(StampModel updateStamp) {
-    stampRepository.saveStamp(updateStamp);
-
-    getAllStamps();
-  }
-
   void deleteStamp(StampModel stamp) {
     stampRepository.deleteStamp(stamp);
 
-    AppFunction.showMessageSnackBar(
-      title: AppString.deleteBtnText.tr,
-      message: '${stamp.name}${AppString.doneDeletionMsg.tr}',
+    SnackBarHelper.showErrorSnackBar(
+      '${stamp.name}${AppString.doneDeletionMsg.tr}',
     );
     getAllStamps();
   }
 
-  void saveStamp(StampModel stamp) {
+  void putStamp(StampModel stamp) {
     stampRepository.saveStamp(stamp);
     getAllStamps();
   }
@@ -45,14 +37,10 @@ class StampController extends GetxController {
   void toggleVisable(int index) {
     StampModel selectedStamp = stamps[index];
     selectedStamp.isVisible = !selectedStamp.isVisible;
-    saveStamp(selectedStamp);
+    putStamp(selectedStamp);
 
-    AppFunction.showMessageSnackBar(
-      title: AppString.updateBtnText.tr,
-      message:
-          '${selectedStamp.name} ${selectedStamp.isVisible ? AppString.changedVisiableMsg.tr : AppString.changedInVisiableMsg.tr}',
-      duration: const Duration(milliseconds: 1000),
-    );
+    SnackBarHelper.showSuccessSnackBar(
+        '${selectedStamp.name} ${selectedStamp.isVisible ? AppString.changedVisiableMsg.tr : AppString.changedInVisiableMsg.tr}');
 
     update();
   }
