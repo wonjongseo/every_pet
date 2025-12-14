@@ -120,7 +120,9 @@ class CalculateKcalController extends GetxController {
         kcalPer100g: double.parse(teControllers[1].text),
         gram: int.parse(teControllers[2].text));
 
-    SnackBarHelper.showSuccessSnackBar(groceriesModel.name);
+    SnackBarHelper.showSuccessSnackBar(
+      '${groceriesModel.name}${AppString.doneAddtionMsg.tr}',
+    );
     saveCategory(groceriesModel);
     InterstitialManager.instance.maybeShow();
   }
@@ -155,13 +157,15 @@ class CalculateKcalController extends GetxController {
       gram: int.parse(gram),
     );
 
-    SnackBarHelper.showSuccessSnackBar(newGroceriesModel.name);
+    SnackBarHelper.showSuccessSnackBar(
+      '${newGroceriesModel.name}${AppString.doneUpdatedMsg.tr}',
+    );
     saveCategory(newGroceriesModel);
   }
 
   void deleteGrocery(GroceriesModel groceriesModel) {
     SnackBarHelper.showSuccessSnackBar(
-        '${groceriesModel.name}　${AppString.doneDeletionMsg.tr}');
+        '${groceriesModel.name}${AppString.doneDeletionMsg.tr}');
     groceriesRepository.deleteGrocery(groceriesModel);
     getAllGroceries();
   }

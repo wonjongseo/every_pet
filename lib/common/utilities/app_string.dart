@@ -600,8 +600,8 @@ class AppString {
   static String requiredTextEn = "Required";
 
   static String appName = "appNameTr";
-  static String appNameKr = "うちのこ記録";
-  static String appNameJp = "우리의 아이 기록";
+  static String appNameKr = "우리의 아이 기록";
+  static String appNameJp = "うちのこ記録";
   static String appNameEn = "Your Little One’s Record";
 
   static String nameCtrHintText = "nameCtrHintTextTr";
@@ -1176,14 +1176,14 @@ In other words, it means the amount of energy you need to rest.""";
   static String changedInVisiableMsgEn = "has been changed invisiblely";
 
   static String yesBtn = "yesBtnTr";
-  static String yesBtnKr = '네!';
-  static String yesBtnJp = "はい!";
-  static String yesBtnEn = "Yes!";
+  static String yesBtnKr = '네';
+  static String yesBtnJp = "はい";
+  static String yesBtnEn = "Yes";
 
   static String noBtn = "noBtnTr";
-  static String noBtnKr = '아뇨!';
-  static String noBtnJp = "いいえ!";
-  static String noBtnEn = "No!";
+  static String noBtnKr = '아뇨';
+  static String noBtnJp = "いいえ";
+  static String noBtnEn = "No";
 
   static String errorCreateEmail1 = "errorCreateEmail1Tr";
   static String errorCreateEmail1Kr = '$appNameKr에서 이메일을 작성하는데 실패하였습니다.';

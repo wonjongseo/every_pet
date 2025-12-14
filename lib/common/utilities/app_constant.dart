@@ -40,6 +40,8 @@ class AppConstant {
   static const String editCategorySign = "-@+편집+@-";
 
   static const int invalidNumber = -9192939;
+  static const String isDarkMode = 'isDarkMode';
+  static const int dateTimePickerFirstYear = 2010;
 
   static List<GroceriesModel> defaultgroceriesModels = [
     GroceriesModel(

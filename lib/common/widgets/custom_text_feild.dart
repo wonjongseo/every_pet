@@ -1,5 +1,6 @@
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
+import 'package:every_pet/view/setting/controller/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -57,7 +58,7 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.only(left: 10.0),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey, width: 1.0),
-        color: Colors.white,
+        color: SettingController.to.blackOrWhite,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

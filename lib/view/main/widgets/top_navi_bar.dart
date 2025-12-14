@@ -19,7 +19,7 @@ class TopNaviBar extends GetView<PetsController> {
         children: [
           Obx(
             () {
-              if (controller.isLoading) {
+              if (controller.isLoading.value) {
                 return const Center(
                   child: CircularProgressIndicator.adaptive(),
                 );

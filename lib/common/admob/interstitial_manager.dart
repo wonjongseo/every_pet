@@ -63,6 +63,7 @@ class InterstitialManager {
   /// “랜덤 + 하루 캡 + 쿨다운” 조건을 통과하면 광고 표시.
   /// 표시했다면 true, 아니면 false.
   Future<bool> maybeShow() async {
+    if (kDebugMode) return false;
     // 준비 여부
     if (_ad == null) return false;
 

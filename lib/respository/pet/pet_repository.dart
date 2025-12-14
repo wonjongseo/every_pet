@@ -1,19 +1,23 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/models/pet_model.dart';
+import 'package:every_pet/respository/pet/i_pet_repository.dart';
 import 'package:hive/hive.dart';
 
-class PetRepository {
+class PetRepository extends IPetRepository {
+  @override
   Future<bool> hasPets() async {
     var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
     return box.values.isNotEmpty;
   }
 
+  @override
   Future<void> savePet(PetModel pet) async {
     var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
     await box.put(pet.id, pet);
   }
 
+  @override
   Future<bool> isExistPetName(String petName) async {
     var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
@@ -26,6 +30,7 @@ class PetRepository {
     return false;
   }
 
+  @override
   Future<bool> isExistPet(PetModel pet) async {
     var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
@@ -34,6 +39,7 @@ class PetRepository {
     return isExistPet;
   }
 
+  @override
   Future<void> deletePet(PetModel pet) async {
     var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 
@@ -44,6 +50,7 @@ class PetRepository {
     print('Dog Deleted!');
   }
 
+  @override
   Future<List<PetModel>> loadPets() async {
     var box = await Hive.openBox<PetModel>(AppConstant.petModelBox);
 

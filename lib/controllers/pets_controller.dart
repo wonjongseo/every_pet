@@ -2,7 +2,6 @@ import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/controllers/app_review_controller.dart';
 import 'package:every_pet/controllers/main_controller.dart';
-import 'package:every_pet/controllers/nutrition_controller.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/respository/pet_repository.dart';
@@ -17,9 +16,11 @@ import 'package:get/get.dart';
 /// - 마지막으로 본 펫 인덱스 저장/복원
 /// - 펫 전환 시 Todo, 영양(식단) 관련 컨트롤러와 연동
 class PetsController extends GetxController {
+  static PetsController get to => Get.find<PetsController>();
+
   /// 로딩 상태 (펫 목록을 불러오는 중인지 여부)
-  final _isLoading = false.obs;
-  bool get isLoading => _isLoading.value;
+  final isLoading = false.obs;
+  // bool get isLoading => isLoading.value;
 
   /// 펫 데이터를 관리하는 레포지토리
   PetRepository petRepository = PetRepository();
@@ -28,7 +29,7 @@ class PetsController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   /// 앱 내에 등록된 펫 목록
-  final _pets = <PetModel>[];
+  final _pets = <PetModel>[].obs;
   List<PetModel> get pets => _pets;
 
   /// 현재 선택된 펫 (petPageIndex 기준)
@@ -39,10 +40,10 @@ class PetsController extends GetxController {
   int get petPageIndex => _petPageIndex.value;
 
   /// Todo(건강 기록) 관련 컨트롤러
-  TodoController todoController = Get.find<TodoController>();
+  // TodoController todoController = Get.find<TodoController>();
 
   /// 영양(식단) 관련 컨트롤러
-  NutritionController nutritionController = Get.find<NutritionController>();
+  // NutritionController nutritionController = Get.find<NutritionController>();
 
   /// 펫 인덱스 변경 (UI에서 탭/페이지 이동 시 호출)
   void changePetIndex(int newIndex) {
@@ -91,7 +92,7 @@ class PetsController extends GetxController {
     PetModel petModel = _pets[_petPageIndex.value];
 
     // 해당 펫과 연결된 Todo 전체 삭제
-    await todoController.deleteTodoByPet(petModel);
+    await TodoController.to.deleteTodoByPet(petModel);
 
     // 펫 삭제
     await petRepository.deletePet(petModel);
@@ -124,7 +125,8 @@ class PetsController extends GetxController {
   void goToEnrollScreen() async {
     MainController.to.closeBottomSheet();
 
-    Get.to(() => EnrollScreen(isFirst: _pets.isEmpty));
+    Get.toNamed(EnrollScreen.name, arguments: _pets.isEmpty);
+    // Get.to(() => EnrollScreen(isFirst: _pets.isEmpty));
   }
 
   /// 상단 탭(펫 선택 바)을 탭했을 때 호출
@@ -135,7 +137,7 @@ class PetsController extends GetxController {
     _petPageIndex.value = index;
 
     // 선택된 펫의 Todo를 다시 로드
-    todoController.getTodos(_pets[_petPageIndex.value]);
+    TodoController.to.getTodos(_pets[_petPageIndex.value]);
 
     // 마지막으로 선택한 펫 인덱스 저장
     SettingRepository.setInt(AppConstant.lastPetIndexKey, _petPageIndex.value);
@@ -155,12 +157,12 @@ class PetsController extends GetxController {
   /// - 에러 발생 시 스낵바 표시
   Future<void> getPetModals() async {
     try {
-      _isLoading.value = true;
+      isLoading.value = true;
       _pets.assignAll(await petRepository.loadPets());
     } catch (e) {
       SnackBarHelper.showErrorSnackBar(e.toString());
     } finally {
-      _isLoading.value = false;
+      isLoading.value = false;
     }
   }
 

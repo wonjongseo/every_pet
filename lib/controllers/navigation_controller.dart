@@ -51,7 +51,7 @@ class NavigationController extends GetxController {
 
   void goToEnrollScreen() async {
     closeBottomSheet();
-    Get.to(() => EnrollScreen(isFirst: false));
+    Get.toNamed(EnrollScreen.name, arguments: false);
   }
 
   void onTapTopBar(int index) {

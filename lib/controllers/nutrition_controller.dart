@@ -1,7 +1,6 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/snackbar_helper.dart';
-import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/handmade_model.dart';
 import 'package:every_pet/models/maker_model.dart';
@@ -12,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class NutritionController extends GetxController {
+  static NutritionController get to => Get.find<NutritionController>();
   int pageIndex = 0;
 
   TextEditingController teController1 = TextEditingController();
@@ -103,7 +103,8 @@ class NutritionController extends GetxController {
     PetModel newPet = pet.copyWith(nutritionModel: nutritionModel);
     petsController.updatePetModel(newPet, isProfileScreen: false);
 
-    SnackBarHelper.showSuccessSnackBar(AppString.dryText.tr);
+    SnackBarHelper.showSuccessSnackBar(
+        '${AppString.dryText.tr}${AppString.doneAddtionMsg.tr}');
   }
 
   void submitHandmadeData(PetsController petsController, PetModel pet) {
@@ -135,7 +136,8 @@ class NutritionController extends GetxController {
 
     petsController.updatePetModel(newPet, isProfileScreen: false);
 
-    SnackBarHelper.showSuccessSnackBar(AppString.handmadeTextTr.tr);
+    SnackBarHelper.showSuccessSnackBar(
+        '${AppString.handmadeTextTr.tr}${AppString.doneAddtionMsg.tr}');
   }
 
   void initPetsNutrion(PetModel pet) {

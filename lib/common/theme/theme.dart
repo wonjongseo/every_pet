@@ -1,14 +1,13 @@
+import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-const Color bluishClr = Color(0xFF4e5ae8);
-const Color yellowClr = Color(0xFFFFB746);
-const Color pinkClr = Color(0xFFff4667);
-const primaryClr = bluishClr;
-const Color darkGreyClr = Color(0xFF121212);
-const Color darkHeaderClr = Color(0xFF424242);
+// Color get blackOrWhite =>
+//     Get.isDarkMode ? AppColors.backgroundDark : Colors.white;
+// Color get textBlackOrWhite =>
+//     Get.isDarkMode ? AppColors.backgroundDark : Colors.white;
 
 TextStyle get subHeadingStyle {
   return TextStyle(
@@ -36,7 +35,6 @@ TextStyle get activeHintStyle {
 
 TextStyle get contentStyle {
   return TextStyle(
-    color: Colors.grey[800],
     fontWeight: FontWeight.w500,
     fontSize: Responsive.width15,
   );

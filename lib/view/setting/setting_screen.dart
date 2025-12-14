@@ -9,17 +9,15 @@ import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/common.dialog.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
-import 'package:every_pet/controllers/calculate_kcal_controller.dart';
-import 'package:every_pet/controllers/category_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/view/calculate_kcal/edit_groceries_screen.dart';
 import 'package:every_pet/view/expensive/change_category_screen.dart';
 import 'package:every_pet/view/profile/profile_screen.dart';
+import 'package:every_pet/view/setting/controller/setting_controller.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -33,6 +31,7 @@ class _SettingScreenState extends State<SettingScreen> {
   String settingLanguage = '';
   String displayLanguage = '';
   PetsController petsController = Get.find<PetsController>();
+  SettingController settingController = Get.find<SettingController>();
   @override
   void initState() {
     super.initState();
@@ -77,9 +76,15 @@ class _SettingScreenState extends State<SettingScreen> {
               title: AppString.editProfile.tr,
               imagePath: AppImagePath.circleProfile,
               onTap: () {
-                Get.to(() => ProfileScreen(
-                      pet: petsController.pet,
-                    ));
+                Get.toNamed(ProfileScreen.name, arguments: petsController.pet);
+              },
+            ),
+            SizedBox(height: Responsive.height15),
+            _customListTIle(
+              title: '다크/라이트 모드',
+              imagePath: AppImagePath.circleProfile,
+              onTap: () {
+                settingController.toggleDarkMode(!settingController.isDarkMode);
               },
             ),
             SizedBox(height: Responsive.height15),
@@ -87,7 +92,7 @@ class _SettingScreenState extends State<SettingScreen> {
               title: AppString.editStampText.tr,
               imagePath: AppImagePath.circleStamp,
               onTap: () {
-                Get.to(() => const StampCustomScreen());
+                Get.toNamed(StampCustomScreen.name);
               },
             ),
             SizedBox(height: Responsive.height15),
@@ -95,10 +100,7 @@ class _SettingScreenState extends State<SettingScreen> {
               title: AppString.editMenuText.tr,
               imagePath: AppImagePath.circleMeal,
               onTap: () {
-                Get.to(() {
-                  Get.put(CalculateKcalController());
-                  return const EditGroceriesScreen();
-                });
+                Get.toNamed(EditGroceriesScreen.name);
               },
             ),
             SizedBox(height: Responsive.height15),
@@ -106,10 +108,7 @@ class _SettingScreenState extends State<SettingScreen> {
               title: AppString.changeCategoryText.tr,
               imagePath: AppImagePath.circleCategory,
               onTap: () {
-                Get.to(() {
-                  Get.put(CategoryController());
-                  return const ChangeCategoryScreen();
-                });
+                Get.toNamed(ChangeCategoryScreen.name);
               },
             ),
             SizedBox(height: Responsive.height15),
@@ -218,40 +217,43 @@ class _SettingScreenState extends State<SettingScreen> {
     required Function() onTap,
     Widget? widget,
   }) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: Responsive.width15),
-      decoration: BoxDecoration(
+    return Obx(
+      () => Container(
+        margin: EdgeInsets.symmetric(horizontal: Responsive.width15),
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           border: Border.all(color: AppColors.primaryColor),
-          color: Colors.white),
-      child: ListTile(
-        titleTextStyle: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: Responsive.width14,
-          color: AppColors.black,
+          color: SettingController.to.blackOrWhite,
         ),
-        title: AutoSizeText(
-          title,
-          maxLines: 1,
+        child: ListTile(
+          titleTextStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: Responsive.width14,
+            color: AppColors.black,
+          ),
+          title: AutoSizeText(
+            title,
+            maxLines: 1,
+          ),
+          trailing: widget,
+          subtitle: subTitle == null
+              ? null
+              : AutoSizeText(
+                  subTitle,
+                  maxLines: AppFunction.isEn() ? 2 : 1,
+                ),
+          leading: iconData == null && imagePath != null
+              ? Image.asset(
+                  imagePath,
+                  width: Responsive.width10 * 4,
+                  height: Responsive.width10 * 4,
+                )
+              : Icon(
+                  iconData,
+                  color: AppColors.primaryColor,
+                ),
+          onTap: onTap,
         ),
-        trailing: widget,
-        subtitle: subTitle == null
-            ? null
-            : AutoSizeText(
-                subTitle,
-                maxLines: AppFunction.isEn() ? 2 : 1,
-              ),
-        leading: iconData == null && imagePath != null
-            ? Image.asset(
-                imagePath,
-                width: Responsive.width10 * 4,
-                height: Responsive.width10 * 4,
-              )
-            : Icon(
-                iconData,
-                color: AppColors.primaryColor,
-              ),
-        onTap: onTap,
       ),
     );
   }

@@ -9,7 +9,6 @@ import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:every_pet/common/extension/custom_theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -74,7 +73,7 @@ class AppFunction {
       }
       return File(image.path);
     } catch (e) {
-      SnackBarHelper.showSuccessSnackBar(AppString.noLibaryPermssion.tr);
+      SnackBarHelper.showErrorSnackBar(AppString.noLibaryPermssion.tr);
     }
     return null;
   }

@@ -1,19 +1,20 @@
 import 'package:every_pet/common/admob/interstitial_manager.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
-import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
-import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/models/product_category_model.dart';
 import 'package:every_pet/respository/category_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CategoryController extends GetxController {
+  final _isLoading = false.obs;
+  bool get isLoading => _isLoading.value;
+
   CategoryRepository categoryRepository = CategoryRepository();
 
-  final RxList<ProductCategoryModel> categories = <ProductCategoryModel>[].obs;
+  final categories = <ProductCategoryModel>[].obs;
 
   RxInt totalPrice = RxInt(0);
   RxMap categoryAndPrice = RxMap({});
@@ -25,12 +26,19 @@ class CategoryController extends GetxController {
   }
 
   void getAllCategories() async {
-    categories.assignAll(
-      [
-        ...await categoryRepository.getCategorys(),
-        ProductCategoryModel(name: AppConstant.editCategorySign),
-      ],
-    );
+    try {
+      _isLoading.value = true;
+      categories.assignAll(
+        [
+          ...await categoryRepository.getCategorys(),
+          ProductCategoryModel(name: AppConstant.editCategorySign),
+        ],
+      );
+    } catch (e) {
+      SnackBarHelper.showErrorSnackBar("$e");
+    } finally {
+      _isLoading.value = false;
+    }
   }
 
   Future<void> onTapAddCategoryBtn() async {
@@ -50,7 +58,8 @@ class CategoryController extends GetxController {
         ProductCategoryModel(name: teController.text);
 
     SnackBarHelper.showSuccessSnackBar(
-        '${categoryModel.name}　${AppString.doneAddtionMsg.tr}');
+      '${categoryModel.name}${AppString.doneAddtionMsg.tr}',
+    );
 
     saveCategory(categoryModel);
     InterstitialManager.instance.maybeShow();
@@ -58,7 +67,8 @@ class CategoryController extends GetxController {
 
   void deleteCategory(ProductCategoryModel category) {
     SnackBarHelper.showSuccessSnackBar(
-        '${category.name}　${AppString.doneDeletionMsg.tr}');
+      '${category.name}${AppString.doneDeletionMsg.tr}',
+    );
     categoryRepository.deleteCategory(category);
     getAllCategories();
   }
@@ -71,7 +81,8 @@ class CategoryController extends GetxController {
     }
     categoryModel.name = name;
     SnackBarHelper.showSuccessSnackBar(
-        '${categoryModel.name}　${AppString.doneAddtionMsg.tr}');
+      '${categoryModel.name}${AppString.doneAddtionMsg.tr}',
+    );
     saveCategory(categoryModel);
   }
 

@@ -16,12 +16,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class CalculateKcalScreen extends StatelessWidget {
+  static String name = '/calculate_kcal';
   const CalculateKcalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(CalculateKcalController());
-
     return GetBuilder<CalculateKcalController>(builder: (controller) {
       return Scaffold(
         appBar: appBar(controller),
@@ -90,7 +89,7 @@ class CalculateKcalScreen extends StatelessWidget {
       ),
       actions: [
         IconButton(
-          onPressed: () => Get.to(() => const EditGroceriesScreen()),
+          onPressed: () => Get.toNamed(EditGroceriesScreen.name),
           icon: const FaIcon(
             FontAwesomeIcons.pencil,
             color: AppColors.primaryColor,

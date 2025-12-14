@@ -62,17 +62,16 @@ class BottomSheetWidget extends StatelessWidget {
                       child: CustomTextField(
                         readOnly: true,
                         maxLines: 2,
-                        hintText: controller.getFocusedDayEvent()![0].memo,
+                        hintText: controller.getFocusedDayEvent![0].memo,
                       ),
                     ),
                     Column(
                       children: List.generate(
-                        controller.getFocusedDayEvent()![0].stamps.length,
+                        controller.getFocusedDayEvent![0].stamps.length,
                         (index) {
                           StampModel stampModel =
-                              controller.getFocusedDayEvent()![0].stamps[index];
+                              controller.getFocusedDayEvent![0].stamps[index];
                           bool isExsit = controller.checkStamp(stampModel.name);
-                          print('isExsit : ${isExsit}');
 
                           return GestureDetector(
                             onTap: isExsit

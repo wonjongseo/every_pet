@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/native_caller.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
@@ -17,6 +15,7 @@ import 'package:every_pet/controllers/enroll_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
 
 class EnrollScreen extends StatelessWidget {
+  static String name = '/enroll';
   const EnrollScreen({super.key, required this.isFirst});
   final bool isFirst;
   @override
@@ -31,7 +30,7 @@ class EnrollScreen extends StatelessWidget {
             onPressed: () {
               controller.onClickSaveBtn(context);
             },
-            icon: const FaIcon(FontAwesomeIcons.check, color: Colors.black),
+            icon: const FaIcon(FontAwesomeIcons.check),
           )
         ],
       ),
@@ -102,11 +101,8 @@ class EnrollScreenBody extends StatelessWidget {
                             ProfileImage(
                               imagePath: controller.imagePath,
                               onTap: () {
-                                Get.to(
-                                  () => FullProfileImageScreen(
-                                    imagePath: controller.imagePath,
-                                  ),
-                                );
+                                Get.toNamed(FullProfileImageScreen.name,
+                                    arguments: controller.imagePath);
                               },
                             ),
                             ImagePickIconRow(

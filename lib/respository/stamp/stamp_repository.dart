@@ -1,8 +1,10 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/models/stamp_model.dart';
+import 'package:every_pet/respository/stamp/i_stamp_repository.dart';
 import 'package:hive/hive.dart';
 
-class StampRepository {
+class StampRepository extends IStampRepository {
+  @override
   Future<void> saveStamp(StampModel stamp) async {
     var box = await Hive.openBox<StampModel>(AppConstant.stampModelBox);
 
@@ -11,6 +13,7 @@ class StampRepository {
     print('Stamp saved!');
   }
 
+  @override
   Future<List<StampModel>> getStamps() async {
     var box = await Hive.openBox<StampModel>(AppConstant.stampModelBox);
 
@@ -21,6 +24,7 @@ class StampRepository {
     return stamps;
   }
 
+  @override
   void deleteStamp(StampModel stampModel) async {
     var box = await Hive.openBox<StampModel>(AppConstant.stampModelBox);
     await box.delete(stampModel.id);

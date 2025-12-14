@@ -2,7 +2,6 @@ import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/snackbar_helper.dart';
-import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/common/widgets/ok_or_no_row_btn.dart';
 import 'package:every_pet/controllers/stamp_controller.dart';
@@ -125,7 +124,8 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     stampController.putStamp(stampModel);
     Get.back();
 
-    SnackBarHelper.showSuccessSnackBar(stampModel.name);
+    SnackBarHelper.showSuccessSnackBar(
+        '${stampModel.name}${AppString.doneAddtionMsg.tr}');
   }
 
   void updateStamp() async {
@@ -150,7 +150,8 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     stampController.putStamp(updatedStamp);
     // 1.2.0+4 스탬프 변경 하면 show snack Bar
     Get.back();
-    SnackBarHelper.showSuccessSnackBar(updatedStamp.name);
+    SnackBarHelper.showSuccessSnackBar(
+        '${updatedStamp.name}${AppString.doneUpdatedMsg.tr}');
     // 1.2.0+4 스탬프 변경 하면 show snack Bar
   }
 }

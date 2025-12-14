@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/snackbar_helper.dart';
-import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/controllers/category_controller.dart';
 import 'package:every_pet/controllers/expensive_controller.dart';
@@ -78,7 +77,6 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
                 readOnly: true,
                 hintStyle: isReadOnly ? contentStyle : null,
                 style: isReadOnly ? contentStyle : null,
-                // hintStyle: isReadOnly ? activeHintStyle : null,
                 widget: DropdownButton<String>(
                   iconSize: 32,
                   elevation: 4,
@@ -90,7 +88,7 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
                       ? null
                       : (v) async {
                           if (v! == AppConstant.editCategorySign) {
-                            Get.to(() => const ChangeCategoryScreen());
+                            Get.toNamed(ChangeCategoryScreen.name);
                             return;
                           }
                           selectedCategory = v!;

@@ -1,3 +1,4 @@
+import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/view/full_profile_image_screen.dart';
@@ -36,7 +37,7 @@ class RowPetProfileWidget extends StatelessWidget {
           petModel.name,
           style: isActive
               ? const TextStyle(
-                  color: Colors.black,
+                  color: AppColors.primaryColor,
                   fontWeight: FontWeight.w500,
                   fontSize: 13,
                 )

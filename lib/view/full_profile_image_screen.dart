@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class FullProfileImageScreen extends StatelessWidget {
+  static String name = '/full_profile_image';
   const FullProfileImageScreen({super.key, required this.imagePath});
 
   final String imagePath;

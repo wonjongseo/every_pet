@@ -16,6 +16,7 @@ import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:get/get.dart';
 
 class AddExpensiveScreen extends StatefulWidget {
+  static String name = '/add_expensive';
   const AddExpensiveScreen({super.key, required this.selectedDay});
 
   final DateTime selectedDay;
@@ -45,7 +46,9 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
 
       expensiveController.saveExpensive(expensiveModel);
       setState(() {}); // Dont' Remote
-      SnackBarHelper.showSuccessSnackBar(expensiveModel.productName);
+      SnackBarHelper.showSuccessSnackBar(
+        '${expensiveModel.productName}${AppString.doneAddtionMsg.tr}',
+      );
     });
   }
 

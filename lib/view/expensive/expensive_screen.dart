@@ -1,12 +1,12 @@
-import 'dart:developer';
-
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/common/widgets/date_picker_bottom_sheet.dart';
 import 'package:every_pet/controllers/expensive_controller.dart';
 import 'package:every_pet/view/expensive/add_expensive_screen.dart';
+import 'package:every_pet/view/setting/controller/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -101,11 +101,40 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                     onPressed: () => _changeMonth(-1),
                   ),
                   SizedBox(width: Responsive.width10),
-                  Text(
-                    AppFunction.isEn()
-                        ? DateFormat('MMMM').format(now)
-                        : '${now.month}${AppString.monthText.tr}',
-                    style: headingStyle,
+                  GestureDetector(
+                    onTap: () {
+                      Get.dialog(
+                          name: "/yearAndMonthPicker",
+                          YearAndMonthPicker(
+                            focusedDay: now,
+                            onTap: (p0) {
+                              setState(() {
+                                now = p0;
+                                days = _generateMonthDays(now);
+                              });
+                              // checkCanMove();
+                            },
+                          ));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(Responsive.height10 * .4),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: AppColors.primaryColor,
+                            width: 2,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        AppFunction.isEn()
+                            ? DateFormat('MMMM').format(now)
+                            : '${now.month}${AppString.monthText.tr}',
+                        style: headingStyle.copyWith(
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(width: Responsive.width10),
                   IconButton(
@@ -137,65 +166,136 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
             ],
           ),
         ),
-        Expanded(
-          child: ScrollablePositionedList.separated(
-            itemScrollController: itemScrollController,
-            itemPositionsListener: itemPositionsListener,
-            itemCount: days.length,
-            separatorBuilder: (_, __) => const Divider(thickness: .3),
-            itemBuilder: (context, index) {
-              return Obx(() {
-                final expensives =
-                    expensiveController.expensivesByDay(days[index]);
-                return ListTile(
-                  title: Text(
-                    DateFormat.MMMEd(Get.locale.toString()).format(days[index]),
-                    style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.bold),
+        if (1 == 1)
+          Expanded(
+            child: SingleChildScrollView(
+              controller: scrollController,
+              child: Obx(
+                () => Column(
+                  children: List.generate(
+                    days.length,
+                    (index) {
+                      final expensives =
+                          expensiveController.expensivesByDay(days[index]);
+                      return ListTile(
+                        contentPadding: const EdgeInsets.all(12),
+                        title: Text(
+                          DateFormat.MMMEd(Get.locale.toString()).format(
+                            days[index],
+                          ),
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        isThreeLine: expensives.isNotEmpty,
+                        trailing: expensives.isEmpty
+                            ? Icon(
+                                Icons.keyboard_arrow_right,
+                                color: SettingController.to.realBlackOrWhite,
+                              )
+                            : null,
+                        subtitle: expensives.isNotEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.only(top: 4),
+                                child: Card(
+                                  color: SettingController.to.blackOrWhite,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: List.generate(
+                                        expensives.length,
+                                        (i) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(expensives[i].productName),
+                                              Text('${AppString.moneySign.tr} '
+                                                  '${NumberFormat("#,###").format(expensives[i].price)}'),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : null,
+                        onTap: () => Get.toNamed(
+                          AddExpensiveScreen.name,
+                          arguments: days[index],
+                        ),
+                      );
+                    },
                   ),
-                  isThreeLine: expensives.isNotEmpty,
-                  trailing: expensives.isEmpty
-                      ? const Icon(
-                          Icons.keyboard_arrow_right,
-                          color: Colors.black,
-                        )
-                      : null,
-                  subtitle: expensives.isNotEmpty
-                      ? Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Card(
-                            color: Colors.white,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: List.generate(
-                                  expensives.length,
-                                  (i) => Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 5),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(expensives[i].productName),
-                                        Text('${AppString.moneySign.tr} '
-                                            '${NumberFormat("#,###").format(expensives[i].price)}'),
-                                      ],
+                ),
+              ),
+            ),
+          )
+        else
+          Expanded(
+            child: ScrollablePositionedList.separated(
+              itemScrollController: itemScrollController,
+              itemPositionsListener: itemPositionsListener,
+              itemCount: days.length,
+              separatorBuilder: (_, __) => const Divider(thickness: .3),
+              itemBuilder: (context, index) {
+                return Obx(() {
+                  final expensives =
+                      expensiveController.expensivesByDay(days[index]);
+                  return ListTile(
+                    title: Text(
+                      DateFormat.MMMEd(Get.locale.toString())
+                          .format(days[index]),
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                    isThreeLine: expensives.isNotEmpty,
+                    trailing: expensives.isEmpty
+                        ? const Icon(
+                            Icons.keyboard_arrow_right,
+                            color: Colors.black,
+                          )
+                        : null,
+                    subtitle: expensives.isNotEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 4),
+                            child: Card(
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: List.generate(
+                                    expensives.length,
+                                    (i) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(expensives[i].productName),
+                                          Text('${AppString.moneySign.tr} '
+                                              '${NumberFormat("#,###").format(expensives[i].price)}'),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      : null,
-                  onTap: () => Get.to(
-                      () => AddExpensiveScreen(selectedDay: days[index])),
-                );
-              });
-            },
+                          )
+                        : null,
+                    onTap: () => Get.toNamed(
+                      AddExpensiveScreen.name,
+                      arguments: days[index],
+                    ),
+                  );
+                });
+              },
+            ),
           ),
-        ),
         Obx(() {
           expensiveController.calculateTotalPricePerMonth(now.month);
           return GestureDetector(
@@ -243,7 +343,7 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
+                color: SettingController.to.blackOrWhite,
                 border: Border.all(
                   width: 2,
                   color: Colors.grey,

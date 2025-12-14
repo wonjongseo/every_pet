@@ -5,9 +5,10 @@ import 'package:every_pet/respository/stamp_repository.dart';
 import 'package:get/get.dart';
 
 class StampController extends GetxController {
+  static StampController get to => Get.find<StampController>();
   StampRepository stampRepository = StampRepository();
 
-  List<StampModel> stamps = [];
+  final stamps = <StampModel>[].obs;
 
   void deleteStamp(StampModel stamp) {
     stampRepository.deleteStamp(stamp);
@@ -46,8 +47,6 @@ class StampController extends GetxController {
   }
 
   Future<void> getAllStamps() async {
-    stamps = await stampRepository.getStamps();
-
-    update();
+    stamps.assignAll(await stampRepository.getStamps());
   }
 }

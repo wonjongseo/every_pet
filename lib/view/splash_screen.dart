@@ -55,21 +55,20 @@ class SplashController extends GetxController {
   void navigate() async {
     await Future.delayed(const Duration(milliseconds: 500));
     if (await petRepository.hasPets()) {
-      Get.put(PetsController());
-      Get.off(() => const MainScreen());
+      Get.offNamed(MainScreen.name);
     } else {
-      Get.off(() => const EnrollScreen(isFirst: true));
+      Get.offNamed(EnrollScreen.name, arguments: true); // TODO
       return;
     }
   }
 }
 
 class SplashScreen extends StatelessWidget {
+  static String name = '/splash';
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(SplashController());
     return Scaffold(
       body: Center(
         child: Image.asset(AppImagePath.bisyon),

@@ -41,7 +41,7 @@ class EnrollController extends GetxController {
       TextEditingController();
 
   DateTime? birthDay;
-  PetsController petsController = Get.find<PetsController>();
+  late PetsController petsController;
   GENDER_TYPE genderType = GENDER_TYPE.MALE;
   bool isNeuter = false; // 중성화
 
@@ -68,6 +68,16 @@ class EnrollController extends GetxController {
       imagePath = AppImagePath.defaultCat;
     }
     update();
+  }
+
+  @override
+  void onInit() {
+    if (isFirst) {
+      petsController = Get.put(PetsController());
+    } else {
+      petsController = Get.find<PetsController>();
+    }
+    super.onInit();
   }
 
   @override
@@ -163,7 +173,7 @@ class EnrollController extends GetxController {
 
     await petsController.getPetModals();
     if (isFirst) {
-      Get.off(() => const MainScreen());
+      Get.offNamed(MainScreen.name);
     } else {
       InterstitialManager.instance.maybeShow();
       Get.back();

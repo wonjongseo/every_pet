@@ -1,5 +1,8 @@
+import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/controllers/main_controller.dart';
+import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/view/main/widgets/top_navi_bar.dart';
+import 'package:every_pet/view/setting/controller/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +14,7 @@ import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 
 class MainScreen extends GetView<MainController> {
+  static String name = '/main';
   const MainScreen({super.key});
 
   @override
@@ -32,9 +36,16 @@ class MainScreen extends GetView<MainController> {
                 const TopNaviBar(),
                 const Divider(height: 10),
                 Obx(
-                  () => Expanded(
-                    child: controller.body[controller.bottomTapIndex.value],
-                  ),
+                  () {
+                    if (controller.isLoading.value) {
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+                    }
+                    return Expanded(
+                      child: controller.body[controller.bottomTapIndex.value],
+                    );
+                  },
                 )
               ],
             ),
@@ -46,10 +57,10 @@ class MainScreen extends GetView<MainController> {
 
   Widget bottomNavigationBar() {
     return Obx(() => NavigationBar(
-          height: 50,
+          height: 65,
           labelPadding: EdgeInsets.zero,
           selectedIndex: controller.bottomTapIndex.value,
-          backgroundColor: Colors.white,
+          backgroundColor: SettingController.to.blackOrWhite,
           indicatorColor: Colors.transparent,
           onDestinationSelected: controller.onTapBottomBar,
           labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,

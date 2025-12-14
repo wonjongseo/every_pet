@@ -1,4 +1,6 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/snackbar_helper.dart';
+import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:every_pet/view/expensive/expensive_screen.dart';
@@ -7,13 +9,13 @@ import 'package:every_pet/view/setting/setting_screen.dart';
 import 'package:every_pet/view/todo/todo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class MainController extends GetxController {
   static MainController get to => Get.find<MainController>();
   final _pageIndex = 0.obs;
   int get pageIndex => _pageIndex.value;
+
+  final isLoading = true.obs;
 
   List<Widget> body = const [
     TodoScreen(),
@@ -21,6 +23,16 @@ class MainController extends GetxController {
     ExpensiveScreen(),
     SettingScreen()
   ];
+
+  Future<void> getLoadingData() async {
+    try {
+      everAll([PetsController.to.isLoading], (value) {
+        isLoading.value = false;
+      });
+    } catch (e) {
+      SnackBarHelper.showErrorSnackBar('$e');
+    }
+  }
 
   PersistentBottomSheetController? bottomSheetController;
   final bottomTapIndex = 0.obs;
@@ -31,6 +43,13 @@ class MainController extends GetxController {
 
     bottomTapIndex.value =
         SettingRepository.getInt(AppConstant.lastBottomTapIndexKey) ?? 0;
+  }
+
+  @override
+  void onReady() {
+    getLoadingData();
+
+    super.onReady();
   }
 
   void closeBottomSheet() {
@@ -45,7 +64,8 @@ class MainController extends GetxController {
     // Get.put(EnrollController());
 
     // Get.to(() => EnrollScreen(isFirst: _pets!.isEmpty));
-    Get.to(() => EnrollScreen(isFirst: false));
+    Get.toNamed(EnrollScreen.name, arguments: false); // TODO
+    // Get.to(() => EnrollScreen(isFirst: false));
   }
 
   void onTapBottomBar(value) async {

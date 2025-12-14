@@ -17,6 +17,8 @@ import 'package:table_calendar/table_calendar.dart';
 
 /// 캘린더 기반 Todo(스탬프 + 메모)를 관리하는 컨트롤러
 class TodoController extends GetxController {
+  static TodoController get to => Get.find<TodoController>();
+
   /// 현재 캘린더에서 포커스된 날짜 (사용자가 선택한 날)
   late DateTime _focusedDay;
   DateTime get focusedDay => _focusedDay;
@@ -25,7 +27,7 @@ class TodoController extends GetxController {
   }
 
   /// 스탬프 관리용 컨트롤러
-  StampController stampController = Get.put(StampController());
+  // StampController stampController = Get.find<StampController>();
 
   /// Todo 로컬/원격 저장소
   TodoRepository todoRepository = TodoRepository();
@@ -165,11 +167,11 @@ class TodoController extends GetxController {
   /// - 필요 시 전면 광고 노출
   void clickAddbtn() async {
     bool showAd = true;
-    String? savedMemo;
+    TodoModel? todo;
 
     // 해당 날짜에 기존 메모가 있으면 가져오기 (첫 번째 Todo 기준)
     if (getFocusedDayEvent != null) {
-      savedMemo = getFocusedDayEvent![0].memo;
+      todo = getFocusedDayEvent![0];
     }
 
     // Todo 추가/수정용 다이얼로그 표시
@@ -183,7 +185,7 @@ class TodoController extends GetxController {
             child: AlertDialog(
               insetPadding:
                   EdgeInsets.symmetric(horizontal: Responsive.width15),
-              content: AddTodoDialog(memo: savedMemo),
+              content: AddTodoDialog(todo: todo),
             ),
           ),
         ),
@@ -266,7 +268,7 @@ class TodoController extends GetxController {
   /// 현재 스탬프 리스트에 해당 이름이 존재하는지 확인
   /// (true면 아직 사용 중인 스탬프)
   bool checkStamp(String name) {
-    for (var stamp in stampController.stamps) {
+    for (var stamp in StampController.to.stamps) {
       if (stamp.name == name) {
         return true;
       }

@@ -1,6 +1,5 @@
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'dart:math' as math;
 

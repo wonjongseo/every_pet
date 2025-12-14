@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:every_pet/background2.dart';
@@ -28,6 +27,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
 class ProfileScreen extends StatefulWidget {
+  static String name = '/profile';
   const ProfileScreen({super.key, required this.pet});
   final PetModel pet;
 
@@ -387,10 +387,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       ProfileImage(
                                         imagePath: imagePath,
                                         onTap: () {
-                                          Get.to(
-                                            () => FullProfileImageScreen(
-                                                imagePath: imagePath),
-                                          );
+                                          Get.toNamed(
+                                              FullProfileImageScreen.name);
                                         },
                                       ),
                                       ImagePickIconRow(

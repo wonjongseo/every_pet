@@ -7,6 +7,7 @@ import 'package:every_pet/models/todo_model.dart';
 import 'package:every_pet/view/todo/widgets/todo_small_circle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:every_pet/common/utilities/responsive.dart';
@@ -103,38 +104,39 @@ class ColIconButton extends StatelessWidget {
   final bool isActive;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(Responsive.width10 * 5),
-          child: Container(
-            width: Responsive.width10 * 5,
-            height: Responsive.width10 * 5,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(icon),
+    return SizedBox(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(Responsive.width10 * 5),
+            child: Container(
+              width: Responsive.width10 * 5,
+              height: Responsive.width10 * 5,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image:
+                    DecorationImage(image: AssetImage(icon), fit: BoxFit.cover),
+                color: isActive
+                    ? AppColors.primaryColor.withOpacity(0.5)
+                    : Colors.grey.shade400,
               ),
-              color: isActive
-                  ? AppColors.primaryColor.withOpacity(0.5)
-                  : Colors.grey.shade400,
+              child: isActive ? const Icon(Icons.check) : null,
             ),
-            child: isActive ? const Icon(Icons.check) : null,
           ),
-        ),
-        SizedBox(width: Responsive.width10),
-        AutoSizeText(
-          label,
-          maxLines: 1,
-          textAlign: TextAlign.center,
-          style: isActive
-              ? const TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.w500)
-              : const TextStyle(color: Colors.grey),
-        ),
-      ],
+          SizedBox(height: Responsive.width10 / 5),
+          AutoSizeText(
+            label,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: isActive
+                ? const TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.w500)
+                : const TextStyle(color: Colors.grey),
+          ),
+        ],
+      ),
     );
   }
 }

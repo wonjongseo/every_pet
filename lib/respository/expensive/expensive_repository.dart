@@ -1,9 +1,10 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/models/expensive_model.dart';
-import 'package:every_pet/models/nutrition_model.dart';
+import 'package:every_pet/respository/expensive/i_expensive_repository.dart';
 import 'package:hive/hive.dart';
 
-class ExpensiveRepository {
+class ExpensiveRepository extends IExpensiveRepository {
+  @override
   Future<void> saveExpensive(ExpensiveModel expensiveModel) async {
     var box =
         await Hive.openBox<ExpensiveModel>(AppConstant.expensiveModelModelBox);
@@ -13,6 +14,7 @@ class ExpensiveRepository {
     print('expensiveModel saved');
   }
 
+  @override
   Future<void> deleteExpensive(ExpensiveModel expensiveModel) async {
     var box =
         await Hive.openBox<ExpensiveModel>(AppConstant.expensiveModelModelBox);
@@ -22,6 +24,7 @@ class ExpensiveRepository {
     print('delete saved');
   }
 
+  @override
   Future<List<ExpensiveModel>> getExpensives() async {
     var box =
         await Hive.openBox<ExpensiveModel>(AppConstant.expensiveModelModelBox);

@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class StampCustomScreen extends StatelessWidget {
+  static String name = '/stamp_custom';
   const StampCustomScreen({super.key});
 
   @override

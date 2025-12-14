@@ -44,7 +44,7 @@ class HandmadeBody extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: TextButton(
             onPressed: () {
-              Get.to(() => const CalculateKcalScreen());
+              Get.toNamed(CalculateKcalScreen.name);
             },
             child: Text(AppString.calculateKcalText.tr),
           ),
