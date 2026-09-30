@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:io';
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
@@ -10,6 +9,7 @@ import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -50,8 +50,6 @@ class AppFunction {
 // }
 
   static Future<File> uint8ListToFile(File data) async {
-    final tempDir = await getTemporaryDirectory();
-
     // final filePath =
     //     join(tempDir.path, '${DateTime.now().microsecondsSinceEpoch}.png');
 
@@ -71,11 +69,43 @@ class AppFunction {
       if (image == null) {
         return null;
       }
-      return File(image.path);
+      return cropImage(image.path);
     } catch (e) {
       SnackBarHelper.showErrorSnackBar(AppString.noLibaryPermssion.tr);
     }
     return null;
+  }
+
+  static Future<File?> cropImage(String sourcePath) async {
+    final croppedFile = await ImageCropper().cropImage(
+      sourcePath: sourcePath,
+      compressFormat: ImageCompressFormat.png,
+      compressQuality: 100,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: AppString.selectProfile.tr,
+          toolbarColor: AppColors.primaryColor,
+          toolbarWidgetColor: Colors.white,
+          activeControlsWidgetColor: AppColors.primaryColor,
+          initAspectRatio: CropAspectRatioPreset.square,
+          lockAspectRatio: true,
+        ),
+        IOSUiSettings(
+          title: AppString.selectProfile.tr,
+          doneButtonTitle: 'OK',
+          cancelButtonTitle: 'Cancel',
+          aspectRatioLockEnabled: true,
+          resetAspectRatioEnabled: false,
+          aspectRatioPickerButtonHidden: true,
+        ),
+      ],
+    );
+
+    if (croppedFile == null) {
+      return null;
+    }
+    return File(croppedFile.path);
   }
 
   static Future<String> saveFileFromTempDirectory(

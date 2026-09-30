@@ -164,8 +164,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
 
       if (image == null) return;
-      tempFile = File(image.path);
-      imagePath = image.path;
+      tempFile = await AppFunction.cropImage(image.path);
+      if (tempFile == null) return;
+      imagePath = tempFile!.path;
 
       setState(() {});
     } catch (e) {

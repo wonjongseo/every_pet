@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 
 class SnackBarHelper {
   static void showErrorSnackBar(String message, {String title = "Error"}) {
+    if (Get.isSnackbarOpen) {
+      return;
+    }
     LogManager.error(message);
     Get.rawSnackbar(
       message: message,
@@ -17,6 +20,9 @@ class SnackBarHelper {
   }
 
   static void showSuccessSnackBar(String message, {String title = "Success"}) {
+    if (Get.isSnackbarOpen) {
+      return;
+    }
     Get.rawSnackbar(
       message: message,
       backgroundColor: Colors.green,

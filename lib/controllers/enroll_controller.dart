@@ -233,8 +233,9 @@ class EnrollController extends GetxController {
       );
 
       if (image == null) return;
-      tempFile = File(image.path);
-      imagePath = image.path;
+      tempFile = await AppFunction.cropImage(image.path);
+      if (tempFile == null) return;
+      imagePath = tempFile!.path;
 
       update();
     } catch (e) {
