@@ -3,10 +3,11 @@ import 'dart:developer';
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
-import 'package:every_pet/respository/category_repository.dart';
-import 'package:every_pet/respository/groceries_repository.dart';
-import 'package:every_pet/respository/pet_repository.dart';
-import 'package:every_pet/respository/stamp_repository.dart';
+import 'package:every_pet/respository/category/category_repository.dart';
+import 'package:every_pet/respository/groceries/groceries_repository.dart';
+import 'package:every_pet/respository/pet/pet_repository.dart';
+import 'package:every_pet/respository/stamp/stamp_repository.dart';
+
 import 'package:every_pet/view/enroll/enroll_screen.dart';
 import 'package:every_pet/view/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class SplashController extends GetxController {
   }
 
   Future<void> initDefaultDatas() async {
-    StampRepository stampRepository = StampRepository();
+    final stampRepository = StampRepository();
 
     if ((await stampRepository.getStamps()).isEmpty) {
       log('add default stamps datas to local db');
@@ -35,7 +36,7 @@ class SplashController extends GetxController {
         await stampRepository.saveStamp(stamp);
       }
     }
-    GroceriesRepository groceriesRepository = GroceriesRepository();
+    final groceriesRepository = GroceriesRepository();
 
     if ((await groceriesRepository.getGroceries()).isEmpty) {
       log('add default groceries datas to local db');

@@ -8,7 +8,7 @@ import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
 import 'package:every_pet/models/todo_model.dart';
-import 'package:every_pet/respository/todo_repository.dart';
+import 'package:every_pet/respository/todo/todo_repository.dart';
 import 'package:every_pet/view/todo/widgets/bottom_sheet_widget.dart';
 import 'package:every_pet/view/todo/widgets/add_todo_alert_dialog.dart';
 import 'package:flutter/material.dart';

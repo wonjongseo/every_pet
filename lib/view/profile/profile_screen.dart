@@ -178,9 +178,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void goToImagePickerScreen() async {
     try {
       tempFile = await AppFunction.goToImagePickerScreen();
+      if (tempFile == null) {
+        return;
+      }
       imagePath = tempFile!.path;
       setState(() {});
-      ();
     } catch (e) {
       SnackBarHelper.showErrorSnackBar(AppString.noLibaryPermssion.tr);
     }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:every_pet/common/extension/custom_theme_extension.dart';
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +12,7 @@ ThemeData lightTheme(String systemLanguage) {
             systemLanguage.contains('ja') ? "ZenMaruGothic" : "CookieRunFont"),
     scaffoldBackgroundColor: AppColors.backgroundLight,
     extensions: [CustomThemeExtension.lightMode],
-    cardTheme: CardTheme(elevation: 2),
+    cardTheme: const CardThemeData(elevation: 2),
     appBarTheme: const AppBarTheme(
       // backgroundColor: AppColors.primaryColor,
       backgroundColor: Colors.transparent,
@@ -31,8 +29,8 @@ ThemeData lightTheme(String systemLanguage) {
         color: Colors.black,
       ),
     ),
-    iconButtonTheme: IconButtonThemeData(),
-    tabBarTheme: const TabBarTheme(
+    iconButtonTheme: const IconButtonThemeData(),
+    tabBarTheme: const TabBarThemeData(
       indicator: UnderlineTabIndicator(
         borderSide: BorderSide(color: Colors.white, width: 2),
       ),
@@ -64,8 +62,8 @@ ThemeData lightTheme(String systemLanguage) {
         ),
       ),
     ),
-    dialogBackgroundColor: AppColors.backgroundLight,
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
+      backgroundColor: AppColors.backgroundLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -79,16 +77,16 @@ ThemeData lightTheme(String systemLanguage) {
       tileColor: AppColors.backgroundLight,
     ),
     switchTheme: const SwitchThemeData(
-      thumbColor: MaterialStatePropertyAll(Color(0xFF83939C)),
-      trackColor: MaterialStatePropertyAll(Color(0xFFDADFE2)),
+      thumbColor: WidgetStatePropertyAll(Color(0xFF83939C)),
+      trackColor: WidgetStatePropertyAll(Color(0xFFDADFE2)),
     ),
     checkboxTheme: CheckboxThemeData(
       side: BorderSide(color: Colors.grey[700]!),
-      overlayColor: MaterialStateProperty.all(Colors.red),
-      checkColor: MaterialStateProperty.all(AppColors.primaryColor),
-      fillColor: MaterialStateProperty.resolveWith(
-        (Set<MaterialState> states) {
-          if (states.contains(MaterialState.selected)) {
+      overlayColor: WidgetStateProperty.all(Colors.red),
+      checkColor: WidgetStateProperty.all(AppColors.primaryColor),
+      fillColor: WidgetStateProperty.resolveWith(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.selected)) {
             return Colors.grey[200];
           }
           return Colors.white;
@@ -114,7 +112,7 @@ ThemeData darkTheme(String systemLanguage) {
         ),
     scaffoldBackgroundColor: AppColors.backgroundDark,
     extensions: [CustomThemeExtension.darkMode],
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
       elevation: 2,
       color: AppColors.greyBackground,
     ),
@@ -135,7 +133,7 @@ ThemeData darkTheme(String systemLanguage) {
       ),
     ),
     iconButtonTheme: const IconButtonThemeData(),
-    tabBarTheme: const TabBarTheme(
+    tabBarTheme: const TabBarThemeData(
       indicator: UnderlineTabIndicator(
         borderSide: BorderSide(color: Colors.white, width: 2),
       ),
@@ -167,8 +165,8 @@ ThemeData darkTheme(String systemLanguage) {
         ),
       ),
     ),
-    dialogBackgroundColor: AppColors.greyBackground,
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
+      backgroundColor: AppColors.greyBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -183,16 +181,16 @@ ThemeData darkTheme(String systemLanguage) {
       textColor: Colors.white,
     ),
     switchTheme: const SwitchThemeData(
-      thumbColor: MaterialStatePropertyAll(Color(0xFF83939C)),
-      trackColor: MaterialStatePropertyAll(Color(0xFF3A4A52)),
+      thumbColor: WidgetStatePropertyAll(Color(0xFF83939C)),
+      trackColor: WidgetStatePropertyAll(Color(0xFF3A4A52)),
     ),
     checkboxTheme: CheckboxThemeData(
-      side: BorderSide(color: Colors.grey),
-      overlayColor: MaterialStateProperty.all(Colors.white24),
-      checkColor: MaterialStateProperty.all(Colors.white),
-      fillColor: MaterialStateProperty.resolveWith(
-        (Set<MaterialState> states) {
-          if (states.contains(MaterialState.selected)) {
+      side: const BorderSide(color: Colors.grey),
+      overlayColor: WidgetStateProperty.all(Colors.white24),
+      checkColor: WidgetStateProperty.all(Colors.white),
+      fillColor: WidgetStateProperty.resolveWith(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.selected)) {
             return AppColors.primaryColor;
           }
           return Colors.transparent;

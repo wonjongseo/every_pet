@@ -27,7 +27,7 @@ ThemeData darkTheme() {
         color: AppColors.greenDark,
       ),
     ),
-    tabBarTheme: const TabBarTheme(
+    tabBarTheme: const TabBarThemeData(
       indicator: UnderlineTabIndicator(
         borderSide: BorderSide(
           color: AppColors.greenDark,
@@ -54,8 +54,8 @@ ThemeData darkTheme() {
         ),
       ),
     ),
-    dialogBackgroundColor: AppColors.greyBackground,
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
+      backgroundColor: AppColors.greyBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -69,8 +69,8 @@ ThemeData darkTheme() {
       tileColor: AppColors.backgroundDark,
     ),
     switchTheme: const SwitchThemeData(
-      thumbColor: MaterialStatePropertyAll(AppColors.greenDark),
-      trackColor: MaterialStatePropertyAll(Color(0xFF344047)),
+      thumbColor: WidgetStatePropertyAll(AppColors.greenDark),
+      trackColor: WidgetStatePropertyAll(Color(0xFF344047)),
     ),
   );
 }

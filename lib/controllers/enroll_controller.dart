@@ -10,7 +10,7 @@ import 'package:every_pet/controllers/image_path_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/dog_model.dart';
-import 'package:every_pet/respository/pet_repository.dart';
+import 'package:every_pet/respository/pet/pet_repository.dart';
 import 'package:every_pet/view/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -246,9 +246,13 @@ class EnrollController extends GetxController {
   void goToImagePickerScreen() async {
     try {
       tempFile = await AppFunction.goToImagePickerScreen();
+      if (tempFile == null) {
+        return;
+      }
       imagePath = tempFile!.path;
       update();
     } catch (e) {
+      print("goToImagePickerScreen error $e");
       SnackBarHelper.showErrorSnackBar(AppString.noLibaryPermssion.tr);
     }
   }
