@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SnackBarHelper {
-  static void showErrorSnackBar(String message, {String title = "Error"}) {
+  static void showErrorSnackBar(String message) {
     if (Get.isSnackbarOpen) {
       return;
     }
@@ -19,7 +19,7 @@ class SnackBarHelper {
     );
   }
 
-  static void showSuccessSnackBar(String message, {String title = "Success"}) {
+  static void showSuccessSnackBar(String message) {
     if (Get.isSnackbarOpen) {
       return;
     }

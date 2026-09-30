@@ -93,8 +93,8 @@ class AppFunction {
         ),
         IOSUiSettings(
           title: AppString.selectProfile.tr,
-          doneButtonTitle: 'OK',
-          cancelButtonTitle: 'Cancel',
+          doneButtonTitle: AppString.completeText.tr,
+          cancelButtonTitle: AppString.cancelBtnTextTr.tr,
           aspectRatioLockEnabled: true,
           resetAspectRatioEnabled: false,
           aspectRatioPickerButtonHidden: true,
@@ -130,7 +130,7 @@ class AppFunction {
       String message = '「$text」${AppString.copyWordMsg.tr}';
 
       showSnackBar(
-          title: 'Copy',
+          title: AppString.copyText.tr,
           message: message,
           icon: Icons.done,
           color: AppColors.primaryColor);

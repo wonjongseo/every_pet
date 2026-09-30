@@ -32,7 +32,7 @@ class AddTodoDialog extends StatelessWidget {
         CustomTextField(
           maxLines: 2,
           controller: controller.memoController,
-          hintText: 'Memo',
+          hintText: AppString.memoText.tr,
         ),
         _textIconButton(
           onPressed: () {
@@ -48,7 +48,7 @@ class AddTodoDialog extends StatelessWidget {
           child: const EditStampSelector(),
         ),
         _textIconButton(
-          label: '상세',
+          label: AppString.detailText.tr,
           onPressed: () {
             Get.toNamed(EditDetailTodoScreen.name);
           },

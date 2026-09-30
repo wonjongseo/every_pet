@@ -8,6 +8,7 @@ class AppTranslations extends Translations {
           AppString.isExistName: AppString.isExistNameJp,
           AppString.permission: AppString.permissionJp,
           AppString.selectProfile: AppString.selectProfileJp,
+          AppString.darkAndLight: AppString.darkAndLightJp,
           AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgJp,
           AppString.noLibaryPermssion: AppString.noLibaryPermssionMsgJp,
           AppString.englishText: AppString.englishTextJp,
@@ -24,6 +25,14 @@ class AppTranslations extends Translations {
           AppString.japaneseText: AppString.japaneseTextJp,
           AppString.koreanText: AppString.koreanTextJp,
           AppString.meiText: AppString.meiTextJp,
+          AppString.memoText: AppString.memoTextJp,
+          AppString.detailText: AppString.detailTextJp,
+          AppString.selectPetText: AppString.selectPetTextJp,
+          AppString.selectScheduleText: AppString.selectScheduleTextJp,
+          AppString.clearText: AppString.clearTextJp,
+          AppString.applyText: AppString.applyTextJp,
+          AppString.copyText: AppString.copyTextJp,
+          AppString.changeLanguageText: AppString.changeLanguageTextJp,
           AppString.editMenuText: AppString.editMenuTextJp,
           AppString.perOneDayText: AppString.perOneDayTextJp,
           AppString.addMenuMsg: AppString.addMenuMsgJp,
@@ -160,6 +169,7 @@ class AppTranslations extends Translations {
           AppString.isExistName: AppString.isExistNameKr,
           AppString.permission: AppString.permissionKr,
           AppString.selectProfile: AppString.selectProfileKr,
+          AppString.darkAndLight: AppString.darkAndLightKr,
           AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgKr,
           AppString.noLibaryPermssion: AppString.noLibaryPermssionMsgKr,
           AppString.englishText: AppString.englishTextKr,
@@ -306,12 +316,21 @@ class AppTranslations extends Translations {
           AppString.koreanText: AppString.koreanTextKr,
           AppString.setLanguage: AppString.setLanguageKr,
           AppString.plzNoBlack: AppString.plzNoBlackKr,
+          AppString.memoText: AppString.memoTextKr,
+          AppString.detailText: AppString.detailTextKr,
+          AppString.selectPetText: AppString.selectPetTextKr,
+          AppString.selectScheduleText: AppString.selectScheduleTextKr,
+          AppString.clearText: AppString.clearTextKr,
+          AppString.applyText: AppString.applyTextKr,
+          AppString.copyText: AppString.copyTextKr,
+          AppString.changeLanguageText: AppString.changeLanguageTextKr,
         },
         'en_US': {
           AppString.updatedText: AppString.updatedTextEn,
           AppString.isExistName: AppString.isExistNameEn,
           AppString.permission: AppString.permissionEn,
           AppString.selectProfile: AppString.selectProfileEn,
+          AppString.darkAndLight: AppString.darkAndLightEn,
           AppString.noCameraPermssionMsg: AppString.noCameraPermssionMsgEn,
           AppString.noLibaryPermssion: AppString.requiredLibaryPermssionMsgEn,
           AppString.englishText: AppString.englishTextEn,
@@ -458,6 +477,14 @@ class AppTranslations extends Translations {
           AppString.koreanText: AppString.koreanTextEn,
           AppString.setLanguage: AppString.setLanguageEn,
           AppString.plzNoBlack: AppString.plzNoBlackEn,
+          AppString.memoText: AppString.memoTextEn,
+          AppString.detailText: AppString.detailTextEn,
+          AppString.selectPetText: AppString.selectPetTextEn,
+          AppString.selectScheduleText: AppString.selectScheduleTextEn,
+          AppString.clearText: AppString.clearTextEn,
+          AppString.applyText: AppString.applyTextEn,
+          AppString.copyText: AppString.copyTextEn,
+          AppString.changeLanguageText: AppString.changeLanguageTextEn,
         },
       };
 }
@@ -528,6 +555,11 @@ class AppString {
   static String selectProfileJp = 'プロフィール選択';
   static String selectProfileEn = "Select Profile";
 
+  static String darkAndLight = 'darkAndLightTr';
+  static String darkAndLightKr = '다크/라이트 모드';
+  static String darkAndLightJp = 'ダーク/ライトモード';
+  static String darkAndLightEn = "Dark/Light Mode";
+
   static String editProfile = 'editProfileTr';
   static String editProfileKr = '프로필 변경';
   static String editProfileJp = 'プロフィール編集';
@@ -537,6 +569,11 @@ class AppString {
   static String setLanguageKr = '언어 선택';
   static String setLanguageJp = '言語選択';
   static String setLanguageEn = "Language";
+
+  static String changeLanguageText = 'changeLanguageTextTr';
+  static String changeLanguageTextKr = '언어 변경';
+  static String changeLanguageTextJp = '言語変更';
+  static String changeLanguageTextEn = 'Change Language';
 
   static String englishText = 'englishTextTr';
   static String englishTextKr = '영어';
@@ -552,6 +589,41 @@ class AppString {
   static String koreanTextKr = '한국어';
   static String koreanTextJp = '韓国語';
   static String koreanTextEn = "Korean";
+
+  static String memoText = 'memoTextTr';
+  static String memoTextKr = '메모';
+  static String memoTextJp = 'メモ';
+  static String memoTextEn = 'Memo';
+
+  static String detailText = 'detailTextTr';
+  static String detailTextKr = '상세';
+  static String detailTextJp = '詳細';
+  static String detailTextEn = 'Detail';
+
+  static String selectPetText = 'selectPetTextTr';
+  static String selectPetTextKr = '펫 선택';
+  static String selectPetTextJp = 'ペット選択';
+  static String selectPetTextEn = 'Select Pet';
+
+  static String selectScheduleText = 'selectScheduleTextTr';
+  static String selectScheduleTextKr = '일정 선택';
+  static String selectScheduleTextJp = '予定選択';
+  static String selectScheduleTextEn = 'Select Schedule';
+
+  static String clearText = 'clearTextTr';
+  static String clearTextKr = '초기화';
+  static String clearTextJp = 'クリア';
+  static String clearTextEn = 'Clear';
+
+  static String applyText = 'applyTextTr';
+  static String applyTextKr = '적용';
+  static String applyTextJp = '適用';
+  static String applyTextEn = 'Apply';
+
+  static String copyText = 'copyTextTr';
+  static String copyTextKr = '복사';
+  static String copyTextJp = 'コピー';
+  static String copyTextEn = 'Copy';
 
   static String meiText = 'meiTextTr';
   static String meiTextKr = '명';

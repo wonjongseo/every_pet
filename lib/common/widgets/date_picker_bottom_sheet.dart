@@ -1,5 +1,6 @@
 import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -196,7 +197,7 @@ class _DatePickerBottomSheetState extends State<DatePickerBottomSheet> {
         children: [
           Expanded(
             child: CustomButton(
-              label: "クリア",
+              label: AppString.clearText.tr,
               onTap: _clear,
               color: Colors.grey,
             ),
@@ -204,7 +205,7 @@ class _DatePickerBottomSheetState extends State<DatePickerBottomSheet> {
           const SizedBox(width: 12),
           Expanded(
             child: CustomButton(
-              label: "適用",
+              label: AppString.applyText.tr,
               onTap: _apply,
               color: AppColors.primaryColor,
             ),
@@ -401,12 +402,12 @@ class YearAndMonthPickerState extends State<YearAndMonthPicker> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _yearAndMonthNavigator(
-                  label: "${focusedDay.year}年",
+                  label: "${focusedDay.year}${AppString.yearText.tr}",
                   isMonth: false,
                 ),
                 SizedBox(width: 24),
                 _yearAndMonthNavigator(
-                  label: "${focusedDay.month}月",
+                  label: "${focusedDay.month}${AppString.monthText.tr}",
                   isMonth: true,
                 ),
               ],

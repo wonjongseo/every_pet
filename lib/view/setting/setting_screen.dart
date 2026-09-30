@@ -81,7 +81,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             SizedBox(height: Responsive.height15),
             _customListTIle(
-              title: '다크/라이트 모드',
+              title: AppString.darkAndLight.tr,
               imagePath: AppImagePath.circleProfile,
               onTap: () {
                 settingController.toggleDarkMode(!settingController.isDarkMode);
@@ -113,7 +113,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             SizedBox(height: Responsive.height15),
             _customListTIle(
-              title: 'Change Language',
+              title: AppString.changeLanguageText.tr,
               subTitle: AppString.setLanguage.tr,
               imagePath: AppImagePath.circleGlobal,
               onTap: () {},
@@ -123,31 +123,31 @@ class _SettingScreenState extends State<SettingScreen> {
                     if (AppFunction.isEn()) ...[
                       DropdownMenuItem(
                         value: AppString.koreanText.tr,
-                        child: const Text('Korean'),
+                        child: Text(AppString.koreanText.tr),
                       ),
                       DropdownMenuItem(
                         value: AppString.japaneseText.tr,
-                        child: const Text('Japenese'),
+                        child: Text(AppString.japaneseText.tr),
                       ),
                     ],
                     if (AppFunction.isKo()) ...[
                       DropdownMenuItem(
                         value: AppString.japaneseText.tr,
-                        child: Text('Japenese (${AppString.japaneseText.tr})'),
+                        child: Text(AppString.japaneseText.tr),
                       ),
                       DropdownMenuItem(
                         value: AppString.englishText.tr,
-                        child: Text('English (${AppString.englishText.tr})'),
+                        child: Text(AppString.englishText.tr),
                       ),
                     ],
                     if (AppFunction.isJp()) ...[
                       DropdownMenuItem(
                         value: AppString.koreanText.tr,
-                        child: Text('Korean (${AppString.koreanText.tr})'),
+                        child: Text(AppString.koreanText.tr),
                       ),
                       DropdownMenuItem(
                         value: AppString.englishText.tr,
-                        child: Text('English (${AppString.englishText.tr})'),
+                        child: Text(AppString.englishText.tr),
                       ),
                     ],
                   ],
