@@ -73,12 +73,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (value == null) return;
     petType = value;
 
-    if (petType == PET_TYPE.DOG) {
-      imagePath = AppImagePath.bisyon;
-    } else {
-      imagePath = AppImagePath.defaultCat;
+    if (_isDefaultPetImage(imagePath)) {
+      imagePath = _defaultImagePathByPetType(petType);
     }
     setState(() {});
+  }
+
+  bool _isDefaultPetImage(String path) {
+    return path == AppImagePath.bisyon || path == AppImagePath.defaultCat;
+  }
+
+  String _defaultImagePathByPetType(PET_TYPE type) {
+    return type == PET_TYPE.DOG ? AppImagePath.bisyon : AppImagePath.defaultCat;
   }
 
   @override
