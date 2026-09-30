@@ -391,7 +391,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         imagePath: imagePath,
                                         onTap: () {
                                           Get.toNamed(
-                                              FullProfileImageScreen.name);
+                                            FullProfileImageScreen.name,
+                                            arguments: imagePath,
+                                          );
                                         },
                                       ),
                                       ImagePickIconRow(
