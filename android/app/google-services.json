@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "123821892048",
+    "project_id": "every-pet-9a361",
+    "storage_bucket": "every-pet-9a361.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123821892048:android:ab55a8295415e2322999d5",
+        "android_client_info": {
+          "package_name": "com.wonjongseo.every_pet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1VCHrzmxq-YtCvdjkk5yMTzLBtgXGVDw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

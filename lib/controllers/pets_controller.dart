@@ -4,7 +4,7 @@ import 'package:every_pet/controllers/app_review_controller.dart';
 import 'package:every_pet/controllers/main_controller.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
-import 'package:every_pet/respository/pet_repository.dart';
+import 'package:every_pet/respository/pet/pet_repository.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 
 import 'package:every_pet/view/enroll/enroll_screen.dart';

@@ -14,14 +14,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   MobileAds.instance.initialize();
 
   InterstitialManager.instance.configure(
       maxPerDay: 10000, // 3,
-      showChance: 0.65, // 0.35,
+      showChance: 0.45, // 0.35,
       cooldownMinutes: 15 // 5,
       );
 

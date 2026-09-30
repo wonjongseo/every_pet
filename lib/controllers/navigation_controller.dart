@@ -4,7 +4,6 @@ import 'package:every_pet/controllers/nutrition_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
 import 'package:every_pet/controllers/todo_controller.dart';
 import 'package:every_pet/models/pet_model.dart';
-import 'package:every_pet/respository/pet_repository.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/view/expensive/expensive_screen.dart';
 import 'package:every_pet/view/nutrition/nutrition_screen.dart';

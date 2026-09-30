@@ -4,7 +4,8 @@ import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/models/product_category_model.dart';
-import 'package:every_pet/respository/category_repository.dart';
+import 'package:every_pet/respository/category/category_repository.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

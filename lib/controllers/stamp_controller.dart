@@ -1,7 +1,7 @@
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/snackbar_helper.dart';
 import 'package:every_pet/models/stamp_model.dart';
-import 'package:every_pet/respository/stamp_repository.dart';
+import 'package:every_pet/respository/stamp/stamp_repository.dart';
 import 'package:get/get.dart';
 
 class StampController extends GetxController {

@@ -4,8 +4,7 @@ import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/controllers/category_controller.dart';
 import 'package:every_pet/models/expensive_model.dart';
 import 'package:every_pet/models/product_category_model.dart';
-import 'package:every_pet/respository/category_repository.dart';
-import 'package:every_pet/respository/expensive_repository.dart';
+import 'package:every_pet/respository/expensive/expensive_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
