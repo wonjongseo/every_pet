@@ -104,6 +104,7 @@ class ColIconButton extends StatelessWidget {
   final bool isActive;
   @override
   Widget build(BuildContext context) {
+    final textColor = Theme.of(context).textTheme.bodyMedium?.color;
     return SizedBox(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -122,7 +123,18 @@ class ColIconButton extends StatelessWidget {
                     ? AppColors.primaryColor.withOpacity(0.5)
                     : Colors.grey.shade400,
               ),
-              child: isActive ? const Icon(Icons.check) : null,
+              child: isActive
+                  ? DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(.35),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      ),
+                    )
+                  : null,
             ),
           ),
           SizedBox(height: Responsive.width10 / 5),
@@ -131,8 +143,7 @@ class ColIconButton extends StatelessWidget {
             maxLines: 1,
             textAlign: TextAlign.center,
             style: isActive
-                ? const TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.w500)
+                ? TextStyle(color: textColor, fontWeight: FontWeight.w500)
                 : const TextStyle(color: Colors.grey),
           ),
         ],

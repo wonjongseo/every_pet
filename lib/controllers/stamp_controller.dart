@@ -10,18 +10,18 @@ class StampController extends GetxController {
 
   final stamps = <StampModel>[].obs;
 
-  void deleteStamp(StampModel stamp) {
-    stampRepository.deleteStamp(stamp);
+  void deleteStamp(StampModel stamp) async {
+    await stampRepository.deleteStamp(stamp);
 
     SnackBarHelper.showErrorSnackBar(
       '${stamp.displayName}${AppString.doneDeletionMsg.tr}',
     );
-    getAllStamps();
+    await getAllStamps();
   }
 
-  void putStamp(StampModel stamp) {
-    stampRepository.saveStamp(stamp);
-    getAllStamps();
+  void putStamp(StampModel stamp) async {
+    await stampRepository.saveStamp(stamp);
+    await getAllStamps();
   }
 
   @override
@@ -48,5 +48,6 @@ class StampController extends GetxController {
 
   Future<void> getAllStamps() async {
     stamps.assignAll(await stampRepository.getStamps());
+    update();
   }
 }

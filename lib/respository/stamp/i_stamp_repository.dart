@@ -5,5 +5,5 @@ abstract class IStampRepository {
 
   Future<List<StampModel>> getStamps();
 
-  void deleteStamp(StampModel stampModel);
+  Future<void> deleteStamp(StampModel stampModel);
 }

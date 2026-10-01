@@ -9,7 +9,10 @@ import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/common.dialog.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
+import 'package:every_pet/controllers/calculate_kcal_controller.dart';
+import 'package:every_pet/controllers/category_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
+import 'package:every_pet/controllers/stamp_controller.dart';
 import 'package:every_pet/respository/setting_repository.dart';
 import 'package:every_pet/view/calculate_kcal/edit_groceries_screen.dart';
 import 'package:every_pet/view/expensive/change_category_screen.dart';
@@ -28,6 +31,8 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  final GlobalKey<PopupMenuButtonState<String>> _languageMenuKey =
+      GlobalKey<PopupMenuButtonState<String>>();
   String settingLanguage = '';
   String displayLanguage = '';
   PetsController petsController = Get.find<PetsController>();
@@ -116,42 +121,20 @@ class _SettingScreenState extends State<SettingScreen> {
               title: AppString.changeLanguageText.tr,
               subTitle: AppString.setLanguage.tr,
               imagePath: AppImagePath.circleGlobal,
-              onTap: () {},
-              widget: DropdownButton(
-                  underline: const SizedBox(),
-                  items: [
-                    if (AppFunction.isEn()) ...[
-                      DropdownMenuItem(
-                        value: AppString.koreanText.tr,
-                        child: Text(AppString.koreanText.tr),
-                      ),
-                      DropdownMenuItem(
-                        value: AppString.japaneseText.tr,
-                        child: Text(AppString.japaneseText.tr),
-                      ),
-                    ],
-                    if (AppFunction.isKo()) ...[
-                      DropdownMenuItem(
-                        value: AppString.japaneseText.tr,
-                        child: Text(AppString.japaneseText.tr),
-                      ),
-                      DropdownMenuItem(
-                        value: AppString.englishText.tr,
-                        child: Text(AppString.englishText.tr),
-                      ),
-                    ],
-                    if (AppFunction.isJp()) ...[
-                      DropdownMenuItem(
-                        value: AppString.koreanText.tr,
-                        child: Text(AppString.koreanText.tr),
-                      ),
-                      DropdownMenuItem(
-                        value: AppString.englishText.tr,
-                        child: Text(AppString.englishText.tr),
-                      ),
-                    ],
+              onTap: () => _languageMenuKey.currentState?.showButtonMenu(),
+              widget: PopupMenuButton<String>(
+                key: _languageMenuKey,
+                initialValue: settingLanguage,
+                onSelected: changeSystemLanguage,
+                itemBuilder: (_) => _languageMenuItems(),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AutoSizeText(displayLanguage, maxLines: 1),
+                    const Icon(Icons.arrow_drop_down),
                   ],
-                  onChanged: changeSystemLanguage),
+                ),
+              ),
             ),
             SizedBox(height: Responsive.height15),
             _customListTIle(
@@ -182,21 +165,53 @@ class _SettingScreenState extends State<SettingScreen> {
     }
   }
 
-  void changeSystemLanguage(v) async {
-    if (displayLanguage == v) {
+  List<PopupMenuEntry<String>> _languageMenuItems() {
+    return [
+      if (!settingLanguage.contains('ko'))
+        PopupMenuItem(
+          value: 'ko',
+          child: Text(AppString.koreanText.tr),
+        ),
+      if (!settingLanguage.contains('ja'))
+        PopupMenuItem(
+          value: 'ja',
+          child: Text(AppString.japaneseText.tr),
+        ),
+      if (!settingLanguage.contains('en'))
+        PopupMenuItem(
+          value: 'en',
+          child: Text(AppString.englishText.tr),
+        ),
+    ];
+  }
+
+  void changeSystemLanguage(String? v) async {
+    if (v == null || settingLanguage.contains(v)) {
       return;
     }
-    displayLanguage = v!;
+    settingLanguage = v;
 
-    if (displayLanguage == AppString.koreanText.tr) {
+    if (settingLanguage == 'ko') {
       await SettingRepository.setString(AppConstant.settingLanguageKey, 'ko');
       Get.updateLocale(const Locale('ko'));
-    } else if (displayLanguage == AppString.japaneseText.tr) {
+      displayLanguage = AppString.koreanText.tr;
+    } else if (settingLanguage == 'ja') {
       await SettingRepository.setString(AppConstant.settingLanguageKey, 'ja');
       Get.updateLocale(const Locale('ja'));
+      displayLanguage = AppString.japaneseText.tr;
     } else {
       await SettingRepository.setString(AppConstant.settingLanguageKey, 'en');
       Get.updateLocale(const Locale('en'));
+      displayLanguage = AppString.englishText.tr;
+    }
+    if (Get.isRegistered<StampController>()) {
+      StampController.to.update();
+    }
+    if (Get.isRegistered<CategoryController>()) {
+      Get.find<CategoryController>().getAllCategories();
+    }
+    if (Get.isRegistered<CalculateKcalController>()) {
+      Get.find<CalculateKcalController>().getAllGroceries();
     }
     await Future.delayed(const Duration(milliseconds: 500));
 

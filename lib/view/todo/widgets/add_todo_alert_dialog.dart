@@ -47,12 +47,12 @@ class AddTodoDialog extends StatelessWidget {
           width: size.width * .8,
           child: const EditStampSelector(),
         ),
-        _textIconButton(
-          label: AppString.detailText.tr,
-          onPressed: () {
-            Get.toNamed(EditDetailTodoScreen.name);
-          },
-        ),
+        // _textIconButton(
+        //   label: AppString.detailText.tr,
+        //   onPressed: () {
+        //     Get.toNamed(EditDetailTodoScreen.name);
+        //   },
+        // ),
         OkOrNoBtnRow(
           okText: AppString.saveText.tr,
           noText: AppString.cancelBtnTextTr.tr,

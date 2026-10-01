@@ -33,7 +33,7 @@ class StampRepository extends IStampRepository {
   }
 
   @override
-  void deleteStamp(StampModel stampModel) async {
+  Future<void> deleteStamp(StampModel stampModel) async {
     var box = await Hive.openBox<StampModel>(AppConstant.stampModelBox);
     await box.delete(stampModel.id);
   }
