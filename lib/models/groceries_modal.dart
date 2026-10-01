@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 
 part 'groceries_modal.g.dart';
 
@@ -33,6 +34,8 @@ class GroceriesModel {
   }
 
   double get kcalPerGram => _kcalPerGram;
+
+  String get displayName => AppString.displayName(name);
 
   set kcal(double value) {
     _gram = (value / _kcalPerGram).round();

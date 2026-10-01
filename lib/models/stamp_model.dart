@@ -4,6 +4,7 @@ import 'package:uuid/uuid.dart';
 
 import 'package:every_pet/common/utilities/app_constant.dart';
 import 'package:every_pet/common/utilities/app_image_path.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 
 part 'stamp_model.g.dart';
 
@@ -34,6 +35,8 @@ class StampModel {
     id = const Uuid().v4();
     createdAt = DateTime.now().microsecondsSinceEpoch;
   }
+
+  String get displayName => AppString.displayName(name);
 
   static String getIcon(iconIndex) {
     String imagePath = '';

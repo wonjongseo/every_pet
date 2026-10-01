@@ -29,7 +29,7 @@ class RowStampWidget extends StatelessWidget {
               child: Image.asset(StampModel.getIcon(stamp.iconIndex)),
             ),
             SizedBox(width: Responsive.width10),
-            Text(stamp.name),
+            Text(stamp.displayName),
           ],
         ),
         if (!isExsit)

@@ -23,7 +23,7 @@ class EditStampSelector extends GetView<EditDetailTodoController> {
             StampModel stampModel = StampController.to.stamps[index];
             return ColIconButton(
               icon: StampModel.getIcon(stampModel.iconIndex),
-              label: stampModel.name,
+              label: stampModel.displayName,
               onTap: () {
                 controller.onTapStamp(stampModel);
               },
@@ -49,7 +49,7 @@ class EditStampSelector extends GetView<EditDetailTodoController> {
             StampModel stampModel = StampController.to.stamps[index];
             return ColIconButton(
               icon: StampModel.getIcon(stampModel.iconIndex),
-              label: stampModel.name,
+              label: stampModel.displayName,
               onTap: () {
                 controller.onTapStamp(stampModel);
               },
@@ -75,7 +75,7 @@ class EditStampSelector extends GetView<EditDetailTodoController> {
             StampModel stampModel = StampController.to.stamps[index];
             return ColIconButton(
               icon: StampModel.getIcon(stampModel.iconIndex),
-              label: stampModel.name,
+              label: stampModel.displayName,
               onTap: () {
                 controller.onTapStamp(stampModel);
               },

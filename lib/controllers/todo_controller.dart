@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:every_pet/common/admob/interstitial_manager.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/controllers/main_controller.dart';
 import 'package:every_pet/controllers/pets_controller.dart';
@@ -268,8 +269,9 @@ class TodoController extends GetxController {
   /// 현재 스탬프 리스트에 해당 이름이 존재하는지 확인
   /// (true면 아직 사용 중인 스탬프)
   bool checkStamp(String name) {
+    final normalizedName = AppString.normalizeDefaultNameKey(name);
     for (var stamp in StampController.to.stamps) {
-      if (stamp.name == name) {
+      if (AppString.normalizeDefaultNameKey(stamp.name) == normalizedName) {
         return true;
       }
     }

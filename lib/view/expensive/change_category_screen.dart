@@ -70,7 +70,8 @@ class _ChangeCategoryScreenState extends State<ChangeCategoryScreen> {
                       focusNode: isSelected ? focusNode : null,
                       hintStyle: isSelected ? activeHintStyle : null,
                       controller: isSelected ? textEditingController : null,
-                      hintText: categoryController.categories[index].name,
+                      hintText:
+                          categoryController.categories[index].displayName,
                       onFieldSubmitted: (p0) {
                         categoryController.updateCategory(index, p0);
                         selectedIndex = -1;
@@ -88,7 +89,7 @@ class _ChangeCategoryScreenState extends State<ChangeCategoryScreen> {
                               textEditingController = TextEditingController();
 
                               textEditingController.text = categoryController
-                                  .categories[selectedIndex].name;
+                                  .categories[selectedIndex].displayName;
 
                               focusNode.requestFocus();
                               setState(() {});

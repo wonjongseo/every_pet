@@ -1,4 +1,5 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 part 'expensive_model.g.dart';
@@ -29,6 +30,8 @@ class ExpensiveModel {
     id = const Uuid().v4();
     createdAt = DateTime.now().microsecondsSinceEpoch;
   }
+
+  String get displayCategory => AppString.displayName(category);
 
   @override
   String toString() =>

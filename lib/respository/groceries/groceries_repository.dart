@@ -1,4 +1,5 @@
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/models/groceries_modal.dart';
 import 'package:every_pet/respository/groceries/i_groceries_repository.dart';
 import 'package:hive/hive.dart';
@@ -53,8 +54,15 @@ class GroceriesRepository extends IGroceriesRepository {
     var box =
         await Hive.openBox<GroceriesModel>(AppConstant.groceriesModelModelBox);
     List<GroceriesModel> groceries = box.values.toList();
+    for (final grocery in groceries) {
+      final normalizedName = AppString.normalizeDefaultNameKey(grocery.name);
+      if (normalizedName != grocery.name) {
+        grocery.name = normalizedName;
+        await box.put(grocery.id, grocery);
+      }
+    }
     groceries.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
-    return box.values.toList();
+    return groceries;
   }
 }

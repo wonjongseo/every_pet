@@ -48,7 +48,9 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
         widget.productName != null &&
         widget.itemPrice != null) {
       isReadOnly = true;
-      selectedCategory = widget.selectedCategory!;
+      selectedCategory = AppString.normalizeDefaultNameKey(
+        widget.selectedCategory!,
+      );
       productNameController.text = widget.productName!;
       itemPriceController.text = widget.itemPrice!;
       setState(() {});
@@ -73,7 +75,7 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
               return CustomTextField(
                 hintText: selectedCategory == ''
                     ? AppString.categoryText.tr
-                    : selectedCategory,
+                    : AppString.displayName(selectedCategory),
                 readOnly: true,
                 hintStyle: isReadOnly ? contentStyle : null,
                 style: isReadOnly ? contentStyle : null,
@@ -121,7 +123,9 @@ class _ExpensiveInputCardState extends State<ExpensiveInputCard> {
                       }
                       return DropdownMenuItem(
                         value: categoryController.categories[index].name,
-                        child: Text(categoryController.categories[index].name),
+                        child: Text(
+                          categoryController.categories[index].displayName,
+                        ),
                       );
                     },
                   ),

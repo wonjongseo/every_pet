@@ -2,7 +2,6 @@ import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/models/groceries_modal.dart';
 import 'package:every_pet/models/product_category_model.dart';
 import 'package:every_pet/models/stamp_model.dart';
-import 'package:get/get.dart';
 
 class AppConstant {
   static const int petModelHiveId = 0;
@@ -45,103 +44,103 @@ class AppConstant {
 
   static List<GroceriesModel> defaultgroceriesModels = [
     GroceriesModel(
-      name: AppString.riceText.tr,
+      name: AppString.riceText,
       kcalPer100g: 148,
       gram: 100,
     ),
     GroceriesModel(
-      name: AppString.potatoText.tr,
+      name: AppString.potatoText,
       kcalPer100g: 86,
       gram: 100,
     ),
     GroceriesModel(
-      name: AppString.sweetPotatoText.tr,
+      name: AppString.sweetPotatoText,
       kcalPer100g: 114,
       gram: 100,
     ),
     GroceriesModel(
-      name: AppString.chickenbreastText.tr,
+      name: AppString.chickenbreastText,
       kcalPer100g: 109,
       gram: 100,
     ),
     GroceriesModel(
-      name: AppString.carrotText.tr,
+      name: AppString.carrotText,
       kcalPer100g: 34,
       gram: 100,
     ),
     GroceriesModel(
-      name: AppString.bananaText.tr,
+      name: AppString.bananaText,
       kcalPer100g: 93,
       gram: 100,
     ),
     GroceriesModel(
-      name: AppString.appleText.tr,
+      name: AppString.appleText,
       kcalPer100g: 52,
       gram: 100,
     ),
     GroceriesModel(
-      name: AppString.tara.tr,
+      name: AppString.tara,
       kcalPer100g: 77,
       gram: 100,
     ),
     GroceriesModel(
-      name: AppString.salmonText.tr,
+      name: AppString.salmonText,
       kcalPer100g: 139.9,
       gram: 100,
     ),
     GroceriesModel(
-      name: AppString.cucumberText.tr,
+      name: AppString.cucumberText,
       kcalPer100g: 11,
       gram: 100,
     ),
   ];
 
   static List<ProductCategoryModel> defaultCategoryStringList = [
-    ProductCategoryModel(name: AppString.foodExpenses.tr),
-    ProductCategoryModel(name: AppString.beautyExpenses.tr),
-    ProductCategoryModel(name: AppString.hospitalExpenses.tr),
-    ProductCategoryModel(name: AppString.entertainmentExpenses.tr),
-    ProductCategoryModel(name: AppString.lifeExpenses.tr),
+    ProductCategoryModel(name: AppString.foodExpenses),
+    ProductCategoryModel(name: AppString.beautyExpenses),
+    ProductCategoryModel(name: AppString.hospitalExpenses),
+    ProductCategoryModel(name: AppString.entertainmentExpenses),
+    ProductCategoryModel(name: AppString.lifeExpenses),
   ];
 
   static List<StampModel> defaultStampModels = [
     StampModel(
-      name: AppString.stamp1Tr.tr,
+      name: AppString.stamp1Tr,
       iconIndex: 0,
       isVisible: true,
     ), // 0xFFff9796
     StampModel(
-      name: AppString.stamp2Tr.tr,
+      name: AppString.stamp2Tr,
       iconIndex: 1,
       isVisible: true,
     ), // 0xFF229cff
     StampModel(
-      name: AppString.stamp3Tr.tr,
+      name: AppString.stamp3Tr,
       iconIndex: 2,
       isVisible: true,
     ), // 0xFF56e1ff
     StampModel(
-      name: AppString.stamp4Tr.tr,
+      name: AppString.stamp4Tr,
       iconIndex: 3,
       isVisible: true,
     ), // 0xFFf59b23
     StampModel(
-      name: AppString.stamp5Tr.tr,
+      name: AppString.stamp5Tr,
       iconIndex: 4,
       isVisible: true,
     ), // 0xFFf59b23
     StampModel(
-      name: AppString.stamp6Tr.tr,
+      name: AppString.stamp6Tr,
       iconIndex: 5,
       isVisible: true,
     ), // 0xFF7ec636
     StampModel(
-      name: AppString.stamp7Tr.tr,
+      name: AppString.stamp7Tr,
       iconIndex: 6,
       isVisible: true,
     ), // 0xFFe5b7ff
     StampModel(
-      name: AppString.stamp8Tr.tr,
+      name: AppString.stamp8Tr,
       iconIndex: 7,
       isVisible: true,
     ), // 0xFFdbff85

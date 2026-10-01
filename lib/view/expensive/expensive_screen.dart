@@ -318,7 +318,7 @@ class _ExpensiveScreenState extends State<ExpensiveScreen> {
                               tileColor: Colors.transparent,
                               title: Row(
                                 children: [
-                                  Text('${entry.key}:'),
+                                  Text('${AppString.displayName(entry.key)}:'),
                                   const Spacer(),
                                   Text(
                                     '${AppString.moneySign.tr}${NumberFormat("#,###").format(entry.value)}',

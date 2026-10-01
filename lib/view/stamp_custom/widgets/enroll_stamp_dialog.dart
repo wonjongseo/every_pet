@@ -27,7 +27,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
   void initState() {
     stampIconIndexValue = widget.stamp?.iconIndex ?? 0;
     textEditingController =
-        TextEditingController(text: widget.stamp?.name ?? '');
+        TextEditingController(text: widget.stamp?.displayName ?? '');
     super.initState();
   }
 
@@ -125,7 +125,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     Get.back();
 
     SnackBarHelper.showSuccessSnackBar(
-        '${stampModel.name}${AppString.doneAddtionMsg.tr}');
+        '${stampModel.displayName}${AppString.doneAddtionMsg.tr}');
   }
 
   void updateStamp() async {
@@ -134,6 +134,9 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     }
     // 1.2.0+4 스탬프 변경 하면 show snack Bar
     if (widget.stamp == null) return;
+    if (textEditingController.text == widget.stamp!.displayName) {
+      textEditingController.text = widget.stamp!.name;
+    }
     if (textEditingController.text.isEmpty) {
       SnackBarHelper.showErrorSnackBar(AppString.stampNameCtlMsg.tr);
       return;
@@ -151,7 +154,7 @@ class _EnrollStampDialogState extends State<EnrollStampDialog> {
     // 1.2.0+4 스탬프 변경 하면 show snack Bar
     Get.back();
     SnackBarHelper.showSuccessSnackBar(
-        '${updatedStamp.name}${AppString.doneUpdatedMsg.tr}');
+        '${updatedStamp.displayName}${AppString.doneUpdatedMsg.tr}');
     // 1.2.0+4 스탬프 변경 하면 show snack Bar
   }
 }

@@ -14,7 +14,7 @@ class StampController extends GetxController {
     stampRepository.deleteStamp(stamp);
 
     SnackBarHelper.showErrorSnackBar(
-      '${stamp.name}${AppString.doneDeletionMsg.tr}',
+      '${stamp.displayName}${AppString.doneDeletionMsg.tr}',
     );
     getAllStamps();
   }
@@ -41,7 +41,7 @@ class StampController extends GetxController {
     putStamp(selectedStamp);
 
     SnackBarHelper.showSuccessSnackBar(
-        '${selectedStamp.name} ${selectedStamp.isVisible ? AppString.changedVisiableMsg.tr : AppString.changedInVisiableMsg.tr}');
+        '${selectedStamp.displayName} ${selectedStamp.isVisible ? AppString.changedVisiableMsg.tr : AppString.changedInVisiableMsg.tr}');
 
     update();
   }

@@ -490,6 +490,90 @@ class AppTranslations extends Translations {
 }
 
 class AppString {
+  static String displayName(String value) {
+    final normalizedValue = normalizeDefaultNameKey(value);
+    return _defaultNameKeys.contains(normalizedValue)
+        ? normalizedValue.tr
+        : value;
+  }
+
+  static String normalizeDefaultNameKey(String value) {
+    return _localizedDefaultNameToKey[value] ?? value;
+  }
+
+  static final Set<String> _defaultNameKeys = {
+    riceText,
+    potatoText,
+    sweetPotatoText,
+    chickenbreastText,
+    carrotText,
+    bananaText,
+    appleText,
+    tara,
+    salmonText,
+    cucumberText,
+    foodExpenses,
+    beautyExpenses,
+    hospitalExpenses,
+    entertainmentExpenses,
+    lifeExpenses,
+    stamp1Tr,
+    stamp2Tr,
+    stamp3Tr,
+    stamp4Tr,
+    stamp5Tr,
+    stamp6Tr,
+    stamp7Tr,
+    stamp8Tr,
+  };
+
+  static final Map<String, String> _localizedDefaultNameToKey = {
+    for (final entry in _defaultNameTranslations.entries)
+      for (final name in entry.value) name: entry.key,
+  };
+
+  static final Map<String, List<String>> _defaultNameTranslations = {
+    riceText: [riceTextKr, riceTextJp, riceTextEn],
+    potatoText: [potatoTextKr, potatoTextJp, potatoTextEn],
+    sweetPotatoText: [
+      sweetPotatoTextKr,
+      sweetPotatoTextJp,
+      sweetPotatoTextEn,
+    ],
+    chickenbreastText: [
+      chickenbreastTextKr,
+      chickenbreastTextJp,
+      chickenbreastTextEn,
+    ],
+    carrotText: [carrotTextKr, carrotTextJp, carrotTextEn],
+    bananaText: [bananaTextKr, bananaTextJp, bananaTextEn],
+    appleText: [appleTextKr, appleTextJp, appleTextEn],
+    tara: [taraKr, taraJp, taraEn],
+    salmonText: [salmonTextKr, salmonTextJp, salmonTextEn],
+    cucumberText: [cucumberTextKr, cucumberTextJp, cucumberTextEn],
+    foodExpenses: [foodExpensesKr, foodExpensesJp, foodExpensesEn],
+    beautyExpenses: [beautyExpensesKr, beautyExpensesJp, beautyExpensesEn],
+    hospitalExpenses: [
+      hospitalExpensesKr,
+      hospitalExpensesJp,
+      hospitalExpensesEn,
+    ],
+    entertainmentExpenses: [
+      entertainmentExpensesKr,
+      entertainmentExpensesJp,
+      entertainmentExpensesEn,
+    ],
+    lifeExpenses: [lifeExpensesKr, lifeExpensesJp, lifeExpensesEn],
+    stamp1Tr: [stamp1Kr, stamp1Jp, stamp1En],
+    stamp2Tr: [stamp2Kr, stamp2Jp, stamp2En],
+    stamp3Tr: [stamp3Kr, stamp3Jp, stamp3En],
+    stamp4Tr: [stamp4Kr, stamp4Jp, stamp4En],
+    stamp5Tr: [stamp5Kr, stamp5Jp, stamp5En],
+    stamp6Tr: [stamp6Kr, stamp6Jp, stamp6En],
+    stamp7Tr: [stamp7Kr, stamp7Jp, stamp7En],
+    stamp8Tr: [stamp8Kr, stamp8Jp, stamp8En],
+  };
+
   // 제조사를 입력헤주세요
   static String requiredMakerName =
       '${AppString.makterText.tr}${AppString.requiredMsg.tr}';

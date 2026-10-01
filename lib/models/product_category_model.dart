@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 
 import 'package:every_pet/common/utilities/app_constant.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:uuid/uuid.dart';
 part 'product_category_model.g.dart';
 
@@ -17,6 +18,8 @@ class ProductCategoryModel {
     id = const Uuid().v4();
     createdAt = DateTime.now().microsecondsSinceEpoch;
   }
+
+  String get displayName => AppString.displayName(name);
 
   @override
   String toString() =>

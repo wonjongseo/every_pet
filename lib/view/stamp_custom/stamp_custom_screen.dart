@@ -66,7 +66,7 @@ class StampCustomScreen extends StatelessWidget {
                       ),
                     ),
                     title: CustomTextField(
-                      hintText: controller.stamps[index].name,
+                      hintText: controller.stamps[index].displayName,
                       hintStyle: activeHintStyle,
                       onTap: () {
                         Get.dialog(

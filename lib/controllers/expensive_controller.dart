@@ -1,5 +1,6 @@
 import 'package:every_pet/models/expensive_model.dart';
 import 'package:every_pet/respository/expensive/expensive_repository.dart';
+import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:get/get.dart';
 
 class ExpensiveController extends GetxController {
@@ -32,10 +33,11 @@ class ExpensiveController extends GetxController {
     var expensivesOfMonth = expensivesByMonth(month);
 
     for (var element in expensivesOfMonth) {
-      if (!categoryAndPrice.containsKey(element.category)) {
-        categoryAndPrice[element.category] = element.price;
+      final category = AppString.normalizeDefaultNameKey(element.category);
+      if (!categoryAndPrice.containsKey(category)) {
+        categoryAndPrice[category] = element.price;
       } else {
-        categoryAndPrice[element.category] += element.price;
+        categoryAndPrice[category] += element.price;
       }
     }
   }

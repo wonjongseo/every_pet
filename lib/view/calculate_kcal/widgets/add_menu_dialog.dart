@@ -39,7 +39,7 @@ class AddMenuDialog extends StatelessWidget {
                   return ListTile(
                     dense: true,
                     leading: Text(
-                      controller.groceriesModels[index].name,
+                      controller.groceriesModels[index].displayName,
                       style: activeHintStyle,
                     ),
                     minLeadingWidth: MediaQuery.of(context).size.width / 4.5,

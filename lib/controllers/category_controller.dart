@@ -58,7 +58,7 @@ class CategoryController extends GetxController {
         ProductCategoryModel(name: teController.text);
 
     SnackBarHelper.showSuccessSnackBar(
-      '${categoryModel.name}${AppString.doneAddtionMsg.tr}',
+      '${categoryModel.displayName}${AppString.doneAddtionMsg.tr}',
     );
 
     saveCategory(categoryModel);
@@ -67,7 +67,7 @@ class CategoryController extends GetxController {
 
   void deleteCategory(ProductCategoryModel category) {
     SnackBarHelper.showSuccessSnackBar(
-      '${category.name}${AppString.doneDeletionMsg.tr}',
+      '${category.displayName}${AppString.doneDeletionMsg.tr}',
     );
     categoryRepository.deleteCategory(category);
     getAllCategories();
@@ -75,13 +75,16 @@ class CategoryController extends GetxController {
 
   void updateCategory(int index, String name) {
     ProductCategoryModel categoryModel = categories[index];
+    if (name == categoryModel.displayName) {
+      name = categoryModel.name;
+    }
 
     if (categoryModel.name == name) {
       return;
     }
     categoryModel.name = name;
     SnackBarHelper.showSuccessSnackBar(
-      '${categoryModel.name}${AppString.doneAddtionMsg.tr}',
+      '${categoryModel.displayName}${AppString.doneAddtionMsg.tr}',
     );
     saveCategory(categoryModel);
   }

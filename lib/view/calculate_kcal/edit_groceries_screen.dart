@@ -140,7 +140,7 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
           focusNode: isSelected ? focusNode : null,
           controller:
               isSelected ? nameEditingController : emptyEditingController,
-          hintText: controller.groceriesModels[index].name,
+          hintText: controller.groceriesModels[index].displayName,
           textInputAction: TextInputAction.next,
         ),
         SizedBox(height: Responsive.height10),
@@ -190,7 +190,8 @@ class _EditGroceriesScreenState extends State<EditGroceriesScreen> {
     setState(() {});
 
     selectedIndex = index;
-    nameEditingController.text = controller.groceriesModels[selectedIndex].name;
+    nameEditingController.text =
+        controller.groceriesModels[selectedIndex].displayName;
     kcalEditingController.text =
         controller.groceriesModels[selectedIndex].kcal.toStringAsFixed(1);
     gramEditingController.text =

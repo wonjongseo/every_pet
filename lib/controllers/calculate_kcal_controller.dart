@@ -121,7 +121,7 @@ class CalculateKcalController extends GetxController {
         gram: int.parse(teControllers[2].text));
 
     SnackBarHelper.showSuccessSnackBar(
-      '${groceriesModel.name}${AppString.doneAddtionMsg.tr}',
+      '${groceriesModel.displayName}${AppString.doneAddtionMsg.tr}',
     );
     saveCategory(groceriesModel);
     InterstitialManager.instance.maybeShow();
@@ -134,6 +134,9 @@ class CalculateKcalController extends GetxController {
 
   void updateGrocery(int index, String name, String kcal, String gram) {
     GroceriesModel groceriesModel = groceriesModels[index];
+    if (name == groceriesModel.displayName) {
+      name = groceriesModel.name;
+    }
 
     if (name.isEmpty) {
       name = groceriesModel.name;
@@ -158,14 +161,14 @@ class CalculateKcalController extends GetxController {
     );
 
     SnackBarHelper.showSuccessSnackBar(
-      '${newGroceriesModel.name}${AppString.doneUpdatedMsg.tr}',
+      '${newGroceriesModel.displayName}${AppString.doneUpdatedMsg.tr}',
     );
     saveCategory(newGroceriesModel);
   }
 
   void deleteGrocery(GroceriesModel groceriesModel) {
     SnackBarHelper.showSuccessSnackBar(
-        '${groceriesModel.name}${AppString.doneDeletionMsg.tr}');
+        '${groceriesModel.displayName}${AppString.doneDeletionMsg.tr}');
     groceriesRepository.deleteGrocery(groceriesModel);
     getAllGroceries();
   }
@@ -215,7 +218,7 @@ class CalculateKcalController extends GetxController {
 
         var kcal = gram * selectedGroceriesModels[i].kcalPerGram;
 
-        displayGroceries[i].name = selectedGroceriesModels[i].name;
+        displayGroceries[i].name = selectedGroceriesModels[i].displayName;
         displayGroceries[i].kcal = (kcal.toStringAsFixed(1));
         displayGroceries[i].gram = (gram.toStringAsFixed(1));
       }
