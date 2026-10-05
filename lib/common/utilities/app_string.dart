@@ -33,6 +33,9 @@ class AppTranslations extends Translations {
           AppString.applyText: AppString.applyTextJp,
           AppString.copyText: AppString.copyTextJp,
           AppString.changeLanguageText: AppString.changeLanguageTextJp,
+          AppString.changeBackgroundText: AppString.changeBackgroundTextJp,
+          AppString.customBackgroundText: AppString.customBackgroundTextJp,
+          AppString.backgroundOpacityText: AppString.backgroundOpacityTextJp,
           AppString.editMenuText: AppString.editMenuTextJp,
           AppString.perOneDayText: AppString.perOneDayTextJp,
           AppString.addMenuMsg: AppString.addMenuMsgJp,
@@ -324,6 +327,9 @@ class AppTranslations extends Translations {
           AppString.applyText: AppString.applyTextKr,
           AppString.copyText: AppString.copyTextKr,
           AppString.changeLanguageText: AppString.changeLanguageTextKr,
+          AppString.changeBackgroundText: AppString.changeBackgroundTextKr,
+          AppString.customBackgroundText: AppString.customBackgroundTextKr,
+          AppString.backgroundOpacityText: AppString.backgroundOpacityTextKr,
         },
         'en_US': {
           AppString.updatedText: AppString.updatedTextEn,
@@ -485,6 +491,9 @@ class AppTranslations extends Translations {
           AppString.applyText: AppString.applyTextEn,
           AppString.copyText: AppString.copyTextEn,
           AppString.changeLanguageText: AppString.changeLanguageTextEn,
+          AppString.changeBackgroundText: AppString.changeBackgroundTextEn,
+          AppString.customBackgroundText: AppString.customBackgroundTextEn,
+          AppString.backgroundOpacityText: AppString.backgroundOpacityTextEn,
         },
       };
 }
@@ -658,6 +667,21 @@ class AppString {
   static String changeLanguageTextKr = '언어 변경';
   static String changeLanguageTextJp = '言語変更';
   static String changeLanguageTextEn = 'Change Language';
+
+  static String changeBackgroundText = 'changeBackgroundTextTr';
+  static String changeBackgroundTextKr = '배경화면 변경';
+  static String changeBackgroundTextJp = '背景画像変更';
+  static String changeBackgroundTextEn = 'Change Background';
+
+  static String customBackgroundText = 'customBackgroundTextTr';
+  static String customBackgroundTextKr = '직접 선택';
+  static String customBackgroundTextJp = '画像を選択';
+  static String customBackgroundTextEn = 'Choose Image';
+
+  static String backgroundOpacityText = 'backgroundOpacityTextTr';
+  static String backgroundOpacityTextKr = '배경 투명도';
+  static String backgroundOpacityTextJp = '背景の透明度';
+  static String backgroundOpacityTextEn = 'Background Opacity';
 
   static String englishText = 'englishTextTr';
   static String englishTextKr = '영어';

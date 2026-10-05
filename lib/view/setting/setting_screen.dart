@@ -18,6 +18,7 @@ import 'package:every_pet/view/calculate_kcal/edit_groceries_screen.dart';
 import 'package:every_pet/view/expensive/change_category_screen.dart';
 import 'package:every_pet/view/profile/profile_screen.dart';
 import 'package:every_pet/view/setting/controller/setting_controller.dart';
+import 'package:every_pet/view/setting/set_background_image_dialog.dart';
 import 'package:every_pet/view/stamp_custom/stamp_custom_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
@@ -91,6 +92,12 @@ class _SettingScreenState extends State<SettingScreen> {
               onTap: () {
                 settingController.toggleDarkMode(!settingController.isDarkMode);
               },
+            ),
+            SizedBox(height: Responsive.height15),
+            _customListTIle(
+              title: AppString.changeBackgroundText.tr,
+              imagePath: AppImagePath.circleProfile,
+              onTap: _showBackgroundDialog,
             ),
             SizedBox(height: Responsive.height15),
             _customListTIle(
@@ -222,6 +229,20 @@ class _SettingScreenState extends State<SettingScreen> {
     }
 
     setState(() {});
+  }
+
+  void _showBackgroundDialog() {
+    String selectedPath = settingController.backgroundImagePath;
+    String selectedSource = settingController.backgroundImageSource;
+    double selectedOpacity = settingController.backgroundOpacity;
+
+    Get.dialog(
+      SetBackgroundImageDialog(
+        selectedPath: selectedPath,
+        selectedSource: selectedSource,
+        selectedOpacity: selectedOpacity,
+      ),
+    );
   }
 
   Widget _customListTIle({

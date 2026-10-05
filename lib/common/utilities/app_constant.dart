@@ -40,6 +40,11 @@ class AppConstant {
 
   static const int invalidNumber = -9192939;
   static const String isDarkMode = 'isDarkMode';
+  static const String backgroundImagePathKey = 'backgroundImagePath';
+  static const String backgroundImageSourceKey = 'backgroundImageSource';
+  static const String backgroundOpacityKey = 'backgroundOpacity';
+  static const String backgroundImageSourceAsset = 'asset';
+  static const String backgroundImageSourceFile = 'file';
   static const int dateTimePickerFirstYear = 2010;
 
   static List<GroceriesModel> defaultgroceriesModels = [

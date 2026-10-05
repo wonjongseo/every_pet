@@ -125,7 +125,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       isSavedImage = false;
       imagePath = pet.profilePath;
     } else {
-      // imagePath = '${Get.find<ImagePathController>().path}/${pet.imageName}';
       imagePath = pet.profilePath;
     }
     setState(() {});
