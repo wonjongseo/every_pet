@@ -87,7 +87,7 @@ class TodoController extends GetxController {
   void getTodos(PetModel pet) async {
     // 현재 펫에 해당하는 Todo만 필터링
     List<TodoModel> tempTodoModel =
-        _todoModels.where((element) => element.petModel == pet).toList();
+        _todoModels.where((element) => element.petModel?.id == pet.id).toList();
 
     // 기존 이벤트 초기화
     kEvents.clear();
@@ -234,7 +234,7 @@ class TodoController extends GetxController {
 
       // 동일한 Todo가 이미 있는지 _todoModels에서 검색
       for (var tempTodoModel in _todoModels) {
-        if (tempTodoModel == newTodoModel) {
+        if (_isSameTodoTarget(tempTodoModel, newTodoModel)) {
           savedTodoModel = tempTodoModel;
           break;
         }
@@ -251,7 +251,7 @@ class TodoController extends GetxController {
           await deleteTodo(savedTodoModel);
         } else {
           // 기존 Todo를 새 데이터로 갱신
-          updateTodo(savedTodoModel, newTodoModel);
+          await updateTodo(savedTodoModel, newTodoModel);
         }
       }
     }
@@ -294,7 +294,7 @@ class TodoController extends GetxController {
     // 순회 중 리스트 변경 방지를 위해 복사본 사용
     List tempTodoList = List.from(_todoModels);
     for (var todo in tempTodoList) {
-      if (todo.petModel == petModel) {
+      if (todo.petModel?.id == petModel.id) {
         await deleteTodo(todo);
       }
     }
@@ -307,10 +307,13 @@ class TodoController extends GetxController {
   }
 
   /// 기존 Todo를 새 Todo로 교체 후 저장
-  void updateTodo(TodoModel savedTodoModel, TodoModel newTodoModel) {
+  Future<void> updateTodo(
+    TodoModel savedTodoModel,
+    TodoModel newTodoModel,
+  ) async {
     _todoModels.remove(savedTodoModel);
     _todoModels.add(newTodoModel);
-    todoRepository.saveTodo(newTodoModel);
+    await todoRepository.updateTodo(savedTodoModel, newTodoModel);
   }
 
   /// Todo 삭제
@@ -323,5 +326,10 @@ class TodoController extends GetxController {
   List<TodoModel> getEventsForDay(DateTime day) {
     // Implementation example
     return kEvents[day] ?? [];
+  }
+
+  bool _isSameTodoTarget(TodoModel first, TodoModel second) {
+    return isSameDay(first.dateTime, second.dateTime) &&
+        first.petModel?.id == second.petModel?.id;
   }
 }

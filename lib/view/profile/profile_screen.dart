@@ -8,6 +8,7 @@ import 'package:every_pet/common/utilities/util_function.dart';
 import 'package:every_pet/common/widgets/custom_text_feild.dart';
 import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/controllers/enroll_controller.dart';
+import 'package:every_pet/models/cat_model.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/view/enroll/widgets/gender_selector.dart';
 import 'package:every_pet/view/full_profile_image_screen.dart';
@@ -119,6 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     genderType = pet.genderType;
     isPregnancy = pet.isPregnancy ?? false;
     isNeuter = pet.isNeuter ?? false;
+    petType = pet is CatModel ? PET_TYPE.CAT : PET_TYPE.DOG;
 
     if (pet.imageName.contains(AppImagePath.bisyon) ||
         pet.imageName.contains(AppImagePath.defaultCat)) {
@@ -256,7 +258,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       imageName = newName;
     }
 
-    PetModel updatedPet = oldPetModel.copyWith(
+    PetModel updatedPet = _copyPetWithSelectedType(
+      oldPetModel: oldPetModel,
       name: name,
       imageUrl: imageName,
       birthDay: birthDay ?? oldPetModel.birthDay,
@@ -272,6 +275,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
     petController.updatePetModel(updatedPet);
     SnackBarHelper.showSuccessSnackBar(AppString.updateMsg.tr);
     return;
+  }
+
+  PetModel _copyPetWithSelectedType({
+    required PetModel oldPetModel,
+    required String name,
+    required String imageUrl,
+    required DateTime birthDay,
+    required GENDER_TYPE genderType,
+    required double weight,
+    required bool isNeuter,
+    required bool isPregnancy,
+    required String hospitalName,
+    required String hospitalNumber,
+    required String groomingName,
+    required String groomingNumber,
+  }) {
+    final PetModel pet = petType == PET_TYPE.DOG
+        ? DogModel(
+            name: name,
+            imageUrl: imageUrl,
+            birthDay: birthDay,
+            genderType: genderType,
+            weight: weight,
+            isNeuter: isNeuter,
+            isPregnancy: isPregnancy,
+            nutritionModel: oldPetModel.nutritionModel,
+            hospitalName: hospitalName,
+            hospitalNumber: hospitalNumber,
+            groomingName: groomingName,
+            groomingNumber: groomingNumber,
+          )
+        : CatModel(
+            name: name,
+            imageUrl: imageUrl,
+            birthDay: birthDay,
+            genderType: genderType,
+            weight: weight,
+            isNeuter: isNeuter,
+            isPregnancy: isPregnancy,
+            nutritionModel: oldPetModel.nutritionModel,
+            hospitalName: hospitalName,
+            hospitalNumber: hospitalNumber,
+            groomingName: groomingName,
+            groomingNumber: groomingNumber,
+          );
+
+    pet.id = oldPetModel.id;
+    pet.createdAt = oldPetModel.createdAt;
+    return pet;
   }
 
   void deletePet(String petName) async {

@@ -40,13 +40,13 @@ class TodoModel {
     if (identical(this, other)) return true;
 
     return other is TodoModel &&
-        other.dateTime == dateTime &&
-        other.petModel == petModel;
+        _isSameDate(other.dateTime, dateTime) &&
+        other.petModel?.id == petModel?.id;
   }
 
   @override
   int get hashCode {
-    return dateTime.hashCode ^ petModel.hashCode;
+    return getHashCode(dateTime) ^ (petModel?.id.hashCode ?? 0);
   }
 
   TodoModel copyWith({
@@ -69,4 +69,10 @@ class TodoModel {
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
+}
+
+bool _isSameDate(DateTime first, DateTime second) {
+  return first.year == second.year &&
+      first.month == second.month &&
+      first.day == second.day;
 }

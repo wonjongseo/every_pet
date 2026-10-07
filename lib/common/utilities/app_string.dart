@@ -1371,15 +1371,23 @@ In other words, it means the amount of energy you need to rest.""";
   static String errorCreateEmail1En = "The Fail to write an email";
 
   static String errorCreateEmail2 = "errorCreateEmail2Tr";
+
+  static String email = "visionwill3322@gmail.com";
+
   static String errorCreateEmail2Kr =
-      '핸드폰에 이메일 등록이 되어 있지 않으면 $appNameKr에서 이메일을 작성 할 수 없습니다.\n별도의 이메일 앱에서 문의 해주시면 감사하겠습니다.\n\n이메일 [visionwill3322@gmail.com]을 복사하시겠습니까?';
+      '휴대폰에 이메일 계정이 등록되어 있지 않아 $appNameKr에서 메일을 작성할 수 없습니다.\n'
+      '다른 이메일 앱을 통해 문의해 주시면 감사하겠습니다.\n\n'
+      '이메일 주소 $email을 복사하시겠습니까?';
+
   static String errorCreateEmail2Jp =
-      "携帯にメールが登録されていなければ、 $appNameJpからメールを作成することができません。\n別途のメールアプリからお問い合わせして頂ければ幸いと存じております。\n\nメール　[visionwill3322@gmail.com]をコピーしますか。";
-  static String errorCreateEmail2En = """
-If your email is not registered on your phone, you will not be able to send an email from $appNameKr.
-We kindly ask that you contact us using another email app.
-Would you like to copy the email [visionwill3322@gmail.com]?"
-""";
+      'スマートフォンにメールアカウントが設定されていないため、$appNameJpからメールを作成できません。\n'
+      'お手数ですが、別のメールアプリからお問い合わせください。\n\n'
+      'メールアドレス $email をコピーしますか？';
+
+  static String errorCreateEmail2En =
+      'No email account is set up on your phone, so $appNameEn can’t create an email.\n'
+      'Please contact us using another email app.\n\n'
+      'Would you like to copy the email address $email?';
 
   static String tipOffMessage = "tipOffMessageTr";
   static String tipOffMessageKr = '여러분의 의견은 큰 힘이 됩니다!';

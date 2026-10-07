@@ -153,7 +153,7 @@ class NutritionController extends GetxController {
 
     if (pet.nutritionModel != null) {
       if (pet.nutritionModel!.makerModel != null) {
-        nutritionModel.makerModel = makerModel;
+        nutritionModel.makerModel = pet.nutritionModel!.makerModel;
         teController1.text = pet.nutritionModel!.makerModel!.makerName;
         teController2.text =
             pet.nutritionModel!.makerModel!.givenCountPerDay.toString();
@@ -165,7 +165,7 @@ class NutritionController extends GetxController {
         teController3.text = '';
       }
       if (pet.nutritionModel!.handmadeModel != null) {
-        nutritionModel.handmadeModel = handmadeModel;
+        nutritionModel.handmadeModel = pet.nutritionModel!.handmadeModel;
         teController4.text =
             pet.nutritionModel!.handmadeModel!.givenGramPerDay.toString();
         teController5.text =

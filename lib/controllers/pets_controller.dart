@@ -135,6 +135,7 @@ class PetsController extends GetxController {
   /// - 마지막 펫 인덱스를 Setting에 저장
   void onTapTopBar(int index) {
     _petPageIndex.value = index;
+    update();
 
     // 선택된 펫의 Todo를 다시 로드
     TodoController.to.getTodos(_pets[_petPageIndex.value]);

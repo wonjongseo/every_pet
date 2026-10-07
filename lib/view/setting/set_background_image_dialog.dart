@@ -40,7 +40,6 @@ class _SetBackgroundImageDialogState extends State<SetBackgroundImageDialog> {
 
   Widget _backgroundOptionTile({
     required String title,
-    required String imagePath,
     required String valuePath,
     required String valueSource,
     required String selectedPath,
@@ -48,7 +47,7 @@ class _SetBackgroundImageDialogState extends State<SetBackgroundImageDialog> {
     required void Function(String path, String source) onChanged,
   }) {
     return ListTile(
-      leading: _backgroundPreview(imagePath, valueSource),
+      leading: _backgroundPreview(assetPath: valuePath),
       title: Text(title),
       trailing: Radio<String>(
         value: valuePath,
@@ -75,77 +74,99 @@ class _SetBackgroundImageDialogState extends State<SetBackgroundImageDialog> {
     );
   }
 
-  Widget _backgroundPreview(String? imagePath, String source) {
+  Widget _backgroundPreview({
+    String? assetPath,
+    String? filePath,
+  }) {
     const size = 42.0;
-    final hasImage = imagePath != null && imagePath.isNotEmpty;
-    final image = source == AppConstant.backgroundImageSourceFile && hasImage
-        ? Image.file(
-            File(imagePath),
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => const Icon(Icons.image),
-          )
-        : Image.asset(
-            imagePath ?? AppImagePath.bisyon,
-            fit: BoxFit.cover,
-          );
+    final hasFile = filePath != null && filePath.isNotEmpty;
+    final hasAsset = assetPath != null && assetPath.isNotEmpty;
+
+    final icon = Icon(
+      Icons.image,
+      color: settingController.realBlackOrWhite,
+    );
+    Widget child = icon;
+    if (hasFile) {
+      child = Image.file(
+        File(filePath),
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => icon,
+      );
+    } else if (hasAsset) {
+      child = Image.asset(
+        assetPath,
+        fit: BoxFit.cover,
+      );
+    }
 
     return ClipOval(
       child: SizedBox(
         width: size,
         height: size,
-        child: image,
+        child: child,
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return AlertDialog(
       title: Text(AppString.changeBackgroundText.tr),
-      content: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _backgroundOptionTile(
-              title: AppString.dogTextTr.tr,
-              imagePath: AppImagePath.bisyon,
-              valuePath: AppImagePath.bisyon,
-              valueSource: AppConstant.backgroundImageSourceAsset,
-              selectedPath: selectedPath,
-              selectedSource: selectedSource,
-              onChanged: (path, source) {
-                setState(() {
-                  selectedPath = path;
-                  selectedSource = source;
-                });
-              },
-            ),
-            _backgroundOptionTile(
-              title: AppString.catTextTr.tr,
-              imagePath: AppImagePath.defaultCat,
-              valuePath: AppImagePath.defaultCat,
-              valueSource: AppConstant.backgroundImageSourceAsset,
-              selectedPath: selectedPath,
-              selectedSource: selectedSource,
-              onChanged: (path, source) {
-                setState(() {
-                  selectedPath = path;
-                  selectedSource = source;
-                });
-              },
-            ),
-            ListTile(
-              leading: _backgroundPreview(
-                selectedSource == AppConstant.backgroundImageSourceFile
-                    ? selectedPath
-                    : null,
-                AppConstant.backgroundImageSourceFile,
+      content: SizedBox(
+        width: size.width * 0.8,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _backgroundOptionTile(
+                title: AppString.dogTextTr.tr,
+                valuePath: AppImagePath.bisyon,
+                valueSource: AppConstant.backgroundImageSourceAsset,
+                selectedPath: selectedPath,
+                selectedSource: selectedSource,
+                onChanged: (path, source) {
+                  setState(() {
+                    selectedPath = path;
+                    selectedSource = source;
+                  });
+                },
               ),
-              title: Text(AppString.customBackgroundText.tr),
-              trailing: Radio<String>(
-                value: AppConstant.backgroundImageSourceFile,
-                groupValue: selectedSource,
-                onChanged: (_) async {
+              _backgroundOptionTile(
+                title: AppString.catTextTr.tr,
+                valuePath: AppImagePath.defaultCat,
+                valueSource: AppConstant.backgroundImageSourceAsset,
+                selectedPath: selectedPath,
+                selectedSource: selectedSource,
+                onChanged: (path, source) {
+                  setState(() {
+                    selectedPath = path;
+                    selectedSource = source;
+                  });
+                },
+              ),
+              ListTile(
+                leading: _backgroundPreview(
+                  filePath:
+                      selectedSource == AppConstant.backgroundImageSourceFile
+                          ? selectedPath
+                          : null,
+                ),
+                title: Text(AppString.customBackgroundText.tr),
+                trailing: Radio<String>(
+                  value: AppConstant.backgroundImageSourceFile,
+                  groupValue: selectedSource,
+                  onChanged: (_) async {
+                    final savedPath = await _pickBackgroundImage();
+                    if (savedPath == null) return;
+                    setState(() {
+                      selectedPath = savedPath;
+                      selectedSource = AppConstant.backgroundImageSourceFile;
+                    });
+                  },
+                ),
+                onTap: () async {
                   final savedPath = await _pickBackgroundImage();
                   if (savedPath == null) return;
                   setState(() {
@@ -154,34 +175,26 @@ class _SetBackgroundImageDialogState extends State<SetBackgroundImageDialog> {
                   });
                 },
               ),
-              onTap: () async {
-                final savedPath = await _pickBackgroundImage();
-                if (savedPath == null) return;
-                setState(() {
-                  selectedPath = savedPath;
-                  selectedSource = AppConstant.backgroundImageSourceFile;
-                });
-              },
-            ),
-            SizedBox(height: Responsive.height10),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${AppString.backgroundOpacityText.tr} ${(selectedOpacity * 100).round()}%',
+              SizedBox(height: Responsive.height10),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${AppString.backgroundOpacityText.tr} ${(selectedOpacity * 100).round()}%',
+                ),
               ),
-            ),
-            Slider(
-              value: selectedOpacity,
-              min: 0,
-              max: 1,
-              divisions: 20,
-              onChanged: (value) {
-                setState(() {
-                  selectedOpacity = value;
-                });
-              },
-            ),
-          ],
+              Slider(
+                value: selectedOpacity,
+                min: 0,
+                max: 1,
+                divisions: 20,
+                onChanged: (value) {
+                  setState(() {
+                    selectedOpacity = value;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
       actions: [
