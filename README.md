@@ -364,3 +364,29 @@ Create / Change / Delete Category
     </ja-JP>
 
 </details>
+
+<details><summary>Ver 1.7.0+2610151</summary>
+
+    <ko-KR>
+      ・ 프로필 사진 등록 시 원하는 영역을 선택해 저장할 수 있도록 개선했습니다.
+      ・ 배경화면을 직접 선택하고 원하는 영역으로 자를 수 있도록 개선했습니다.
+      ・ 다국어 지원 및 일부 UI/UX를 개선했습니다.
+      ・ 식단, 스탬프, 지출 관리 화면의 사용성을 개선했습니다.
+      ・ 앱 안정성을 높이고 경미한 버그를 수정했습니다.
+    </ko-KR>
+    <en-US>
+      ・ Improved profile photo registration to allow users to select and save a specific area.
+      ・ Added the ability to select and crop a custom background image.
+      ・ Improved multilingual support and various UI/UX elements.
+      ・ Improved the usability of the diet, stamp, and expense management screens.
+      ・ Improved app stability and fixed minor bugs.
+    </en-US>
+    <ja-JP>
+      ・ プロフィール写真の登録時に、好きな範囲を選択して保存できるよう改善しました。
+      ・ 背景画像を自由に選択し、 원하는範囲をトリミングできる機能を追加しました。
+      ・ 多言語対応と一部のUI/UXを改善しました。
+      ・ 食事管理、スタンプ、支出管理画面の使いやすさを改善しました。
+      ・ アプリの安定性を向上させ、軽微な不具合を修正しました。
+    </ja-JP>
+
+</details>

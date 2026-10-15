@@ -37,8 +37,7 @@ class NutritionScreenHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Responsive.width10),
-        color: Colors.grey.withOpacity(
-            SettingController.to.blackOrWhite == Colors.black ? 0.3 : 0),
+        color: SettingController.to.blackOrWhite,
         border: Border.all(
           color: AppColors.primaryColor,
           width: 1.5,
@@ -54,14 +53,14 @@ class NutritionScreenHeader extends StatelessWidget {
                 'RER: ',
                 style: TextStyle(
                   fontSize: Responsive.width14,
-                  color: Colors.black,
+                  color: SettingController.to.realBlackOrWhite.withOpacity(.7),
                 ),
               ),
               SizedBox(width: Responsive.width10),
               Text(
                 '${pet.getRER()}kcal',
-                style: const TextStyle(
-                  color: Colors.black,
+                style: TextStyle(
+                  color: SettingController.to.realBlackOrWhite.withOpacity(.7),
                 ),
               ),
               const Spacer(),
@@ -85,14 +84,14 @@ class NutritionScreenHeader extends StatelessWidget {
                 'DER: ', //AppString.derTextText.tr,
                 style: TextStyle(
                   fontSize: Responsive.width14,
-                  color: Colors.black,
+                  color: SettingController.to.realBlackOrWhite.withOpacity(.7),
                 ),
               ),
               SizedBox(width: Responsive.width10),
               Text(
                 '${pet.getDER()}kcal',
-                style: const TextStyle(
-                  color: Colors.black,
+                style: TextStyle(
+                  color: SettingController.to.realBlackOrWhite.withOpacity(.7),
                 ),
               ),
               const Spacer(),
