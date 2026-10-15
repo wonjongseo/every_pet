@@ -34,6 +34,7 @@ class NutritionController extends GetxController {
   NutritionModel nutritionModel = NutritionModel();
   MakerModel? makerModel;
   HandmadeModel? handmadeModel;
+  String? _initializedPetId;
 
   @override
   void onReady() async {
@@ -66,17 +67,19 @@ class NutritionController extends GetxController {
         AppConstant.lastNutritionBottomPageIndexKey, pageIndex);
   }
 
-  void onClickSaveBtn(PetsController petsController, PetModel pet) {
+  Future<void> onClickSaveBtn(
+      PetsController petsController, PetModel pet) async {
     if (pageIndex == 0) {
-      submitMakerData(petsController, pet);
+      await submitMakerData(petsController, pet);
     } else {
-      submitHandmadeData(petsController, pet);
+      await submitHandmadeData(petsController, pet);
     }
 
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
-  void submitMakerData(PetsController petsController, PetModel pet) {
+  Future<void> submitMakerData(
+      PetsController petsController, PetModel pet) async {
     makerModel = MakerModel(
       makerName: teController1.text,
       givenCountPerDay:
@@ -101,13 +104,14 @@ class NutritionController extends GetxController {
     nutritionModel.makerModel = makerModel!;
 
     PetModel newPet = pet.copyWith(nutritionModel: nutritionModel);
-    petsController.updatePetModel(newPet, isProfileScreen: false);
+    await petsController.updatePetModel(newPet, isProfileScreen: false);
 
     SnackBarHelper.showSuccessSnackBar(
         '${AppString.dryText.tr}${AppString.doneAddtionMsg.tr}');
   }
 
-  void submitHandmadeData(PetsController petsController, PetModel pet) {
+  Future<void> submitHandmadeData(
+      PetsController petsController, PetModel pet) async {
     handmadeModel = HandmadeModel(
       givenGramPerDay:
           int.tryParse(teController4.text) ?? AppConstant.invalidNumber,
@@ -134,13 +138,15 @@ class NutritionController extends GetxController {
 
     PetModel newPet = pet.copyWith(nutritionModel: nutritionModel);
 
-    petsController.updatePetModel(newPet, isProfileScreen: false);
+    await petsController.updatePetModel(newPet, isProfileScreen: false);
 
     SnackBarHelper.showSuccessSnackBar(
         '${AppString.handmadeTextTr.tr}${AppString.doneAddtionMsg.tr}');
   }
 
   void initPetsNutrion(PetModel pet) {
+    if (_initializedPetId == pet.id) return;
+    _initializedPetId = pet.id;
     nutritionModel = NutritionModel();
     //
 

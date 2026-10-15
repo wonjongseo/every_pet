@@ -47,8 +47,8 @@ class NutritionScreen extends StatelessWidget {
                   SizedBox(height: Responsive.height10),
                   CustomButton(
                     label: AppString.saveText.tr,
-                    onTap: () {
-                      controller.onClickSaveBtn(petcontroller, pet);
+                    onTap: () async {
+                      await controller.onClickSaveBtn(petcontroller, pet);
                     },
                   )
                 ],

@@ -11,6 +11,7 @@ import 'package:every_pet/controllers/calculate_kcal_controller.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/view/calculate_kcal/edit_groceries_screen.dart';
 import 'package:every_pet/view/calculate_kcal/widgets/add_menu_dialog.dart';
+import 'package:every_pet/view/setting/controller/setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -107,8 +108,16 @@ class CalculateKcalScreen extends StatelessWidget {
       children: List.generate(
         controller.displayGroceries.length,
         (index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: Responsive.height10 / 2),
+          return Container(
+            margin: EdgeInsets.symmetric(vertical: Responsive.height10 / 2),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Responsive.width10),
+              color: SettingController.to.blackOrWhite,
+              border: Border.all(
+                color: AppColors.primaryColor,
+                width: 1.5,
+              ),
+            ),
             child: ListTile(
               iconColor: AppColors.primaryColor,
               leading: Text(
@@ -127,10 +136,6 @@ class CalculateKcalScreen extends StatelessWidget {
                           style: contentStyle)
                     ]),
               ),
-              // trailing: IconButton(
-              //   onPressed: () => controller.onRemoteBtnClick(index),
-              //   icon: Icon(Icons.remove),
-              // ),
               trailing: AddOrRemoveButton(
                 onTap: () => controller.onRemoteBtnClick(index),
                 addOrRemove: AddOrRemoveType.REMOVE,

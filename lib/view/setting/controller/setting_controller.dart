@@ -11,11 +11,13 @@ class SettingController extends GetxController {
   final Rx<bool> _isDarkMode = false.obs;
   bool get isDarkMode => _isDarkMode.value;
   final RxString _backgroundImagePath = AppImagePath.bisyon.obs;
+  final RxString _customBackgroundImagePath = ''.obs;
   final RxString _backgroundImageSource =
       AppConstant.backgroundImageSourceAsset.obs;
   final RxDouble _backgroundOpacity = .2.obs;
 
   String get backgroundImagePath => _backgroundImagePath.value;
+  String get customBackgroundImagePath => _customBackgroundImagePath.value;
   String get backgroundImageSource => _backgroundImageSource.value;
   double get backgroundOpacity => _backgroundOpacity.value;
   bool get isCustomBackground =>
@@ -51,6 +53,9 @@ class SettingController extends GetxController {
     _backgroundImagePath.value =
         SettingRepository.getString(AppConstant.backgroundImagePathKey) ??
             AppImagePath.bisyon;
+    _customBackgroundImagePath.value =
+        SettingRepository.getString(AppConstant.customBackgroundImagePathKey) ??
+            '';
     _backgroundImageSource.value =
         SettingRepository.getString(AppConstant.backgroundImageSourceKey) ??
             AppConstant.backgroundImageSourceAsset;
@@ -66,6 +71,13 @@ class SettingController extends GetxController {
     _backgroundImagePath.value = imagePath;
     _backgroundImageSource.value = imageSource;
     _backgroundOpacity.value = opacity.clamp(0, 1);
+    if (imageSource == AppConstant.backgroundImageSourceFile) {
+      _customBackgroundImagePath.value = imagePath;
+      await SettingRepository.setString(
+        AppConstant.customBackgroundImagePathKey,
+        _customBackgroundImagePath.value,
+      );
+    }
 
     await SettingRepository.setString(
       AppConstant.backgroundImagePathKey,

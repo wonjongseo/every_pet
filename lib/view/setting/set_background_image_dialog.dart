@@ -28,6 +28,7 @@ class SetBackgroundImageDialog extends StatefulWidget {
 class _SetBackgroundImageDialogState extends State<SetBackgroundImageDialog> {
   String selectedPath = "";
   String selectedSource = "";
+  String customImagePath = "";
   double selectedOpacity = 0.5;
   SettingController settingController = Get.find<SettingController>();
   @override
@@ -35,6 +36,10 @@ class _SetBackgroundImageDialogState extends State<SetBackgroundImageDialog> {
     super.initState();
     selectedPath = widget.selectedPath;
     selectedSource = widget.selectedSource;
+    customImagePath = settingController.customBackgroundImagePath;
+    if (selectedSource == AppConstant.backgroundImageSourceFile) {
+      customImagePath = selectedPath;
+    }
     selectedOpacity = widget.selectedOpacity;
   }
 
@@ -148,32 +153,24 @@ class _SetBackgroundImageDialogState extends State<SetBackgroundImageDialog> {
               ),
               ListTile(
                 leading: _backgroundPreview(
-                  filePath:
-                      selectedSource == AppConstant.backgroundImageSourceFile
-                          ? selectedPath
-                          : null,
+                  filePath: customImagePath,
                 ),
                 title: Text(AppString.customBackgroundText.tr),
                 trailing: Radio<String>(
                   value: AppConstant.backgroundImageSourceFile,
                   groupValue: selectedSource,
-                  onChanged: (_) async {
-                    final savedPath = await _pickBackgroundImage();
-                    if (savedPath == null) return;
+                  onChanged: (_) {
+                    if (customImagePath.isEmpty) {
+                      _pickAndSelectCustomBackground();
+                      return;
+                    }
                     setState(() {
-                      selectedPath = savedPath;
+                      selectedPath = customImagePath;
                       selectedSource = AppConstant.backgroundImageSourceFile;
                     });
                   },
                 ),
-                onTap: () async {
-                  final savedPath = await _pickBackgroundImage();
-                  if (savedPath == null) return;
-                  setState(() {
-                    selectedPath = savedPath;
-                    selectedSource = AppConstant.backgroundImageSourceFile;
-                  });
-                },
+                onTap: _pickAndSelectCustomBackground,
               ),
               SizedBox(height: Responsive.height10),
               Align(
@@ -215,5 +212,15 @@ class _SetBackgroundImageDialogState extends State<SetBackgroundImageDialog> {
         ),
       ],
     );
+  }
+
+  Future<void> _pickAndSelectCustomBackground() async {
+    final savedPath = await _pickBackgroundImage();
+    if (savedPath == null) return;
+    setState(() {
+      customImagePath = savedPath;
+      selectedPath = savedPath;
+      selectedSource = AppConstant.backgroundImageSourceFile;
+    });
   }
 }

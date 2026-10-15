@@ -2,13 +2,15 @@ import 'dart:async';
 
 import 'package:every_pet/background2.dart';
 import 'package:every_pet/common/admob/global_banner_admob.dart';
+import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/snackbar_helper.dart';
-import 'package:every_pet/common/widgets/add_button.dart';
 import 'package:every_pet/controllers/expensive_controller.dart';
 import 'package:every_pet/models/expensive_model.dart';
 import 'package:every_pet/view/expensive/widgets/exensive_input_card.dart';
+import 'package:every_pet/view/setting/controller/setting_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:every_pet/common/theme/theme.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
@@ -54,6 +56,7 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
 
   @override
   void dispose() {
+    streamController.close();
     super.dispose();
   }
 
@@ -82,63 +85,186 @@ class _AddExpensiveScreenState extends State<AddExpensiveScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      AppFunction.getDayYYYYMMDD(widget.selectedDay),
-                      style: headingStyle,
-                    ),
-                    SizedBox(height: Responsive.height10),
-                    Column(
+                    Row(
                       children: [
-                        ExpensiveInputCard(streamController: streamController),
+                        Icon(
+                          Icons.calendar_today_outlined,
+                          size: Responsive.width18,
+                          color: AppColors.primaryColor,
+                        ),
+                        SizedBox(width: Responsive.width10),
+                        Text(
+                          AppFunction.getDayYYYYMMDD(widget.selectedDay),
+                          style: headingStyle,
+                        ),
                       ],
                     ),
-                    SizedBox(height: Responsive.height10),
+                    SizedBox(height: Responsive.height14),
+                    ExpensiveInputCard(streamController: streamController),
                     Obx(
                       () {
                         var expensiveModels = expensiveController
                             .expensivesByDay(widget.selectedDay);
+                        if (expensiveModels.isEmpty) {
+                          return const SizedBox.shrink();
+                        }
+                        final total = expensiveModels.fold<int>(
+                          0,
+                          (sum, item) => sum + item.price,
+                        );
                         return Column(
-                          children: List.generate(
-                            expensiveModels.length,
-                            (index) => Padding(
-                              padding: EdgeInsets.only(
-                                bottom: Responsive.height10,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: Responsive.height10),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: Responsive.width14,
+                                vertical: Responsive.height10,
                               ),
-                              child: Column(
+                              decoration: BoxDecoration(
+                                color: AppColors.primaryColor.withOpacity(.12),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
                                 children: [
-                                  ExpensiveInputCard(
-                                    key: ValueKey(expensiveModels[index].id),
-                                    selectedCategory:
-                                        expensiveModels[index].category,
-                                    productName:
-                                        expensiveModels[index].productName,
-                                    itemPrice:
-                                        expensiveModels[index].price.toString(),
+                                  Icon(
+                                    Icons.receipt_long_outlined,
+                                    size: Responsive.width18,
+                                    color: AppColors.primaryColor,
                                   ),
-                                  SizedBox(height: Responsive.height10),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: AddOrRemoveButton(
-                                      addOrRemove: AddOrRemoveType.REMOVE,
-                                      width: Responsive.width10 * 4,
-                                      onTap: () => deleteExpensive(
-                                        expensiveModels[index],
-                                      ),
+                                  SizedBox(width: Responsive.width10),
+                                  Text(
+                                    AppString.expensiveTextTr.tr,
+                                    style: subHeadingStyle,
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    '${AppString.moneySign.tr} ${NumberFormat("#,###").format(total)}',
+                                    style: TextStyle(
+                                      color: AppColors.primaryColor,
+                                      fontSize: Responsive.width15,
+                                      fontWeight: FontWeight.w700,
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
-                          ),
+                            SizedBox(height: Responsive.height10),
+                            ...List.generate(
+                              expensiveModels.length,
+                              (index) => Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: Responsive.height10,
+                                ),
+                                child: _ExpensiveListTile(
+                                  expensive: expensiveModels[index],
+                                  onDelete: () => deleteExpensive(
+                                    expensiveModels[index],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         );
                       },
                     ),
+                    SizedBox(height: Responsive.height10 * 8),
                   ],
                 ),
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _ExpensiveListTile extends StatelessWidget {
+  const _ExpensiveListTile({
+    required this.expensive,
+    required this.onDelete,
+  });
+
+  final ExpensiveModel expensive;
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: Responsive.width14,
+        vertical: Responsive.height10,
+      ),
+      decoration: BoxDecoration(
+        color: SettingController.to.blackOrWhite,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.grey.withOpacity(.28)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: Responsive.width10 * 4,
+            height: Responsive.width10 * 4,
+            decoration: BoxDecoration(
+              color: AppColors.primaryColor.withOpacity(.12),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(
+              Icons.payments_outlined,
+              size: Responsive.width20,
+              color: AppColors.primaryColor,
+            ),
+          ),
+          SizedBox(width: Responsive.width10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  expensive.productName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: Responsive.width15,
+                    fontWeight: FontWeight.w700,
+                    color: SettingController.to.realBlackOrWhite,
+                  ),
+                ),
+                SizedBox(height: Responsive.height10 / 3),
+                Text(
+                  expensive.displayCategory,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: Responsive.width14 * .9,
+                    color:
+                        SettingController.to.realBlackOrWhite.withOpacity(.6),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: Responsive.width10),
+          Text(
+            '${AppString.moneySign.tr} ${NumberFormat("#,###").format(expensive.price)}',
+            style: TextStyle(
+              fontSize: Responsive.width15,
+              fontWeight: FontWeight.w800,
+              color: SettingController.to.realBlackOrWhite,
+            ),
+          ),
+          SizedBox(width: Responsive.width10 / 2),
+          IconButton(
+            visualDensity: VisualDensity.compact,
+            icon: Icon(
+              Icons.delete_outline,
+              color: AppColors.secondaryColor,
+              size: Responsive.width20,
+            ),
+            onPressed: onDelete,
+          ),
+        ],
       ),
     );
   }

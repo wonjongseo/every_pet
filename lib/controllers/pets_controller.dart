@@ -160,6 +160,7 @@ class PetsController extends GetxController {
     try {
       isLoading.value = true;
       _pets.assignAll(await petRepository.loadPets());
+      update();
     } catch (e) {
       SnackBarHelper.showErrorSnackBar(e.toString());
     } finally {
@@ -170,12 +171,12 @@ class PetsController extends GetxController {
   /// 펫 정보 업데이트
   /// - 저장 후 펫 목록 다시 로드
   /// - 기본적으로 프로필 화면이면 상단으로 스크롤
-  void updatePetModel(
+  Future<void> updatePetModel(
     PetModel petModel, {
     bool isProfileScreen = true,
-  }) {
-    petRepository.savePet(petModel);
-    getPetModals();
+  }) async {
+    await petRepository.savePet(petModel);
+    await getPetModals();
 
     if (isProfileScreen) {
       scrollGoToTop();

@@ -2,11 +2,10 @@ import 'package:every_pet/common/utilities/app_color.dart';
 import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/responsive.dart';
 import 'package:every_pet/common/utilities/util_function.dart';
-import 'package:every_pet/common/widgets/profile_image.dart';
 import 'package:every_pet/models/dog_model.dart';
 import 'package:every_pet/models/pet_model.dart';
+import 'package:every_pet/view/setting/controller/setting_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class NutritionScreenHeader extends StatelessWidget {
@@ -25,145 +24,175 @@ class NutritionScreenHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: pet.name,
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: Responsive.width20,
-                    ),
-                  ),
-                  TextSpan(
-                    text: pet.genderType == GENDER_TYPE.MALE
-                        ? AppString.sufficMaleText.tr
-                        : AppString.sufficFeMaleTextTr.tr,
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: Responsive.width15,
-                    ),
-                  ),
-                  TextSpan(
-                    text: '  (',
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: Responsive.width15,
-                    ),
-                  ),
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: AppFunction.isKo()
-                            ? '${pet.getAgeYear() + 1}'
-                            : '${pet.getAgeYear()}',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: Responsive.width20,
-                        ),
-                      ),
-                      TextSpan(
-                        text: AppString.ageYearTextTr.tr,
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: Responsive.width15,
-                        ),
-                      ),
-                      TextSpan(text: '  '),
-                      TextSpan(
-                        text: pet.getAgeMonth().toString(),
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: Responsive.width20,
-                        ),
-                      ),
-                      TextSpan(
-                        text: AppString.ageMonthText.tr,
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: Responsive.width15,
-                        ),
-                      ),
-                      TextSpan(
-                        text: ')',
-                        style: TextStyle(
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: Responsive.width15,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+          _infoOfPet(),
+          _rerAndDer(),
+        ],
+      ),
+    );
+  }
+
+  Widget _rerAndDer() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Responsive.width10),
+        color: Colors.grey.withOpacity(
+            SettingController.to.blackOrWhite == Colors.black ? 0.3 : 0),
+        border: Border.all(
+          color: AppColors.primaryColor,
+          width: 1.5,
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'RER: ',
+                style: TextStyle(
+                  fontSize: Responsive.width14,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(width: Responsive.width10),
+              Text(
+                '${pet.getRER()}kcal',
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              const Spacer(),
+              Tooltip(
+                showDuration: const Duration(seconds: 5),
+                triggerMode: TooltipTriggerMode.tap,
+                message: AppString.whatsRerText.tr,
+                child: Icon(
+                  Icons.help_outline,
+                  size: Responsive.width20,
+                ),
+              ),
+              // ]
+            ],
+          ),
+          SizedBox(height: Responsive.height10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                'DER: ', //AppString.derTextText.tr,
+                style: TextStyle(
+                  fontSize: Responsive.width14,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(width: Responsive.width10),
+              Text(
+                '${pet.getDER()}kcal',
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              const Spacer(),
+              Tooltip(
+                showDuration: const Duration(seconds: 5),
+                triggerMode: TooltipTriggerMode.tap,
+                message: AppString.whatsDerTextText.tr,
+                child: Icon(
+                  Icons.help_outline,
+                  size: Responsive.width20,
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Padding _infoOfPet() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: pet.name,
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.w500,
+                fontSize: Responsive.width20,
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            TextSpan(
+              text: pet.genderType == GENDER_TYPE.MALE
+                  ? AppString.sufficMaleText.tr
+                  : AppString.sufficFeMaleTextTr.tr,
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.w500,
+                fontSize: Responsive.width15,
+              ),
+            ),
+            TextSpan(
+              text: '  (',
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.w500,
+                fontSize: Responsive.width15,
+              ),
+            ),
+            TextSpan(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'RER: ', // AppString.rerTextTr.tr,
-                      style: TextStyle(
-                        fontSize: Responsive.width14,
-                      ),
-                    ),
-                    SizedBox(width: Responsive.width10),
-                    Text('${pet.getRER()}kcal'),
-                    const Spacer(),
-                    Tooltip(
-                      showDuration: Duration(seconds: 5),
-                      triggerMode: TooltipTriggerMode.tap,
-                      message: AppString.whatsRerText.tr,
-                      child: Icon(
-                        Icons.help_outline,
-                        size: Responsive.width20,
-                      ),
-                    ),
-                    // ]
-                  ],
+                TextSpan(
+                  text: AppFunction.isKo()
+                      ? '${pet.getAgeYear() + 1}'
+                      : '${pet.getAgeYear()}',
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: Responsive.width20,
+                  ),
                 ),
-                SizedBox(height: Responsive.height10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'DER: ', //AppString.derTextText.tr,
-                      style: TextStyle(
-                        fontSize: Responsive.width14,
-                      ),
-                    ),
-                    SizedBox(width: Responsive.width10),
-                    Text('${pet.getDER()}kcal'),
-                    const Spacer(),
-                    Tooltip(
-                      showDuration: Duration(seconds: 5),
-                      triggerMode: TooltipTriggerMode.tap,
-                      message: AppString.whatsDerTextText.tr,
-                      child: Icon(
-                        Icons.help_outline,
-                        size: Responsive.width20,
-                      ),
-                    ),
-                  ],
-                )
+                TextSpan(
+                  text: AppString.ageYearTextTr.tr,
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: Responsive.width15,
+                  ),
+                ),
+                const TextSpan(text: '  '),
+                TextSpan(
+                  text: pet.getAgeMonth().toString(),
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: Responsive.width20,
+                  ),
+                ),
+                TextSpan(
+                  text: AppString.ageMonthText.tr,
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: Responsive.width15,
+                  ),
+                ),
+                TextSpan(
+                  text: ')',
+                  style: TextStyle(
+                    color: AppColors.primaryColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: Responsive.width15,
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

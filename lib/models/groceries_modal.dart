@@ -64,6 +64,7 @@ class GroceriesModel {
       gram: gram ?? this._gram,
     );
     temp.id = this.id;
+    temp.createdAt = createdAt;
     return temp;
   }
 
