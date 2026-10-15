@@ -3,6 +3,7 @@ import 'package:every_pet/common/utilities/app_string.dart';
 import 'package:every_pet/common/utilities/common.dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class ImagePickerScreen extends StatefulWidget {
@@ -25,9 +26,9 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
   }
 
   void checkPermission() async {
-    final permission = await PhotoManager.requestPermissionExtend();
+    final permission = await Permission.photos.request();
 
-    if (!permission.hasAccess) {
+    if (!permission.isGranted && !permission.isLimited) {
       // bool result = await CommonDialog.selectionDialog(
       //   title: Text(AppString.requiredText.tr),
       //   connent: Text(AppString.requiredLibaryPermssionMsg.tr),
